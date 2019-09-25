@@ -1,1 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+@media print {
+  .no-print, .no-print * {
+    display: none !important;
+  }
+}
+
+#nav-ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0099ff;
+}
+
+#nav-li {
+  float: left;
+}
+
+#logo-li {
+  float: right;
+}
+
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+    /* Change the link color to #111 (black) on hover */
+    li a:hover {
+      background-color: #ffffff;
+    }
+
+.active {
+  background-color: #4CAF50;
+}
+
+#printPage {
+  margin: 0 auto;
+  padding: 0px;
+  width: 670px; /* width: 7in; */
+  height: 900px; /* or height: 9.5in; */
+  clear: both;
+  background-color: lightgray;
+  page-break-after: always;
+  border: 1px solid black;
+}
+
+#cube {
+  position: relative;
+  top: 1in;
+  left: 1in;
+  width: 1in;
+  height: 1in;
+  background-color: white;
+}
