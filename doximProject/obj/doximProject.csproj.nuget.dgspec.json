@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Slayer\\source\\repos\\doximProject\\doximProject\\doximProject.csproj": {}
+    "C:\\Users\\C8H10N4O2\\source\\repos\\doximProject\\doximProject\\doximProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Slayer\\source\\repos\\doximProject\\doximProject\\doximProject.csproj": {
+    "C:\\Users\\C8H10N4O2\\source\\repos\\doximProject\\doximProject\\doximProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Slayer\\source\\repos\\doximProject\\doximProject\\doximProject.csproj",
+        "projectUniqueName": "C:\\Users\\C8H10N4O2\\source\\repos\\doximProject\\doximProject\\doximProject.csproj",
         "projectName": "doximProject",
-        "projectPath": "C:\\Users\\Slayer\\source\\repos\\doximProject\\doximProject\\doximProject.csproj",
-        "packagesPath": "C:\\Users\\Slayer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Slayer\\source\\repos\\doximProject\\doximProject\\obj\\",
+        "projectPath": "C:\\Users\\C8H10N4O2\\source\\repos\\doximProject\\doximProject\\doximProject.csproj",
+        "packagesPath": "C:\\Users\\C8H10N4O2\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\C8H10N4O2\\source\\repos\\doximProject\\doximProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Slayer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\C8H10N4O2\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -68,16 +68,10 @@
             }
           },
           "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
+            "net461"
           ],
           "assetTargetFallback": true,
-          "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "warn": true
         }
       }
     }
