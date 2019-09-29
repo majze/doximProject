@@ -7,10 +7,5 @@ import { Http } from '@angular/http';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
-    constructor(private _httpService: Http) { } apiValues: string[] = []; ngOnInit() {
-      this._httpService.get('/api/values').subscribe(values => {
-        this.apiValues = values.json() as string[];
-      });
-    }
+export class AppComponent {
 }

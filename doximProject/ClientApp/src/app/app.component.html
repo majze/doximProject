@@ -1,6 +1,13 @@
-<body>
-  <app-nav-menu></app-nav-menu>
+<!-- nav -->
+  <nav id="navbar">
+    <app-nav></app-nav>
+  </nav>
+
+<!-- main content container -->
+<div class="jumbotron">
   <div class="container">
-    <router-outlet></router-outlet>
+    <div class="row">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-</body>
+</div>

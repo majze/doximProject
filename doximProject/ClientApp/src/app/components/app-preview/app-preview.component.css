@@ -1,0 +1,15 @@
+.printPage {
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding: 0px;
+  width: 670px; /* width: 7in; */
+  height: 900px; /* or height: 9.5in; */
+  clear: both;
+  background-color: lightgray;
+  page-break-after: always;
+  border: 1px solid black;
+}
+
+.container {
+  margin: 0 auto;
+}
