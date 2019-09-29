@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Core Template</title>
+
+    <style>
+         container 
+            {
+                background-color: grey;
+                width: 800px;
+                margin-left: auto;
+                margin-right:auto;
+            }
+        p {
+            font-size: 15px;
+          }
+
+        fieldset{
+                    height: 50%;
+                    width: 80%;
+                    background: #ffffff;
+                     margin: auto;
+                    text-align: left;
+                    border-radius:10px;
+                }
+        fieldset input
+            {
+                text-align: center;
+            }
+     
+            h2
+            {
+                
+                text-align: right;
+                text-decoration:underline;
+                text-space-collapse:collapse;
+
+             
+            }
+        .right 
+            {
+                position: absolute;
+                  right:0px;
+                  width: 400px;
+                  border: 3px solid;
+                  padding: 10px;
+                  border-radius: 25px; 
+             }
+          .button
+            {
+              font:bold 18px Arial;
+              text-decoration:none;
+              padding: 3px 6px 2px 6px;
+              border-top:1px solid #CCCCCC;
+              border-right:1px solid #333333;
+              border-bottom:1px solid #333333;
+              border-left: 1px solid #CCCCCC;
+            
+            }
+
+            table
+                {
+                    font-family: Arial,sans-serif;
+                    border-collapse:collapse;
+                    width: 100%;
+                }
+            td, th 
+                {
+                    border: 1px soild #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+            tr:nth-child(even)
+                {
+                    background-color: #dddddd;
+                }
+           
+    </style>
+</head>
+<container>
+<body>
+   <div class=" jumbotron text-center">
+    <h1>New Style Banking</h1>
+    <h2> Statment Ending 7/31/2019</h2>
+    <div class="right">
+   <center><p>Managing Your Account</p></center>
+            <a> <b>Primary Branch</b> &nbsp;    South Lyon </a> 
+            <br />
+            <br />
+            <a> <b>Online Banking </b> &nbsp;    Newstylebanking.com</a> 
+            <br />
+            <br />
+            <a><b> Bank Number</b> &nbsp; 877-555-5555 </a>
+            
+    </div>
+    <h3> Return Service Request</h3>
+    <br>
+    <address>
+        <a> John Doe </a><br>
+        <a> 12345 FieldPark Lane</a><br>
+        <a> Baltimore, MD 21224</a><br>
+    </address>
+    <br>
+    <br>
+    <br>
+
+    <br />
+    <fieldset>
+        <legend>Summary of Account</legend>
+        <b><p class="a" >Account Type &nbsp;Account Number &nbsp; Ending Balance</p></b>
+         <hr>
+        <p> Checking &nbsp; XXXXXXXXXXX0981 &nbsp; $867.00</p>
+    </fieldset>
+
+    <h3> Account Activity</h3>
+    <table>
+        <tr>
+            <th>Post Date</th>
+            <th>Description</th>
+            <th>Debits</th>
+            <th>Credits</th>
+            <th>Balance</th>
+        </tr>
+         <tr>
+             <td>7/31/19</td>
+             <td>JCPenny clothing credit charge</td>
+             <td> $ 73.89</td>
+             <td><blank></blank></td>
+             <td> $867.00</td>
+         </tr>
+        <tr>
+            <td>7/25/19</td>
+            <td>Best Buy 0089Abc</td>
+            <td>$30.00</td>
+            <td><blank></blank></td>
+            <td> 940.89</td>
+        </tr>
+
+        <tr>
+            <td>7/20/19</td>
+            <td>Tanking Blue Company Deposit</td>
+            <td><blank></blank></td>
+            <td>$500.00</td>
+            <td> 970.89</td>
+        </tr>
+
+        <tr>
+            <td> 7/12/19</td>
+            <td>Kroger</td>
+            <td> $150.00</td>
+            <td><blank></blank></td>
+            <td> $470.89</td>
+        </tr>
+
+        <tr>
+            <td>6/30/19</td>
+            <td>Cashapp BrianX190A</td>
+            <td><blank></blank></td>
+            <td>20.00</td>
+            <td>620.89</td>
+        </tr>
+
+    </table>
+    <br />
+    <br />
+    <br />
+    <a href="download.pdf" class=" button">Generate PDF</a>
+    </div>
+       
+</body>
+</html>
