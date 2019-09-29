@@ -1,21 +1,32 @@
 <h2>Login Page</h2>
 
 <div style="padding-top:.9rem;">
-  <!-- This php page will not exist, update action and method -->
-  <form action="/action_page.php" method="post">
-
+  <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
     <div class="container">
       <label><b>Username </b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input type="text" placeholder="Enter Username" formControlName="username">
+      <div *ngIf="submitted && messageForm.controls.name.errors" class="error">
+        <div *ngIf="messageForm.controls.name.errors.required">Your name is required, bro.</div>
+      </div>
+      <br />
 
       <label><b>Password </b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-
-      <button type="submit" (click)="onLoginClick()">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
+      <input type="password" placeholder="Enter Password" formControlName="password">
+      <div *ngIf="submitted && messageForm.controls.message.errors" class="error">
+        <div *ngIf="messageForm.controls.message.errors.required">A message is required</div>
+      </div>
+      <br />
+      <!--<input type="submit" value="Log in" (click)="onLoginClick()">--> 
+      <input type="submit" value="Log in">
     </div>
   </form>
 </div>
 
+
+<div *ngIf="submitted" class="results">
+  <strong>Username:</strong>
+  <span>{{ messageForm.controls.useranme.value }}</span>
+
+  <strong>Password:</strong>
+  <span>{{ messageForm.controls.password.value }}</span>
+</div>
