@@ -12,7 +12,9 @@ export class AppLoginComponent implements OnInit {
     submitted = false;
     success = false;
 
-    constructor(private router: Router, private formBuilder: FormBuilder) { 
+  /*  constructor(private router: Router, private formBuilder: FormBuilder) { */
+
+    constructor(private formBuilder: FormBuilder, private router: Router) { 
         this.messageForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -25,40 +27,36 @@ export class AppLoginComponent implements OnInit {
         if (this.messageForm.invalid) {
             return;
         }
+        var vusername = this.messageForm.controls.username.value;
+        var vpassword = this.messageForm.controls.password.value;
 
-        this.success = true;
+        this.getCredentials(vusername, vpassword);
+        
+        if (this.success) {
+            this.router.navigate(['./survey']);
+        }
     }
-/*
-    public onLoginClick() {
-        this.submitted = true;
-        console.log("here1");
 
-        if (this.messageForm.invalid) {
-            console.log("here2");
-            this.success = false;
+    public getCredentials(vusername, vpassword) {
+        var username = "admin";
+        var password = "password";
+
+        if (username == vusername) {
+            if (password == vpassword) {
+                this.success = true;
+            }
+        }
+        if (this.success) {
             return;
         }
+        else {
+            this.success = false;
+        }
+    }
 
-        console.log("here3");
+    public refreshSubmit() {
         this.submitted = false;
-        this.router.navigate(['./survey']);
-        this.success = true;
     }
-*/
-    public credentials() {
-        function getUsername() {
-            var username = "admin";
-            return username;
-        }
-
-        function getPassword() {
-            var password = "password";
-            return password;
-        }
-    }
-
-
-
 
   ngOnInit() {
   }

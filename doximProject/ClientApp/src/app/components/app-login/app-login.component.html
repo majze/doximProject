@@ -2,18 +2,18 @@
 
 <div style="padding-top:.9rem;">
   <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-    <div class="container">
+    <div>
       <label><b>Username </b></label>
-      <input type="text" placeholder="Enter Username" formControlName="username">
-      <div *ngIf="submitted && messageForm.controls.name.errors" class="error">
-        <div *ngIf="messageForm.controls.name.errors.required">Your name is required, bro.</div>
+      <input type="text" (change)="refreshSubmit()" placeholder="Enter Username" formControlName="username">
+      <div *ngIf="submitted && messageForm.controls.username.errors">
+        <div *ngIf="messageForm.controls.username.errors.required">Username is required.</div>
       </div>
       <br />
 
       <label><b>Password </b></label>
-      <input type="password" placeholder="Enter Password" formControlName="password">
-      <div *ngIf="submitted && messageForm.controls.message.errors" class="error">
-        <div *ngIf="messageForm.controls.message.errors.required">A message is required</div>
+      <input type="password" (change)="refreshSubmit()" placeholder="Enter Password" formControlName="password">
+      <div *ngIf="submitted && messageForm.controls.password.errors">
+        <div *ngIf="messageForm.controls.password.errors.required">Password is required.</div>
       </div>
       <br />
       <!--<input type="submit" value="Log in" (click)="onLoginClick()">--> 
@@ -22,11 +22,10 @@
   </form>
 </div>
 
+<div *ngIf="success">
+  <h5>Login successful</h5>
+</div>
 
-<div *ngIf="submitted" class="results">
-  <strong>Username:</strong>
-  <span>{{ messageForm.controls.useranme.value }}</span>
-
-  <strong>Password:</strong>
-  <span>{{ messageForm.controls.password.value }}</span>
+<div *ngIf="submitted && !success">
+  <h5>Invalid login</h5>
 </div>
