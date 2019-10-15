@@ -1,0 +1,19 @@
+.comboPanePage {
+  max-width: 1920px;
+}
+
+.a {
+  position: fixed;
+  overflow-y: scroll;
+  top: 60px;
+  bottom: 0;
+  margin-left: -200px;
+  max-width: 420px;
+}
+
+.b {
+  position: fixed;
+  margin-left: 240px;
+  margin-top: 10px;
+  max-width: 700px;
+}

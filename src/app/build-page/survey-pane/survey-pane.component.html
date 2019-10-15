@@ -1,0 +1,78 @@
+<div class="surveyPane">
+  <div class="question">
+    <h3>Utilized Data Core</h3>
+    <p>The three main cores are listed below:</p>
+    <form action="/determine_questionss.php">
+      <select name="coreType">
+        <option value="corelation">Corelation</option>
+        <option value="fireservDNA">FireservDNA</option>
+        <option value="symitar">Symitar</option>
+      </select>
+      <br>
+      <input type="submit" value="Confirm Core">
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Billing Statement Type</h3>
+    <form>
+      <input type="radio" class="form-radio" name="statementType" value="Account" checked>Account<br>
+      <input type="radio" class="form-radio" name="statementType" value="Credit Card">Credit Card<br>
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Print Color Options</h3>
+    <form>
+      <input type="radio" class="form-radio" name="colorType" value="Full Color" checked>Full color<br>
+      <input type="radio" class="form-radio" name="colorType" value="Black & White">Black & White<br>
+      <input type="radio" class="form-radio" name="colorType" value="Partial">Partial<br>
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Table Headers Color</h3>
+    <form action="/action_page.php">
+      Select your statement header color:
+      <input type="color" name="favcolor" value="#ff0000">
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Level of Marketing</h3>
+    <p>Options always determined by available whitespace:</p>
+    <form>
+      <select name="marketingLevel">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+      <br>
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Account Summary Detail</h3>
+    <p>Where would you like the detailed summary, if at all?</p>
+    <form>
+      <input type="radio" class="form-radio" name="detailLevel" value="topRight" checked>Top Right<br>
+      <input type="radio" class="form-radio" name="detailLevel" value="midRight">Mid Right<br>
+      <input type="radio" class="form-radio" name="detailLevel" value="midLeft">Mid Left<br>
+      <input type="radio" class="form-radio" name="detailLevel" value="bottomCenter">Bottom Center<br>
+      <input type="radio" class="form-radio" name="detailLevel" value="backpageTopCenter">Backpage Top Center<br>
+      <input type="radio" class="form-radio" name="detailLevel" value="noSummary">No detailed summary<br>
+    </form>
+  </div>
+
+  <div class="question">
+    <h3>Transaction Breakdown</h3>
+    <p>How would you like the transactions broken down?</p>
+    <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="split">Split<br>
+      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="combined">Combined<br>
+      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="byDate">By date<br>
+      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="alphabetically">Alphabetically<br><br />
+      <a routerLink="/preview"><input type="submit" value="Submit"></a>
+    </form>
+  </div>
+</div>

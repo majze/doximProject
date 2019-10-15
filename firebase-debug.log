@@ -1,0 +1,153 @@
+[debug] [2019-10-14T02:39:59.773Z] ----------------------------------------------------------------------
+[debug] [2019-10-14T02:39:59.776Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2019-10-14T02:39:59.776Z] CLI Version:   7.5.0
+[debug] [2019-10-14T02:39:59.776Z] Platform:      win32
+[debug] [2019-10-14T02:39:59.776Z] Node Version:  v10.16.3
+[debug] [2019-10-14T02:39:59.778Z] Time:          Sun Oct 13 2019 22:39:59 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-10-14T02:39:59.778Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-14T02:39:59.789Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-14T02:39:59.790Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\joshu\angular-firebase-crud-master\angular-firebase-crud-master
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using splendid-ground-95214.
+[debug] [2019-10-14T02:40:08.146Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/splendid-ground-95214  
+ 
+[debug] [2019-10-14T02:40:08.406Z] <<< HTTP RESPONSE 403
+[debug] [2019-10-14T02:40:08.406Z] <<< HTTP RESPONSE BODY
+[debug] [2019-10-14T02:40:08.408Z] HTTP Error: 403, The caller does not have permission
+[debug] [2019-10-14T02:40:08.538Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+    at module.exports (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:198:13)
+    at Request.EventEmitter.emit (domain.js:448:20)
+    at Request.<anonymous> (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1161:10)
+    at Request.emit (events.js:198:13)
+    at Request.EventEmitter.emit (domain.js:448:20)
+    at IncomingMessage.<anonymous> (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1083:12)
+    at Object.onceWrapper (events.js:286:20)
+[error] 
+[error] Error: Failed to get Firebase project splendid-ground-95214. Please make sure the project exists and your account has permission to access it.
+[debug] [2019-10-14T02:43:42.800Z] ----------------------------------------------------------------------
+[debug] [2019-10-14T02:43:42.805Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2019-10-14T02:43:42.805Z] CLI Version:   7.5.0
+[debug] [2019-10-14T02:43:42.805Z] Platform:      win32
+[debug] [2019-10-14T02:43:42.805Z] Node Version:  v10.16.3
+[debug] [2019-10-14T02:43:42.807Z] Time:          Sun Oct 13 2019 22:43:42 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-10-14T02:43:42.807Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-14T02:43:42.844Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-14T02:43:42.847Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\joshu\angular-firebase-crud-master\angular-firebase-crud-master
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using test.
+[debug] [2019-10-14T02:43:48.752Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/test  
+ 
+[debug] [2019-10-14T02:43:48.921Z] <<< HTTP RESPONSE 403
+[debug] [2019-10-14T02:43:48.921Z] <<< HTTP RESPONSE BODY
+[debug] [2019-10-14T02:43:48.923Z] HTTP Error: 403, The caller does not have permission
+[debug] [2019-10-14T02:43:49.032Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+    at module.exports (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:198:13)
+    at Request.EventEmitter.emit (domain.js:448:20)
+    at Request.<anonymous> (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1161:10)
+    at Request.emit (events.js:198:13)
+    at Request.EventEmitter.emit (domain.js:448:20)
+    at IncomingMessage.<anonymous> (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1083:12)
+    at Object.onceWrapper (events.js:286:20)
+[error] 
+[error] Error: Failed to get Firebase project test. Please make sure the project exists and your account has permission to access it.
+[debug] [2019-10-14T02:44:28.427Z] ----------------------------------------------------------------------
+[debug] [2019-10-14T02:44:28.429Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2019-10-14T02:44:28.430Z] CLI Version:   7.5.0
+[debug] [2019-10-14T02:44:28.430Z] Platform:      win32
+[debug] [2019-10-14T02:44:28.430Z] Node Version:  v10.16.3
+[debug] [2019-10-14T02:44:28.431Z] Time:          Sun Oct 13 2019 22:44:28 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-10-14T02:44:28.431Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-14T02:44:28.441Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-14T02:44:28.442Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\joshu\angular-firebase-crud-master\angular-firebase-crud-master
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using test.
+[debug] [2019-10-14T02:44:34.989Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/test  
+ 
+[debug] [2019-10-14T02:44:35.214Z] <<< HTTP RESPONSE 403
+[debug] [2019-10-14T02:44:35.214Z] <<< HTTP RESPONSE BODY
+[debug] [2019-10-14T02:44:35.216Z] HTTP Error: 403, The caller does not have permission
+[debug] [2019-10-14T02:44:35.316Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+    at module.exports (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:39:35)
+    at Request.self.callback (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:198:13)
+    at Request.EventEmitter.emit (domain.js:448:20)
+    at Request.<anonymous> (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1161:10)
+    at Request.emit (events.js:198:13)
+    at Request.EventEmitter.emit (domain.js:448:20)
+    at IncomingMessage.<anonymous> (C:\Users\joshu\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1083:12)
+    at Object.onceWrapper (events.js:286:20)
+[error] 
+[error] Error: Failed to get Firebase project test. Please make sure the project exists and your account has permission to access it.
