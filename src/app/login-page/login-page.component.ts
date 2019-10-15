@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FirebaseService } from '../services/firebase.service';
 import { Router, Params } from '@angular/router';
 
@@ -13,7 +13,11 @@ export class LoginPageComponent implements OnInit {
     messageForm: FormGroup;
     submitted = false;
     success = false;
-	items: Array<any>;
+    items: Array<any>;
+    
+    // DON
+    // Yo the live update code example
+    loginForm = new FormControl('');
 
     /*  constructor(private router: Router, private formBuilder: FormBuilder) { */
 

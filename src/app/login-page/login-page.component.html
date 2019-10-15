@@ -27,6 +27,22 @@
     </form>
   </div>
 
+  <!-- DON -->
+  <!--Yo this thing right here updates the name in real time check it out-->
+  <br>
+  <div class="login-box">
+    <h5>Live update example</h5>
+    <label>
+      Login:
+      <input type="text" [formControl]="loginForm" placeholder="Type something here">
+    </label>
+    <p>
+      Value: {{ loginForm.value }}
+    </p>
+  </div>
+  
+
+
   <div *ngIf="success">
     <h5>Login successful</h5>
   </div>
