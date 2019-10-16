@@ -25,6 +25,13 @@
         <input type="submit" value="Log in">
       </div>
     </form>
+    <div *ngIf="success">
+      <h5>Login successful</h5>
+    </div>
+  
+    <div *ngIf="submitted && !success">
+      <h5>Invalid login</h5>
+    </div>
   </div>
 
   <!-- DON -->
@@ -41,13 +48,4 @@
     </p>
   </div>
   
-
-
-  <div *ngIf="success">
-    <h5>Login successful</h5>
-  </div>
-
-  <div *ngIf="submitted && !success">
-    <h5>Invalid login</h5>
-  </div>
 </div>
