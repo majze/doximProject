@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-preview-pane',
@@ -12,6 +13,12 @@ export class PreviewPaneComponent implements OnInit {
   ngOnInit() {
   }
 
-    
+downloadPDF()
+
+{
+  const doc = new jsPDF();
+  doc.text('hello',15, 15);
+  doc.save('first.pdf');
+}
 
 }

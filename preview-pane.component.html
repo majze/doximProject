@@ -1,10 +1,11 @@
+<script type="text/javascript" src="./lib/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>"
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
 <div class="jumbotron text-center">
-  <script type="text/javascript" src="./lib/jquery-3.4.1.min.js"></script>
   <h1>New Style Banking</h1>
   <br />
   <h5> Statement Ending 06/28/2019</h5>
-
-
   <div class="right">
     <p>Managing Your Account</p>
     <b>Primary Branch</b> &nbsp;    South Lyon
@@ -94,18 +95,7 @@
   <br />
   <br />
   <br />
-
-  <div class="w3-right footer">
-    <button id="print" clss="w3-button w3-blue"> Print</button>
-  </div>
-
-  <script src= "jquery.min.js"></script>
-  <script src=" printThis.js"></script>
-  <script>
-    $('#print').click(function () {
-      $('.jumbotron text-center').printThis();
-    }
-  </script>
-
-
+</div>
+<div>
+  <button (click) = "downloadPDF()"> Test Button</button>
 </div>
