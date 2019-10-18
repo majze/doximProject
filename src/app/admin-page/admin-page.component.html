@@ -10,28 +10,9 @@
         <button>Add User</button>
     </form>
     <br>
-      <div *ngFor="let item of items">
-        <p style="font-family: 'Courier New', Courier, monospace;">{{item.payload.doc.data().username}} {{item.payload.doc.data().password}}</p>
+      <div class="dataList" *ngFor="let item of items">
+        <p class="dataItem">{{item.payload.doc.data().username}} | {{item.payload.doc.data().password}}</p>
       </div>
   </div>
     
 </div>
-<!--
-<script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAok5-eG4zr9P_A2PQoLO439I3I0Ip8FGs",
-      authDomain: "doxim-web-app.firebaseapp.com",
-      databaseURL: "https://doxim-web-app.firebaseio.com",
-      projectId: "doxim-web-app",
-      storageBucket: "doxim-web-app.appspot.com",
-      messagingSenderId: "264254253595",
-      appId: "1:264254253595:web:29727759b7021df5a4a6be",
-      measurementId: "G-WEZQLKZZSF"
-    };
-    firebase.initializeApp(config);
-    const db = firebase.firestore();
-    db.settings({ timestampsInSnapshots: true }); 
-</script>
-<script src="admin-page.component.ts"></script>
--->
