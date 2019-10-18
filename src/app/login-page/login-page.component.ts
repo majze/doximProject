@@ -44,6 +44,8 @@ export class LoginPageComponent implements OnInit {
         }
     }
 
+    // DON
+    // This may be phased out after testing
     public getCredentials(vusername, vpassword) {
         var username = "admin";
         var password = "password";
@@ -73,8 +75,6 @@ export class LoginPageComponent implements OnInit {
     this.firebaseService.getUsers()
     .subscribe(result => {
       this.items = result;
-     // this.age_filtered_items = result;
-     // this.name_filtered_items = result;
     })
   }
 

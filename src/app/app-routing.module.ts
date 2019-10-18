@@ -6,6 +6,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BuildPageComponent } from './build-page/build-page.component';
 import { PreviewPaneComponent } from './build-page/preview-pane/preview-pane.component';
 import { SurveyPaneComponent } from './build-page/survey-pane/survey-pane.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 const routes: Routes = [
     {
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path: 'build',
         component: BuildPageComponent
+    },
+    {
+        path: 'admin',
+        component: AdminPageComponent
     },
     // otherwise redirect to login
     {
