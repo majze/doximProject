@@ -23,6 +23,7 @@ import { FirebaseService } from './services/firebase.service';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from '@angular/material';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from
     BuildPageComponent,
     PreviewPaneComponent,
     SurveyPaneComponent,
-    HomeComponent
+    HomeComponent,
+    AdminPageComponent
   ],
  // entryComponents: [AvatarDialogComponent],
   imports: [

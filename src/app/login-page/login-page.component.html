@@ -1,10 +1,13 @@
 <div class="login-splash">
-	<h5>Hello from firebase! Below is your fetched uname/password!</h5>
-	<div *ngFor="let item of items">
-		<h5>{{item.payload.doc.data().username}} {{item.payload.doc.data().password}}</h5>
+  <!-- DON -->
+  <!-- Yo check out how this is pulling from the DB, this is foundational -->
+  <h5>Hello from firebase! Below is your fetched uname/password!</h5>
+  <div *ngFor="let item of items">
+		<p style="font-family: 'Courier New', Courier, monospace;">{{item.payload.doc.data().username}} {{item.payload.doc.data().password}}</p>
 	</div>
 	<h5>Visit <a href="http://doxim-web-app.firebaseio.com/" target="_blank">http://doxim-web-app.firebaseio.com/</a> to see the database!</h5>
-
+  <p>Make sure to select Cloud Firestore at the top, NOT realtime database.</p>
+	
   <div class="login-box">
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
       <div>
@@ -39,6 +42,7 @@
   <br>
   <div class="login-box">
     <h5>Live update example</h5>
+    <p>This will be removed after demonstration</p>  
     <label>
       Login:
       <input type="text" [formControl]="loginForm" placeholder="Type something here">
