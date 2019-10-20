@@ -1,6 +1,6 @@
 // set the variable name of the database
 const db = firebase.firestore()
-
+//
 // Reference an entire collection
 var allUsers = db.collection('users');
 
