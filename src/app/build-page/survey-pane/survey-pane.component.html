@@ -12,67 +12,104 @@
       <input type="submit" value="Confirm Core">
     </form>
   </div>
+  
+  
+  
+  
+    <!-- This is where the conditional for Core Type should make the statement type question appear/vanih-->
+    <!-- If Corelation is selected, make this question invisible-->
+
+
 
   <div class="question">
     <h3>Billing Statement Type</h3>
     <form>
+	    
+
       <input type="radio" class="form-radio" name="statementType" value="Account" checked>Account<br>
       <input type="radio" class="form-radio" name="statementType" value="Credit Card">Credit Card<br>
     </form>
   </div>
 
+
+
+    <!-- This is where the conditional from statement type should make the CC logo question appear/vanish -->
+    <!-- If member statement is selected, make this question invisible -->
+
+
+  <div class="question">
+    <h3>Credit Card Logo</h3>
+    <form>
+      <select name="Credit Card Logo">
+        <option value="Mastercard">Mastercard</option>
+        <option value="Visa">Visa</option>
+        <option value="None">No Logo</option>
+      </select>
+      <br>
+    </form>
+  </div>  
+  
+  <div class="question">
+    <h3>Branding</h3>
+    <form>
+	<p>Upload your company logo if not already in the database:</p>
+     <br>
+      <input type="submit" value="Upload Image">
+	  <br>
+	      <!-- add logo to database -->
+
+	  
+	  <p>Choose your company logo if desired:</p>
+     <br>
+      <input type="submit" value="Choose Image">
+	  <!-- call logo from database -->
+	<br>
+	
+	<p>Choose your company color for statement headers if desired:</p>
+      <form action="/action_page.php">
+      <input type="color" name="favcolor" value="#ff0000">
+    </form>
+	<br>
+	</form>
+  </div>
+  
   <div class="question">
     <h3>Print Color Options</h3>
     <form>
       <input type="radio" class="form-radio" name="colorType" value="Full Color" checked>Full color<br>
-      <input type="radio" class="form-radio" name="colorType" value="Black & White">Black & White<br>
-      <input type="radio" class="form-radio" name="colorType" value="Partial">Partial<br>
+      <input type="radio" class="form-radio" name="colorType" value="Grayscale">Grayscale<br>
     </form>
   </div>
 
-  <div class="question">
-    <h3>Table Headers Color</h3>
-    <form action="/action_page.php">
-      Select your statement header color:
-      <input type="color" name="favcolor" value="#ff0000">
-    </form>
-  </div>
 
   <div class="question">
     <h3>Level of Marketing</h3>
-    <p>Options always determined by available whitespace:</p>
+	<p>What type of marketing would you like?</p>
     <form>
-      <select name="marketingLevel">
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
-      </select>
+      <input type="radio" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
+      <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br>
+      <input type="radio" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
+      <input type="radio" class="form-radio" name="marketingLevel" value="none">None<br>
       <br>
     </form>
   </div>
 
   <div class="question">
-    <h3>Account Summary Detail</h3>
-    <p>Where would you like the detailed summary, if at all?</p>
+    <h3>Account Masking</h3>
+	<p> How much of your account number would you like visible? </p>
     <form>
-      <input type="radio" class="form-radio" name="detailLevel" value="topRight" checked>Top Right<br>
-      <input type="radio" class="form-radio" name="detailLevel" value="midRight">Mid Right<br>
-      <input type="radio" class="form-radio" name="detailLevel" value="midLeft">Mid Left<br>
-      <input type="radio" class="form-radio" name="detailLevel" value="bottomCenter">Bottom Center<br>
-      <input type="radio" class="form-radio" name="detailLevel" value="backpageTopCenter">Backpage Top Center<br>
-      <input type="radio" class="form-radio" name="detailLevel" value="noSummary">No detailed summary<br>
+      <input type="radio" class="form-radio" name="maskingLevel" value="4numbers" checked>4 Numbers revealed<br>
+      <input type="radio" class="form-radio" name="maskingLevel" value="3 stars">3 Numbers revealed<br>
+      <input type="radio" class="form-radio" name="maskingLevel" value="None">None, all numbers hidden<br>
     </form>
   </div>
 
   <div class="question">
-    <h3>Transaction Breakdown</h3>
-    <p>How would you like the transactions broken down?</p>
+    <h3>Scanline Option</h3>
+    <p>Would you like a scanline included on your statement?</p>
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="split">Split<br>
-      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="combined">Combined<br>
-      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="byDate">By date<br>
-      <input type="checkbox" class="form-checkbox" name="transBreakdown" value="alphabetically">Alphabetically<br><br />
-      <a routerLink="/preview"><input type="submit" value="Submit"></a>
+      <input type="radio" class="form-radio" name="scanlineLevel" value="Yes">Yes<br>
+      <input type="radio" class="form-radio" name="scanlineLevel" value="No">No<br>
     </form>
   </div>
 </div>
