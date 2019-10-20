@@ -4,7 +4,7 @@
   width: 850px;
   margin-top: 42px;
   border: 2px solid;
-  background: #fff url("assets/dot-grid.png") repeat;
+  background: #fff url("../../../assets/images/dot-grid.png") repeat;
 }
 
 .paperContainer {
@@ -85,6 +85,15 @@
 
 /* Mid Container */
 
+.wideFillerSpace {
+  width: 100%; height: calc(100% - (1075px - 20px));
+  content: "";
+}
+
+.wideFillerSpace::after {
+  display: block; clear: both; content: "";
+}
+
 .gridMidContainer {
   width: 100%; height: calc(100% - (1075px - 375px));
   border: 1px solid rgba(0, 255, 0, 0.1);
@@ -102,7 +111,7 @@
 /* Bottom Container */
 
 .gridBotContainer {
-  width: 100%; height: calc(100% - (1075px - 415px));
+  width: 100%; height: calc(100% - (1075px - 400px));
   border: 1px solid rgba(0, 255, 0, 0.1);
 }
 
