@@ -1,5 +1,5 @@
 <div class="surveyPane">
-  <div class="coreQuestion">
+  <div class="coreQuestion question">
     <h3>Utilized Data Core</h3>
     <p>The three main cores are listed below:</p>
     <form action="/determine_questionss.php">
@@ -21,7 +21,7 @@
 		else, load all the generalQuestion class questions
 	</script> -->
   
-  <div class="coreQuestion" id="statementType">
+  <div class="coreQuestion question" id="statementType">
     <h3>Billing Statement Type</h3>
     <form>
 	    
@@ -39,7 +39,7 @@
     <!-- If member statement is selected, make this question invisible -->
 
 
-  <div class="coreQuestion" id="logoType">
+  <div class="coreQuestion question" id="logoType">
     <h3>Credit Card Logo</h3>
     <form>
       <select name="Credit Card Logo">
@@ -51,7 +51,7 @@
     </form>
   </div>  
   
-  <div class="generalQuestion" id="brandingType">
+  <div class="generalQuestion question" id="brandingType">
     <h3>Branding</h3>
     <form>
 	<p>Upload your company logo if not already in the database:</p>
@@ -75,7 +75,7 @@
 	</form>
   </div>
   
-  <div class="generalQuestion" id="printColorType">
+  <div class="generalQuestion question" id="printColorType">
     <h3>Print Color Options</h3>
     <form>
       <input type="radio" class="form-radio" name="colorType" value="Full Color" checked>Full color<br>
@@ -84,7 +84,7 @@
   </div>
 
 
-  <div class="generalQuestion" id="marketingType">
+  <div class="generalQuestion question" id="marketingType">
     <h3>Level of Marketing</h3>
 	<p>What type of marketing would you like?</p>
     <form>
@@ -96,7 +96,7 @@
     </form>
   </div>
 
-  <div class="generalQuestion" id="maskingType">
+  <div class="generalQuestion question" id="maskingType">
     <h3>Account Masking</h3>
 	<p> How much of your account number would you like visible? </p>
     <form>
@@ -106,7 +106,7 @@
     </form>
   </div>
 
-  <div class="generalQuestion" id="scanlineType">
+  <div class="generalQuestion question" id="scanlineType">
     <h3>Scanline Option</h3>
     <p>Would you like a scanline included on your statement?</p>
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
