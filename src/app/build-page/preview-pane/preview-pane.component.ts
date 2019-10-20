@@ -9,6 +9,11 @@ export class PreviewPaneComponent implements OnInit {
 
   constructor() { }
 
+  // populateSkeleton() {
+  //   let el = document.getElementsByClassName("logoSection").style.backgroundImage="url(../../../assets/ccSymitar/ccSymLogo.png)";
+
+  // }
+
   ngOnInit() {
   }
 
