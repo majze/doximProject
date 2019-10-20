@@ -1,43 +1,45 @@
 <div class="surveyPane">
-  <div class="question">
+  <div class="coreQuestion">
     <h3>Utilized Data Core</h3>
     <p>The three main cores are listed below:</p>
     <form action="/determine_questionss.php">
       <select name="coreType">
-        <option value="corelation">Corelation</option>
-        <option value="fireservDNA">FireservDNA</option>
-        <option value="symitar">Symitar</option>
+        <option value="1">Corelation</option>
+        <option value="2">FireservDNA</option>
+        <option value="2">Symitar</option>
       </select>
-      <br>
-      <input type="submit" value="Confirm Core">
+      
     </form>
   </div>
   
   
+	<!-- javascript function to read the answer  and show statement Type if necessary-->
+	<!-- <script>
+
+		if value = 2,
+		show id statementType
+		else, load all the generalQuestion class questions
+	</script> -->
   
-  
-    <!-- This is where the conditional for Core Type should make the statement type question appear/vanih-->
-    <!-- If Corelation is selected, make this question invisible-->
-
-
-
-  <div class="question">
+  <div class="coreQuestion" id="statementType">
     <h3>Billing Statement Type</h3>
     <form>
 	    
 
       <input type="radio" class="form-radio" name="statementType" value="Account" checked>Account<br>
-      <input type="radio" class="form-radio" name="statementType" value="Credit Card">Credit Card<br>
+      <input type="radio" class="form-radio" name="statementType" value="CreditCard">Credit Card<br>
     </form>
   </div>
 
-
-
+	<!-- javascript function to read the answer -->
+	
+	<!-- if value = CreditCard then show div with ID creditCardLogo
+			else load all the generalQuestion class questions
     <!-- This is where the conditional from statement type should make the CC logo question appear/vanish -->
     <!-- If member statement is selected, make this question invisible -->
 
 
-  <div class="question">
+  <div class="coreQuestion" id="logoType">
     <h3>Credit Card Logo</h3>
     <form>
       <select name="Credit Card Logo">
@@ -49,7 +51,7 @@
     </form>
   </div>  
   
-  <div class="question">
+  <div class="generalQuestion" id="brandingType">
     <h3>Branding</h3>
     <form>
 	<p>Upload your company logo if not already in the database:</p>
@@ -73,7 +75,7 @@
 	</form>
   </div>
   
-  <div class="question">
+  <div class="generalQuestion" id="printColorType">
     <h3>Print Color Options</h3>
     <form>
       <input type="radio" class="form-radio" name="colorType" value="Full Color" checked>Full color<br>
@@ -82,7 +84,7 @@
   </div>
 
 
-  <div class="question">
+  <div class="generalQuestion" id="marketingType">
     <h3>Level of Marketing</h3>
 	<p>What type of marketing would you like?</p>
     <form>
@@ -94,7 +96,7 @@
     </form>
   </div>
 
-  <div class="question">
+  <div class="generalQuestion" id="maskingType">
     <h3>Account Masking</h3>
 	<p> How much of your account number would you like visible? </p>
     <form>
@@ -104,7 +106,7 @@
     </form>
   </div>
 
-  <div class="question">
+  <div class="generalQuestion" id="scanlineType">
     <h3>Scanline Option</h3>
     <p>Would you like a scanline included on your statement?</p>
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
