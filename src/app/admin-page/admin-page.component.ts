@@ -21,14 +21,14 @@ export class AdminPageComponent implements OnInit {
   }
 
   ngOnInit() {
-		this.getData();
+	//	this.getData();
   }
 
   getData(){
-    this.firebaseService.getUsers()
-    .subscribe(result => {
-      this.items = result;
-    })
+    // this.firebaseService.getUsers()
+    // .subscribe(result => {
+    //   this.items = result;
+    // })
   }
   
 }

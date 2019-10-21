@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, DoBootstrap } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
@@ -25,12 +25,25 @@ export class FirebaseService {
   //   return this.db.collection('users').doc(userKey).delete();
   // }
 
-  getUsers(){
-    return this.db.collection('users').snapshotChanges();
-  }
+  getUsers(username, password){ 
+   // this.db.collection('users',ref => ref.where("username", "==", "admin").where("password", "==", "password"))
+   // this.db.collection('users',ref => ref.where("username", "==", "sales").where("password", "==", "doxim"))
+  return this.db.collection('users',ref => ref.where("username", "==", username)
+   .where("password", "==", password)).snapshotChanges();
+    // return this.db.collection('users',ref => ref.where("username", "==", username)
+    // .where("password", "==", password))
+    // .then(function() {
+    //   console.log("Document successfully updated!");
+  // })
+  // .catch(function(error) {
+  //     // The document probably doesn't exist.
+  //     console.error("Error updating document: ", error);
+  // });
+  //   // return this.db.collection('users').snapshotChanges();
+   }
 
   // searchUsers(searchValue){
-  //   return this.db.collection('users',ref => ref.where('nameToSearch', '>=', searchValue)
+  //   return this.db.collect5ion('users',ref => ref.where('nameToSearch', '>=', searchValue)
   //     .where('nameToSearch', '<=', searchValue + '\uf8ff'))
   //     .snapshotChanges()
   // }

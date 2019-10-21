@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FirebaseService } from '../services/firebase.service';
 import { Router, Params } from '@angular/router';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-login-page',
@@ -13,7 +15,9 @@ export class LoginPageComponent implements OnInit {
     messageForm: FormGroup;
     submitted = false;
     success = false;
+    fail = false;
     items: Array<any>;
+    docid: string;
     
     // DON
     // Yo the live update code example
@@ -36,46 +40,53 @@ export class LoginPageComponent implements OnInit {
         }
         var vusername = this.messageForm.controls.username.value;
         var vpassword = this.messageForm.controls.password.value;
+        this.getData(vusername, vpassword);
+    }
 
-        this.getCredentials(vusername, vpassword);
+    nextPage(documentID) {
+        if (documentID == "user1" || documentID == "user2") {
+            console.log("true");
+            this.fail = false;
+            this.submitted = true;
+            this.success = true;
+        }
+        else {
+            console.log("false"); 
+            this.fail = true;
+            this.submitted = true;
+            this.success = false;
+        }
 
-        if (this.success) {
+        if (this.success && this.submitted) {
             this.router.navigate(['./build']);
         }
     }
-
-    // DON
-    // This may be phased out after testing
-    public getCredentials(vusername, vpassword) {
-        var username = "admin";
-        var password = "password";
-
-        if (username == vusername) {
-            if (password == vpassword) {
-                this.success = true;
-            }
-        }
-        if (this.success) {
-            return;
+    
+	getData(username, password) {
+        // this.firebaseService.getUsers(username, password)
+        // .subscribe(result => this.nextPage(result[0].payload.doc.id));
+        
+        var docReference = this.firebaseService.getUsers(username, password).subscribe() ;
+        if (typeof docReference == "undefined") {
+            console.log("undefined");
         }
         else {
-            this.success = false;
+            console.log("defined");
         }
+        //.subscribe(result => this.nextPage(result[0].payload.doc.id));
+
+        // this.firebaseService.getUsers(username, password)
+        // .subscribe(result => {
+        // this.items = result;
+        // })
     }
 
-    public refreshSubmit() {
+    refreshSubmit() {
+        this.fail = false;
+        this.success = false;
         this.submitted = false;
     }
 
     ngOnInit() {
-		this.getData();
     }
-	
-	getData(){
-    this.firebaseService.getUsers()
-    .subscribe(result => {
-      this.items = result;
-    })
-  }
-
 }
