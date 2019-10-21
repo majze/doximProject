@@ -15,6 +15,7 @@ export class LoginPageComponent implements OnInit {
     messageForm: FormGroup;
     submitted = false;
     success = false;
+    fail = false;
     items: Array<any>;
     docid: string;
     
@@ -40,56 +41,43 @@ export class LoginPageComponent implements OnInit {
         var vusername = this.messageForm.controls.username.value;
         var vpassword = this.messageForm.controls.password.value;
         this.getData(vusername, vpassword);
-        if (this.success) {
-            this.router.navigate(['./build']);
-        }
-     //   this.getCredentials(vusername, vpassword);
     }
 
     nextPage(documentID) {
-        console.log(documentID);
         if (documentID == "user1" || documentID == "user2") {
-            this.submitted = false;
+            console.log("true");
+            this.fail = false;
+            this.submitted = true;
             this.success = true;
         }
-        else
+        else {
+            console.log("false"); 
+            this.fail = true;
+            this.submitted = true;
             this.success = false;
+        }
+
+        if (this.success && this.submitted) {
+            this.router.navigate(['./build']);
+        }
     }
     
 	getData(username, password) {
         this.firebaseService.getUsers(username, password)
         .subscribe(result => this.nextPage(result[0].payload.doc.id));
-
+        
         // this.firebaseService.getUsers(username, password)
         // .subscribe(result => {
         // this.items = result;
         // })
     }
 
-    // DON
-    // This may be phased out after testing
-    // public getCredentials(vusername, vpassword) {
-    //     var username = "admin";
-    //     var password = "password";
-
-    //     if (username == vusername) {
-    //         if (password == vpassword) {
-    //             this.success = true;
-    //         }
-    //     }
-    //     if (this.success) {
-    //         return;
-    //     }
-    //     else {
-    //         this.success = false;
-    //     }
-    // }
-
-    public refreshSubmit() {
+    refreshSubmit() {
+        this.fail = false;
+        this.success = false;
         this.submitted = false;
     }
 
     ngOnInit() {
-//this.getData();
     }
 }

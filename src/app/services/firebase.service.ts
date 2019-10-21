@@ -28,15 +28,8 @@ export class FirebaseService {
   getUsers(username, password){ 
    // this.db.collection('users',ref => ref.where("username", "==", "admin").where("password", "==", "password"))
    // this.db.collection('users',ref => ref.where("username", "==", "sales").where("password", "==", "doxim"))
-   console.log(username, password);
    return this.db.collection('users',ref => ref.where("username", "==", username)
     .where("password", "==", password)).snapshotChanges();
-    // .get().forEach(function(doc) {
-    //   console.log(doc.docs[0].id);
-    // })
-    // .catch(function(error) {
-    //   console.log("Error getting documents: ", error);
-    // }).snapshotChanges();
 
   //   // return this.db.collection('users').snapshotChanges();
    }
