@@ -4,6 +4,7 @@
     <p>The three main cores are listed below:</p>
     <form action="/determine_questionss.php">
       <select name="coreType">
+	    <option value="0">Choose a Core...</option>
         <option value="1">Corelation</option>
         <option value="2">FireservDNA</option>
         <option value="2">Symitar</option>
@@ -25,7 +26,6 @@
     <h3>Billing Statement Type</h3>
     <form>
 	    
-
       <input type="radio" class="form-radio" name="statementType" value="Account" checked>Account<br>
       <input type="radio" class="form-radio" name="statementType" value="CreditCard">Credit Card<br>
     </form>
@@ -47,33 +47,31 @@
         <option value="Visa">Visa</option>
         <option value="None">No Logo</option>
       </select>
-      <br>
     </form>
   </div>  
   
-  <div class="generalQuestion question" id="brandingType">
-    <h3>Branding</h3>
+  <div class="generalQuestion question" id="customerLogoType">
+    <h3>Customer Logo</h3>
     <form>
-	<p>Upload your company logo if not already in the database:</p>
+	<p>Upload your company logo:</p>
      <br>
       <input type="submit" value="Upload Image">
 	  <br>
-	      <!-- add logo to database -->
-
-	  
-	  <p>Choose your company logo if desired:</p>
-     <br>
-      <input type="submit" value="Choose Image">
-	  <!-- call logo from database -->
-	<br>
+	      <!-- add to preview -->
+	</form>
+  </div>
+  
+ <!--  <div class="generalQuestion question" id="customerColorType">
+    <h3>Customer Colors</h3>
+    <form>
 	
-	<p>Choose your company color for statement headers if desired:</p>
+	<p>Choose your company color:</p>
       <form action="/action_page.php">
       <input type="color" name="favcolor" value="#ff0000">
     </form>
 	<br>
 	</form>
-  </div>
+  </div> -->
   
   <div class="generalQuestion question" id="printColorType">
     <h3>Print Color Options</h3>
@@ -110,7 +108,7 @@
     <h3>Scanline Option</h3>
     <p>Would you like a scanline included on your statement?</p>
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-      <input type="radio" class="form-radio" name="scanlineLevel" value="Yes">Yes<br>
+      <input type="radio" class="form-radio" name="scanlineLevel" value="Yes" checked>Yes<br>
       <input type="radio" class="form-radio" name="scanlineLevel" value="No">No<br>
     </form>
   </div>
