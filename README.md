@@ -1,5 +1,7 @@
 # Drive-Through Samples
 ## Installation
+Download and install the latest LTS version of Node.JS. Currently, this is 12.13.0 (includes npm 6.12.0).
+
 Download and run your favorite terminal (i.e. Git Bash)
 
 `git clone https://github.com/majze/doximProject.git`
