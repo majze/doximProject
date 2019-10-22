@@ -1,15 +1,19 @@
-# Angular Firebase CRUD
-
-This project is part of an Angular tutorial where we explore how to perform all CRUD operations in an Angular 7 application using cloud FireStore as a database.
-
-Get the step by step free tutorial in https://angular-templates.io/tutorials/about/angular-crud-with-firebase
-
-**Please support this project by simply putting a Github star ⭐. 🙏 Thanks**
-
+# Drive-Through Samples
 ## Installation
+Download and run your favorite terminal (i.e. Git Bash)
+
+`git clone https://github.com/majze/doximProject.git`
+
+Navigate to project directory using `cd doximProject`
 
 Run `npm install` to install all the required dependencies
 
 Then run `ng serve` to start a dev server.
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Special Thanks
+This project was part of an Angular tutorial called Angular CRUD with Firebase.
+
+Source: https://angular-templates.io/tutorials/about/angular-crud-with-firebase
+
+**Please support this project by simply putting a Github star ⭐. 🙏 Thanks**
