@@ -1,55 +1,29 @@
-/*.login {
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-header {
-  background: #7700FF;
-
-  .logo {
-    font-weight: bold;
-  }
-
-  nav {
-    justify-self: right;
-
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-
-      li {
-        float: left;
-
-        a {
-          padding: 1.5em;
-          text-transform: uppercase;
-          font-size: .8em;
-
-          &:hover {
-          background: #8E2BFF;
-          }
-        }
-      }
-    }
-  }
-}*/
-
 .login-splash {
 	background-image: url("./improving_customer_experience.jpg");
 	background-color: #cece9b;
 	background-position: center; /* Center the image */
-	background-repeat: no-repeat; /* Do not repeat the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  top: 40px;
 	min-height: 1080px;
 	max-height: 2160px;
 }
 
 .login-box {
-	border-radius: 15px 50px 30px 5px;
-	background-color: #efefef;
+  float:left;
+	border-radius: 5px 25px 25px 15px;
+	background-color: rgba(210,210,210,0.6);
 	padding: 12px;
-	margin-left: 50px;
-/*	margin-top: 50px;
-*/	max-width: 240px;
+	margin-left: 40px;
+  margin-top: 80px;
+  width:440px;
+	max-width: 440px;
+}
+
+.doximLogoBox {
+  float:right;
+  border-radius: 15px;
+  /* background-color: rgba(210,210,210,0.2); */
+  margin-right: 20px;
+  margin-top: 60px;
+  max-width: 700px;
 }

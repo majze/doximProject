@@ -1,8 +1,8 @@
-.surveyPane {
+.surveyPanel {
   margin: 0 auto;
 }
 
-input[type=text], select {
+/* input[type=text], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -11,7 +11,7 @@ input[type=text], select {
   border-bottom: 2px solid #00b0f0;
   border-radius: 4px;
   box-sizing: border-box;
-}
+} */
 
 input[type=submit] {
   width: 150px;
@@ -126,11 +126,11 @@ input[type="color"] {
 /* === Question Containers === */
 .question {
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: #e9e9e9;
   padding: 20px;
   margin: 10px;
 }
 
   .question:hover {
-    background-color: #eaf7f7;
+    background-color: #009fee6c;
   }

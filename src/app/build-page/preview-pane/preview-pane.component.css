@@ -1,5 +1,10 @@
-.viewPane {
+.viewPanel {
+  margin: 0 auto;
+}
+
+.viewBox {
   /* 100 pixels = 1 inch */
+  /* DO NOT CHANGE DIMENSIONS */
   height: 1100px;
   width: 850px;
   margin-top: 42px;
