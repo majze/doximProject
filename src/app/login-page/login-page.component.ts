@@ -52,24 +52,41 @@ export class LoginPageComponent implements OnInit {
 	getData(username, password) {
         var docReference;
 
-        this.firebaseService.getUsers(username, password).subscribe(result => { this.items = result; });
+        this.firebaseService.getUsers(username, password)
+        .subscribe(result => { 
+            this.items = result; 
+            try {
+                console.log("try");
+                console.log(this.items[0].payload.doc.id);
+                this.fail = false;
+                this.submitted = true;
+                this.success = true;
+                this.nextPage();
+            }
+            catch(err) {
+                console.log(err);
+                this.fail = true;
+                this.submitted = true;
+                this.success = false;
+            }
+            // if (typeof this.items === "undefined") {
+            //     console.log("undefined: false");
+            //     this.fail = true;
+            //     this.submitted = true;
+            //     this.success = false;
+            // }
+            // else {
+            //     console.log("defined: true");
+            //     this.fail = false;
+            //     this.submitted = true;
+            //     this.success = true;
+            //     this.nextPage();
+            // }
+            // console.log(this.items);
+        });
        // .subscribe(result => this.nextPage(result[0].payload.doc.id));
+    
         
-        var docReference;
-        if (typeof this.items == "undefined") {
-            console.log("undefined: false");
-            this.fail = true;
-            this.submitted = true;
-            this.success = false;
-        }
-        else {
-            console.log("defined: true");
-            this.fail = false;
-            this.submitted = true;
-            this.success = true;
-            this.nextPage();
-        }
-        console.log(this.items);
         //.subscribe(result => this.nextPage(result[0].payload.doc.id));
 
         // this.firebaseService.getUsers(username, password)
