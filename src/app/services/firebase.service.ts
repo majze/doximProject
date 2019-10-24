@@ -28,8 +28,8 @@ export class FirebaseService {
   getUsers(username, password){ 
    // this.db.collection('users',ref => ref.where("username", "==", "admin").where("password", "==", "password"))
    // this.db.collection('users',ref => ref.where("username", "==", "sales").where("password", "==", "doxim"))
-  return this.db.collection('users',ref => ref.where("username", "==", username)
-   .where("password", "==", password)).snapshotChanges();
+    return this.db.collection('users',ref => ref.where("username", "==", username)
+    .where("password", "==", password)).snapshotChanges();
     // return this.db.collection('users',ref => ref.where("username", "==", username)
     // .where("password", "==", password))
     // .then(function() {
