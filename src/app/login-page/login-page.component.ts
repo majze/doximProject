@@ -43,36 +43,33 @@ export class LoginPageComponent implements OnInit {
         this.getData(vusername, vpassword);
     }
 
-    nextPage(documentID) {
-        if (documentID == "user1" || documentID == "user2") {
-            console.log("true");
-            this.fail = false;
-            this.submitted = true;
-            this.success = true;
-        }
-        else {
-            console.log("false"); 
-            this.fail = true;
-            this.submitted = true;
-            this.success = false;
-        }
-
+    nextPage() {
         if (this.success && this.submitted) {
             this.router.navigate(['./build']);
         }
     }
     
 	getData(username, password) {
-        // this.firebaseService.getUsers(username, password)
-        // .subscribe(result => this.nextPage(result[0].payload.doc.id));
+        var docReference;
+
+        this.firebaseService.getUsers(username, password).subscribe(result => { this.items = result; });
+       // .subscribe(result => this.nextPage(result[0].payload.doc.id));
         
-        var docReference = this.firebaseService.getUsers(username, password).subscribe();
-        if (typeof docReference == "undefined") {
-            console.log("undefined");
+        var docReference;
+        if (typeof this.items == "undefined") {
+            console.log("undefined: false");
+            this.fail = true;
+            this.submitted = true;
+            this.success = false;
         }
         else {
-            console.log("defined");
+            console.log("defined: true");
+            this.fail = false;
+            this.submitted = true;
+            this.success = true;
+            this.nextPage();
         }
+        console.log(this.items);
         //.subscribe(result => this.nextPage(result[0].payload.doc.id));
 
         // this.firebaseService.getUsers(username, password)
