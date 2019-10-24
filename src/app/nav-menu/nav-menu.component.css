@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #0099ff;
+  /* background-color: #0099ff; */
 }
 
 .nav-li {
@@ -30,4 +30,12 @@ li a {
 
 .active {
   background-color: #4CAF50;
+}
+
+#navbar-nav {
+  background-color: #79c; /* Black background color */
+  position: fixed; /* Make it stick/fixed */
+  top: 0; /* Stay on top */
+  width: 100%; /* Full width */
+  transition: top 0.3s; /* Transition effect when sliding down (and up) */
 }

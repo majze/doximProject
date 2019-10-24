@@ -8,7 +8,6 @@ import { rootRouterConfig } from './app.routes';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -35,7 +34,6 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     BuildPageComponent,
     PreviewPaneComponent,
     SurveyPaneComponent,
-    HomeComponent,
     AdminPageComponent
   ],
  // entryComponents: [AvatarDialogComponent],

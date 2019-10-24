@@ -66,7 +66,7 @@ export class LoginPageComponent implements OnInit {
         // this.firebaseService.getUsers(username, password)
         // .subscribe(result => this.nextPage(result[0].payload.doc.id));
         
-        var docReference = this.firebaseService.getUsers(username, password).subscribe() ;
+        var docReference = this.firebaseService.getUsers(username, password).subscribe();
         if (typeof docReference == "undefined") {
             console.log("undefined");
         }
