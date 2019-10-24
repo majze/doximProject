@@ -12,7 +12,7 @@
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label><b>Username </b></label>
-        <input type="text" class="form-control" (change)="refreshSubmit()" placeholder="Enter Username" formControlName="username">
+        <input type="text" class="form-control" (change)="refreshSubmit()" placeholder="Enter Username" formControlName="username" autofocus>
         <div *ngIf="submitted && messageForm.controls.username.errors">
           <div *ngIf="messageForm.controls.username.errors.required">Username is required.</div>
         </div>
