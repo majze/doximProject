@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirebaseService } from '../services/firebase.service';
+//import { FirebaseService } from '../services/firebase.service';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 
