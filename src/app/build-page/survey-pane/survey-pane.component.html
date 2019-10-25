@@ -5,13 +5,13 @@
     <form action="/determine_questionss.php">
       <select name="coreType">
 	    <option value="0">Choose a Core...</option>
-        <option value="1">Corelation</option>
-        <option value="2">FireservDNA</option>
-        <option value="2">Symitar</option>
+        <option value="Corelation">Corelation</option>
+        <option value="FireservDNA">FireservDNA</option>
+        <option value="Symitar">Symitar</option>
       </select>
-      
     </form>
   </div>
+
   
   
 	<!-- javascript function to read the answer  and show statement Type if necessary-->
@@ -26,7 +26,7 @@
     <h3>Billing Statement Type</h3>
     <form>
 	    
-      <input type="radio" class="form-radio" name="statementType" value="Account" checked>Account<br>
+      <input type="radio" class="form-radio" name="statementType" value="Account" >Account<br>
       <input type="radio" class="form-radio" name="statementType" value="CreditCard">Credit Card<br>
     </form>
   </div>
@@ -34,7 +34,7 @@
 	<!-- javascript function to read the answer -->
 	
 	<!-- if value = CreditCard then show div with ID creditCardLogo
-			else load all the generalQuestion class questions
+			else load all the generalQuestion class questions-->
     <!-- This is where the conditional from statement type should make the CC logo question appear/vanish -->
     <!-- If member statement is selected, make this question invisible -->
 

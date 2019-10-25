@@ -42,6 +42,7 @@ export class FirebaseService {
   //   // return this.db.collection('users').snapshotChanges();
    }
 
+
   // searchUsers(searchValue){
   //   return this.db.collect5ion('users',ref => ref.where('nameToSearch', '>=', searchValue)
   //     .where('nameToSearch', '<=', searchValue + '\uf8ff'))
