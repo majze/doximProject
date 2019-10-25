@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-build-page',
@@ -8,6 +6,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./build-page.component.css']
 })
 export class BuildPageComponent implements OnInit {
+
+  activeCore: string;
+  activeStatementType: string;
 
   constructor() { }
 

@@ -1,9 +1,9 @@
-<script>
-  function populateSkeleton() {
-    document.getElementsByClassName("logoSection").style.backgroundImage="url(\"../../../assets/ccSymitar/ccSymLogo.png\")";
-  }
-</script>
-<button onClick=populateSkeleton()>populateSkeleton</button>
+<script type="text/javascript" src="./lib/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
+<button (click)=popSkele()>populateSkeleton</button>
+<button (click)=exportButton()>Export</button>
 
 <div class="viewPanel">
   <div class="viewBox">
@@ -12,14 +12,14 @@
       <div class="gridTopContainer">
 
         <div class="gridTopLeft gridSection">
-          <div class="logoSection gridSection">logo.jpg</div>
-          <div class="addressSection gridSection">Joe Member&#13;&#10;123 Main St&#13;&#10;Sunnydale, CA 24932</div>
+          <div class="logoSection gridSection"></div>
+          <div class="addressSection gridSection"></div>
         </div>
 
         <div class="gridTopRight gridSection">
-          <div class="ccLogoSection gridSection">ccLogo.jpg</div>
-          <div class="headerSection gridSection">Statment Period: 10/01/19 - 10/31/19</div>
-          <div class="topGraphicSection gridSection">TopGraphic.jpg</div>
+          <div class="ccLogoSection gridSection"></div>
+          <div class="headerSection gridSection"></div>
+          <div class="topGraphicSection gridSection"></div>
         </div>
 
       </div>
@@ -27,12 +27,12 @@
       <div class="wideFillerSpace"></div>
 
       <div class="gridMidContainer">
-        <div class="ccMidSection gridSection">Mid-Section</div>
+        <div class="ccMidSection gridSection"></div>
       </div>
 
       <div class="gridBotContainer">
-        <div class="CouponSection gridSection">Coupon Area</div>
-        <div class="scanlineSection gridSection">Optional Scanline</div>
+        <div class="couponSection gridSection"></div>
+        <div class="scanlineSection gridSection"></div>
       </div>
 
     </div>
