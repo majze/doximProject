@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FirebaseService } from '../../services/firebase.service';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-survey-pane',
@@ -11,6 +13,10 @@ export class SurveyPaneComponent implements OnInit {
     messageForm: FormGroup;
 
   constructor() { }
+
+  // getCoreNames(coreName){
+  //   this.firebaseService.getCores(coreName).subscribe(result => {this.items = result;})
+  // }
 
   ngOnInit() {
   }

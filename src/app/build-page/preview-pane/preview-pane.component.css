@@ -9,7 +9,8 @@
   width: 850px;
   margin-top: 42px;
   border: 2px solid;
-  background: #fff url("../../../assets/images/dot-grid.png") repeat;
+  background-color: white;
+  /* background: #fff url("../../../assets/images/dot-grid.png") repeat; */
 }
 
 .paperContainer {
@@ -30,7 +31,10 @@
 .gridSection {
   float: left;
   text-align: center;
-  border: 1px solid rgba(0, 0, 255, 0.1);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  /* border: 1px solid rgba(0, 0, 255, 0.1); */
 }
 
 /* CREDIT CARD GRID SYSTEM STARTS HERE ============================== */
@@ -39,7 +43,7 @@
 
 .gridTopContainer {
   width: 100%; height: calc(100% - (1075px - 300px));
-  border: 1px solid rgba(0, 255, 0, 0.1);
+  /* border: 1px solid rgba(0, 255, 0, 0.1); */
 }
 
 .gridTopContainer::after {
@@ -75,12 +79,13 @@
 .ccLogoSection {
   text-align: right;
   line-height: 25px;
-  width: 100%; height: 8.333%; /* 8.333% */
+  width: 100%; height: 8.333%;
+  background-position: right;
 }
 
 .headerSection {
   line-height: 75px;
-  width: 100%; height: 25%
+  width: 100%; height: 25%;
 }
 
 .topGraphicSection {
@@ -101,7 +106,7 @@
 
 .gridMidContainer {
   width: 100%; height: calc(100% - (1075px - 375px));
-  border: 1px solid rgba(0, 255, 0, 0.1);
+  /* border: 1px solid rgba(0, 255, 0, 0.1); */
 }
 
 .gridMidContainer::after {
@@ -117,14 +122,14 @@
 
 .gridBotContainer {
   width: 100%; height: calc(100% - (1075px - 400px));
-  border: 1px solid rgba(0, 255, 0, 0.1);
+  /* border: 1px solid rgba(0, 255, 0, 0.1); */
 }
 
 .gridBotContainer::after {
   display: block; clear: both; content: "";
 }
 
-.CouponSection {
+.couponSection {
   line-height: 350px;
   width: 100%; height: 87.5%;
 }
