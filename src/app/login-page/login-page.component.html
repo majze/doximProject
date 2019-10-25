@@ -8,25 +8,25 @@
 	<h5>Visit <a href="http://doxim-web-app.firebaseio.com/" target="_blank">http://doxim-web-app.firebaseio.com/</a> to see the database!</h5>
   <p>Make sure to select Cloud Firestore at the top, NOT realtime database.</p>
    -->
-   <br><br>
   <div class="login-box">
     <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-      <div>
+      <div class="form-group">
         <label><b>Username </b></label>
-        <input type="text" (change)="refreshSubmit()" placeholder="Enter Username" formControlName="username">
+        <input type="text" class="form-control" (change)="refreshSubmit()" placeholder="Enter Username" formControlName="username" autofocus>
         <div *ngIf="submitted && messageForm.controls.username.errors">
           <div *ngIf="messageForm.controls.username.errors.required">Username is required.</div>
         </div>
-        <br />
+      </div>
 
+      <div class="form-group">
         <label><b>Password </b></label>
-        <input type="password" (change)="refreshSubmit()" placeholder="Enter Password" formControlName="password">
+        <input type="password" class="form-control" (change)="refreshSubmit()" placeholder="Enter Password" formControlName="password">
         <div *ngIf="submitted && messageForm.controls.password.errors">
           <div *ngIf="messageForm.controls.password.errors.required">Password is required.</div>
         </div>
         <br />
-        <!--<input type="submit" value="Log in" (click)="onLoginClick()">-->
-        <input type="submit" value="Log in">
+        <!-- class="form-control"<input type="submit" value="Log in" (click)="onLoginClick()">-->
+        <input type="submit" class="btn btn-primary" value="Log in">
       </div>
     </form>
     <div *ngIf="submitted && success">
@@ -38,6 +38,9 @@
     </div>
   </div>
 
+  <div class="doximLogoBox">
+    <img src="../../assets/images/doximLogoHiResAlpha.png" width=640px>
+  </div>
   <!-- DON -->
   <!--Yo this thing right here updates the name in real time check it out
   <br>

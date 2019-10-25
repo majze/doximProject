@@ -28,8 +28,8 @@ export class FirebaseService {
   getUsers(username, password){ 
    // this.db.collection('users',ref => ref.where("username", "==", "admin").where("password", "==", "password"))
    // this.db.collection('users',ref => ref.where("username", "==", "sales").where("password", "==", "doxim"))
-  return this.db.collection('users',ref => ref.where("username", "==", username)
-   .where("password", "==", password)).snapshotChanges();
+    return this.db.collection('users',ref => ref.where("username", "==", username)
+    .where("password", "==", password)).snapshotChanges();
     // return this.db.collection('users',ref => ref.where("username", "==", username)
     // .where("password", "==", password))
     // .then(function() {
@@ -42,11 +42,17 @@ export class FirebaseService {
   //   // return this.db.collection('users').snapshotChanges();
    }
 
+<<<<<<< HEAD
    
     // getCores(coreName){
     //   return this.db.collection('cores').snapshotChanges();
     // }
 
+=======
+  getCores(coreName){
+    return this.db.collection('cores').snapshotChanges();
+  }
+>>>>>>> 4515274688e848bf1dfdb9dd73b5b3a079f99283
 
   // searchUsers(searchValue){
   //   return this.db.collect5ion('users',ref => ref.where('nameToSearch', '>=', searchValue)

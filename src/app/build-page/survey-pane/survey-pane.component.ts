@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+<<<<<<< HEAD
 //import { FirebaseService } from '../services/firebase.service';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 
+=======
+import { FirebaseService } from '../../services/firebase.service';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
+>>>>>>> 4515274688e848bf1dfdb9dd73b5b3a079f99283
 
 @Component({
   selector: 'app-survey-pane',
@@ -18,6 +23,7 @@ export class SurveyPaneComponent implements OnInit {
 
   constructor() { }
 
+<<<<<<< HEAD
 
 
   // getCoreNames(coreName){
@@ -28,6 +34,12 @@ export class SurveyPaneComponent implements OnInit {
 
 
 
+=======
+  // getCoreNames(coreName){
+  //   this.firebaseService.getCores(coreName).subscribe(result => {this.items = result;})
+  // }
+
+>>>>>>> 4515274688e848bf1dfdb9dd73b5b3a079f99283
   ngOnInit() {
   }
 
