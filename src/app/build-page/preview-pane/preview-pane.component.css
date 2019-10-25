@@ -9,7 +9,8 @@
   width: 850px;
   margin-top: 42px;
   border: 2px solid;
-  background: #fff url("../../../assets/images/dot-grid.png") repeat;
+  background-color: white;
+  /* background: #fff url("../../../assets/images/dot-grid.png") repeat; */
 }
 
 .paperContainer {

@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Variable } from '@angular/compiler/src/render3/r3_ast';
+import * as jsPDF from 'jspdf';
+
+function exportPDF() {
+  // jsfiddle stuff here
+  console.log("Exporting PDF")
+  const doc = new jsPDF();
+  doc.text('hello',15, 15);
+  doc.save('first.pdf');
+}
 
 function populateSymitarCC() {
   let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
@@ -46,7 +54,11 @@ export class PreviewPaneComponent implements OnInit {
     {
       console.log("popSkele: Assets not loaded, core and statementType not loaded")
     }
-  }  
+  }
+  
+  exportButton() {
+    exportPDF();
+  }
 
   ngOnInit() {
     // DON: This temp code will be replaced
