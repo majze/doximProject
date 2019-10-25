@@ -10,6 +10,9 @@ function exportPDF() {
 }
 
 function populateSymitarCC() {
+  let paperContainerBuffer:HTMLElement = document.getElementsByClassName("paperContainer")[0] as HTMLElement;
+  paperContainerBuffer.style.border="none";
+
   let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
   logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/defaultLogo.png)";
 
