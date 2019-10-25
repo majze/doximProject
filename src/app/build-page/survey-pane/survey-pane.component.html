@@ -4,14 +4,16 @@
     <p>The three main cores are listed below:</p>
     <form action="/determine_questionss.php">
       <select name="coreType">
-	    <option value="0">Choose a Core...</option>
+      <option value="0">Choose a Core...</option>
+      
+      <!--ngIf array to display names-->
+
         <option value="Corelation">Corelation</option>
         <option value="FireservDNA">FireservDNA</option>
         <option value="Symitar">Symitar</option>
       </select>
     </form>
   </div>
-
   
   
 	<!-- javascript function to read the answer  and show statement Type if necessary-->
@@ -25,7 +27,6 @@
   <div class="coreQuestion question" id="statementType">
     <h3>Billing Statement Type</h3>
     <form>
-	    
       <input type="radio" class="form-radio" name="statementType" value="Account" >Account<br>
       <input type="radio" class="form-radio" name="statementType" value="CreditCard">Credit Card<br>
     </form>

@@ -42,6 +42,11 @@ export class FirebaseService {
   //   // return this.db.collection('users').snapshotChanges();
    }
 
+   
+    // getCores(coreName){
+    //   return this.db.collection('cores').snapshotChanges();
+    // }
+
 
   // searchUsers(searchValue){
   //   return this.db.collect5ion('users',ref => ref.where('nameToSearch', '>=', searchValue)
