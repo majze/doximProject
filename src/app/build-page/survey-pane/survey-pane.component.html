@@ -1,5 +1,5 @@
 <div class="surveyPanel">
-	
+	<button (click)=readValue()>Debug to console</button>
 	<!-- loadOrder = 1 -->
 	<div class="generalQuestion question" id="upLoadcustomerLogo">
     <h3>Customer Logo</h3>
@@ -49,8 +49,8 @@
   <div class="coreQuestion question" id="statementTypeSelection">
     <h3>Billing Statement Type</h3>
     <form>
-      <input type="radio" class="form-radio" name="statementTypeSelection" value="Account">Account<br>
-      <input type="radio" class="form-radio" name="statementTypeSelection" value="CreditCard">Credit Card<br>
+      <input type="radio" class="form-radio" [(ngModel)]="account" (change)="setStatementType($event)" name="statementTypeSelection" value="account">Account<br>
+      <input type="radio" class="form-radio" [(ngModel)]="creditCard" (change)="setStatementType($event)" name="statementTypeSelection" value="creditCard">Credit Card<br>
     </form>
   </div>
 

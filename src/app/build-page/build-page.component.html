@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-4 a">
-      <app-survey-pane></app-survey-pane>
+      <app-survey-pane (onSendFlags)="updateFlags($event)"></app-survey-pane>
       <br><br>
     </div>
 
