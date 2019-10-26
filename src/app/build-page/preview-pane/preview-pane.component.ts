@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as jsPDF from 'jspdf';
 
+
 function exportPDF() {
   // jsfiddle stuff here
   console.log("Exporting PDF")
@@ -36,16 +37,12 @@ function populateSymitarCC() {
 }
 
 function addGreyScale(){
+  for(var i =0; i <10; i++){
+  let divChange:HTMLElement = document.getElementsByClassName("colorImage")[i] as HTMLElement;
 
-  var divChange = document.getElementsByClassName("colorImage")
-  
-      if(this.className == "colorImage"){
-          this.className = "black_and_white";
-      }
-      else{
-          this.className = "";
-      }
+  divChange.classList.add("black_and_white");
   }
+}
 
 
 
@@ -63,7 +60,6 @@ export class PreviewPaneComponent implements OnInit {
 
   addGS(){
     addGreyScale();
-
   }
 
   popSkele(){
