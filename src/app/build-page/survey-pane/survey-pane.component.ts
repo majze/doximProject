@@ -16,9 +16,9 @@ export class SurveyPaneComponent implements OnInit {
 
   constructor() { }
 
-  // getCoreNames(coreName){
-  //   this.firebaseService.getCores(coreName).subscribe(result => {this.items = result;})
-  // }
+  /* getCoreNames(coreName){
+    this.firebaseService.getCores(coreName).subscribe(result => {this.items = result;})
+  } */
 
  ngOnInit() {
   }

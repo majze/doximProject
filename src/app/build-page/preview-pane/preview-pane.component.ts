@@ -35,6 +35,20 @@ function populateSymitarCC() {
   scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
 }
 
+function addGreyScale(){
+
+  var divChange = document.getElementsByClassName("colorImage")
+  
+      if(this.className == "colorImage"){
+          this.className = "black_and_white";
+      }
+      else{
+          this.className = "";
+      }
+  }
+
+
+
 @Component({
   selector: 'app-preview-pane',
   templateUrl: './preview-pane.component.html',
@@ -45,6 +59,12 @@ export class PreviewPaneComponent implements OnInit {
   activeStatementType: string;
 
   constructor() { }
+
+
+  addGS(){
+    addGreyScale();
+
+  }
 
   popSkele(){
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard') {
