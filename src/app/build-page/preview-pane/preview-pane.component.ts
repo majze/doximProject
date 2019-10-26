@@ -37,11 +37,19 @@ function populateSymitarCC() {
 }
 
 function addGreyScale(){
-  for(var i =0; i <10; i++){
+  for(var i =0; i <9; i++){
   let divChange:HTMLElement = document.getElementsByClassName("colorImage")[i] as HTMLElement;
 
   divChange.classList.add("black_and_white");
   }
+}
+
+function removeGreyScale(){
+  for(var i =0; i <9; i++){
+    let divChange:HTMLElement = document.getElementsByClassName("colorImage")[i] as HTMLElement;
+  
+    divChange.classList.remove("black_and_white");
+    }
 }
 
 
@@ -60,6 +68,10 @@ export class PreviewPaneComponent implements OnInit {
 
   addGS(){
     addGreyScale();
+  }
+
+  removeGS(){
+    removeGreyScale();
   }
 
   popSkele(){
