@@ -6,18 +6,20 @@ function printPdf()
 {
   // jsfiddle stuff here
   var data = document.getElementById('print');
+  let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
+  viewBoxBuffer.style.border= "none";
     html2canvas(data).then(canvas =>{
- 
-     var imgWidth =200;
-     var pageHeight =275;
+     var imgWidth =210;
+     var pageHeight =280;
      var imgHeight = canvas.height * imgWidth / canvas.width;
      var heightLeft = imgHeight;
      const contentDataURL = canvas.toDataURL('image/png')
-     let pdf = new jspdf('p','mm','letter');
-     var position =0;
-     pdf.addImage(contentDataURL, 'PNG', 0, position,imgWidth, imgHeight)
+     let pdf = new jspdf('p','mm','letter-a4');
+     var position = 0;
+     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
      pdf.save('image.pdf');
     });
+     viewBoxBuffer.style.border= "2px soild";
   }
 
 function populateSymitarCC() {
