@@ -1,16 +1,7 @@
 <div class="surveyPanel">
 	
 	<!-- loadOrder = 1 -->
-	<div class="generalQuestion question" id="upLoadcustomerLogo">
-    <h3>Customer Logo</h3>
-    <form>
-	    <label for="uploadLogo">Upload your company logo:</label>
-     <br>
-      <input type="file" class="form-control-file" id="uploadLogo">
-	  <br>
-	      <!-- add to preview -->
-	</form>
-	</div>
+	
 	
 	 <!--  <div class="generalQuestion question" id="customerColorType">
     <h3>Customer Colors</h3>
@@ -41,35 +32,31 @@
     </form>
   </div>
   
-  
-	<!-- javascript function to read the answer  and show statement Type if necessary-->
-	<!-- <script>
-
-		if value = 2,
-		show id statementType
-		else, load all the generalQuestion class questions
-	</script> -->
-  
-  <div class="coreQuestion question" id="statementTypeSelection">
+  <div *ngIf = "isShow" class="coreQuestion question" id="statementTypeSelection">
+    
     <h3>Billing Statement Type</h3>
     <form>
       <input type="radio" class="form-radio" name="statementType" value="Account" >Account<br>
       <input type="radio" class="form-radio" name="statementType" value="CreditCard">Credit Card<br>
 
     </form>
+   
   </div>
+  <script>toggleStatement()</script>
 
-	<!-- javascript function to read the answer -->
-	
-	<!-- if value = CreditCard then show div with ID creditCardLogo
-<<<<<<< HEAD
-			else load all the generalQuestion class questions-->
-    <!-- This is where the conditional from statement type should make the CC logo question appear/vanish -->
+    <div *ngIf = "isShow" class="generalQuestion question" id="upLoadcustomerLogo">
+      <h3>Customer Logo</h3>
+      <form>
+        <label for="uploadLogo">Upload your company logo:</label>
+       <br>
+        <input type="file" class="form-control-file" id="uploadLogo">
+      <br>
+          <!-- add to preview -->
+    </form>
+    </div>
 
-    <!-- If member statement is selected, make this question invisible -->
 
-
-  <div class="coreQuestion question form-group" id="cclogoSelection">
+  <div *ngIf = "isShow" class="coreQuestion question form-group" id="cclogoSelection">
     <h3>Credit Card Logo</h3>
     <form>
       <select class="form-control" id="ccLogo">
@@ -80,7 +67,7 @@
     </form>
   </div>  
   
-  <div class="generalQuestion question" id="printColorType">
+  <div *ngIf = "isShow" class="generalQuestion question" id="printColorType">
     <h3>Print Color Options</h3>
     <form>
       <input type="radio" class="form-radio" name="colorType" value="Full Color" checked>Full color<br>
@@ -89,7 +76,7 @@
   </div>
 
 
-  <div class="generalQuestion question" id="marketingType">
+  <div *ngIf = "isShow" class="generalQuestion question" id="marketingType">
     <h3>Level of Marketing</h3>
 	<p>What type of marketing would you like?</p>
     <form>
@@ -101,7 +88,7 @@
     </form>
   </div>
 
-  <div class="generalQuestion question" id="maskingType">
+  <div *ngIf = "isShow" class="generalQuestion question" id="maskingType">
     <h3>Account Masking</h3>
 	<p> How much of your account number would you like visible? </p>
     <form>
@@ -111,7 +98,7 @@
     </form>
   </div>
 
-  <div class="generalQuestion question" id="scanlineType">
+  <div *ngIf = "isShow" class="generalQuestion question" id="scanlineType">
     <h3>Scanline Option</h3>
     <p>Would you like a scanline included on your statement?</p>
     <form id="messageForm" (ngSubmit)="onSubmit()">

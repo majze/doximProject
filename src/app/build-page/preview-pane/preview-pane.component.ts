@@ -38,7 +38,7 @@ function populateSymitarCC() {
 
 function addGreyScale(){
   for(var i =0; i <9; i++){
-  let divChange:HTMLElement = document.getElementsByClassName("colorImage")[i] as HTMLElement;
+  let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
 
   divChange.classList.add("black_and_white");
   }
@@ -46,7 +46,7 @@ function addGreyScale(){
 
 function removeGreyScale(){
   for(var i =0; i <9; i++){
-    let divChange:HTMLElement = document.getElementsByClassName("colorImage")[i] as HTMLElement;
+    let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
   
     divChange.classList.remove("black_and_white");
     }
