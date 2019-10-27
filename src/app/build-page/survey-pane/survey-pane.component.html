@@ -20,8 +20,8 @@
     <form action="/determine_questionss.php">
       <select (change)="setCore($event)" class="form-control" id="coreType">
         <option value="" disabled selected>Choose a Core...</option>
-        <option value="corelation">Corelation</option>
-        <option value="fiservDNA">FiServDNA</option>
+        <option value="corelation" disabled>Corelation</option>
+        <option value="fiServDNA" disabled>FiServDNA</option>
         <option value="symitar">Symitar</option>
       </select>
     </form>
@@ -44,7 +44,7 @@
     </form>
   </div>
 
-  <div class="generalQuestion question" id="upLoadcustomerLogo">
+  <div class="generalQuestion question red" id="upLoadcustomerLogo">
     <h3>Customer Logo</h3>
     <form>
 	    <label for="uploadLogo">Upload your company logo:</label>
@@ -65,10 +65,10 @@
   <div class="coreQuestion question form-group" id="cclogoSelection">
     <h3>Credit Card Logo</h3>
     <form>
-      <select class="form-control" id="ccLogo">
-        <option value="Mastercard">Visa</option>
-        <option value="Visa">Mastercard</option>
-        <option value="None">No Logo</option>
+      <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
+        <option value="visa">Visa</option>
+        <option value="mastercard">Mastercard</option>
+        <option value="none" selected>No Logo</option>
       </select>
     </form>
   </div>  
@@ -81,13 +81,12 @@
     </form>
   </div>
 
-
-  <div class="generalQuestion question" id="marketingType">
+  <div class="generalQuestion question red" id="marketingType">
     <h3>Level of Marketing</h3>
 	<p>What type of marketing would you like?</p>
     <form>
       <input type="radio" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
-      <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br>
+      <!-- <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br> -->
       <input type="radio" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
       <input type="radio" class="form-radio" name="marketingLevel" value="none">None<br>
       <br>
@@ -98,18 +97,18 @@
     <h3>Account Masking</h3>
 	<p> How much of your account number would you like visible? </p>
     <form>
-      <input type="radio" class="form-radio" name="maskingLevel" value="4numbers" checked>4 Numbers revealed<br>
-      <input type="radio" class="form-radio" name="maskingLevel" value="3 stars">3 Numbers revealed<br>
-      <input type="radio" class="form-radio" name="maskingLevel" value="None">None, all numbers hidden<br>
+      <input type="radio" [(ngModel)]="to4" (change)="setMaskType($event)" name="statementTypeSelection" class="form-radio" name="maskingLevel" value="to4" checked>4 Numbers revealed<br>
+      <input type="radio" [(ngModel)]="to3" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">3 Numbers revealed<br>
+      <input type="radio" selected [(ngModel)]="none" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none">No numbers hidden<br>
     </form>
   </div>
 
   <div class="generalQuestion question" id="scanlineType">
     <h3>Scanline Option</h3>
     <p>Would you like a scanline included on your statement?</p>
-    <form id="messageForm" (ngSubmit)="onSubmit()">
-      <input type="radio" class="form-radio" name="scanlineLevel" value="Yes" checked>Yes<br>
-      <input type="radio" class="form-radio" name="scanlineLevel" value="No">No<br>
+    <form id="messageForm">
+      <input type="radio" [(ngModel)]="yes" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="yes" checked>Yes<br>
+      <input type="radio" [(ngModel)]="no" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="no">No<br>
     </form>
   </div>
 </div>

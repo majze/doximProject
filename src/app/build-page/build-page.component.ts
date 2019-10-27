@@ -11,6 +11,9 @@ export class BuildPageComponent implements OnInit {
   activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
+  activeCClogo: string;
+  activeMaskType: string;
+  activeScanline: string;
 
   @ViewChild(PreviewPaneComponent) child: PreviewPaneComponent;
   
@@ -27,6 +30,9 @@ export class BuildPageComponent implements OnInit {
     this.activeCore = splitted[0];
     this.activeStatementType =  splitted[1];
     this.activeColorMode = splitted[2];
+    this.activeCClogo = splitted[3];
+    this.activeMaskType = splitted[4];
+    this.activeScanline = splitted[5];
     this.writeSurveyToPreview();
   }
 
