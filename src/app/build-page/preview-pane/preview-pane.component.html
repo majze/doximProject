@@ -2,12 +2,14 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
-<button (click)=popSkele()>populateSkeleton</button>
-<button (click)=printPdf()>Generate PDF</button>
+<!-- For dev and testing, will remove soon -->
+<div style="background: url('../../../assets/images/dot-grid.png') repeat; border: 1px solid;">
+  <h3>Development & Debugging buttons</h3>
+  <button (click)=printPdf()>Generate PDF</button>
+  <button (click)=changeCClogo()>Change CC Logo</button>
+</div>
 
-
-<div id= "print" #print>
-<div class="viewPanel">
+<div class="viewPanel" id="print" #print>
   <div class="viewBox">
     <div class="paperContainer">
 
@@ -40,5 +42,3 @@
     </div>
   </div>
 </div>
-</div>
-
