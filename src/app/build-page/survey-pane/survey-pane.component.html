@@ -81,14 +81,14 @@
     </form>
   </div>
 
-  <div class="generalQuestion question red" id="marketingType">
+  <div class="generalQuestion question" id="marketingType">
     <h3>Level of Marketing</h3>
 	<p>What type of marketing would you like?</p>
     <form>
-      <input type="radio" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
+      <input type="radio" [(ngModel)]="imageOnly" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
       <!-- <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br> -->
-      <input type="radio" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
-      <input type="radio" class="form-radio" name="marketingLevel" value="none">None<br>
+      <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
+      <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="none">None<br>
       <br>
     </form>
   </div>

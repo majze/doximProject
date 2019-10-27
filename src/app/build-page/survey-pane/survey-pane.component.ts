@@ -18,6 +18,7 @@ export class SurveyPaneComponent implements OnInit {
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
+  activeMarketingLevel: string;
   
   // output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
@@ -67,6 +68,13 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  setMarketingLevel()
+  {
+    this.activeMarketingLevel = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeMarketingLevel);
+    this.emitSurveyFlags();
+  }
+
   // Any survey option change triggers the emitter
   // Calls (outputSurveyFlags) on build-page.html then readSurveyEmitted() on build-page.ts
   emitSurveyFlags()
@@ -79,6 +87,7 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeCClogo + "|";
     this.combinedFlags += this.activeMaskType + "|";
     this.combinedFlags += this.activeScanline + "|";
+    this.combinedFlags += this.activeMarketingLevel + "|";
     console.log("survey: combinedFlags: ", this.combinedFlags);
     this.outputSurveyFlags.emit(this.combinedFlags);
   }

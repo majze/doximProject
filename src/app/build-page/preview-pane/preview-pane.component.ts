@@ -72,6 +72,7 @@ export class PreviewPaneComponent implements OnInit {
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
+  activeMarketingLevel: string;
 
   constructor(private viewContainerRef: ViewContainerRef) { }
 
@@ -111,6 +112,11 @@ export class PreviewPaneComponent implements OnInit {
     this.activeScanline = this.getParentComponent().activeScanline;
   }
 
+  getMarketing()
+  {
+    this.activeMarketingLevel = this.getParentComponent().activeMarketingLevel;
+  }
+
   getSurveyDataFromBuild()
   {
     this.getCore();
@@ -119,6 +125,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getCClogo();
     this.getMaskType();
     this.getScanline();
+    this.getMarketing();
     // future gets
 
     if (this.activeColorMode == "greyscale")
@@ -140,6 +147,7 @@ export class PreviewPaneComponent implements OnInit {
       this.changeCClogo();
       this.updateMasking();
       this.updateScanline();
+      this.updateMarketing();
     }
     else
     {
@@ -211,13 +219,35 @@ export class PreviewPaneComponent implements OnInit {
   updateScanline()
   {
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-    if (this.activeMaskType == "yes")
+    if (this.activeScanline == "yes")
     {
       scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
     }
-    else if (this.activeMaskType == "no")
+    else if (this.activeScanline == "no")
     {
       scanlineSectionBuffer.style.backgroundImage="";
+    }
+  }
+
+  updateMarketing()
+  {
+    let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
+    let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+
+    if (this.activeMarketingLevel == "imageOnly")
+    {
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+    }
+    else if (this.activeMarketingLevel == "contactInfo")
+    {
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopContactInfo.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithoutContactInfo.png)";
+    }
+    else if (this.activeMarketingLevel == "none")
+    {
+      topGraphicSectionBuffer.style.backgroundImage="";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
     }
   }
 
