@@ -130,7 +130,7 @@ export class PreviewPaneComponent implements OnInit {
 
     if (this.activeColorMode == "greyscale")
     {
-      this.addGS()
+      addGreyScale();
     }
     else
     {
@@ -158,11 +158,6 @@ export class PreviewPaneComponent implements OnInit {
         alert("No assets found for selected core and statementType")
       }
     }
-  }
-
-  addGS()
-  {
-    addGreyScale();
   }
   
   printPdf()
