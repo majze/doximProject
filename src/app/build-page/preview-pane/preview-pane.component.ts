@@ -6,21 +6,16 @@ import html2canvas from 'html2canvas';
 function printPdf() 
 {
   let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
-  viewBoxBuffer.style.border= "none";
+  viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
 
   var data = document.getElementById('print');
   html2canvas(data).then(canvas =>{
-     var imgWidth =200;
-     var pageHeight =275;
-     var imgHeight = canvas.height * imgWidth / canvas.width;
-     var heightLeft = imgHeight;
-     const contentDataURL = canvas.toDataURL('image/png')
-     let pdf = new jspdf('p','mm','letter');
-     var position =0;
-     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-     pdf.save('image.pdf');
+    const contentDataURL = canvas.toDataURL('image/png')
+    let pdf = new jspdf('p','in','letter');
+    // https://artskydj.github.io/jsPDF/docs/module-addImage.html
+    pdf.addImage(contentDataURL, 'PNG', 0, 0, 8.5, 11, "NONE")
+    pdf.save('image.pdf');
     });
-  viewBoxBuffer.style.border= "2px soild";
 }
 
 function populateSymitarCC()
@@ -159,6 +154,8 @@ export class PreviewPaneComponent implements OnInit {
   printPdf()
   {
     printPdf();
+    let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
+    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
   }
 
   changeCClogo()
