@@ -134,3 +134,7 @@ input[type="color"] {
   .question:hover {
     background-color: #009fee6c;
   }
+
+.red {
+  background-color: #c000006c;
+}

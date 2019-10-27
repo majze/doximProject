@@ -11,11 +11,14 @@ export class BuildPageComponent implements OnInit {
   activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
+  activeCClogo: string;
+  activeMaskType: string;
+  activeScanline: string;
+  activeMarketingLevel: string;
 
   @ViewChild(PreviewPaneComponent) child: PreviewPaneComponent;
   
   // @ViewChild("parent", { read: ViewContainerRef }) container: ViewContainerRef;
-  
   
   constructor() {}
 
@@ -27,6 +30,10 @@ export class BuildPageComponent implements OnInit {
     this.activeCore = splitted[0];
     this.activeStatementType =  splitted[1];
     this.activeColorMode = splitted[2];
+    this.activeCClogo = splitted[3];
+    this.activeMaskType = splitted[4];
+    this.activeScanline = splitted[5];
+    this.activeMarketingLevel = splitted[6];
     this.writeSurveyToPreview();
   }
 
