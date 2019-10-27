@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { stringify } from 'querystring';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
+import { PreviewPaneComponent } from './preview-pane/preview-pane.component';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY } from '@angular/cdk/overlay/typings/overlay-directives';
 
 @Component({
   selector: 'app-build-page',
@@ -9,19 +10,34 @@ import { stringify } from 'querystring';
 export class BuildPageComponent implements OnInit {
   activeCore: string;
   activeStatementType: string;
+  activeColorMode: string;
 
-  constructor() { }
+  @ViewChild(PreviewPaneComponent) child: PreviewPaneComponent;
+  
+  // @ViewChild("parent", { read: ViewContainerRef }) container: ViewContainerRef;
+  
+  
+  constructor() {}
 
-  updateFlags(val: string) {
-    // var surveyFlags = val;
-    // var splitted = surveyFlags.split("|");
-    // this.activeCore = splitted[0];
-    // this.activeStatementType =  splitted[1];
-    this.activeStatementType = val;
-    console.log("build page says: ", this.activeStatementType);
+  // Reading events emitted by survey-child component
+  readSurveyEmitted(val){
+    var surveyFlags = val;
+    console.log("build: combinedFlags: ", surveyFlags);
+    var splitted = surveyFlags.split("|");
+    this.activeCore = splitted[0];
+    this.activeStatementType =  splitted[1];
+    this.activeColorMode = splitted[2];
+    this.writeSurveyToPreview();
+  }
+
+  // Sending updates to preview pane
+  writeSurveyToPreview() {
+    console.log("build: calling child.popSkele()");
+    this.child.popSkele();
   }
 
   ngOnInit() {
+    
   }
 
 }

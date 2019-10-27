@@ -11,39 +11,47 @@ import { AngularFirestoreCollection } from '@angular/fire/firestore';
   styleUrls: ['./survey-pane.component.css']
 })
 export class SurveyPaneComponent implements OnInit {
+  combinedFlags: string;
   activeCore: string;
   activeStatementType: string;
+  activeColorMode: string;
   
-  // This part needs to work to send variables to parent!
-  @Output() onSendFlags = new EventEmitter<string>();
-  sendFlags() {
-    //this.onSendFlags.emit(this.activeCore+"|"+this.activeStatementType)
-    this.onSendFlags.emit(this.activeStatementType)
+  // output emitter to build page component html page
+  @Output() outputSurveyFlags = new EventEmitter<string>();
+
+  // function set core from dropdown
+  setCore(event: any) {
+    this.activeCore = event.target.value;
+    console.log("survey: select: ", this.activeCore);
+    this.emitSurveyFlags();
   }
 
-  constructor() {
-    this.activeCore="none";
-   }
-
-  setCore() {
-
-  }
-
+  // function call from survey HTML radio button
   setStatementType() {
-    console.log("value selected: ", (<HTMLInputElement>event.target).value);
-    this.activeStatementType = (<HTMLInputElement>event.target).value; 
+    this.activeStatementType = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeStatementType);
+    this.emitSurveyFlags();
   }
 
-  // temp function for debugging
-  readValue() {
-    console.log("component value: ", this.activeStatementType);
+  // function set color mode from radio button
+  setColorMode() {
+    this.activeColorMode = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeColorMode);
+    this.emitSurveyFlags();
   }
 
-  // getCoreNames(coreName){
-  //   this.firebaseService.getCores(coreName).subscribe(result => {this.items = result;})
-  // }
-
-  ngOnInit() {
+  // Any survey option change triggers the emitter
+  // Calls (outputSurveyFlags) on build-page.html then readSurveyEmitted() on build-page.ts
+  emitSurveyFlags() {
+    console.log("survey: emitting flags to build");
+    this.combinedFlags = "";
+    this.combinedFlags += this.activeCore + "|";
+    this.combinedFlags += this.activeStatementType + "|";
+    this.combinedFlags += this.activeColorMode;
+    console.log("survey: combinedFlags: ", this.combinedFlags);
+    this.outputSurveyFlags.emit(this.combinedFlags);
   }
+
+  ngOnInit() { }
 
 }

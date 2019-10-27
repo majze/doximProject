@@ -1,16 +1,6 @@
 <div class="surveyPanel">
-	<button (click)=readValue()>Debug to console</button>
 	<!-- loadOrder = 1 -->
-	<div class="generalQuestion question" id="upLoadcustomerLogo">
-    <h3>Customer Logo</h3>
-    <form>
-	    <label for="uploadLogo">Upload your company logo:</label>
-     <br>
-      <input type="file" class="form-control-file" id="uploadLogo">
-	  <br>
-	      <!-- add to preview -->
-	</form>
-	</div>
+	
 	
 	 <!--  <div class="generalQuestion question" id="customerColorType">
     <h3>Customer Colors</h3>
@@ -28,11 +18,11 @@
     <h3>Utilized Data Core</h3>
     <p>The three main cores are listed below:</p>
     <form action="/determine_questionss.php">
-      <select class="form-control" id="coreType">
+      <select (change)="setCore($event)" class="form-control" id="coreType">
         <option value="" disabled selected>Choose a Core...</option>
-        <option value="1">Corelation</option>
-        <option value="2">FiServDNA</option>
-        <option value="2">Symitar</option>
+        <option value="corelation">Corelation</option>
+        <option value="fiservDNA">FiServDNA</option>
+        <option value="symitar">Symitar</option>
       </select>
     </form>
   </div>
@@ -54,6 +44,16 @@
     </form>
   </div>
 
+  <div class="generalQuestion question" id="upLoadcustomerLogo">
+    <h3>Customer Logo</h3>
+    <form>
+	    <label for="uploadLogo">Upload your company logo:</label>
+     <br>
+      <input type="file" class="form-control-file" id="uploadLogo">
+	  <br>
+	      <!-- add to preview -->
+	</form>
+	</div>
 	<!-- javascript function to read the answer -->
 	
 	<!-- if value = CreditCard then show div with ID creditCardLogo
@@ -76,8 +76,8 @@
   <div class="generalQuestion question" id="printColorType">
     <h3>Print Color Options</h3>
     <form>
-      <input type="radio" class="form-radio" name="colorType" value="Full Color" checked>Full color<br>
-      <input type="radio" class="form-radio" name="colorType" value="Grayscale">Grayscale<br>
+      <input type="radio" class="form-radio" name="colorType" [(ngModel)]="color" (change)="setColorMode($event)" value="color" checked>Full color<br>
+      <input type="radio" class="form-radio" name="colorType" [(ngModel)]="greyscale" (change)="setColorMode($event)" value="greyscale">Greyscale<br>
     </form>
   </div>
 
