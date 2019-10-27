@@ -24,7 +24,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from '@angular/material';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

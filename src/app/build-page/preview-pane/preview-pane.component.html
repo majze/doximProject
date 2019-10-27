@@ -2,12 +2,10 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
-<button (click)=popSkele()>populateSkeleton</button>
+<!-- For dev and testing, will remove soon -->
 <button (click)=printPdf()>Generate PDF</button>
 
-
-<div id= "print" #print>
-<div class="viewPanel">
+<div class="viewPanel" id="print" #print>
   <div class="viewBox">
     <div class="paperContainer">
 
@@ -40,5 +38,3 @@
     </div>
   </div>
 </div>
-</div>
-
