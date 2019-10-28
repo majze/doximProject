@@ -1,6 +1,4 @@
 <div class="surveyPanel">
-	<!-- loadOrder = 1 -->
-	
 	
 	 <!--  <div class="generalQuestion question" id="customerColorType">
     <h3>Customer Colors</h3>
@@ -27,15 +25,6 @@
     </form>
   </div>
   
-  
-	<!-- javascript function to read the answer  and show statement Type if necessary-->
-	<!-- <script>
-
-		if value = 2,
-		show id statementType
-		else, load all the generalQuestion class questions
-	</script> -->
-  
   <div class="coreQuestion question" id="statementTypeSelection">
     <h3>Billing Statement Type</h3>
     <form>
@@ -43,7 +32,6 @@
       <input type="radio" class="form-radio" [(ngModel)]="creditCard" (change)="setStatementType($event)" name="statementTypeSelection" value="creditCard">Credit Card<br>
     </form>
   </div>
-
 
 <!-- UPLOAD LOGO QUESTION CARD
   <div class="generalQuestion question red" id="upLoadcustomerLogo">
@@ -57,13 +45,6 @@
 	</form>
   </div>
    -->
-
-	
-	<!-- if value = CreditCard then show div with ID creditCardLogo
-			else load all the generalQuestion class questions
-     This is where the conditional from statement type should make the CC logo question appear/vanish -->
-    <!-- If member statement is selected, make this question invisible -->
-
 
   <div class="coreQuestion question form-group" id="cclogoSelection">
     <h3>Credit Card Logo</h3>

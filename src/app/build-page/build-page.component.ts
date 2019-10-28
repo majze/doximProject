@@ -18,8 +18,6 @@ export class BuildPageComponent implements OnInit {
 
   @ViewChild(PreviewPaneComponent) child: PreviewPaneComponent;
   
-  // @ViewChild("parent", { read: ViewContainerRef }) container: ViewContainerRef;
-  
   constructor() {}
 
   // Reading events emitted by survey-child component
