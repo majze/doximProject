@@ -5,7 +5,9 @@
 .a {
   position: fixed;
   overflow-y: scroll;
-  top: 60px;
+  /* For Prototype 2 */
+  top: 25px;
+  /* top: 60px; */
   bottom: 0;
   margin-left: -200px;
   max-width: 420px;
@@ -14,7 +16,9 @@
 .b {
   position: fixed;
   overflow-y: scroll;
-  top: 60px;
+  /* For Prototype 2 */
+  top: 25px;
+  /* top: 60px; */
   bottom: 0;
   margin-left: 240px;
   margin-top: 10px;

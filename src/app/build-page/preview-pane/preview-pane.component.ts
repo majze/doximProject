@@ -138,12 +138,24 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  updateAlert()
+  {
+    try {
+      let alertBuffer :HTMLElement = document.getElementsByClassName("alert-primary")[0] as HTMLElement; 
+      alertBuffer.textContent="whatever";
+    }
+    catch {
+      console.log("alertBuffer missing, alertBox missing")
+    }
+  }
+
   popSkele()
   {
     this.getSurveyDataFromBuild()
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard')
     {
       populateSymitarCC();
+      this.updateAlert();
       this.changeCClogo();
       this.updateMasking();
       this.updateScanline();
