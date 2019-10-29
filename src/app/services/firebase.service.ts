@@ -8,6 +8,15 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore) {}
 
+  getUsers(username, password){ 
+    return this.db.collection('users',ref => ref.where("username", "==", username)
+    .where("password", "==", password)).snapshotChanges();
+   }
+
+  getCores(coreName){
+    return this.db.collection('cores').snapshotChanges();
+  }
+
   // getAvatars(){
   //     return this.db.collection('/avatar').valueChanges()
   // }
@@ -25,6 +34,7 @@ export class FirebaseService {
   //   return this.db.collection('users').doc(userKey).delete();
   // }
 
+<<<<<<< HEAD
   getUsers(username, password){ 
    // this.db.collection('users',ref => ref.where("username", "==", "admin").where("password", "==", "password"))
    // this.db.collection('users',ref => ref.where("username", "==", "sales").where("password", "==", "doxim"))
@@ -48,6 +58,8 @@ export class FirebaseService {
     }
 
 
+=======
+>>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
   // searchUsers(searchValue){
   //   return this.db.collect5ion('users',ref => ref.where('nameToSearch', '>=', searchValue)
   //     .where('nameToSearch', '<=', searchValue + '\uf8ff'))

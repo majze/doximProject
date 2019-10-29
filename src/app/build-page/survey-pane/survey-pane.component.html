@@ -1,4 +1,5 @@
 <div class="surveyPanel">
+<<<<<<< HEAD
 	
 	<!-- loadOrder = 1 -->
 	
@@ -41,9 +42,49 @@
 
     </form>
    
+=======
+  
+<!--  
+  <div class="question" id="customerColorType">
+  <h3>Customer Colors</h3>
+  <form>
+    <p>Choose your company color:</p>
+    <form action="/action_page.php">
+      <input type="color" name="favcolor" value="#ff0000">
+    </form>
+  <br>
+  </form>
+</div>
+-->
+  
+	<div class="card" style="margin:8px;">
+    <div class="question form-group" id="coreSelection">
+      <h3>Utilized Data Core</h3>
+      <p>The three main cores are listed below:</p>
+      <form action="/determine_questionss.php">
+        <select (change)="setCore($event)" class="form-control" id="coreType">
+          <option value="" disabled selected>Choose a Core...</option>
+          <option value="corelation" disabled>Corelation</option>
+          <option value="fiServDNA" disabled>FiServDNA</option>
+          <option value="symitar">Symitar</option>
+        </select>
+      </form>
+    </div>
+  </div>
+  
+  <div class="card" style="margin:8px;">
+    <div class="question" id="statementTypeSelection">
+      <h3>Billing Statement Type</h3>
+      <form>
+        <input type="radio" class="form-radio" [(ngModel)]="account" (change)="setStatementType($event)" name="statementTypeSelection" value="account">Account<br>
+        <input type="radio" class="form-radio" [(ngModel)]="creditCard" (change)="setStatementType($event)" name="statementTypeSelection" value="creditCard">Credit Card<br>
+      </form>
+    </div>
+>>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
   </div>
   <script>toggleStatement()</script>
 
+<<<<<<< HEAD
     <div *ngIf = "isShow" class="generalQuestion question" id="upLoadcustomerLogo">
       <h3>Customer Logo</h3>
       <form>
@@ -105,5 +146,79 @@
       <input type="radio" class="form-radio" name="scanlineLevel" value="Yes" checked>Yes<br>
       <input type="radio" class="form-radio" name="scanlineLevel" value="No">No<br>
     </form>
+=======
+  <!-- UPLOAD LOGO -->
+  <div class="card" style="margin:8px;">
+    <div class="question red" id="upLoadcustomerLogo">
+      <h3>Customer Logo</h3>
+      <form>
+  	    <label for="uploadLogo">Upload your company logo:</label>
+       <br>
+        <input type="file" class="form-control-file" id="uploadLogo">
+  	  <br>
+  	  </form>
+    </div>
   </div>
+
+  <div class="card" style="margin:8px;">
+    <div class="question form-group" id="cclogoSelection">
+      <h3>Credit Card Logo</h3>
+      <form>
+        <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
+          <option value="visa">Visa</option>
+          <option value="mastercard">Mastercard</option>
+          <option value="none" selected>No Logo</option>
+        </select>
+      </form>
+    </div>  
+  </div>
+  
+  <div  class="card" style="margin:8px;">
+    <div class="question" id="printColorType">
+      <h3>Print Color Options</h3>
+      <form>
+        <input type="radio" class="form-radio" name="colorType" [(ngModel)]="color" (change)="setColorMode($event)" value="color" checked>Full color<br>
+        <input type="radio" class="form-radio" name="colorType" [(ngModel)]="greyscale" (change)="setColorMode($event)" value="greyscale">Greyscale<br>
+      </form>
+    </div>
+  </div>
+
+  <div class="card" style="margin:8px;">
+    <div class="question" id="marketingType">
+      <h3>Level of Marketing</h3>
+  	  <p>What type of marketing would you like?</p>
+      <form>
+        <input type="radio" [(ngModel)]="imageOnly" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
+        <!-- <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br> -->
+        <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
+        <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="none">None<br>
+        <br>
+      </form>
+    </div>
+  </div>
+
+  <div class="card" style="margin:8px;">
+    <div class="question" id="maskingType">
+      <h3>Account Masking</h3>
+  	<p> How much of your account number would you like visible? </p>
+      <form>
+        <input type="radio" [(ngModel)]="to4" (change)="setMaskType($event)" name="statementTypeSelection" class="form-radio" name="maskingLevel" value="to4" checked>4 Numbers revealed<br>
+        <input type="radio" [(ngModel)]="to3" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">3 Numbers revealed<br>
+        <input type="radio" selected [(ngModel)]="none" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none">No numbers hidden<br>
+      </form>
+    </div>
+  </div>
+
+  <div class="card" style="margin:8px;">
+    <div class="question" id="scanlineType">
+      <h3>Scanline Option</h3>
+      <p>Would you like a scanline included on your statement?</p>
+      <form id="messageForm">
+        <input type="radio" [(ngModel)]="yes" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="yes" checked>Yes<br>
+        <input type="radio" [(ngModel)]="no" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="no">No<br>
+      </form>
+    </div>
+>>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
+  </div>
+
 </div>
