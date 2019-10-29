@@ -1,7 +1,8 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
 import * as jsPDF from 'jspdf';
-
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { BuildPageComponent } from '../build-page.component';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 function exportPDF() {
   // jsfiddle stuff here
@@ -10,38 +11,6 @@ function exportPDF() {
   doc.text('hello',15, 15);
   doc.save('first.pdf');
 }
-
-function populateSymitarCC() {
-  let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-  logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/defaultLogo.png)";
-
-  let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
-  addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/address.png)";
-  
-  let ccLogoSectionBuffer:HTMLElement = document.getElementsByClassName("ccLogoSection")[0] as HTMLElement;
-  ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccVisaLogo.png)";
-
-  let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-  headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
-
-  let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-  topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
-
-  let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
-  ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
-
-  let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
-  couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymCoupon.png)";
-
-  let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-  scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
-}
-=======
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { BuildPageComponent } from '../build-page.component';
-import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
->>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
 
 function addGreyScale(){
   for(var i =0; i <9; i++){
@@ -178,20 +147,6 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-
-  addGS(){
-    addGreyScale();
-  }
-
-  removeGS(){
-    removeGreyScale();
-  }
-
-  popSkele(){
-    if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard') {
-      populateSymitarCC();
-=======
   popSkele()
   {
     this.getSurveyDataFromBuild()
@@ -203,7 +158,6 @@ export class PreviewPaneComponent implements OnInit {
       this.updateMasking();
       this.updateScanline();
       this.updateMarketing();
->>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
     }
     else
     {

@@ -18,35 +18,6 @@ function getCoreType(){
   styleUrls: ['./survey-pane.component.css']
 })
 export class SurveyPaneComponent implements OnInit {
-<<<<<<< HEAD
-    messageForm: FormGroup;
-    items: Array<any>;
-    isShow = false;
-    showStatement = false;
-    showCC = false;
-
-    toggleDisplay(){
-      this.isShow = !this.isShow;
-    }
-
-    toggleStatement(){
-      if(getCoreType() != "0"){
-      this.isShow = true;
-      }
-      else{
-        this.toggleDisplay;
-      }
-    }
-
-    toggleCredit(){
-      this.toggleDisplay();
-
-    }
-    toggleSurvey(){
-      this.toggleDisplay();
-
-    }
-=======
   combinedFlags: string;
   activeCore: string;
   activeStatementType: string;
@@ -58,7 +29,37 @@ export class SurveyPaneComponent implements OnInit {
   
   // output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
->>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
+
+  showSurvey()
+   {
+    
+    if ((this.activeCore != '0') && (this.activeStatementType ==('creditCard' || 'account'))) 
+    {
+
+       for(var i =0; i<10; i++)
+      {
+        let hiddenCard:HTMLElement = document.getElementsByClassName("card")[i] as HTMLElement;
+        hiddenCard.classList.remove("hideThisDiv");
+      } 
+    }
+  }
+
+  showHideCCQ() {
+    this.activeStatementType = (<HTMLInputElement>event.target).value;
+    let creditLogoQ: HTMLElement = document.getElementById("cclogoSelection") as HTMLElement;
+
+    if (this.activeStatementType == "creditCard") {
+      creditLogoQ.removeAttribute('style');
+    }
+
+    else if (this.activeStatementType != "creditCard") {
+      creditLogoQ.style.display = "none";
+    }
+
+  }
+
+
+
 
   // function set core from dropdown
   setCore(event: any)
@@ -76,13 +77,6 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
-<<<<<<< HEAD
-  /* getCoreNames(coreName){
-    this.firebaseService.getCores(coreName).subscribe(result => {this.items = result;})
-  } */
-
- ngOnInit() {
-=======
   // function set color mode from radio button
   setColorMode()
   {
@@ -96,7 +90,6 @@ export class SurveyPaneComponent implements OnInit {
     this.activeCClogo = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeCClogo);
     this.emitSurveyFlags();
->>>>>>> 3a0963871e3df701cfa41c0087e9210f4e8a5cb5
   }
 
   setMaskType()

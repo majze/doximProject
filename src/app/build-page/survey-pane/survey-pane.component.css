@@ -98,10 +98,17 @@ input[type="color"] {
   margin: 10px;
 }
 
+.card{
+  margin:8px
+}
 .card:hover {
   background-color: #85d5fd;
 }
 
 .red {
   background-color: #c000006c;
+}
+
+.hideThisDiv{
+  display: none;
 }
