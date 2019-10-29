@@ -1,64 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild, Input, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildPageComponent } from '../build-page.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-
-function populateSymitarCC()
-{
-  let paperContainerBuffer:HTMLElement = document.getElementsByClassName("paperContainer")[0] as HTMLElement;
-  paperContainerBuffer.style.border="none";
-
-  let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-  logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/defaultLogo.png)";
-
-  let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
-  addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/address.png)";
-  
-  // let ccLogoSectionBuffer:HTMLElement = document.getElementsByClassName("ccLogoSection")[0] as HTMLElement;
-  // ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccVisaLogo.png)";
-
-  let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-  headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
-
-  let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-  topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
-
-  let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
-  ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
-
-  let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
-  couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymCoupon.png)";
-
-  let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-  scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
-}
-
-function unpopulateSkeleton()
-{
-  for(var i =0; i <10; i++)
-  {
-    let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-    divChange.style.backgroundImage="";
-  }
-}
-
-function addGreyScale()
-{
-  for(var i =0; i <10; i++)
-  {
-    let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-    divChange.classList.add("black_and_white");
-  }
-}
-
-function removeGreyScale()
-{
-  for(var i =0; i <10; i++)
-  {
-    let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-    divChange.classList.remove("black_and_white");
-  }
-}
 
 @Component({
   selector: 'app-preview-pane',
@@ -74,9 +17,10 @@ export class PreviewPaneComponent implements OnInit {
   activeScanline: string;
   activeMarketingLevel: string;
 
+  // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
 
-  // Any call to this function gets the build-page variables
+  // Any call to this function gets the build-page (parent) variables
   getParentComponent(): BuildPageComponent
   {
     return this.viewContainerRef[ '_data' ].componentView.component.viewContainerRef[ '_view' ].component
@@ -130,11 +74,49 @@ export class PreviewPaneComponent implements OnInit {
 
     if (this.activeColorMode == "greyscale")
     {
-      addGreyScale();
+      this.addGreyScale();
     }
     else
     {
-      removeGreyScale();
+      this.removeGreyScale();
+    }
+  }
+
+  unpopulateSkeleton()
+  {
+    for(var i =0; i <10; i++)
+    {
+      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+      divChange.style.backgroundImage="";
+    }
+  }
+
+  addGreyScale()
+  {
+    for(var i =0; i <10; i++)
+    {
+      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+      divChange.classList.add("black_and_white");
+    }
+  }
+
+  removeGreyScale()
+  {
+    for(var i =0; i <10; i++)
+    {
+      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+      divChange.classList.remove("black_and_white");
+    }
+  }
+
+  updateAlert()
+  {
+    try {
+      let alertBuffer :HTMLElement = document.getElementsByClassName("alert-primary")[0] as HTMLElement; 
+      alertBuffer.textContent="whatever";
+    }
+    catch {
+      console.log("alertBuffer missing, alertBox missing")
     }
   }
 
@@ -143,7 +125,8 @@ export class PreviewPaneComponent implements OnInit {
     this.getSurveyDataFromBuild()
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard')
     {
-      populateSymitarCC();
+      this.populateSymitarCC();
+      this.updateAlert();
       this.changeCClogo();
       this.updateMasking();
       this.updateScanline();
@@ -154,10 +137,37 @@ export class PreviewPaneComponent implements OnInit {
       if (this.activeCore != "undefined" && this.activeStatementType != "undefined")
       {
         console.log("preview: popSkele: Assets not loaded, core and statementType mismatch")
-        unpopulateSkeleton();
+        this.unpopulateSkeleton();
         alert("No assets found for selected core and statementType")
       }
     }
+  }
+
+  populateSymitarCC()
+  {
+    let paperContainerBuffer:HTMLElement = document.getElementsByClassName("paperContainer")[0] as HTMLElement;
+    paperContainerBuffer.style.border="none";
+
+    let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/defaultLogo.png)";
+
+    let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
+    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/address.png)";
+    
+    let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
+    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
+
+    let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
+    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
+
+    let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+
+    let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
+    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymCoupon.png)";
+
+    let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
+    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
   }
   
   printPdf()
@@ -173,7 +183,6 @@ export class PreviewPaneComponent implements OnInit {
       pdf.addImage(contentDataURL, 'PNG', 0, 0, 8.5, 11, "NONE")
       pdf.save('image.pdf');
     });
-    //let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
     viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
   }
 

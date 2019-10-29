@@ -18,12 +18,6 @@ export class LoginPageComponent implements OnInit {
     fail = false;
     items: Array<any>;
     docid: string;
-    
-    // DON
-    // Yo the live update code example
-    loginForm = new FormControl('');
-
-    /*  constructor(private router: Router, private formBuilder: FormBuilder) { */
 
     constructor(private formBuilder: FormBuilder, public firebaseService: FirebaseService, private router: Router) {
         this.messageForm = this.formBuilder.group({
@@ -69,30 +63,7 @@ export class LoginPageComponent implements OnInit {
                 this.submitted = true;
                 this.success = false;
             }
-            // if (typeof this.items === "undefined") {
-            //     console.log("undefined: false");
-            //     this.fail = true;
-            //     this.submitted = true;
-            //     this.success = false;
-            // }
-            // else {
-            //     console.log("defined: true");
-            //     this.fail = false;
-            //     this.submitted = true;
-            //     this.success = true;
-            //     this.nextPage();
-            // }
-            // console.log(this.items);
         });
-       // .subscribe(result => this.nextPage(result[0].payload.doc.id));
-    
-        
-        //.subscribe(result => this.nextPage(result[0].payload.doc.id));
-
-        // this.firebaseService.getUsers(username, password)
-        // .subscribe(result => {
-        // this.items = result;
-        // })
     }
 
     refreshSubmit() {
