@@ -2,16 +2,10 @@
   max-width: 1920px;
 }
 
-.center {
-  margin: 0 auto;
-}
-
 .a {
   position: fixed;
   overflow-y: scroll;
-  /* For Prototype 2 */
-  top: 35px;
-  /* top: 60px; */
+  top: 40px;
   bottom: 0;
   margin-left: -120px;
   max-width: 420px;
@@ -20,9 +14,7 @@
 .b {
   position: fixed;
   overflow-y: scroll;
-  /* For Prototype 2 */
-  top: 35px;
-  /* top: 60px; */
+  top: 40px;
   bottom: 0;
   margin-left: 330px;
   margin-top: 10px;
