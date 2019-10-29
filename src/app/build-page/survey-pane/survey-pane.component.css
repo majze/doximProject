@@ -99,7 +99,7 @@ input[type="color"] {
 }
 
 .card{
-  margin:8px
+  margin:8px;
 }
 .card:hover {
   background-color: #85d5fd;
