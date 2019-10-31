@@ -10,7 +10,6 @@
   margin-top: 42px;
   border: 2px solid;
   background-color: white;
-  /* background: #fff url("../../../assets/images/dot-grid.png") repeat; */
 }
 
 .paperContainer {
@@ -20,7 +19,6 @@
   margin-top: 25px;
   margin-right: 50px;
   margin-left: 50px;
-  border: 1px solid rgba(255, 0, 0, 0.1);
   background-color: white;
 }
 
@@ -34,7 +32,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  /* border: 1px solid rgba(0, 0, 255, 0.1); */
 }
 
 /* Greyscale Class*/
@@ -52,7 +49,6 @@
 
 .gridTopContainer {
   width: 100%; height: calc(100% - (1075px - 300px));
-  /* border: 1px solid rgba(0, 255, 0, 0.1); */
 }
 
 .gridTopContainer::after {
@@ -115,7 +111,7 @@
 
 .gridMidContainer {
   width: 100%; height: calc(100% - (1075px - 375px));
-  /* border: 1px solid rgba(0, 255, 0, 0.1); */
+  background-image: url("../../../assets/shared/MidBlank.png");
 }
 
 .gridMidContainer::after {
@@ -131,7 +127,6 @@
 
 .gridBotContainer {
   width: 100%; height: calc(100% - (1075px - 400px));
-  /* border: 1px solid rgba(0, 255, 0, 0.1); */
 }
 
 .gridBotContainer::after {
@@ -146,4 +141,5 @@
 .scanlineSection {
   line-height: 50px;
   width: 100%; height: 12.5%;
+  background-position: top;
 }

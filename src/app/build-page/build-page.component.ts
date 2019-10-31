@@ -8,17 +8,24 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY } from '@angular/cdk/overlay/typi
   styleUrls: ['./build-page.component.css']
 })
 export class BuildPageComponent implements OnInit {
-  activeCore: string;
+  combinedFlags: string;
+  activeCore: string = null;
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
+  activeOnsert: boolean;
+  activeTransactionsMode: boolean;
+  activeWhitespaceMode: boolean;
+  activeJointOwners: boolean;
+  activeTYDMode: boolean;
+  activeRewardsType: string;
+  activeOutboundEnvelope: string;
+  activeReplyEnvelope: string;
 
   @ViewChild(PreviewPaneComponent) child: PreviewPaneComponent;
-  
-  // @ViewChild("parent", { read: ViewContainerRef }) container: ViewContainerRef;
   
   constructor() {}
 

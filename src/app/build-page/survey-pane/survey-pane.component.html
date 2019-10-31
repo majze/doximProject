@@ -1,114 +1,250 @@
 <div class="surveyPanel">
-	<!-- loadOrder = 1 -->
-	
-	
-	 <!--  <div class="generalQuestion question" id="customerColorType">
-    <h3>Customer Colors</h3>
-    <form>
-	
-	<p>Choose your company color:</p>
-      <form action="/action_page.php">
+
+  <!--  
+  <div class="question" id="customerColorType">
+  <h3>Customer Colors</h3>
+  <form>
+    <p>Choose your company color:</p>
+    <form action="/action_page.php">
       <input type="color" name="favcolor" value="#ff0000">
     </form>
-	<br>
-	</form>
-	</div> -->
-	
-  <div class="coreQuestion question form-group" id="coreSelection">
-    <h3>Utilized Data Core</h3>
-    <p>The three main cores are listed below:</p>
-    <form action="/determine_questionss.php">
-      <select (change)="setCore($event)" class="form-control" id="coreType">
-        <option value="" disabled selected>Choose a Core...</option>
-        <option value="corelation" disabled>Corelation</option>
-        <option value="fiServDNA" disabled>FiServDNA</option>
-        <option value="symitar">Symitar</option>
-      </select>
-    </form>
-  </div>
-  
-  
-	<!-- javascript function to read the answer  and show statement Type if necessary-->
-	<!-- <script>
+  <br>
+  </form>
+</div>
+-->
 
-		if value = 2,
-		show id statementType
-		else, load all the generalQuestion class questions
-	</script> -->
-  
-  <div class="coreQuestion question" id="statementTypeSelection">
-    <h3>Billing Statement Type</h3>
-    <form>
-      <input type="radio" class="form-radio" [(ngModel)]="account" (change)="setStatementType($event)" name="statementTypeSelection" value="account">Account<br>
-      <input type="radio" class="form-radio" [(ngModel)]="creditCard" (change)="setStatementType($event)" name="statementTypeSelection" value="creditCard">Credit Card<br>
-    </form>
+
+  <!--1st question: Choose your core-->
+  <div class="card">
+    <div class="question form-group" id="coreSelection">
+      <h3>Utilized Data Core</h3>
+      <p>The three main cores are listed below:</p>
+      <form action="/determine_questionss.php">
+        <select (change)="setCore($event)" (change)="showSurvey($event)" class="form-control" id="coreType">
+          <option value="0" disabled selected>Choose a Core...</option>
+          <option value="corelation" disabled>Corelation</option>
+          <option value="fiServDNA" disabled>FiServDNA</option>
+          <option value="symitar">Symitar</option>
+        </select>
+      </form>
+    </div>
   </div>
 
-  <div class="generalQuestion question red" id="upLoadcustomerLogo">
-    <h3>Customer Logo</h3>
-    <form>
-	    <label for="uploadLogo">Upload your company logo:</label>
-     <br>
-      <input type="file" class="form-control-file" id="uploadLogo">
-	  <br>
-	      <!-- add to preview -->
-	</form>
-	</div>
-	<!-- javascript function to read the answer -->
-	
-	<!-- if value = CreditCard then show div with ID creditCardLogo
-			else load all the generalQuestion class questions
-     This is where the conditional from statement type should make the CC logo question appear/vanish -->
-    <!-- If member statement is selected, make this question invisible -->
-
-
-  <div class="coreQuestion question form-group" id="cclogoSelection">
-    <h3>Credit Card Logo</h3>
-    <form>
-      <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
-        <option value="visa">Visa</option>
-        <option value="mastercard">Mastercard</option>
-        <option value="none" selected>No Logo</option>
-      </select>
-    </form>
-  </div>  
-  
-  <div class="generalQuestion question" id="printColorType">
-    <h3>Print Color Options</h3>
-    <form>
-      <input type="radio" class="form-radio" name="colorType" [(ngModel)]="color" (change)="setColorMode($event)" value="color" checked>Full color<br>
-      <input type="radio" class="form-radio" name="colorType" [(ngModel)]="greyscale" (change)="setColorMode($event)" value="greyscale">Greyscale<br>
-    </form>
+  <!--2nd question: Choose your statement type-->
+  <div class="card">
+    <div class="question" id="statementTypeSelection">
+      <h3>Billing Statement Type</h3>
+      <form>
+        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showHideCCQ($event)"
+          (change)="showSurvey($event)" name="statementTypeSelection" value="account">Account<br>
+        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showHideCCQ($event)"
+          (change)="showSurvey($event)" name="statementTypeSelection" value="creditCard">Credit Card<br>
+      </form>
+    </div>
   </div>
 
-  <div class="generalQuestion question" id="marketingType">
-    <h3>Level of Marketing</h3>
-	<p>What type of marketing would you like?</p>
-    <form>
-      <input type="radio" [(ngModel)]="imageOnly" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
-      <!-- <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br> -->
-      <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
-      <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="none">None<br>
-      <br>
-    </form>
+  <!--3rd question: Choose a credit card logo if cc statement-->
+  <div class="card hideThisDiv" id="borderFix">
+    <div class="question form-group" id="cclogoSelection" style="display:none">
+      <h3>Credit Card Logo</h3>
+      <form>
+        <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
+          <option value="visa">Visa</option>
+          <option value="mastercard">Mastercard</option>
+          <option value="none" selected>No Logo</option>
+        </select>
+      </form>
+    </div>
   </div>
 
-  <div class="generalQuestion question" id="maskingType">
-    <h3>Account Masking</h3>
-	<p> How much of your account number would you like visible? </p>
-    <form>
-      <input type="radio" [(ngModel)]="to4" (change)="setMaskType($event)" name="statementTypeSelection" class="form-radio" name="maskingLevel" value="to4" checked>4 Numbers revealed<br>
-      <input type="radio" [(ngModel)]="to3" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">3 Numbers revealed<br>
-      <input type="radio" selected [(ngModel)]="none" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none">No numbers hidden<br>
-    </form>
+
+  <!--4th question: Upload a company logo-->
+  <!-- UPLOAD LOGO -->
+  <div class="card hideThisDiv">
+    <div class="question red" id="upLoadcustomerLogo">
+      <h3>Customer Logo</h3>
+      <form>
+        <label for="uploadLogo">Upload your company logo:</label>
+        <br>
+        <input type="file" class="form-control-file" id="uploadLogo">
+        <br>
+      </form>
+    </div>
   </div>
 
-  <div class="generalQuestion question" id="scanlineType">
-    <h3>Scanline Option</h3>
-    <p>Would you like a scanline included on your statement?</p>
-    <form id="messageForm">
-      <input type="radio" [(ngModel)]="yes" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="yes" checked>Yes<br>
-      <input type="radio" [(ngModel)]="no" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="no">No<br>
-    </form>
+
+  <!--5th question: Choose color or greyscale statement-->
+  <div class="card hideThisDiv">
+    <div class="question" id="printColorType">
+      <h3>Print Color Options</h3>
+      <form>
+        <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
+          checked>Full color<br>
+        <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
+          value="greyscale">Greyscale<br>
+      </form>
+    </div>
   </div>
+
+  <!--6th question: Choose the level of marketing-->
+  <div class="card hideThisDiv">
+    <div class="question" id="marketingType">
+      <h3>Level of Marketing</h3>
+      <p>What type of marketing would you like?</p>
+      <form>
+        <input type="radio" [(ngModel)]="imageOnly" (change)="setMarketingLevel($event)" class="form-radio"
+          name="marketingLevel" value="imageOnly" checked>Image<br>
+        <!-- <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br> -->
+        <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio"
+          name="marketingLevel" value="contactInfo">Contact Info<br>
+        <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio"
+          name="marketingLevel" value="none">None<br>
+        <br>
+      </form>
+    </div>
+  </div>
+
+  <!--7th question: Choose the account masking style-->
+  <div class="card hideThisDiv">
+    <div class="question" id="maskingType">
+      <h3>Account Masking</h3>
+      <p> How much of your account number would you like visible? </p>
+      <form>
+        <input type="radio" (change)="setMaskType($event)" class="form-radio"
+          name="maskingLevel" value="to4" checked>4 Numbers revealed<br>
+        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
+          value="to3">3 Numbers revealed<br>
+        <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
+          value="none">No numbers hidden<br>
+      </form>
+    </div>
+  </div>
+
+  <!--8th question: Choose to include a scanline or not-->
+  <div class="card hideThisDiv">
+    <div class="question" id="scanlineType">
+      <h3>Scanline Option</h3>
+      <p>Would you like a scanline included on your statement?</p>
+      <form>
+        <input type="radio" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="yes"
+          checked>Yes<br>
+        <input type="radio" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="no">No<br>
+      </form>
+    </div>
+  </div>
+
+  <!--9th question: Choose to include an onsert (company marketing image) or not-->
+  <div class="card hideThisDiv">
+    <div class="question" id="onsertType">
+      <h3>Onsert Option</h3>
+      <p>Would you like an onsert included on your statement?</p>
+      <form>
+        <input type="radio" (change)="setOnsert($event)" class="form-radio" name="onsertLevel" value="yes"
+          checked>Yes<br>
+        <input type="radio" (change)="setOnsert($event)" class="form-radio" name="onsertLevel" value="no">No<br>
+      </form>
+    </div>
+  </div>
+
+  <!--10th question: Choose to the type of detail with the transaction summaries-->
+  <div class="card hideThisDiv">
+    <div class="question" id="transactionSummaryType">
+      <h3>Transcation Option</h3>
+      <p>How would you like your transaction details displayed on your summary?</p>
+      <form>
+        <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+          value="yes">Yes<br>
+        <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+          value="no">No<br>
+      </form>
+    </div>
+  </div>
+
+  <!--11th question: 2nd page whitespace management-->
+  <div class="card hideThisDiv">
+    <div class="question" id="whitespaceType">
+      <h3>Whitespace Option</h3>
+      <p>Would you like an image to fill your whitespace?</p>
+      <form>
+        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
+          checked>Yes<br>
+        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No<br>
+      </form>
+    </div>
+  </div>
+
+  <!--12th question: joint owner information-->
+  <div class="card hideThisDiv">
+    <div class="question" id="jointOwnerType">
+      <h3>Joint Owner Option</h3>
+      <p>Are there joint owners on the account?</p>
+      <form>
+        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="yes"
+          checked>Yes<br>
+        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="no">No<br>
+      </form>
+    </div>
+  </div>
+
+  <!--13th question: Year-to-date totals information-->
+  <div class="card hideThisDiv">
+    <div class="question" id="YTDType">
+      <h3>Year-to-Date Totals Option</h3>
+      <p>Would you like to include previous years YTD summary?</p>
+      <form>
+        <input type="radio" (change)="setYTDr($event)" class="form-radio" name="YTDLevel" value="yes" checked>Yes<br>
+        <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="no">No<br>
+      </form>
+    </div>
+  </div>
+
+  <!--14th question: Rewards information-->
+  <div class="card hideThisDiv">
+    <div class="question" id="rewardsType">
+      <h3>Rewards and Cashback Option</h3>
+      <p>Would you like to include your rewards or cashback summary?</p>
+      <form>
+        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="rewards"
+          checked>Rewards<br>
+        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel"
+          value="cashback">Cashback<br>
+        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="none">None<br>
+      </form>
+    </div>
+  </div>
+
+  <!--15th question: Outbound envelope type information-->
+  <div class="card hideThisDiv">
+    <div class="question" id="outboundEnvelopeType">
+      <h3>Outbound Envelope Options</h3>
+      <p>Choose your outbound envelope type.</p>
+      <form>
+        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel" value="1"
+          checked>1<br>
+        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel" value="2">2<br>
+        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel" value="3">3<br>
+        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel" value="4">4<br>
+      </form>
+    </div>
+  </div>
+
+  <!--16th question: Reply envelope type information-->
+  <div class="card hideThisDiv">
+    <div class="question" id="replyEnvelopeType">
+      <h3>Reply Envelope Options</h3>
+      <p>Choose your reply envelope type.</p>
+      <form>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="1" checked>1<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="2">2<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="3">3<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="4">4<br>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
 </div>

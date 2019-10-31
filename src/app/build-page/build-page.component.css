@@ -5,18 +5,18 @@
 .a {
   position: fixed;
   overflow-y: scroll;
-  top: 60px;
+  top: 40px;
   bottom: 0;
-  margin-left: -200px;
+  margin-left: -120px;
   max-width: 420px;
 }
 
 .b {
   position: fixed;
   overflow-y: scroll;
-  top: 60px;
+  top: 40px;
   bottom: 0;
-  margin-left: 240px;
+  margin-left: 330px;
   margin-top: 10px;
   max-width: 900px;
 }
