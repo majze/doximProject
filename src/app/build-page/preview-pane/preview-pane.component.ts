@@ -1,34 +1,7 @@
-import * as jsPDF from 'jspdf';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildPageComponent } from '../build-page.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-
-function exportPDF() {
-  // jsfiddle stuff here
-  console.log("Exporting PDF")
-  const doc = new jsPDF();
-  doc.text('hello',15, 15);
-  doc.save('first.pdf');
-}
-
-function addGreyScale(){
-  for(var i =0; i <9; i++){
-  let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-
-  divChange.classList.add("black_and_white");
-  }
-}
-
-function removeGreyScale(){
-  for(var i =0; i <9; i++){
-    let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-  
-    divChange.classList.remove("black_and_white");
-    }
-}
-
-
 
 @Component({
   selector: 'app-preview-pane',
@@ -36,13 +9,22 @@ function removeGreyScale(){
   styleUrls: ['./preview-pane.component.css']
 })
 export class PreviewPaneComponent implements OnInit {
-  activeCore: string;
+  combinedFlags: string;
+  activeCore: string = null;
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
+  activeOnsert: boolean;
+  activeTransactionsMode: boolean;
+  activeWhitespaceMode: boolean;
+  activeJointOwners: boolean;
+  activeTYDMode: boolean;
+  activeRewardsType: string;
+  activeOutboundEnvelope: string;
+  activeReplyEnvelope: string;
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
@@ -86,6 +68,46 @@ export class PreviewPaneComponent implements OnInit {
   getMarketing()
   {
     this.activeMarketingLevel = this.getParentComponent().activeMarketingLevel;
+  }
+
+  getOnsert()
+  {
+
+  }
+
+  getTransactionMode()
+  {
+
+  }
+
+  getWhitespaceMode()
+  {
+
+  }
+
+  getJointOwners()
+  {
+
+  }
+
+  getTYDMode()
+  {
+
+  }
+
+  getRewardsType()
+  {
+
+  }
+
+  getOutboundEnvelope()
+  {
+
+  }
+
+  getReplyEnvelope()
+  {
+    
   }
 
   getSurveyDataFromBuild()
@@ -147,6 +169,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Determines how to populate the viewBox divs using the activeStatementType and activeCore variables
   popSkele()
   {
     this.getSurveyDataFromBuild()
@@ -170,6 +193,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Populates the viewBox div with all default assets that are of type creditCard AND symitar
   populateSymitarCC()
   {
     let paperContainerBuffer:HTMLElement = document.getElementsByClassName("paperContainer")[0] as HTMLElement;
@@ -197,6 +221,7 @@ export class PreviewPaneComponent implements OnInit {
     scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
   }
   
+  // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
   printPdf()
   {
     let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
@@ -213,6 +238,7 @@ export class PreviewPaneComponent implements OnInit {
     viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
   }
 
+  // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
   changeCClogo()
   {
     let ccLogoSectionBuffer:HTMLElement = document.getElementsByClassName("ccLogoSection")[0] as HTMLElement;
@@ -230,6 +256,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Uses variable activeMaskType and changes view accordingly upon update from the survey pane
   updateMasking()
   {
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
@@ -247,6 +274,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Uses variable activeScanline and changes view accordingly upon update from the survey pane
   updateScanline()
   {
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
@@ -260,6 +288,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
   {
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
@@ -282,6 +311,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Anything that should be set on page load goes in ngOnInit() 
   ngOnInit()
   {
 

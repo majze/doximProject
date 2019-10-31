@@ -110,9 +110,9 @@
       <h3>Account Masking</h3>
       <p> How much of your account number would you like visible? </p>
       <form>
-        <input type="radio" (change)="setMaskType($event)" name="statementTypeSelection" class="form-radio"
+        <input type="radio" (change)="setMaskType($event)" class="form-radio"
           name="maskingLevel" value="to4" checked>4 Numbers revealed<br>
-        <input type="radio" (change)="setMaskType($event)" name="statementTypclass=" form-radio" name="maskingLevel"
+        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
           value="to3">3 Numbers revealed<br>
         <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
           value="none">No numbers hidden<br>
@@ -132,7 +132,6 @@
       </form>
     </div>
   </div>
-
 
   <!--9th question: Choose to include an onsert (company marketing image) or not-->
   <div class="card hideThisDiv">
@@ -235,10 +234,10 @@
       <h3>Reply Envelope Options</h3>
       <p>Choose your reply envelope type.</p>
       <form>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="1" checked>1<br>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="2">2<br>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="3">3<br>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="4">4<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="1" checked>1<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="2">2<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="3">3<br>
+        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope" value="4">4<br>
       </form>
     </div>
   </div>
