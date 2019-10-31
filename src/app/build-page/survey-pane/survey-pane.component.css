@@ -1,8 +1,40 @@
+/* === Question Containers ========== ========== ========== ========== ========== */
+
+/* Style for entire survey panel master div  */
 .surveyPanel {
   margin: 0 auto;
 }
 
-/* === radio buttons === */
+/* Main question card box  */
+.question {
+  border-radius: 5px;
+  background-color: #fafafa;
+  padding: 20px;
+  margin: 2px;
+}
+
+/* Adding margin to bootstrap's card class */
+.card{
+  margin:8px;
+}
+
+/* Apply changes to card class on hover */
+.card:hover {
+  background-color: #85d5fd;
+}
+
+/* Internal testing class to alert user to unfished cards */
+.red {
+  background-color: #c000006c;
+}
+
+/* Disappear question cards based on component logic */
+.hideThisDiv{
+  display: none;
+}
+
+/* === radio buttons ========== ========== ========== ========== ========== */
+
 .form-radio {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -38,7 +70,8 @@
     background-color: #f1f1f1;
   }
 
-/* === checkboxes === */
+/* === Checkboxes ========== ========== ========== ========== ========== */
+
 .form-checkbox {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -74,7 +107,8 @@
     background-color: #f1f1f1;
   }
 
-/* === Color Picker Input === */
+/* === Color Picker Input ========== ========== ========== ========== ========== */
+
 input[type="color"] {
   -webkit-appearance: none;
   border: none;
@@ -89,26 +123,3 @@ input[type="color"] {
   input[type="color"]::-webkit-color-swatch {
     border: none;
   }
-
-/* === Question Containers === */
-.question {
-  border-radius: 5px;
-  background-color: #fafafa;
-  padding: 20px;
-  margin: 10px;
-}
-
-.card{
-  margin:8px;
-}
-.card:hover {
-  background-color: #85d5fd;
-}
-
-.red {
-  background-color: #c000006c;
-}
-
-.hideThisDiv{
-  display: none;
-}
