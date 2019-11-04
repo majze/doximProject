@@ -34,6 +34,10 @@
   background-position: center;
 }
 
+.flash {
+  background-color: #8bd4ffa6;
+}
+
 /* Greyscale Class*/
 
 .black_and_white { 

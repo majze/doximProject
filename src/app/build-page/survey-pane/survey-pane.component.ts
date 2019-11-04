@@ -22,17 +22,18 @@ export class SurveyPaneComponent implements OnInit {
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
-  activeOnsert: boolean;
-  activeTransactionsMode: boolean;
-  activeWhitespaceMode: boolean;
-  activeJointOwners: boolean;
-  activeTYDMode: boolean;
+  activeOnsert: string;
+  activeTransactionsMode: string;
+  activeWhitespaceMode: string;
+  activeJointOwners: string;
+  activeTYDMode: string;
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
 
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
+  @Output() outputSurveyChange = new EventEmitter<string>();
 
   // The whole survey except core and statement type are hidden
   // Until a core and statement type are selected
@@ -65,6 +66,7 @@ export class SurveyPaneComponent implements OnInit {
   setCore(event: any) {
     this.activeCore = event.target.value;
     console.log("survey: select: ", this.activeCore);
+    this.outputSurveyChange.emit("activeCore");
     this.emitSurveyFlags();
   }
 
@@ -72,6 +74,7 @@ export class SurveyPaneComponent implements OnInit {
   setStatementType() {
     this.activeStatementType = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeStatementType);
+    this.outputSurveyChange.emit("activeStatementType");
     this.emitSurveyFlags();
   }
 
@@ -79,30 +82,35 @@ export class SurveyPaneComponent implements OnInit {
   setColorMode() {
     this.activeColorMode = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeColorMode);
+    this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
   }
 
   setCClogo() {
     this.activeCClogo = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeCClogo);
+    this.outputSurveyChange.emit("activeCClogo");
     this.emitSurveyFlags();
   }
 
   setMaskType() {
     this.activeMaskType = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeMaskType);
+    this.outputSurveyChange.emit("activeMaskType");
     this.emitSurveyFlags();
   }
 
   setScanline() {
     this.activeScanline = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeScanline);
+    this.outputSurveyChange.emit("activeScanline");
     this.emitSurveyFlags();
   }
 
   setMarketingLevel() {
     this.activeMarketingLevel = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeMarketingLevel);
+    this.outputSurveyChange.emit("activeMarketingLevel");
     this.emitSurveyFlags();
   }
 
@@ -118,7 +126,10 @@ export class SurveyPaneComponent implements OnInit {
 
   setWhitespace()
   {
-
+    this.activeWhitespaceMode = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeWhitespaceMode);
+    this.outputSurveyChange.emit("activeWhitespaceMode");
+    this.emitSurveyFlags();
   }
 
   setJointOwner()
@@ -158,7 +169,14 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeMaskType + "|";
     this.combinedFlags += this.activeScanline + "|";
     this.combinedFlags += this.activeMarketingLevel + "|";
-    console.log("survey: combinedFlags: ", this.combinedFlags);
+    this.combinedFlags += this.activeOnsert + "|";
+    this.combinedFlags += this.activeTransactionsMode + "|";
+    this.combinedFlags += this.activeWhitespaceMode + "|";
+    this.combinedFlags += this.activeJointOwners + "|";
+    this.combinedFlags += this.activeTYDMode + "|";
+    this.combinedFlags += this.activeRewardsType + "|";
+    this.combinedFlags += this.activeOutboundEnvelope + "|";
+    this.combinedFlags += this.activeReplyEnvelope + "|";
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 

@@ -17,11 +17,11 @@ export class PreviewPaneComponent implements OnInit {
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
-  activeOnsert: boolean;
-  activeTransactionsMode: boolean;
-  activeWhitespaceMode: boolean;
-  activeJointOwners: boolean;
-  activeTYDMode: boolean;
+  activeOnsert: string;
+  activeTransactionsMode: string;
+  activeWhitespaceMode: string;
+  activeJointOwners: string;
+  activeTYDMode: string;
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
@@ -82,7 +82,7 @@ export class PreviewPaneComponent implements OnInit {
 
   getWhitespaceMode()
   {
-
+    this.activeWhitespaceMode = this.getParentComponent().activeWhitespaceMode;
   }
 
   getJointOwners()
@@ -119,6 +119,8 @@ export class PreviewPaneComponent implements OnInit {
     this.getMaskType();
     this.getScanline();
     this.getMarketing();
+
+    this.getWhitespaceMode();
     // future gets
 
     if (this.activeColorMode == "greyscale")
@@ -158,11 +160,15 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
-  updateAlert()
+  updateAlert(val)
   {
     try {
       let alertBuffer :HTMLElement = document.getElementsByClassName("alert-primary")[0] as HTMLElement; 
-      alertBuffer.textContent="whatever";
+      alertBuffer.classList.add("flash");
+      alertBuffer.textContent = "Updated " + val.replace("active","");
+      setTimeout(function() {
+        alertBuffer.classList.remove("flash");
+      }, 250);
     }
     catch {
       console.log("alertBuffer missing, alertBox missing")
@@ -176,11 +182,12 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard')
     {
       this.populateSymitarCC();
-      this.updateAlert();
+      this.updateAlert(this.getParentComponent().lastChange);
       this.changeCClogo();
       this.updateMasking();
       this.updateScanline();
       this.updateMarketing();
+      this.updateWhitespace();
     }
     else
     {
@@ -330,6 +337,20 @@ export class PreviewPaneComponent implements OnInit {
     {
       topGraphicSectionBuffer.style.backgroundImage="";
       ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+    }
+  }
+
+  // Uses varaible activeWhitespace to change the advertisement on page 2
+  updateWhitespace()
+  {
+    let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    if (this.activeWhitespaceMode == "yes")
+    {
+      whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+    }
+    else if (this.activeWhitespaceMode == "no")
+    {
+      whitespaceAdPage2Buffer.style.backgroundImage="";
     }
   }
 
