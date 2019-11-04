@@ -136,9 +136,11 @@ export class PreviewPaneComponent implements OnInit {
   // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
   updateColorMode()
   {
+    var gridSectionCount = 17;
+
     if (this.activeColorMode == "greyscale")
     {
-      for(var i =0; i <16; i++)
+      for(var i =0; i < gridSectionCount; i++)
       {
         let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
         divChange.classList.add("black_and_white");
@@ -146,7 +148,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else
     {
-      for(var i =0; i <16; i++)
+      for(var i =0; i < gridSectionCount; i++)
       {
         let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
         divChange.classList.remove("black_and_white");
@@ -193,6 +195,8 @@ export class PreviewPaneComponent implements OnInit {
       this.updateMasking();
       this.updateScanline();
       this.updateMarketing();
+      this.updateTransactionSummary();
+      this.updateYTD();
       this.updateWhitespace();
     }
     else
@@ -246,6 +250,9 @@ export class PreviewPaneComponent implements OnInit {
 
     let feeSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2FeeSummary")[0] as HTMLElement;
     feeSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccFeeSummary.png)";
+
+    let YTDSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
+    YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
 
     let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
@@ -343,6 +350,36 @@ export class PreviewPaneComponent implements OnInit {
     {
       topGraphicSectionBuffer.style.backgroundImage="";
       ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+    }
+  }
+
+  // Uses varaible activeTransactionsMode to update the Transaction Summary on page 2
+  updateTransactionSummary()
+  {
+    let TransactionPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+    if (this.activeTransactionsMode == "yes")
+    {
+      TransactionPage2Buffer.style.display = "block";
+      TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+    }
+    else if (this.activeTransactionsMode == "no")
+    {
+      TransactionPage2Buffer.style.backgroundImage="";
+      TransactionPage2Buffer.style.display = "none";
+    }
+  }
+
+  // Uses varaible activeWhitespace to change the advertisement on page 2
+  updateYTD()
+  {
+    let YTDSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
+    if (this.activeTYDMode == "yes")
+    {
+      YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
+    }
+    else if (this.activeTYDMode == "no")
+    {
+      YTDSummaryPage2Buffer.style.backgroundImage="";
     }
   }
 

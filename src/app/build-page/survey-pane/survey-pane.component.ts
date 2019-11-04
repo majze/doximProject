@@ -37,10 +37,9 @@ export class SurveyPaneComponent implements OnInit {
 
   // The whole survey except core and statement type are hidden
   // Until a core and statement type are selected
-  showSurvey() {
-
+  showSurvey()
+  {
     if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account'))) {
-
       for (var i = 0; i < 15; i++) {
         let hiddenCard: HTMLElement = document.getElementsByClassName("card")[i] as HTMLElement;
         hiddenCard.classList.remove("hideThisDiv");
@@ -50,64 +49,74 @@ export class SurveyPaneComponent implements OnInit {
 
   // Function to hide and show the credit card question 
   // Based off the selection of cc from the statement type question
-  showHideCCQ() {
+  showHideCCQ()
+  {
     let creditLogoQ: HTMLElement = document.getElementById("cclogoSelection") as HTMLElement;
     if (this.activeStatementType == "creditCard") {
       creditLogoQ.removeAttribute('style');
     }
-
     else if (this.activeStatementType != "creditCard") {
       creditLogoQ.style.display = "none";
     }
-
   }
 
-  // function set core from dropdown
-  setCore(event: any) {
+  // Sets the statement data core from user input on relevant question card
+  setCore(event: any)
+  {
     this.activeCore = event.target.value;
     console.log("survey: select: ", this.activeCore);
     this.outputSurveyChange.emit("activeCore");
     this.emitSurveyFlags();
   }
 
-  // function call from survey HTML radio button
-  setStatementType() {
+  // Sets the statement type from user input on relevant question card
+  setStatementType()
+  {
     this.activeStatementType = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeStatementType);
     this.outputSurveyChange.emit("activeStatementType");
     this.emitSurveyFlags();
   }
 
-  // function set color mode from radio button
-  setColorMode() {
+  // Sets the color mode from user input on relevant question card
+  setColorMode()
+  {
     this.activeColorMode = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeColorMode);
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
   }
 
-  setCClogo() {
+  // Sets the credti card logo from user input on relevant question card
+  setCClogo()
+  {
     this.activeCClogo = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeCClogo);
     this.outputSurveyChange.emit("activeCClogo");
     this.emitSurveyFlags();
   }
 
-  setMaskType() {
+  // Sets the statement masking type from user input on relevant question card
+  setMaskType()
+  {
     this.activeMaskType = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeMaskType);
     this.outputSurveyChange.emit("activeMaskType");
     this.emitSurveyFlags();
   }
 
-  setScanline() {
+  // Enables or hides the statement scanline from user input on relevant question card
+  setScanline()
+  {
     this.activeScanline = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeScanline);
     this.outputSurveyChange.emit("activeScanline");
     this.emitSurveyFlags();
   }
 
-  setMarketingLevel() {
+  // Sets the marketing level from user input on relevant question card
+  setMarketingLevel()
+  {
     this.activeMarketingLevel = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeMarketingLevel);
     this.outputSurveyChange.emit("activeMarketingLevel");
@@ -119,11 +128,16 @@ export class SurveyPaneComponent implements OnInit {
 
   }
 
+  // Sets the mode for the Transaction Summary box from user input on relevant question card
   setTransaction()
   {
-
+    this.activeTransactionsMode = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeTransactionsMode);
+    this.outputSurveyChange.emit("activeTransactionsMode");
+    this.emitSurveyFlags();
   }
 
+  // Sets the whitespace advertisement option from user input on relevant question card
   setWhitespace()
   {
     this.activeWhitespaceMode = (<HTMLInputElement>event.target).value;
@@ -137,9 +151,13 @@ export class SurveyPaneComponent implements OnInit {
 
   }
 
-  setYTDr()
+  // Sets the option for YTD Totals from user input on relevant question card
+  setYTD()
   {
-
+    this.activeTYDMode = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeTYDMode);
+    this.outputSurveyChange.emit("activeTYDMode");
+    this.emitSurveyFlags();
   }
 
   setRewards()
@@ -159,7 +177,8 @@ export class SurveyPaneComponent implements OnInit {
 
   // Any survey option change triggers the emitter
   // Calls (outputSurveyFlags) on build-page.html then readSurveyEmitted() on build-page.ts
-  emitSurveyFlags() {
+  emitSurveyFlags()
+  {
     console.log("survey: emitting flags to build");
     this.combinedFlags = "";
     this.combinedFlags += this.activeCore + "|";
