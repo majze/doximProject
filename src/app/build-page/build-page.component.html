@@ -1,14 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-4 a">
+
+    <div class="col-4 surveyPanel">
+      <br>
       <app-survey-pane (outputSurveyFlags)="readSurveyEmitted($event)" (outputSurveyChange)="readSurveyChange($event)"></app-survey-pane>
-      <br><br>
+      <br>
     </div>
 
-    <div class="col-8 b">
+    <div class="col-8 previewPanel">
+      <br>
       <app-preview-pane></app-preview-pane>
-      <br><br>
+      <br>
     </div>
+
   </div>
 </div>
 

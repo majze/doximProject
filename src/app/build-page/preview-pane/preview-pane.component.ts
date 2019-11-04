@@ -10,7 +10,7 @@ import html2canvas from 'html2canvas';
 })
 export class PreviewPaneComponent implements OnInit {
   combinedFlags: string;
-  activeCore: string = null;
+  activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
@@ -35,6 +35,8 @@ export class PreviewPaneComponent implements OnInit {
     return this.viewContainerRef[ '_data' ].componentView.component.viewContainerRef[ '_view' ].component
   }
 
+  // DON: yo,
+  // Before commenting on these getters, do we need them? Or can we safely dump them into getSurveyDataFromBuild() ???
   getCore()
   {
     this.activeCore = this.getParentComponent().activeCore;
@@ -72,12 +74,12 @@ export class PreviewPaneComponent implements OnInit {
 
   getOnsert()
   {
-
+    this.activeOnsert = this.getParentComponent().activeOnsert;
   }
 
   getTransactionMode()
   {
-
+    this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
   }
 
   getWhitespaceMode()
@@ -87,29 +89,30 @@ export class PreviewPaneComponent implements OnInit {
 
   getJointOwners()
   {
-
+    this.activeJointOwners = this.getParentComponent().activeJointOwners;
   }
 
   getTYDMode()
   {
-
+    this.activeTYDMode = this.getParentComponent().activeTYDMode;
   }
 
   getRewardsType()
   {
-
+    this.activeRewardsType = this.getParentComponent().activeRewardsType;
   }
 
   getOutboundEnvelope()
   {
-
+    this.activeOutboundEnvelope = this.getParentComponent().activeOutboundEnvelope;
   }
 
   getReplyEnvelope()
   {
-    
+    this.activeReplyEnvelope = this.getParentComponent().activeReplyEnvelope;
   }
 
+  // Fetches all survey flags from build-page parent, automatically called when populating the skeleton
   getSurveyDataFromBuild()
   {
     this.getCore();
@@ -119,47 +122,39 @@ export class PreviewPaneComponent implements OnInit {
     this.getMaskType();
     this.getScanline();
     this.getMarketing();
-
+    this.getOnsert();
+    this.getTransactionMode();
     this.getWhitespaceMode();
+    this.getJointOwners();
+    this.getTYDMode();
+    this.getRewardsType();
+    this.getOutboundEnvelope();
+    this.getReplyEnvelope();
     // future gets
+  }
 
+  // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
+  updateColorMode()
+  {
     if (this.activeColorMode == "greyscale")
     {
-      this.addGreyScale();
+      for(var i =0; i <16; i++)
+      {
+        let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+        divChange.classList.add("black_and_white");
+      }
     }
     else
     {
-      this.removeGreyScale();
+      for(var i =0; i <16; i++)
+      {
+        let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+        divChange.classList.remove("black_and_white");
+      }
     }
   }
 
-  unpopulateSkeleton()
-  {
-    for(var i =0; i <16; i++)
-    {
-      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-      divChange.style.backgroundImage="";
-    }
-  }
-
-  addGreyScale()
-  {
-    for(var i =0; i <16; i++)
-    {
-      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-      divChange.classList.add("black_and_white");
-    }
-  }
-
-  removeGreyScale()
-  {
-    for(var i =0; i <16; i++)
-    {
-      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-      divChange.classList.remove("black_and_white");
-    }
-  }
-
+  // Alert system tells user what updated on the view panel when survey change is detected
   updateAlert(val)
   {
     try {
@@ -168,10 +163,20 @@ export class PreviewPaneComponent implements OnInit {
       alertBuffer.textContent = "Updated " + val.replace("active","");
       setTimeout(function() {
         alertBuffer.classList.remove("flash");
-      }, 250);
+      }, 150);
     }
     catch {
       console.log("alertBuffer missing, alertBox missing")
+    }
+  }
+
+  // Unloads all assets from all "gridSecion" divs
+  unpopulateSkeleton()
+  {
+    for(var i =0; i <16; i++)
+    {
+      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+      divChange.style.backgroundImage="";
     }
   }
 
@@ -184,6 +189,7 @@ export class PreviewPaneComponent implements OnInit {
       this.populateSymitarCC();
       this.updateAlert(this.getParentComponent().lastChange);
       this.changeCClogo();
+      this.updateColorMode();
       this.updateMasking();
       this.updateScanline();
       this.updateMarketing();
