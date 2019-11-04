@@ -34,6 +34,11 @@
   background-position: center;
 }
 
+/* Flash the alert box to catch user's attention  */
+.flash {
+  background-color: #b8e5ffdc;
+}
+
 /* Greyscale Class*/
 
 .black_and_white { 
@@ -46,7 +51,6 @@
 /* CREDIT CARD GRID SYSTEM STARTS HERE ============================== */
 
 /* Top Container */
-
 .gridTopContainer {
   width: 100%; height: calc(100% - (1075px - 300px));
 }
@@ -99,7 +103,6 @@
 }
 
 /* Mid Container */
-
 .wideFillerSpace {
   width: 100%; height: calc(100% - (1075px - 20px));
   content: "";
@@ -124,7 +127,6 @@
 }
 
 /* Bottom Container */
-
 .gridBotContainer {
   width: 100%; height: calc(100% - (1075px - 400px));
 }
@@ -142,4 +144,89 @@
   line-height: 50px;
   width: 100%; height: 12.5%;
   background-position: top;
+}
+
+/* Page 2 */
+
+.p2gridTopContainer {
+  width: 100%; height: calc(100% - (1075px - 75px));
+}
+
+.p2gridTopContainer::after {
+  display: block; clear: both; content: "";
+}
+
+.p2logoSection {
+  line-height: 50%;
+  width: calc(100% - (750px - 250px)); height: 100%
+}
+
+.p2headerSection {
+  line-height: 50%;
+  width: calc(100% - (750px - 500px)); height: 100%
+}
+
+/* 2.5 inches tall  */
+.p2gridMidContainer1 {
+  width: 100%; height: calc(100% - (1075px - 250px));
+}
+
+.p2gridMidContainer1::after {
+  display: block; clear: both; content: "";
+}
+
+.p2TransactionSummary {
+  width: 100%; height: 100%
+}
+
+/* 1.5 inches tall  */
+.p2gridMidContainer2 {
+  width: 100%; height: calc(100% - (1075px - 150px));
+}
+
+.p2gridMidContainer2::after {
+  display: block; clear: both; content: "";
+}
+
+.p2InterestCharge {
+  width: 100%; height: 100%
+}
+
+/* 1.75 inches tall  */
+.p2gridMidContainer3 {
+  width: 100%; height: calc(100% - (1075px - 175px));
+}
+
+.p2gridMidContainer3::after {
+  display: block; clear: both; content: "";
+}
+
+.p2FeeSummary {
+  width: 100%; height: 100%
+}
+
+/* 0.75 inches tall  */
+.p2gridMidContainer4 {
+  width: 100%; height: calc(100% - (1075px - 75px));
+}
+
+.p2gridMidContainer4::after {
+  display: block; clear: both; content: "";
+}
+
+.p2YTDSummary {
+  width: 100%; height: 100%;
+}
+
+/* 3.5 inches tall  */
+.p2gridMidContainer5 {
+  width: 100%; height: calc(100% - (1075px - 350px));
+}
+
+.p2gridMidContainer5::after {
+  display: block; clear: both; content: "";
+}
+
+.p2WhitespaceAd {
+  width: 100%; height: 100%
 }
