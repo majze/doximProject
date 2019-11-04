@@ -1,7 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { BuildPageComponent } from '../build-page.component';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
@@ -10,7 +7,6 @@ function getCoreType() {
   var y = x.options[x.selectedIndex].value;
   return y;
 }
-
 
 @Component({
   selector: 'app-survey-pane',
@@ -26,12 +22,20 @@ export class SurveyPaneComponent implements OnInit {
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
+  activeOnsert: boolean;
+  activeTransactionsMode: boolean;
+  activeWhitespaceMode: boolean;
+  activeJointOwners: boolean;
+  activeTYDMode: boolean;
+  activeRewardsType: string;
+  activeOutboundEnvelope: string;
+  activeReplyEnvelope: string;
 
-  // output emitter to build page component html page
+  // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
 
-  //The whole survey except core and statement type are hidden
-  //until a core and statement type are selected
+  // The whole survey except core and statement type are hidden
+  // Until a core and statement type are selected
   showSurvey() {
 
     if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account'))) {
@@ -43,8 +47,8 @@ export class SurveyPaneComponent implements OnInit {
     }
   }
 
-  //Function to hide and show the credit card question 
-  //based off the selection of cc from the statement type question
+  // Function to hide and show the credit card question 
+  // Based off the selection of cc from the statement type question
   showHideCCQ() {
     let creditLogoQ: HTMLElement = document.getElementById("cclogoSelection") as HTMLElement;
     if (this.activeStatementType == "creditCard") {
@@ -100,6 +104,46 @@ export class SurveyPaneComponent implements OnInit {
     this.activeMarketingLevel = (<HTMLInputElement>event.target).value;
     console.log("survey: select: ", this.activeMarketingLevel);
     this.emitSurveyFlags();
+  }
+
+  setOnsert()
+  {
+
+  }
+
+  setTransaction()
+  {
+
+  }
+
+  setWhitespace()
+  {
+
+  }
+
+  setJointOwner()
+  {
+
+  }
+
+  setYTDr()
+  {
+
+  }
+
+  setRewards()
+  {
+
+  }
+
+  setOutbound()
+  {
+
+  }
+
+  setEnvelope()
+  {
+
   }
 
   // Any survey option change triggers the emitter
