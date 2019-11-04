@@ -143,3 +143,63 @@
   width: 100%; height: 12.5%;
   background-position: top;
 }
+
+/* Page 2 */
+
+.p2gridTopContainer {
+  width: 100%; height: calc(100% - (1075px - 75px));
+}
+
+.p2gridTopContainer::after {
+  display: block; clear: both; content: "";
+}
+
+.p2logoSection {
+  line-height: 50%;
+  width: calc(100% - (750px - 250px)); height: 100%
+}
+
+.p2headerSection {
+  line-height: 50%;
+  width: calc(100% - (750px - 500px)); height: 100%
+}
+
+.p2gridMidContainer1 {
+  width: 100%; height: calc(100% - (1075px - 250px));
+}
+
+.p2gridMidContainer1::after {
+  display: block; clear: both; content: "";
+}
+
+.p2TransactionSummary {
+  width: 100%; height: 100%
+}
+
+.p2gridMidContainer2 {
+  width: 100%; height: calc(100% - (1075px - 150px));
+}
+
+.p2gridMidContainer2::after {
+  display: block; clear: both; content: "";
+}
+
+.p2InterestCharge {
+  width: 100%; height: 100%
+}
+
+.p2FeeSummary {
+  width: 100%; height: 100%
+}
+
+.p2gridMidContainer3 {
+  width: 100%; height: calc(100% - (1075px - 350px));
+}
+
+.p2gridMidContainer3::after {
+  display: block; clear: both; content: "";
+}
+
+.p2WhitespaceAd {
+  width: 100%; height: 100%
+}

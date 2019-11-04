@@ -111,11 +111,11 @@
       <p> How much of your account number would you like visible? </p>
       <form>
         <input type="radio" (change)="setMaskType($event)" class="form-radio"
-          name="maskingLevel" value="to4" checked>4 Numbers revealed<br>
+          name="maskingLevel" value="to4">4 Numbers revealed<br>
         <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
           value="to3">3 Numbers revealed<br>
         <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
-          value="none">No numbers hidden<br>
+          value="none" checked>No numbers hidden<br>
       </form>
     </div>
   </div>

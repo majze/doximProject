@@ -133,7 +133,7 @@ export class PreviewPaneComponent implements OnInit {
 
   unpopulateSkeleton()
   {
-    for(var i =0; i <10; i++)
+    for(var i =0; i <16; i++)
     {
       let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
       divChange.style.backgroundImage="";
@@ -142,7 +142,7 @@ export class PreviewPaneComponent implements OnInit {
 
   addGreyScale()
   {
-    for(var i =0; i <10; i++)
+    for(var i =0; i <16; i++)
     {
       let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
       divChange.classList.add("black_and_white");
@@ -151,7 +151,7 @@ export class PreviewPaneComponent implements OnInit {
 
   removeGreyScale()
   {
-    for(var i =0; i <10; i++)
+    for(var i =0; i <16; i++)
     {
       let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
       divChange.classList.remove("black_and_white");
@@ -196,29 +196,46 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
   populateSymitarCC()
   {
-    let paperContainerBuffer:HTMLElement = document.getElementsByClassName("paperContainer")[0] as HTMLElement;
-    paperContainerBuffer.style.border="none";
-
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/defaultLogo.png)";
+    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
 
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
-    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/address.png)";
+    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/address.png)";
     
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
+    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
 
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
+    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
 
     let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
-    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
 
     let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
-    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymCoupon.png)";
+    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
 
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
+    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+
+    // Page 2 Elements
+
+    let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
+    logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
+    
+    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+    headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+
+    let transactionSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+    transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+
+    let interestChargePage2Buffer:HTMLElement = document.getElementsByClassName("p2InterestCharge")[0] as HTMLElement;
+    interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccInterestCharge.png)";
+
+    let feeSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2FeeSummary")[0] as HTMLElement;
+    feeSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccFeeSummary.png)";
+
+    let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
   }
   
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
@@ -248,11 +265,11 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (this.activeCClogo == "visa")
     {
-      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccVisaLogo.png)";
+      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/ccVisaLogo.png)";
     }
     else if (this.activeCClogo == "mastercard")
     {
-      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccMastercardLogo.png)";
+      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/ccMastercardLogo.png)";
     }
   }
 
@@ -260,17 +277,22 @@ export class PreviewPaneComponent implements OnInit {
   updateMasking()
   {
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
+    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+    
     if (this.activeMaskType == "none")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/page1/ccHeader.png)";
+      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
     }
     else if (this.activeMaskType == "to3")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeaderMaskTo3.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
+      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
     }
     else if (this.activeMaskType == "to4")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeaderMaskTo4.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
+      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
     }
   }
 
@@ -280,7 +302,7 @@ export class PreviewPaneComponent implements OnInit {
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
     if (this.activeScanline == "yes")
     {
-      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
+      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
     }
     else if (this.activeScanline == "no")
     {
@@ -296,18 +318,18 @@ export class PreviewPaneComponent implements OnInit {
 
     if (this.activeMarketingLevel == "imageOnly")
     {
-      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
     }
     else if (this.activeMarketingLevel == "contactInfo")
     {
-      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopContactInfo.png)";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithoutContactInfo.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopContactInfo.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithoutContactInfo.png)";
     }
     else if (this.activeMarketingLevel == "none")
     {
       topGraphicSectionBuffer.style.backgroundImage="";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
     }
   }
 
