@@ -1,22 +1,8 @@
 <div class="surveyPanel">
-
-  <!--  
-  <div class="question" id="customerColorType">
-  <h3>Customer Colors</h3>
-  <form>
-    <p>Choose your company color:</p>
-    <form action="/action_page.php">
-      <input type="color" name="favcolor" value="#ff0000">
-    </form>
-  <br>
-  </form>
-</div>
--->
-
-
+  <button (click)=getCoreType()>Console log: GetCores</button>
   <!--1st question: Choose your core-->
   <div class="card">
-    <div class="question form-group" id="coreSelection">
+    <div class="question yellow form-group" id="coreSelection">
       <h3>Utilized Data Core</h3>
       <p>The three main cores are listed below:</p>
       <form action="/determine_questionss.php">
@@ -59,9 +45,8 @@
 
 
   <!--4th question: Upload a company logo-->
-  <!-- UPLOAD LOGO -->
   <div class="card hideThisDiv">
-    <div class="question red" id="upLoadcustomerLogo">
+    <div class="question yellow" id="upLoadcustomerLogo">
       <h3>Customer Logo</h3>
       <form>
         <label for="uploadLogo">Upload your company logo:</label>
@@ -75,11 +60,16 @@
 
   <!--5th question: Choose color or greyscale statement-->
   <div class="card hideThisDiv">
-    <div class="question" id="printColorType">
+    <div class="question yellow" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
           checked>Full color<br>
+        <div class="headerColorPicker">
+          <br>
+          <p>Choose your company color:</p>
+          <input type="color" name="favcolor" value="#ff0000">
+        </div>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
           value="greyscale">Greyscale<br>
       </form>
@@ -135,7 +125,7 @@
 
   <!--9th question: Choose to include an onsert (company marketing image) or not-->
   <div class="card hideThisDiv">
-    <div class="question" id="onsertType">
+    <div class="question red" id="onsertType">
       <h3>Onsert Option</h3>
       <p>Would you like an onsert included on your statement?</p>
       <form>
@@ -175,7 +165,7 @@
 
   <!--12th question: joint owner information-->
   <div class="card hideThisDiv">
-    <div class="question" id="jointOwnerType">
+    <div class="question red" id="jointOwnerType">
       <h3>Joint Owner Option</h3>
       <p>Are there joint owners on the account?</p>
       <form>
@@ -200,7 +190,7 @@
 
   <!--14th question: Rewards information-->
   <div class="card hideThisDiv">
-    <div class="question" id="rewardsType">
+    <div class="question red" id="rewardsType">
       <h3>Rewards and Cashback Option</h3>
       <p>Would you like to include your rewards or cashback summary?</p>
       <form>
