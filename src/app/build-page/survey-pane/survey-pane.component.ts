@@ -40,8 +40,6 @@ export class SurveyPaneComponent implements OnInit {
   uploadPercent: Observable<number>
   downloadURL: Observable<string>
 
-  image: string
-
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
