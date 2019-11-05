@@ -5,6 +5,8 @@ import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, An
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { Observable } from 'rxjs/Observable';
 import { UploadService } from '../upload.service'
+import { finalize } from "rxjs/operators";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 function getCoreType() {
   var x = document.getElementById("coreSelection") as HTMLSelectElement;
@@ -40,41 +42,51 @@ export class SurveyPaneComponent implements OnInit {
 
   image: string
 
+  imgSrc: string;
+  selectedImage: any = null;
+  isSubmitted: boolean;
+
+  formTemplate = new FormGroup({
+    imageUrl: new FormControl('', Validators.required)
+  })
+
   constructor(
     private postService: UploadService,
     private storage: AngularFireStorage
   ) {}
 
-  // onSubmit(formValue) {
-  //   this.isSubmitted = true;
-  //   if (this.formTemplate.valid) {
-  //     var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-  //     const fileRef = this.storage.ref(filePath);
-  //     this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
-  //       finalize(() => {
-  //         fileRef.getDownloadURL().subscribe((url) => {
-  //           formValue['imageUrl'] = url;
-  //           this.service.insertImageDetails(formValue);
-  //           this.resetForm();
-  //         })
-  //       })
-  //     ).subscribe();
-  //   }
-  // }
+  onSubmit(formValue) {
+    console.log("In onSubmit() " + this.formTemplate.valid);
+    this.isSubmitted = true;
+   // if (this.formTemplate.valid) {
+      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            formValue['imageUrl'] = url;
+          //  this.service.insertImageDetails(formValue);
+          //  this.resetForm();
+          })
+        })
+      ).subscribe();
+   // }
+  }
 
-  // uploadImage(event) {
-  //   const file = event.target.files[0]
-  //   const path = `posts/${file.name}`
-  //   if (file.type.split('/')[0] !== 'image') {
-  //     return alert('only image files')
-  //   } else {
-  //     const task = this.storage.upload(path, file)
-  //     this.downloadURL = task.downloadURL()
-  //     this.uploadPercent = task.percentageChanges()
-  //     console.log('Image Uploaded!')
-  //     this.downloadURL.subscribe(url => (this.image = url))
-  //   }
-  // }
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      console.log("showPreview() if")
+    }
+    else {
+      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
+      console.log("showPreview() else")
+    }
+  }
 
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();

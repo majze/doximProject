@@ -63,11 +63,12 @@
   <div class="card hideThisDiv">
     <div class="question red" id="upLoadcustomerLogo">
       <h3>Customer Logo</h3>
-      <form>
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
-        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="uploadImage($event)>
+        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
         <br>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </div>
