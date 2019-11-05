@@ -261,30 +261,31 @@ export class PreviewPaneComponent implements OnInit {
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
   printPdf()
   {
-    var data = document.getElementById('print');
     let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
-    viewBoxBuffer.style.border= "none";
+    let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
+    viewBoxBuffer.style.border && viewBoxBuffer2.style.border =="none";
+    var data = document.getElementById('print');
     html2canvas(data).then(canvas =>{
-     var imgWidth =210;
-     var pageHeight =280;
-     var imgHeight = canvas.height * imgWidth / canvas.width;
-     var heightLeft = imgHeight;
-     const contentDataURL = canvas.toDataURL('image/png');
-     let pdf = new jspdf('p','mm','letter-a4');
-     var position = 0;
-     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-
-     while (heightLeft >= 0) 
-     {
+    var imgWidth = 210; 
+    var pageHeight = 295;  
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    
+    var pdf = new jspdf('p', 'mm','letter');
+    var position = 0;
+    const contentDataURL = canvas.toDataURL('image/png');
+    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    
+    while (heightLeft >= 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
-     pdf.save('image.pdf');
-     }
+    }
+    pdf.save( 'file.pdf');
     });
-     viewBoxBuffer.style.border= "2px soild";
-   
+    viewBoxBuffer.style.border && viewBoxBuffer2.style.border == "none";
   }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
