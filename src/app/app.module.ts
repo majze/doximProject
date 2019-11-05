@@ -19,7 +19,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FirebaseService } from './services/firebase.service';
-// import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorageModule  } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from "@angular/fire/database";
 
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from '@angular/material';
@@ -46,7 +47,8 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-   // AngularFireStorage,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
