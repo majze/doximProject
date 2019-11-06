@@ -313,12 +313,12 @@ export class PreviewPaneComponent implements OnInit {
       ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/ccMastercardLogo.png)";
     }
   }
-
+  // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
   changeCustomerlogo()
   {
     let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    console.log("Here in preview.ts changeCustomerlogo() URL: " + this.activeCustomerlogo);
-    customerLogoSectionBuffer.style.backgroundImage= this.activeCustomerlogo;
+    console.log("Here in preview.ts changeCustomerlogo()" + this.activeCustomerlogo);
+    customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
   }
 
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane

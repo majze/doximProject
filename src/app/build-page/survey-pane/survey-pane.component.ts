@@ -57,7 +57,7 @@ export class SurveyPaneComponent implements OnInit {
 
   // Reacts to submit button on customer image upload form
   onSubmit(formValue) {
-    console.log("In onSubmit() " + this.formTemplate.valid);
+   // console.log("In onSubmit() " + this.formTemplate.valid);
     this.isSubmitted = true;
    // if (this.formTemplate.valid) {
       var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -69,7 +69,6 @@ export class SurveyPaneComponent implements OnInit {
 
             // Update preview pane
             this.activeCustomerlogo = url;
-            console.log("survey: select: ", this.activeCustomerlogo);
             this.outputSurveyChange.emit("activeCustomerlogo");
             this.emitSurveyFlags();
           //  this.service.insertImageDetails(formValue);
@@ -89,7 +88,6 @@ export class SurveyPaneComponent implements OnInit {
       this.selectedImage = event.target.files[0];
 
       this.activeCustomerlogo = this.selectedImage;
-      console.log("survey: select: ", this.activeCustomerlogo);
       this.outputSurveyChange.emit("activeCustomerlogo");
       this.emitSurveyFlags();
     }
