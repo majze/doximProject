@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildPageComponent } from '../build-page.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'app-preview-pane',
@@ -259,33 +260,40 @@ export class PreviewPaneComponent implements OnInit {
   }
   
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
+  // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
   {
+    // Hide the borders around the viewBox divs
     let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
     let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
-    viewBoxBuffer.style.border && viewBoxBuffer2.style.border =="none";
+    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
+    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    
     var data = document.getElementById('print');
     html2canvas(data).then(canvas =>{
-    var imgWidth = 210; 
-    var pageHeight = 295;  
-    var imgHeight = canvas.height * imgWidth / canvas.width;
-    var heightLeft = imgHeight;
-    
-    var pdf = new jspdf('p', 'mm','letter');
-    var position = 0;
-    const contentDataURL = canvas.toDataURL('image/png');
-    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight;
-    
-    while (heightLeft >= 0) {
-      position = heightLeft - imgHeight;
-      pdf.addPage();
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      // Letter is 8.5 inches by 11 inches
+      var pdf = new jspdf('p', 'in','letter');
+      var imgWidth = 8.5; 
+      var pageHeight = 11;  
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight -0.5;
+      
+      var position = 0;
+      const contentDataURL = canvas.toDataURL('image/png');
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
       heightLeft -= pageHeight;
-    }
-    pdf.save( 'file.pdf');
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
+        heightLeft -= pageHeight;
+      }
+      pdf.save('file.pdf');
     });
-    viewBoxBuffer.style.border && viewBoxBuffer2.style.border == "none";
+
+    // Restore the borders around the viewBox divs
+    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
+    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
   }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane

@@ -4,15 +4,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { Observable } from 'rxjs/Observable';
-import { UploadService } from '../upload.service'
 import { finalize } from "rxjs/operators";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-function getCoreType() {
-  var x = document.getElementById("coreSelection") as HTMLSelectElement;
-  var y = x.options[x.selectedIndex].value;
-  return y;
-}
 
 @Component({
   selector: 'app-survey-pane',
@@ -48,15 +41,26 @@ export class SurveyPaneComponent implements OnInit {
     imageUrl: new FormControl('', Validators.required)
   })
 
-  constructor(
-    private postService: UploadService,
-    private storage: AngularFireStorage
-  ) {}
+  constructor(public firebaseService: FirebaseService,
+    private storage: AngularFireStorage) { }
 
+  // Output emitter to build page component html page
+  @Output() outputSurveyFlags = new EventEmitter<string>();
+  @Output() outputSurveyChange = new EventEmitter<string>();
+
+  // Get core types from Firebase
+  getCoreType() {
+    this.firebaseService.getCores();
+
+    // var x = document.getElementById("coreSelection") as HTMLSelectElement;
+    // var y = x.options[x.selectedIndex].value;
+    // return y;
+  }
+
+  // Submit button turns the user uploaded image into an imageUrl
   onSubmit(formValue) {
     console.log("In onSubmit() " + this.formTemplate.valid);
     this.isSubmitted = true;
-   // if (this.formTemplate.valid) {
       var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
@@ -68,9 +72,9 @@ export class SurveyPaneComponent implements OnInit {
           })
         })
       ).subscribe();
-   // }
   }
 
+  // Shows a preview thumbnail of user uploaded image
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -84,21 +88,6 @@ export class SurveyPaneComponent implements OnInit {
       this.selectedImage = null;
       console.log("showPreview() else")
     }
-  }
-
-  constructor(public firebaseService: FirebaseService) { }
-
-  // Output emitter to build page component html page
-  @Output() outputSurveyFlags = new EventEmitter<string>();
-  @Output() outputSurveyChange = new EventEmitter<string>();
-
-  // Get core types from Firebase
-  getCoreType() {
-    this.firebaseService.getCores();
-
-    // var x = document.getElementById("coreSelection") as HTMLSelectElement;
-    // var y = x.options[x.selectedIndex].value;
-    // return y;
   }
 
   // The whole survey except core and statement type are hidden
