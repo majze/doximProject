@@ -25,6 +25,7 @@ export class SurveyPaneComponent implements OnInit {
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
@@ -77,7 +78,12 @@ export class SurveyPaneComponent implements OnInit {
       reader.onload = (e: any) => this.imgSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.selectedImage = event.target.files[0];
-      console.log("showPreview() if")
+      console.log("showPreview() if");
+
+      this.activeCustomerlogo = this.selectedImage;
+      console.log("survey: select: ", this.activeCustomerlogo);
+      this.outputSurveyChange.emit("activeCustomerlogo");
+      this.emitSurveyFlags();
     }
     else {
       this.imgSrc = '/assets/img/image_placeholder.jpg';

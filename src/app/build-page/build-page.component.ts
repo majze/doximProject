@@ -13,6 +13,7 @@ export class BuildPageComponent implements OnInit {
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
@@ -39,6 +40,7 @@ export class BuildPageComponent implements OnInit {
     this.activeStatementType =  splitted[1];
     this.activeColorMode = splitted[2];
     this.activeCClogo = splitted[3];
+    this.activeCustomerlogo = splitted[15]
     this.activeMaskType = splitted[4];
     this.activeScanline = splitted[5];
     this.activeMarketingLevel = splitted[6];

@@ -14,6 +14,7 @@ export class PreviewPaneComponent implements OnInit {
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
@@ -57,6 +58,11 @@ export class PreviewPaneComponent implements OnInit {
     this.activeCClogo = this.getParentComponent().activeCClogo;
   }
 
+  getCustomerlogo()
+  {
+    this.activeCustomerlogo = this.getParentComponent().activeCustomerlogo;
+  }
+  
   getMaskType()
   {
     this.activeMaskType = this.getParentComponent().activeMaskType;
@@ -119,6 +125,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getStatementType();
     this.getColorMode();
     this.getCClogo();
+    this.getCustomerlogo();
     this.getMaskType();
     this.getScanline();
     this.getMarketing();
@@ -191,6 +198,7 @@ export class PreviewPaneComponent implements OnInit {
       this.populateSymitarCC();
       this.updateAlert(this.getParentComponent().lastChange);
       this.changeCClogo();
+      this.changeCustomerlogo();
       this.updateColorMode();
       this.updateMasking();
       this.updateScanline();
@@ -291,6 +299,12 @@ export class PreviewPaneComponent implements OnInit {
     {
       ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/ccMastercardLogo.png)";
     }
+  }
+
+  changeCustomerlogo()
+  {
+    let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+    customerLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/customerLogo.png)";
   }
 
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane
