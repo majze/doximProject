@@ -1,5 +1,7 @@
 <div class="surveyPanel">
-  <button (click)=getCoreType()>Console log: GetCores</button>
+  
+  <button (click)=getCoreType()>Console log: GetCores TEST</button>
+  
   <!--1st question: Choose your core-->
   <div class="card">
     <div class="question yellow form-group" id="coreSelection">
@@ -43,22 +45,20 @@
     </div>
   </div>
 
-
   <!--4th question: Upload a company logo-->
+  <!-- UPLOAD LOGO -->
   <div class="card hideThisDiv">
-    <div class="question yellow" id="upLoadcustomerLogo">
+    <div class="question red" id="upLoadcustomerLogo">
       <h3>Customer Logo</h3>
-      <form>
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
-        <img id="blah"  width="100" height="100" />
-        <input type="file" 
-        onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
         <br>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </div>
-
 
   <!--5th question: Choose color or greyscale statement-->
   <div class="card hideThisDiv">
@@ -233,10 +233,5 @@
       </form>
     </div>
   </div>
-
-
-
-
-
 
 </div>

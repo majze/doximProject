@@ -1,5 +1,18 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { Observable } from 'rxjs/Observable';
+import { UploadService } from '../upload.service'
+import { finalize } from "rxjs/operators";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+function getCoreType() {
+  var x = document.getElementById("coreSelection") as HTMLSelectElement;
+  var y = x.options[x.selectedIndex].value;
+  return y;
+}
 
 @Component({
   selector: 'app-survey-pane',
@@ -23,6 +36,55 @@ export class SurveyPaneComponent implements OnInit {
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
+ 
+  uploadPercent: Observable<number>
+  downloadURL: Observable<string>
+
+  imgSrc: string;
+  selectedImage: any = null;
+  isSubmitted: boolean;
+
+  formTemplate = new FormGroup({
+    imageUrl: new FormControl('', Validators.required)
+  })
+
+  constructor(
+    private postService: UploadService,
+    private storage: AngularFireStorage
+  ) {}
+
+  onSubmit(formValue) {
+    console.log("In onSubmit() " + this.formTemplate.valid);
+    this.isSubmitted = true;
+   // if (this.formTemplate.valid) {
+      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            formValue['imageUrl'] = url;
+          //  this.service.insertImageDetails(formValue);
+          //  this.resetForm();
+          })
+        })
+      ).subscribe();
+   // }
+  }
+
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      console.log("showPreview() if")
+    }
+    else {
+      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
+      console.log("showPreview() else")
+    }
+  }
 
   constructor(public firebaseService: FirebaseService) { }
 
@@ -217,8 +279,5 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 }

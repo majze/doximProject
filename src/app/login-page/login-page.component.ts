@@ -23,27 +23,26 @@ export class LoginPageComponent implements OnInit {
             password: ['', Validators.required]
         })
     }
-
+    // OnClick() event triggered by login form submission
     onSubmit() {
         this.submitted = true;
-
+        // Check for valid fields on form
         if (this.messageForm.invalid) {
             return;
         }
         var vusername = this.messageForm.controls.username.value;
         var vpassword = this.messageForm.controls.password.value;
+        // Check Firestore for User ID
         this.getData(vusername, vpassword);
     }
-
+    // Send user to build page
     nextPage() {
         if (this.success && this.submitted) {
             this.router.navigate(['./build']);
         }
     }
-    
+    // Check Firestore for User ID
 	getData(username, password) {
-        var docReference;
-
         this.firebaseService.getUsers(username, password)
         .subscribe(result => { 
             this.items = result; 
@@ -63,7 +62,7 @@ export class LoginPageComponent implements OnInit {
             }
         });
     }
-
+    // Front-end reacts to these to show valid/invalid notifications to the user
     refreshSubmit() {
         this.fail = false;
         this.success = false;
