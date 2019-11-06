@@ -15,6 +15,7 @@ export class PreviewPaneComponent implements OnInit {
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
@@ -53,23 +54,33 @@ export class PreviewPaneComponent implements OnInit {
     this.activeCClogo = this.getParentComponent().activeCClogo;
   }
 
-  getMaskType() {
+  getCustomerlogo()
+  {
+    this.activeCustomerlogo = this.getParentComponent().activeCustomerlogo;
+  }
+  
+  getMaskType()
+  {
     this.activeMaskType = this.getParentComponent().activeMaskType;
   }
 
-  getScanline() {
+  getScanline()
+  {
     this.activeScanline = this.getParentComponent().activeScanline;
   }
 
-  getMarketing() {
+  getMarketing()
+  {
     this.activeMarketingLevel = this.getParentComponent().activeMarketingLevel;
   }
 
-  getOnsert() {
+  getOnsert()
+  {
     this.activeOnsert = this.getParentComponent().activeOnsert;
   }
 
-  getTransactionMode() {
+  getTransactionMode()
+  {
     this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
   }
 
@@ -103,6 +114,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getStatementType();
     this.getColorMode();
     this.getCClogo();
+    this.getCustomerlogo();
     this.getMaskType();
     this.getScanline();
     this.getMarketing();
@@ -232,6 +244,7 @@ export class PreviewPaneComponent implements OnInit {
       this.populateSymitarCC();
       this.updateAlert(this.getParentComponent().lastChange);
       this.changeCClogo();
+      this.changeCustomerlogo();
       this.updateColorMode();
       this.updateMasking();
       this.updateScanline();
@@ -347,6 +360,13 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeCClogo == "mastercard") {
       ccLogoSectionBuffer.style.backgroundImage = "url(../../../assets/shared/ccMastercardLogo.png)";
     }
+  }
+  // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
+  changeCustomerlogo()
+  {
+    let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+    console.log("Here in preview.ts changeCustomerlogo()" + this.activeCustomerlogo);
+    customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
   }
 
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane

@@ -18,6 +18,7 @@ export class SurveyPaneComponent implements OnInit {
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
@@ -41,8 +42,12 @@ export class SurveyPaneComponent implements OnInit {
     imageUrl: new FormControl('', Validators.required)
   })
 
-  constructor(public firebaseService: FirebaseService,
-    private storage: AngularFireStorage) { }
+  // Reacts to submit button on customer image upload form
+  constructor(
+    private postService: UploadService,
+    private storage: AngularFireStorage,
+    public firebaseService: FirebaseService
+  ) {}
 
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
@@ -59,7 +64,7 @@ export class SurveyPaneComponent implements OnInit {
 
   // Submit button turns the user uploaded image into an imageUrl
   onSubmit(formValue) {
-    console.log("In onSubmit() " + this.formTemplate.valid);
+   // console.log("In onSubmit() " + this.formTemplate.valid);
     this.isSubmitted = true;
       var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
@@ -67,6 +72,11 @@ export class SurveyPaneComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue['imageUrl'] = url;
+
+            // Update preview pane
+            this.activeCustomerlogo = url;
+            this.outputSurveyChange.emit("activeCustomerlogo");
+            this.emitSurveyFlags();
           //  this.service.insertImageDetails(formValue);
           //  this.resetForm();
           })
@@ -74,6 +84,7 @@ export class SurveyPaneComponent implements OnInit {
       ).subscribe();
   }
 
+  // Reacts to OnChange event for uploading a customer image
   // Shows a preview thumbnail of user uploaded image
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -81,12 +92,14 @@ export class SurveyPaneComponent implements OnInit {
       reader.onload = (e: any) => this.imgSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.selectedImage = event.target.files[0];
-      console.log("showPreview() if")
+
+      this.activeCustomerlogo = this.selectedImage;
+      this.outputSurveyChange.emit("activeCustomerlogo");
+      this.emitSurveyFlags();
     }
     else {
       this.imgSrc = '/assets/img/image_placeholder.jpg';
       this.selectedImage = null;
-      console.log("showPreview() else")
     }
   }
 
@@ -276,6 +289,7 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeStatementType + "|";
     this.combinedFlags += this.activeColorMode + "|";
     this.combinedFlags += this.activeCClogo + "|";
+    this.combinedFlags += this.activeCustomerlogo + "|";
     this.combinedFlags += this.activeMaskType + "|";
     this.combinedFlags += this.activeScanline + "|";
     this.combinedFlags += this.activeMarketingLevel + "|";
