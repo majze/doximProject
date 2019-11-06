@@ -262,17 +262,30 @@ export class PreviewPaneComponent implements OnInit {
   printPdf()
   {
     let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
-
+    let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
+    viewBoxBuffer.style.border && viewBoxBuffer2.style.border =="none";
     var data = document.getElementById('print');
     html2canvas(data).then(canvas =>{
-      const contentDataURL = canvas.toDataURL('image/png')
-      let pdf = new jspdf('p','in','letter');
-      // https://artskydj.github.io/jsPDF/docs/module-addImage.html
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, 8.5, 11, "NONE")
-      pdf.save('image.pdf');
+    var imgWidth = 210; 
+    var pageHeight = 295;  
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    
+    var pdf = new jspdf('p', 'mm','letter');
+    var position = 0;
+    const contentDataURL = canvas.toDataURL('image/png');
+    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+    pdf.save( 'file.pdf');
     });
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
+    viewBoxBuffer.style.border && viewBoxBuffer2.style.border == "none";
   }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
