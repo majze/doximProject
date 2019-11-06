@@ -23,7 +23,7 @@
   /* max-width: 1200px; */
 
   /* Use this to get the buttons to line up nicely  */
-  max-width: 900px;
+   max-width: 900px; 
 
   /* Hide scrollbar in firefox */
   scrollbar-color:  rgba(0,167,225,0.8) transparent;

@@ -49,6 +49,7 @@
   background-color: #b8e5ffdc;
 }
 
+
 /* Greyscale Class*/
 
 .black_and_white { 
@@ -57,6 +58,7 @@
   /* Chrome 19+, Safari 6+, Safari 6+ iOS */
   -webkit-filter: grayscale(100%);
 }
+
 
 /* CREDIT CARD GRID SYSTEM STARTS HERE ============================== */
 

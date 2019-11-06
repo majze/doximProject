@@ -70,7 +70,7 @@
         <div class="headerColorPicker">
           <br>
           <p>Choose your company color:</p>
-          <input type="color" name="favcolor" value="#ff0000">
+          <input id="headerColor" type="color" name="favcolor" value="#ff0000">
         </div>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
           value="greyscale">Greyscale<br>
@@ -206,7 +206,7 @@
   </div>
 
   <!--15th question: Outbound envelope type information-->
-  <div class="card hideThisDiv">
+  <div class="card hideThisDiv hideForNow">
     <div class="question" id="outboundEnvelopeType">
       <h3>Outbound Envelope Options</h3>
       <p>Choose your outbound envelope type.</p>
@@ -221,7 +221,7 @@
   </div>
 
   <!--16th question: Reply envelope type information-->
-  <div class="card hideThisDiv">
+  <div class="card hideThisDiv hideForNow">
     <div class="question" id="replyEnvelopeType">
       <h3>Reply Envelope Options</h3>
       <p>Choose your reply envelope type.</p>
