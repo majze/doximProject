@@ -13,8 +13,14 @@ export class FirebaseService {
     .where("password", "==", password)).snapshotChanges();
    }
 
-  getCores(coreName){
-    return this.db.collection('cores').snapshotChanges();
+  getCores()
+  {
+    this.db.collection("cores").get().toPromise().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
   }
 
   // getAvatars(){

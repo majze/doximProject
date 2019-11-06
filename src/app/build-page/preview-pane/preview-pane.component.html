@@ -2,41 +2,43 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
-<!-- For dev and testing, will remove soon -->
+<!-- Alert system to notify user of changes -->
 <div style="float:left;">
   <div style="width: 700px" class="alert alert-primary" role="alert">
     <span id="alertMessage">Primary Alert!</span>
   </div>
 </div>
+
+<!-- Generate PDF button -->
 <div style="float:right;">
   <button style="height:50px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
 </div>
 
 <br>
 
-<div class="viewPanel" id="print" #print>
-  <div class="viewBox">
+<!-- Start of the actual preview panel  -->
+<div  class="viewPanel" id="print" #print>
+
+  <div class="viewBox" id="page1">
     <div class="paperContainer">
 
       <div class="gridTopContainer">
-
-        <div class="gridTopLeft gridSection ">
-          <div class="logoSection gridSection "></div>
-          <div class="addressSection gridSection "></div>
+        <div class="gridTopLeft gridSection">
+          <div class="logoSection gridSection"></div>
+          <div class="addressSection gridSection"></div>
         </div>
 
-        <div class="gridTopRight gridSection ">
+        <div class="gridTopRight gridSection">
           <div class="ccLogoSection gridSection "></div>
           <div class="headerSection gridSection "></div>
           <div class="topGraphicSection gridSection "></div>
         </div>
-
       </div>
-
+     
       <div class="wideFillerSpace"></div>
 
       <div class="gridMidContainer">
-        <div class="ccMidSection gridSection colorImage"></div>
+        <div class="ccMidSection gridSection colorImage" ></div>
       </div>
 
       <div class="gridBotContainer">
@@ -46,4 +48,38 @@
 
     </div>
   </div>
+ 
+  <!-- Second page of the actual preview panel  -->
+  <div class="viewBox2" id="page2">
+    <div class="paperContainer">
+
+      <div class="p2gridTopContainer">
+        <div class="p2logoSection gridSection"></div>
+        <div class="p2headerSection gridSection"></div>
+      </div>
+
+      <div class="p2gridMidContainer1">
+        <div class="p2TransactionSummary gridSection"></div>
+      </div>
+
+      <div class="p2gridMidContainer2">
+        <div class="p2InterestCharge gridSection"></div>
+      </div>
+
+      <div class="p2gridMidContainer3">
+        <div class="p2FeeSummary gridSection"></div>
+      </div>
+
+      <div class="p2gridMidContainer4">
+        <div class="p2YTDSummary gridSection"></div>
+      </div>
+
+      <div class="p2gridMidContainer5">
+        <div class="p2WhitespaceAd gridSection"></div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
+<br>

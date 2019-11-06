@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BuildPageComponent } from '../build-page.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'app-preview-pane',
@@ -10,18 +11,19 @@ import html2canvas from 'html2canvas';
 })
 export class PreviewPaneComponent implements OnInit {
   combinedFlags: string;
-  activeCore: string = null;
+  activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
-  activeOnsert: boolean;
-  activeTransactionsMode: boolean;
-  activeWhitespaceMode: boolean;
-  activeJointOwners: boolean;
-  activeTYDMode: boolean;
+  activeOnsert: string;
+  activeTransactionsMode: string;
+  activeWhitespaceMode: string;
+  activeJointOwners: string;
+  activeTYDMode: string;
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
@@ -35,6 +37,8 @@ export class PreviewPaneComponent implements OnInit {
     return this.viewContainerRef[ '_data' ].componentView.component.viewContainerRef[ '_view' ].component
   }
 
+  // DON: yo,
+  // Before commenting on these getters, do we need them? Or can we safely dump them into getSurveyDataFromBuild() ???
   getCore()
   {
     this.activeCore = this.getParentComponent().activeCore;
@@ -55,6 +59,11 @@ export class PreviewPaneComponent implements OnInit {
     this.activeCClogo = this.getParentComponent().activeCClogo;
   }
 
+  getCustomerlogo()
+  {
+    this.activeCustomerlogo = this.getParentComponent().activeCustomerlogo;
+  }
+
   getMaskType()
   {
     this.activeMaskType = this.getParentComponent().activeMaskType;
@@ -72,100 +81,112 @@ export class PreviewPaneComponent implements OnInit {
 
   getOnsert()
   {
-
+    this.activeOnsert = this.getParentComponent().activeOnsert;
   }
 
   getTransactionMode()
   {
-
+    this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
   }
 
   getWhitespaceMode()
   {
-
+    this.activeWhitespaceMode = this.getParentComponent().activeWhitespaceMode;
   }
 
   getJointOwners()
   {
-
+    this.activeJointOwners = this.getParentComponent().activeJointOwners;
   }
 
   getTYDMode()
   {
-
+    this.activeTYDMode = this.getParentComponent().activeTYDMode;
   }
 
   getRewardsType()
   {
-
+    this.activeRewardsType = this.getParentComponent().activeRewardsType;
   }
 
   getOutboundEnvelope()
   {
-
+    this.activeOutboundEnvelope = this.getParentComponent().activeOutboundEnvelope;
   }
 
   getReplyEnvelope()
   {
-    
+    this.activeReplyEnvelope = this.getParentComponent().activeReplyEnvelope;
   }
 
+  // Fetches all survey flags from build-page parent, automatically called when populating the skeleton
   getSurveyDataFromBuild()
   {
     this.getCore();
     this.getStatementType();
     this.getColorMode();
     this.getCClogo();
+    this.getCustomerlogo();
     this.getMaskType();
     this.getScanline();
     this.getMarketing();
+    this.getOnsert();
+    this.getTransactionMode();
+    this.getWhitespaceMode();
+    this.getJointOwners();
+    this.getTYDMode();
+    this.getRewardsType();
+    this.getOutboundEnvelope();
+    this.getReplyEnvelope();
     // future gets
+  }
+
+  // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
+  updateColorMode()
+  {
+    var gridSectionCount = 17;
 
     if (this.activeColorMode == "greyscale")
     {
-      this.addGreyScale();
+      for(var i =0; i < gridSectionCount; i++)
+      {
+        let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+        divChange.classList.add("black_and_white");
+      }
     }
     else
     {
-      this.removeGreyScale();
+      for(var i =0; i < gridSectionCount; i++)
+      {
+        let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+        divChange.classList.remove("black_and_white");
+      }
     }
   }
 
-  unpopulateSkeleton()
-  {
-    for(var i =0; i <10; i++)
-    {
-      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-      divChange.style.backgroundImage="";
-    }
-  }
-
-  addGreyScale()
-  {
-    for(var i =0; i <10; i++)
-    {
-      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-      divChange.classList.add("black_and_white");
-    }
-  }
-
-  removeGreyScale()
-  {
-    for(var i =0; i <10; i++)
-    {
-      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-      divChange.classList.remove("black_and_white");
-    }
-  }
-
-  updateAlert()
+  // Alert system tells user what updated on the view panel when survey change is detected
+  updateAlert(val)
   {
     try {
       let alertBuffer :HTMLElement = document.getElementsByClassName("alert-primary")[0] as HTMLElement; 
-      alertBuffer.textContent="whatever";
+      alertBuffer.classList.add("flash");
+      alertBuffer.textContent = "Updated " + val.replace("active","");
+      setTimeout(function() {
+        alertBuffer.classList.remove("flash");
+      }, 150);
     }
     catch {
       console.log("alertBuffer missing, alertBox missing")
+    }
+  }
+
+  // Unloads all assets from all "gridSecion" divs
+  unpopulateSkeleton()
+  {
+    for(var i =0; i <16; i++)
+    {
+      let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+      divChange.style.backgroundImage="";
     }
   }
 
@@ -176,11 +197,16 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard')
     {
       this.populateSymitarCC();
-      this.updateAlert();
+      this.updateAlert(this.getParentComponent().lastChange);
       this.changeCClogo();
+      this.changeCustomerlogo();
+      this.updateColorMode();
       this.updateMasking();
       this.updateScanline();
       this.updateMarketing();
+      this.updateTransactionSummary();
+      this.updateYTD();
+      this.updateWhitespace();
     }
     else
     {
@@ -196,46 +222,86 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
   populateSymitarCC()
   {
-    let paperContainerBuffer:HTMLElement = document.getElementsByClassName("paperContainer")[0] as HTMLElement;
-    paperContainerBuffer.style.border="none";
-
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/defaultLogo.png)";
+    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
 
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
-    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/address.png)";
+    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/address.png)";
     
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
+    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
 
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
+    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
 
     let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
-    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
 
     let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
-    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymCoupon.png)";
+    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
 
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
+    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+
+    // Page 2 Elements
+
+    let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
+    logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
+    
+    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+    headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+
+    let transactionSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+    transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+
+    let interestChargePage2Buffer:HTMLElement = document.getElementsByClassName("p2InterestCharge")[0] as HTMLElement;
+    interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccInterestCharge.png)";
+
+    let feeSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2FeeSummary")[0] as HTMLElement;
+    feeSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccFeeSummary.png)";
+
+    let YTDSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
+    YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
+
+    let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
   }
   
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
+  // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
   {
+    // Hide the borders around the viewBox divs
     let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
+    let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
     viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
-
+    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    
     var data = document.getElementById('print');
     html2canvas(data).then(canvas =>{
-      const contentDataURL = canvas.toDataURL('image/png')
-      let pdf = new jspdf('p','in','letter');
-      // https://artskydj.github.io/jsPDF/docs/module-addImage.html
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, 8.5, 11, "NONE")
-      pdf.save('image.pdf');
+      // Letter is 8.5 inches by 11 inches
+      var pdf = new jspdf('p', 'in','letter');
+      var imgWidth = 8.5; 
+      var pageHeight = 11;  
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight -0.5;
+      
+      var position = 0;
+      const contentDataURL = canvas.toDataURL('image/png');
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
+      heightLeft -= pageHeight;
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
+        heightLeft -= pageHeight;
+      }
+      pdf.save('file.pdf');
     });
+
+    // Restore the borders around the viewBox divs
     viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
+    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
   }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
@@ -248,11 +314,23 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (this.activeCClogo == "visa")
     {
-      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccVisaLogo.png)";
+      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/ccVisaLogo.png)";
     }
     else if (this.activeCClogo == "mastercard")
     {
-      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccMastercardLogo.png)";
+      ccLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/ccMastercardLogo.png)";
+    }
+  }
+
+  // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
+  changeCustomerlogo()
+  {
+    console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
+    if (this.activeCustomerlogo != "undefined")
+    {
+      let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+      console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
+      customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
     }
   }
 
@@ -260,17 +338,22 @@ export class PreviewPaneComponent implements OnInit {
   updateMasking()
   {
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
+    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+    
     if (this.activeMaskType == "none")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeader.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/page1/ccHeader.png)";
+      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
     }
     else if (this.activeMaskType == "to3")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeaderMaskTo3.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
+      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
     }
     else if (this.activeMaskType == "to4")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccHeaderMaskTo4.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
+      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
     }
   }
 
@@ -280,7 +363,7 @@ export class PreviewPaneComponent implements OnInit {
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
     if (this.activeScanline == "yes")
     {
-      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccScanline.png)";
+      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
     }
     else if (this.activeScanline == "no")
     {
@@ -296,18 +379,62 @@ export class PreviewPaneComponent implements OnInit {
 
     if (this.activeMarketingLevel == "imageOnly")
     {
-      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopGraphic.png)";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
     }
     else if (this.activeMarketingLevel == "contactInfo")
     {
-      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccTopContactInfo.png)";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithoutContactInfo.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopContactInfo.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithoutContactInfo.png)";
     }
     else if (this.activeMarketingLevel == "none")
     {
       topGraphicSectionBuffer.style.backgroundImage="";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/ccSymMidWithAll.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+    }
+  }
+
+  // Uses varaible activeTransactionsMode to update the Transaction Summary on page 2
+  updateTransactionSummary()
+  {
+    let TransactionPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+    if (this.activeTransactionsMode == "yes")
+    {
+      TransactionPage2Buffer.style.display = "block";
+      TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+    }
+    else if (this.activeTransactionsMode == "no")
+    {
+      TransactionPage2Buffer.style.backgroundImage="";
+      TransactionPage2Buffer.style.display = "none";
+    }
+  }
+
+  // Uses varaible activeWhitespace to change the advertisement on page 2
+  updateYTD()
+  {
+    let YTDSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
+    if (this.activeTYDMode == "yes")
+    {
+      YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
+    }
+    else if (this.activeTYDMode == "no")
+    {
+      YTDSummaryPage2Buffer.style.backgroundImage="";
+    }
+  }
+
+  // Uses varaible activeWhitespace to change the advertisement on page 2
+  updateWhitespace()
+  {
+    let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    if (this.activeWhitespaceMode == "yes")
+    {
+      whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+    }
+    else if (this.activeWhitespaceMode == "no")
+    {
+      whitespaceAdPage2Buffer.style.backgroundImage="";
     }
   }
 

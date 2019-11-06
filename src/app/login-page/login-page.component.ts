@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FirebaseService } from '../services/firebase.service';
-import { Router, Params } from '@angular/router';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
-import { forEach } from '@angular/router/src/utils/collection';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -25,27 +23,26 @@ export class LoginPageComponent implements OnInit {
             password: ['', Validators.required]
         })
     }
-
+    // OnClick() event triggered by login form submission
     onSubmit() {
         this.submitted = true;
-
+        // Check for valid fields on form
         if (this.messageForm.invalid) {
             return;
         }
         var vusername = this.messageForm.controls.username.value;
         var vpassword = this.messageForm.controls.password.value;
+        // Check Firestore for User ID
         this.getData(vusername, vpassword);
     }
-
+    // Send user to build page
     nextPage() {
         if (this.success && this.submitted) {
             this.router.navigate(['./build']);
         }
     }
-    
+    // Check Firestore for User ID
 	getData(username, password) {
-        var docReference;
-
         this.firebaseService.getUsers(username, password)
         .subscribe(result => { 
             this.items = result; 
@@ -65,7 +62,7 @@ export class LoginPageComponent implements OnInit {
             }
         });
     }
-
+    // Front-end reacts to these to show valid/invalid notifications to the user
     refreshSubmit() {
         this.fail = false;
         this.success = false;

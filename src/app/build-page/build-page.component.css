@@ -1,22 +1,36 @@
-.comboPanePage {
-  max-width: 1920px;
-}
-
-.a {
+.surveyPanel {
   position: fixed;
   overflow-y: scroll;
-  top: 40px;
+  top: 30px;
   bottom: 0;
   margin-left: -120px;
+  margin-top: 10px;
   max-width: 420px;
+
+  /* Hide scrollbar in firefox */
+  scrollbar-color:  rgba(0,167,225,0.8) transparent;
 }
 
-.b {
+.previewPanel {
   position: fixed;
   overflow-y: scroll;
-  top: 40px;
+  top: 30px;
   bottom: 0;
   margin-left: 330px;
   margin-top: 10px;
-  max-width: 900px;
+
+  /* Use this to get the scroll bar to the far right  */
+  /* max-width: 1200px; */
+
+  /* Use this to get the buttons to line up nicely  */
+   max-width: 900px; 
+
+  /* Hide scrollbar in firefox */
+  scrollbar-color:  rgba(0,167,225,0.8) transparent;
+}
+/* Hiding scrollbar for Google Chrome using webkit  */
+::-webkit-scrollbar { background: transparent; }
+/* Optional: show position indicator in doxim blue */
+::-webkit-scrollbar-thumb {
+  background: rgba(0,167,225,0.8);
 }
