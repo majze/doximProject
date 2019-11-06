@@ -1,4 +1,31 @@
+/* Hue change test */
+.hueTEST {
+    margin-left: 40px;
+    padding: 10px;
+}
 
+.gridMidContainer {
+    width: 750px; height: 375px;
+    
+}
+
+.gridMidContainer::after {
+    display: block; clear: both; content: "";
+}
+
+.ccMidSection {
+    line-height: 375px;
+    width: 100%; height: 100%;
+    background-image: url("../../assets/ccSymitar/page1/ccSymMidWithAll.png");
+}
+
+.hueMe {
+    filter: hue-rotate(90deg);
+}
+
+
+
+ /* Old stuff and ugly styles, use bootstrap when replacing these */
 h1{
     color: black;
     font-size: 64px;
@@ -31,19 +58,6 @@ form:after{
     content: '';
     clear: both;
     display: block;
-}
-
-button{
-    border: 0;
-    background: #fff;
-    border-radius: 10px;
-    padding: 13px;
-    width: 14%;
-    box-shadow: -1px 0px 1px rgba(0,0,0,0.1);
-    font-weight: bold;
-    font-family: ubuntu;
-    letter-spacing: 1px;
-    color: #999;
 }
 
 .dataList {

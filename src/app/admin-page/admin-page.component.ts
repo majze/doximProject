@@ -9,26 +9,30 @@ import { Router, Params } from '@angular/router';
 })
 export class AdminPageComponent implements OnInit {
   items: Array<any>;
-  
 
-  
-  
-    
-	
+  constructor(public firebaseService: FirebaseService) { }
 
-  constructor(public firebaseService: FirebaseService) {
-    
+  // Add user to Firestore
+  addUser()
+  {
+    alert("Person not added!");
   }
 
-  ngOnInit() {
-	//	this.getData();
+  // Hue changing test 
+  changeHue()
+  {
+    let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    var hexNumberFromUserInput = "poop";
+    //function HERE hex to hueNumber
+    var hueNumber = Math.floor(Math.random() * 360) + 1;
+    var degrees = hueNumber + "deg";
+    console.log(degrees);
+    ccMidSectionBuffer.style.filter="hue-rotate("+degrees+")";
   }
 
-  getData(){
-    // this.firebaseService.getUsers()
-    // .subscribe(result => {
-    //   this.items = result;
-    // })
+  ngOnInit()
+  {
+    
   }
   
 }
