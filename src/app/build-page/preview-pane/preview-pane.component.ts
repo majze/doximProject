@@ -317,7 +317,8 @@ export class PreviewPaneComponent implements OnInit {
   changeCustomerlogo()
   {
     let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    customerLogoSectionBuffer.style.backgroundImage="url(../../../assets/shared/customerLogo.png)";
+    console.log("Here in preview.ts changeCustomerlogo() URL: " + this.activeCustomerlogo);
+    customerLogoSectionBuffer.style.backgroundImage= this.activeCustomerlogo;
   }
 
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane

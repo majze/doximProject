@@ -51,9 +51,11 @@ export class SurveyPaneComponent implements OnInit {
 
   constructor(
     private postService: UploadService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    public firebaseService: FirebaseService
   ) {}
 
+  // Reacts to submit button on customer image upload form
   onSubmit(formValue) {
     console.log("In onSubmit() " + this.formTemplate.valid);
     this.isSubmitted = true;
@@ -64,6 +66,12 @@ export class SurveyPaneComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue['imageUrl'] = url;
+
+            // Update preview pane
+            this.activeCustomerlogo = url;
+            console.log("survey: select: ", this.activeCustomerlogo);
+            this.outputSurveyChange.emit("activeCustomerlogo");
+            this.emitSurveyFlags();
           //  this.service.insertImageDetails(formValue);
           //  this.resetForm();
           })
@@ -72,13 +80,13 @@ export class SurveyPaneComponent implements OnInit {
    // }
   }
 
+  // Reacts to OnChange event for uploading a customer image
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imgSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.selectedImage = event.target.files[0];
-      console.log("showPreview() if");
 
       this.activeCustomerlogo = this.selectedImage;
       console.log("survey: select: ", this.activeCustomerlogo);
@@ -88,11 +96,9 @@ export class SurveyPaneComponent implements OnInit {
     else {
       this.imgSrc = '/assets/img/image_placeholder.jpg';
       this.selectedImage = null;
-      console.log("showPreview() else")
     }
   }
 
-  constructor(public firebaseService: FirebaseService) { }
 
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
@@ -271,6 +277,7 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeStatementType + "|";
     this.combinedFlags += this.activeColorMode + "|";
     this.combinedFlags += this.activeCClogo + "|";
+    this.combinedFlags += this.activeCustomerlogo + "|";
     this.combinedFlags += this.activeMaskType + "|";
     this.combinedFlags += this.activeScanline + "|";
     this.combinedFlags += this.activeMarketingLevel + "|";

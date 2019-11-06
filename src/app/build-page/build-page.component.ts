@@ -40,19 +40,19 @@ export class BuildPageComponent implements OnInit {
     this.activeStatementType =  splitted[1];
     this.activeColorMode = splitted[2];
     this.activeCClogo = splitted[3];
-    this.activeCustomerlogo = splitted[15]
-    this.activeMaskType = splitted[4];
-    this.activeScanline = splitted[5];
-    this.activeMarketingLevel = splitted[6];
+    this.activeCustomerlogo = splitted[4]
+    this.activeMaskType = splitted[5];
+    this.activeScanline = splitted[6];
+    this.activeMarketingLevel = splitted[7];
 
-    this.activeOnsert = splitted[7];
-    this.activeTransactionsMode =  splitted[8];
-    this.activeWhitespaceMode = splitted[9];
-    this.activeJointOwners = splitted[10];
-    this.activeTYDMode = splitted[11];
-    this.activeRewardsType = splitted[12];
-    this.activeOutboundEnvelope = splitted[13];
-    this.activeReplyEnvelope = splitted[14];
+    this.activeOnsert = splitted[8];
+    this.activeTransactionsMode =  splitted[9];
+    this.activeWhitespaceMode = splitted[10];
+    this.activeJointOwners = splitted[11];
+    this.activeTYDMode = splitted[12];
+    this.activeRewardsType = splitted[13];
+    this.activeOutboundEnvelope = splitted[14];
+    this.activeReplyEnvelope = splitted[15];
     this.writeSurveyToPreview();
   }
 
