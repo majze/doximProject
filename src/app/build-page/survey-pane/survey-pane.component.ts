@@ -44,7 +44,6 @@ export class SurveyPaneComponent implements OnInit {
 
   // Reacts to submit button on customer image upload form
   constructor(
-    private postService: UploadService,
     private storage: AngularFireStorage,
     public firebaseService: FirebaseService
   ) {}
