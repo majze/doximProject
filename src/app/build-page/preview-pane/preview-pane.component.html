@@ -19,13 +19,13 @@
 <!-- Start of the actual preview panel  -->
 <div  class="viewPanel" id="print" #print>
 
-  <div class="viewBox">
+  <div class="viewBox" id="page1">
     <div class="paperContainer">
 
       <div class="gridTopContainer">
-        <div class="gridTopLeft gridSection changeHeaderColor">
-          <div class="logoSection gridSection changeHeaderColor"></div>
-          <div class="addressSection gridSection changeHeaderColor"></div>
+        <div class="gridTopLeft gridSection">
+          <div class="logoSection gridSection"></div>
+          <div class="addressSection gridSection"></div>
         </div>
 
         <div class="gridTopRight gridSection">
@@ -34,7 +34,7 @@
           <div class="topGraphicSection gridSection "></div>
         </div>
       </div>
-
+     
       <div class="wideFillerSpace"></div>
 
       <div class="gridMidContainer">
@@ -48,10 +48,9 @@
 
     </div>
   </div>
-
-  <br>
-
-  <div class="viewBox">
+ 
+  <!-- Second page of the actual preview panel  -->
+  <div class="viewBox2" id="page2">
     <div class="paperContainer">
 
       <div class="p2gridTopContainer">
@@ -83,3 +82,4 @@
   </div>
 
 </div>
+<br>

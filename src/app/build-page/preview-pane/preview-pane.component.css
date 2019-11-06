@@ -12,6 +12,16 @@
   background-color: white;
 }
 
+.viewBox2 {
+  /* 100 pixels = 1 inch */
+  /* DO NOT CHANGE DIMENSIONS */
+  height: 1100px;
+  width: 850px;
+  margin-top: 42px;
+  border: 2px solid;
+  background-color: white;
+}
+
 .paperContainer {
   /* 100 pixels = 1 inch */
   height: calc(100% - 25px);
