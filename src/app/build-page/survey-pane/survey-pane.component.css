@@ -33,6 +33,17 @@
   display: none;
 }
 
+/* Disappear statement question cards */
+.statementQs{
+  display:none;
+}
+
+
+/* Internal hiding class */
+.hideForNow{
+  display:none;
+}
+
 /* === radio buttons ========== ========== ========== ========== ========== */
 
 .form-radio {

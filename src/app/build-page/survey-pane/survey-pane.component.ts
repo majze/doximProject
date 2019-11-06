@@ -60,6 +60,38 @@ export class SurveyPaneComponent implements OnInit {
     }
   }
 
+  // Function to hide and show statement only questions
+  showHideSQ()
+  { 
+    
+    for(var i = 0; i<15; i++)
+    {
+      let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+      if(this.activeStatementType == "statement")
+      {
+        statementQ.classList.remove("statementQs");
+      }
+      else if(this.activeStatementType != "statement")
+      {
+        statementQ.classList.add("statementQs");
+      }
+    
+    }
+  }
+
+  showHideColorPicker()
+  { 
+    let colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
+    if (this.activeColorMode == "color")
+    {
+      colorPicker.classList.remove("hideThisDiv");
+    }
+    else
+    {
+      colorPicker.classList.add("hideThisDiv");
+    }
+  }
+
   // Sets the statement data core from user input on relevant question card
   setCore(event: any)
   {
@@ -85,6 +117,8 @@ export class SurveyPaneComponent implements OnInit {
     console.log("survey: select: ", this.activeColorMode);
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
+    this.showHideColorPicker();
+
   }
 
   // Sets the credti card logo from user input on relevant question card
