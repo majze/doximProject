@@ -28,6 +28,11 @@
   background-color: #c000006c;
 }
 
+/* Internal testing class to alert user to unfished cards */
+.yellow {
+  background-color: #fffb1cc4;
+}
+
 /* Disappear question cards based on component logic */
 .hideThisDiv{
   display: none;

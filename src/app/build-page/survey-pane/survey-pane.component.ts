@@ -86,9 +86,20 @@ export class SurveyPaneComponent implements OnInit {
     }
   }
 
+  constructor(public firebaseService: FirebaseService) { }
+
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
+
+  // Get core types from Firebase
+  getCoreType() {
+    this.firebaseService.getCores();
+
+    // var x = document.getElementById("coreSelection") as HTMLSelectElement;
+    // var y = x.options[x.selectedIndex].value;
+    // return y;
+  }
 
   // The whole survey except core and statement type are hidden
   // Until a core and statement type are selected
@@ -115,6 +126,19 @@ export class SurveyPaneComponent implements OnInit {
     }
   }
 
+  showHideColorPicker()
+  { 
+    let colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
+    if (this.activeColorMode == "color")
+    {
+      colorPicker.classList.remove("hideThisDiv");
+    }
+    else
+    {
+      colorPicker.classList.add("hideThisDiv");
+    }
+  }
+
   // Sets the statement data core from user input on relevant question card
   setCore(event: any)
   {
@@ -137,6 +161,7 @@ export class SurveyPaneComponent implements OnInit {
   setColorMode()
   {
     this.activeColorMode = (<HTMLInputElement>event.target).value;
+    this.showHideColorPicker();
     console.log("survey: select: ", this.activeColorMode);
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();

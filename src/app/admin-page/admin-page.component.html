@@ -7,12 +7,22 @@
     <form id="add-user-form">
         <input type="text" name="username" placeholder="Enter new user">
         <input type="text" name="password" placeholder="Enter new password">
-        <button>Add User</button>
+        <button (click)=addUser() class="btn btn-primary">Add User</button>
     </form>
     <br>
       <!-- <div class="dataList" *ngFor="let item of items">
         <p class="dataItem">{{item.payload.doc.data().username}} | {{item.payload.doc.data().password}}</p>
       </div> -->
   </div>
-    
+
+
+  <!-- Hue testing  -->
+  <div class="hueTEST">
+    <h3>Hue change test</h3>
+    <button style="margin: 8px;" (click)=changeHue() class="btn btn-primary">Change Hue</button>
+    <div class="gridMidContainer">
+        <div class="ccMidSection"></div>
+    </div>
+  </div>
+  
 </div>

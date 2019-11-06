@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FirebaseService } from '../services/firebase.service';
-import { Router, Params } from '@angular/router';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
-import { forEach } from '@angular/router/src/utils/collection';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
