@@ -266,7 +266,17 @@ export class PreviewPaneComponent implements OnInit {
     let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
   }
-  
+
+  // Test function while I try everything that might work
+  printDiv()
+  {
+    var pdf = new jspdf('p', 'in','letter');
+    var elementId = document.getElementById("viewBox");
+    pdf.addHTML(elementId, function () {
+      pdf.save('Test.pdf');
+    });
+  }
+
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
   // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
@@ -276,7 +286,7 @@ export class PreviewPaneComponent implements OnInit {
     let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
     viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
     viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
-    
+
     var data = document.getElementById('print');
     html2canvas(data).then(canvas =>{
       // Letter is 8.5 inches by 11 inches
@@ -290,6 +300,7 @@ export class PreviewPaneComponent implements OnInit {
       const contentDataURL = canvas.toDataURL('image/png');
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
       heightLeft -= pageHeight;
+
       while (heightLeft > 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
@@ -331,6 +342,11 @@ export class PreviewPaneComponent implements OnInit {
       let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
       console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
       customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
+    }
+    else
+    {
+      let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+      customerLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
     }
   }
 
