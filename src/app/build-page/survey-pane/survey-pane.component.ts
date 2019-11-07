@@ -37,6 +37,7 @@ export class SurveyPaneComponent implements OnInit {
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
+  customerlogoSubmitted: boolean;
 
   formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required)
@@ -63,9 +64,12 @@ export class SurveyPaneComponent implements OnInit {
 
   // Submit button turns the user uploaded image into an imageUrl
   onSubmit(formValue) {
-   // console.log("In onSubmit() " + this.formTemplate.valid);
+    this.customerlogoSubmitted = true;
+    console.log("In onSubmit() " + this.formTemplate.valid);
+    console.log("In onSubmit() " + this.formTemplate.status);
     this.isSubmitted = true;
-      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    //  var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = `Customerlogo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
@@ -91,10 +95,6 @@ export class SurveyPaneComponent implements OnInit {
       reader.onload = (e: any) => this.imgSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.selectedImage = event.target.files[0];
-
-      this.activeCustomerlogo = this.selectedImage;
-      this.outputSurveyChange.emit("activeCustomerlogo");
-      this.emitSurveyFlags();
     }
     else {
       this.imgSrc = '/assets/img/image_placeholder.jpg';

@@ -325,11 +325,9 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
   changeCustomerlogo()
   {
-    console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
     if (this.activeCustomerlogo != "undefined")
     {
       let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-      console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
       customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
     }
   }
