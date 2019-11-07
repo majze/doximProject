@@ -328,7 +328,9 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeCustomerlogo != "undefined")
     {
       let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-      customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
+      customerLogoSectionBuffer.style.backgroundImage = "url("+this.activeCustomerlogo + ")";
+     // customerLogoSectionBuffer.innerHTML = "<img src=\"" + this.activeCustomerlogo + "\">";
+      customerLogoSectionBuffer.innerHTML = "<img src=\"../../../assets/shared/ccMastercardLogo.png\">";
     }
   }
 

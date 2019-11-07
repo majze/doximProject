@@ -78,6 +78,7 @@ export class SurveyPaneComponent implements OnInit {
 
             // Update preview pane
             this.activeCustomerlogo = url;
+          //  this.activeCustomerlogo = this.selectedImage
             this.outputSurveyChange.emit("activeCustomerlogo");
             this.emitSurveyFlags();
           //  this.service.insertImageDetails(formValue);
