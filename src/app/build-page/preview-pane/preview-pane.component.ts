@@ -288,7 +288,8 @@ export class PreviewPaneComponent implements OnInit {
     viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
 
     var data = document.getElementById('print');
-    html2canvas(data).then(canvas =>{
+    console.log(data);
+    html2canvas(data, { logging: true, allowTaint: false, useCORS: true, scrollX: 0, scrollY: 0}).then(canvas =>{
       // Letter is 8.5 inches by 11 inches
       var pdf = new jspdf('p', 'in','letter');
       var imgWidth = 8.5; 
@@ -298,6 +299,7 @@ export class PreviewPaneComponent implements OnInit {
       
       var position = 0;
       const contentDataURL = canvas.toDataURL('image/png');
+      console.log(contentDataURL);
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
       heightLeft -= pageHeight;
 
@@ -358,7 +360,7 @@ export class PreviewPaneComponent implements OnInit {
     
     if (this.activeMaskType == "none")
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/page1/ccHeader.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
       headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
     }
     else if (this.activeMaskType == "to3")
