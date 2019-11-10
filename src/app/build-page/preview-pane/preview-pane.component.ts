@@ -180,6 +180,37 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Converts image to base64
+  getBase64Image(imgUrl) {
+      var img = new Image();
+      // set attributes and src 
+      img.setAttribute('crossOrigin', 'anonymous');
+      img.src = imgUrl.replace(/(\r\n|\n|\r)/gm, "");
+      
+      return img.src;
+
+    // var xhr = new XMLHttpRequest()
+    // xhr.open("GET", img);
+    // xhr.responseType = "blob";
+    // xhr.send();
+    // xhr.addEventListener("load", function() {
+    //   var reader = new FileReader();
+    //   reader.readAsDataURL(xhr.response); 
+    //   reader.addEventListener("loadend", function() {             
+    //     console.log("READER RESULT: " + reader.result);
+    //     return reader.result;
+    //   });
+    // });
+
+    // var canvas = document.createElement("canvas");
+    // canvas.width = img.width;
+    // canvas.height = img.height;
+    // var ctx = canvas.getContext("2d");
+    // ctx.drawImage(img, 0, 0);
+    // var dataURL = canvas.toDataURL("image/png");
+    // return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
+
   // Unloads all assets from all "gridSecion" divs
   unpopulateSkeleton()
   {
@@ -198,8 +229,8 @@ export class PreviewPaneComponent implements OnInit {
     {
       this.populateSymitarCC();
       this.updateAlert(this.getParentComponent().lastChange);
-      this.changeCClogo();
-      this.changeCustomerlogo();
+      this.updateCClogo();
+      this.updateCustomerlogo();
       this.updateColorMode();
       this.updateMasking();
       this.updateScanline();
@@ -318,7 +349,7 @@ export class PreviewPaneComponent implements OnInit {
   }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
-  changeCClogo()
+  updateCClogo()
   {
     let ccLogoSectionBuffer:HTMLElement = document.getElementsByClassName("ccLogoSection")[0] as HTMLElement;
     if (this.activeCClogo == "none")
@@ -336,14 +367,15 @@ export class PreviewPaneComponent implements OnInit {
   }
 
   // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
-  changeCustomerlogo()
+  updateCustomerlogo()
   {
-    console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
+    console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo + ".jpg");
     if (this.activeCustomerlogo != "undefined")
     {
       let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-      console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo);
-      customerLogoSectionBuffer.style.backgroundImage="url("+this.activeCustomerlogo + ")";
+      let base64image = this.getBase64Image(this.activeCustomerlogo + ".jpg");
+      console.log("VAR BASE64IMAGE: " + base64image);
+      customerLogoSectionBuffer.style.backgroundImage="url('" + base64image + "')";
     }
     else
     {
