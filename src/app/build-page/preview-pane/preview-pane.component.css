@@ -36,20 +36,6 @@
   display: block; clear: both; content: "";
 }
 
-.paperContainerLeftScanline {
-  /* 100 pixels = 1 inch */
-  height: calc(100% - 75px);
-  width: calc(100% - 50px);
-  margin-top: 25px;
-  margin-right: 50px;
-  margin-bottom: 50px;
-  background-color: white;
-}
-
-.paperContainerLeftScanline::after {
-  display: block; clear: both; content: "";
-}
-
 .gridSection {
   float: left;
   text-align: center;
@@ -72,7 +58,7 @@
   -webkit-filter: grayscale(100%);
 }
 
-/* CREDIT CARD GRID SYSTEM STARTS HERE ============================== */
+/* CREDIT CARD GRID SYSTEM STARTS HERE ============================================================ */
 
 /* Top Container */
 .gridTopContainer {
@@ -255,7 +241,21 @@
   width: 100%; height: 100%
 }
 
-/* REGULAR STATEMENT GRID SYSTEM STARTS HERE ============================== */
+/* REGULAR STATEMENT GRID SYSTEM STARTS HERE ============================================================ */
+
+.paperContainerLeftScanline {
+  /* 100 pixels = 1 inch */
+  height: calc(100% - 75px);
+  width: calc(100% - 50px);
+  margin-top: 25px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  background-color: white;
+}
+
+.paperContainerLeftScanline::after {
+  display: block; clear: both; content: "";
+}
 
 /* Scanline and non-scanline sections */
 
@@ -283,7 +283,7 @@
 /* Top Container */
 
 .gridTopContainerReg {
-  width: 100%; height: calc(100% - (1025px - 325px));
+  width: 100%; height: calc(100% - (1075px - 325px)); /* change this if adding scanline! */
 }
 
 .gridTopContainerReg::after {
@@ -308,30 +308,28 @@
 
 .logoSectionReg {
   line-height: 125px;
-  width: 100%; height: calc(100% - (1025px - 125px));
-  border: 1px solid yellow;
+  width: 100%; height: calc(100% - (100% - 125px));
 }
 
 .addressSectionReg {
   line-height: 200px;
-  width: 100%; height: calc(100% - (1025px - 200px));
-  border: 1px solid pink;
+  width: 100%; height: calc(100% - (100% - 200px));
 }
 
 .topGraphicSectionReg {
   line-height: 225px;
-  width: 100%; height: 225px;
+  width: 100%; height: calc(100% - (100% - 225px));
 }
 
 .AccountInfoReg {
   line-height: 100px;
-  width: 100%; height: 100px;
+  width: 100%; height: calc(100% - (100% - 100px));
 }
 
 /* Mid Container */
 
 .gridMidContainerReg {
-  width: 100%; height: calc(100% - (1025px - 325px));
+  width: 100%; height: calc(100% - (1025px - 700px));
 }
 
 .gridMidContainer::after {
@@ -340,17 +338,17 @@
 
 .AccountSummaryReg {
   line-height: 275px;
-  width: 100%; height: 275px;
+  width: 100%; height: calc(100% - (100% - 275px));
 }
 
 .shareSavingsReg {
   line-height: 225px;
-  width: 100%; height: 225px;
+  width: 100%; height: calc(100% - (100% - 225px));
 }
 
 .whitespaceAdReg {
   line-height: 200px;
-  width: 100%; height: 200px;
+  width: 100%; height: calc(100% - (100% - 200px));
 }
 
 /* Page 2 */

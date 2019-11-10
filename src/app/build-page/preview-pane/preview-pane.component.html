@@ -3,18 +3,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 
 <!-- Alert system to notify user of changes -->
+<!-- 
 <div style="float:left;">
   <div style="width: 700px" class="alert alert-primary" role="alert">
     <span id="alertMessage">Primary Alert!</span>
   </div>
 </div>
+-->
 
 <!-- Generate PDF button -->
-<div style="float:right;">
-  <button style="height:50px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
+<!-- <div style="float:right;"> -->
+<div>
+  <button style="height:50px; width:850px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
 </div>
 
-<br>
+<!-- <br> -->
 
 <!-- Start of the Credit Card Statement preview panel  -->
 <div class="viewPanel" id="print" #print>
@@ -89,9 +92,29 @@
 <div class="viewPanel" id="print2" #print2>
 
   <div class="viewBox testTEST" id="page1">
-    <div class="paperContainerLeftScanline gridSection">
+    <div class="paperContainer">
 
-      <div class="StatementGridScanline gridSection">
+      <div class="gridTopContainerReg">
+
+        <div class="gridTopLeftReg gridSection">
+          <div class="logoSectionReg gridSection">2</div>
+          <div class="addressSectionReg gridSection">3</div>
+        </div>
+
+        <div class="gridTopRightReg gridSection">
+          <div class="topGraphicSectionReg gridSection colorImage">4</div>
+          <div class="AccountInfoReg gridSection colorImage">5</div>
+        </div>
+
+      </div>
+  
+      <div class="gridMidContainerReg">
+        <div class="AccountSummaryReg gridSection colorImage">6</div>
+        <div class="shareSavingsReg gridSection colorImage">7</div>
+        <div class="whitespaceAdReg gridSection colorImage">8</div>
+      </div>
+
+      <!-- <div class="StatementGridScanline gridSection">
         <div class="scanlineSectionLeft gridSection">1</div>
       </div>
 
@@ -113,7 +136,7 @@
           <div class="shareSavingsReg gridSection colorImage">7</div>
           <div class="whitespaceAdReg gridSection colorImage">8</div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>

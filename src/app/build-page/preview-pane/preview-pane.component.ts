@@ -37,8 +37,6 @@ export class PreviewPaneComponent implements OnInit {
     return this.viewContainerRef[ '_data' ].componentView.component.viewContainerRef[ '_view' ].component
   }
 
-  // DON: yo,
-  // Before commenting on these getters, do we need them? Or can we safely dump them into getSurveyDataFromBuild() ???
   getCore()
   {
     this.activeCore = this.getParentComponent().activeCore;
@@ -153,7 +151,6 @@ export class PreviewPaneComponent implements OnInit {
     {
       // gridSectionCount = ??
     }
-    
 
     if (this.activeColorMode == "greyscale")
     {
@@ -192,7 +189,7 @@ export class PreviewPaneComponent implements OnInit {
   // Unloads all assets from all "gridSecion" divs
   unpopulateSkeleton()
   {
-    for(var i =0; i <16; i++)
+    for(var i =0; i <17; i++)
     {
       let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
       divChange.style.backgroundImage="";
@@ -234,49 +231,57 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
   populateSymitarCC()
   {
+
+    // Define each HTML element to apply style changes
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
-
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
-    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/address.png)";
-    
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
-
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
-
     let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
-    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
-
     let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
-    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
-
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
-
     // Page 2 Elements
-
     let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
-    logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
-    
     let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
-    headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
-
     let transactionSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
-    transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
-
     let interestChargePage2Buffer:HTMLElement = document.getElementsByClassName("p2InterestCharge")[0] as HTMLElement;
-    interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccInterestCharge.png)";
-
     let feeSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2FeeSummary")[0] as HTMLElement;
-    feeSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccFeeSummary.png)";
-
     let YTDSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
-    YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
-
     let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
-    whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+
+    // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
+    if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
+      {
+        logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
+        // Page 2 Elements
+        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
+        transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+        interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccInterestCharge.png)";
+        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+      }
+      else if (this.activeColorMode == "greyscale")
+      {
+        logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
+        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymCoupon.png)";
+        // Page 2 Elements
+        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/defaultLogo.png)";
+        transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
+        interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccInterestCharge.png)";
+        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
+      }
+    
+    // These will update regardless of color settings
+    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/address.png)";
+    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
+    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+    headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+    feeSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccFeeSummary.png)";
+    YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
   }
 
   // Populates the viewBox div with all default assets that are of type Regular AND symitar
@@ -334,20 +339,6 @@ export class PreviewPaneComponent implements OnInit {
       const contentDataURL = canvas.toDataURL('image/png');
       console.log(contentDataURL);
 
-      // Try greyscale edit each pixel
-      // pdf.drawImage(data, 0, 0);
-      // var imgPixels = pdf.getImageData(0, 0, imgWidth, imgHeight);
-      // for(var y = 0; y < imgPixels.height; y++){
-      //   for(var x = 0; x < imgPixels.width; x++){
-      //     var i = (y * 4) * imgPixels.width + x * 4;
-      //     var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-      //     imgPixels.data[i] = avg; 
-      //     imgPixels.data[i + 1] = avg; 
-      //     imgPixels.data[i + 2] = avg;
-      //   }
-      // }
-      // pdf.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
-
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
 
       heightLeft -= pageHeight;
@@ -386,16 +377,26 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
   updateCustomerlogo()
   {
-    console.log("Here in preview.ts changeCustomerlogo() " + this.activeCustomerlogo + ".jpg");
+    let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+    let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
     if (this.activeCustomerlogo != "undefined")
     {
-      let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
       customerLogoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+      // grey
+      // https://codepen.io/duketeam/pen/ALEByA
     }
     else
     {
-      let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-      customerLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+      if (this.activeColorMode == "greyscale")
+      {
+        customerLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
+        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/defaultLogo.png)";
+      }
+      else
+      {
+        customerLogoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
+      }
     }
   }
 
