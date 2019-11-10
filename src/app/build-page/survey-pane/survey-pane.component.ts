@@ -66,12 +66,13 @@ export class SurveyPaneComponent implements OnInit {
     console.log("In onSubmit() " + this.formTemplate.status);
     this.isSubmitted = true;
     
-    this.uploadService.saveCustomerLogoToFirebaseStorage(this.selectedImage, this.activeCustomerlogo);
-    console.log("URL in survey component1: " + this.activeCustomerlogo);
+    this.uploadService.saveCustomerLogoToFirebaseStorage(this.selectedImage, this.imgSrc);
+
+    console.log("made it past serice call");
     this.activeCustomerlogo = this.uploadService.firebaseStorageURL;
     console.log("URL in survey component2: " + this.activeCustomerlogo);
-    this.outputSurveyChange.emit("activeCustomerlogo");
-    this.emitSurveyFlags();
+    // this.outputSurveyChange.emit("activeCustomerlogo");
+    // this.emitSurveyFlags();
 
 
 
