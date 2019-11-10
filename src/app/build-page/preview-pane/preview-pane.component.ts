@@ -144,7 +144,16 @@ export class PreviewPaneComponent implements OnInit {
   // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
   updateColorMode()
   {
-    var gridSectionCount = 17;
+    var gridSectionCount = 0;
+    if (this.activeStatementType == "creditCard")
+    {
+      gridSectionCount = 17;
+    }
+    else
+    {
+      // gridSectionCount = ??
+    }
+    
 
     if (this.activeColorMode == "greyscale")
     {
@@ -180,37 +189,6 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
-  // Converts image to base64
-  getBase64Image(imgUrl) {
-      var img = new Image();
-      // set attributes and src 
-      img.setAttribute('crossOrigin', 'anonymous');
-      img.src = imgUrl.replace(/(\r\n|\n|\r)/gm, "");
-      
-      return img.src;
-
-    // var xhr = new XMLHttpRequest()
-    // xhr.open("GET", img);
-    // xhr.responseType = "blob";
-    // xhr.send();
-    // xhr.addEventListener("load", function() {
-    //   var reader = new FileReader();
-    //   reader.readAsDataURL(xhr.response); 
-    //   reader.addEventListener("loadend", function() {             
-    //     console.log("READER RESULT: " + reader.result);
-    //     return reader.result;
-    //   });
-    // });
-
-    // var canvas = document.createElement("canvas");
-    // canvas.width = img.width;
-    // canvas.height = img.height;
-    // var ctx = canvas.getContext("2d");
-    // ctx.drawImage(img, 0, 0);
-    // var dataURL = canvas.toDataURL("image/png");
-    // return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  }
-
   // Unloads all assets from all "gridSecion" divs
   unpopulateSkeleton()
   {
@@ -228,6 +206,7 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard')
     {
       this.populateSymitarCC();
+      
       this.updateAlert(this.getParentComponent().lastChange);
       this.updateCClogo();
       this.updateCustomerlogo();
@@ -238,6 +217,8 @@ export class PreviewPaneComponent implements OnInit {
       this.updateTransactionSummary();
       this.updateYTD();
       this.updateWhitespace();
+
+      this.populateSymitarRegular(); // remove me! for testing
     }
     else
     {
@@ -298,14 +279,36 @@ export class PreviewPaneComponent implements OnInit {
     whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
   }
 
-  // Test function while I try everything that might work
-  printDiv()
+  // Populates the viewBox div with all default assets that are of type Regular AND symitar
+  populateSymitarRegular()
   {
-    var pdf = new jspdf('p', 'in','letter');
-    var elementId = document.getElementById("viewBox");
-    pdf.addHTML(elementId, function () {
-      pdf.save('Test.pdf');
-    });
+    let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
+    console.log(scanlineSectionBuffer);
+    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/scanlineLeft.png)";
+    console.log(scanlineSectionBuffer);
+
+    let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
+    logoSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/defaultLogo.png)";
+
+    let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSectionReg")[0] as HTMLElement;
+    addressSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/address.png)";
+    
+    let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
+    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/topGraphic.png)";
+
+    let AccountInfoSectionBuffer:HTMLElement = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+    AccountInfoSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/accountInfo.png)";
+
+    let AccountSummaryBuffer:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
+    AccountSummaryBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/accountSummary.png)";
+
+    let shareSavingsBuffer:HTMLElement = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
+    shareSavingsBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/shareSavings.png)";
+
+    let whitespaceAdBuffer:HTMLElement = document.getElementsByClassName("whitespaceAdReg")[0] as HTMLElement;
+    whitespaceAdBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/whitespaceAd.png)";
+
+    // Page 2 Elements
   }
 
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
@@ -327,13 +330,27 @@ export class PreviewPaneComponent implements OnInit {
       var pageHeight = 11;  
       var imgHeight = canvas.height * imgWidth / canvas.width;
       var heightLeft = imgHeight -0.5;
-      
       var position = 0;
       const contentDataURL = canvas.toDataURL('image/png');
       console.log(contentDataURL);
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
-      heightLeft -= pageHeight;
 
+      // Try greyscale edit each pixel
+      // pdf.drawImage(data, 0, 0);
+      // var imgPixels = pdf.getImageData(0, 0, imgWidth, imgHeight);
+      // for(var y = 0; y < imgPixels.height; y++){
+      //   for(var x = 0; x < imgPixels.width; x++){
+      //     var i = (y * 4) * imgPixels.width + x * 4;
+      //     var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+      //     imgPixels.data[i] = avg; 
+      //     imgPixels.data[i + 1] = avg; 
+      //     imgPixels.data[i + 2] = avg;
+      //   }
+      // }
+      // pdf.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, "NONE");
+
+      heightLeft -= pageHeight;
       while (heightLeft > 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
@@ -373,9 +390,7 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeCustomerlogo != "undefined")
     {
       let customerLogoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-      let base64image = this.getBase64Image(this.activeCustomerlogo + ".jpg");
-      console.log("VAR BASE64IMAGE: " + base64image);
-      customerLogoSectionBuffer.style.backgroundImage="url('" + base64image + "')";
+      customerLogoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
     }
     else
     {

@@ -36,6 +36,20 @@
   display: block; clear: both; content: "";
 }
 
+.paperContainerLeftScanline {
+  /* 100 pixels = 1 inch */
+  height: calc(100% - 75px);
+  width: calc(100% - 50px);
+  margin-top: 25px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  background-color: white;
+}
+
+.paperContainerLeftScanline::after {
+  display: block; clear: both; content: "";
+}
+
 .gridSection {
   float: left;
   text-align: center;
@@ -243,44 +257,70 @@
 
 /* REGULAR STATEMENT GRID SYSTEM STARTS HERE ============================== */
 
+/* Scanline and non-scanline sections */
+
+.StatementGridScanline {
+  width: calc(100% - (800px - 50px)); height: 100%;
+}
+
+.StatementGridScanline::after {
+  display: block; clear: both; content: "";
+}
+
+.scanlineSectionLeft {
+  line-height: 1025px;
+  width: 100%; height: 100%;
+}
+
+.StatementGridRemaining {
+  width: calc(100% - (800px - 750px)); height: 100%;
+}
+
+.StatementGridRemaining::after {
+  display: block; clear: both; content: "";
+}
+
 /* Top Container */
+
 .gridTopContainerReg {
-  width: 100%; height: calc(100% - (1075px - 325px));
+  width: 100%; height: calc(100% - (1025px - 325px));
 }
 
 .gridTopContainerReg::after {
   display: block; clear: both; content: "";
 }
 
-.gridTopLeft {
+.gridTopLeftReg {
   width: 50%; height: 100%;
 }
 
-.gridTopLeft::after {
+.gridTopLeftReg::after {
   display: block; clear: both; content: "";
 }
 
-.gridTopRight {
+.gridTopRightReg {
   width: 50%; height: 100%;
 }
 
-.gridTopRight::after {
+.gridTopRightReg::after {
   display: block; clear: both; content: "";
 }
 
 .logoSectionReg {
   line-height: 125px;
-  width: 100%; height: 125px;
+  width: 100%; height: calc(100% - (1025px - 125px));
+  border: 1px solid yellow;
 }
 
 .addressSectionReg {
   line-height: 200px;
-  width: 100%; height: 200px;
+  width: 100%; height: calc(100% - (1025px - 200px));
+  border: 1px solid pink;
 }
 
 .topGraphicSectionReg {
-  line-height: 275px;
-  width: 100%; height: 275px;
+  line-height: 225px;
+  width: 100%; height: 225px;
 }
 
 .AccountInfoReg {
@@ -290,10 +330,8 @@
 
 /* Mid Container */
 
-
-
 .gridMidContainerReg {
-  width: 100%; height: 700px;
+  width: 100%; height: calc(100% - (1025px - 325px));
 }
 
 .gridMidContainer::after {
@@ -301,8 +339,8 @@
 }
 
 .AccountSummaryReg {
-  line-height: 375px;
-  width: 100%; height: 375px;
+  line-height: 275px;
+  width: 100%; height: 275px;
 }
 
 .shareSavingsReg {
@@ -317,85 +355,94 @@
 
 /* Page 2 */
 
-.p2gridTopContainer {
-  width: 100%; height: calc(100% - (1075px - 75px));
+.testTEST div {
+  border: 1px solid green;
 }
 
-.p2gridTopContainer::after {
+.p2gridTopContainerReg {
+  width: 100%; height: calc(100% - (1075px - 100px));
+}
+
+.p2gridTopContainerReg::after {
   display: block; clear: both; content: "";
 }
 
-.p2logoSection {
-  line-height: 50%;
-  width: calc(100% - (750px - 250px)); height: 100%
+.p2logoSectionReg {
+  line-height: 100px;
+  width: 50%; height: 100%
 }
 
-.p2headerSection {
-  line-height: 50%;
-  width: calc(100% - (750px - 500px)); height: 100%
+.p2headerSectionReg {
+  line-height: 100px;
+  width: 50%; height: 100%
 }
 
-/* 2.5 inches tall  */
-.p2gridMidContainer1 {
-  width: 100%; height: calc(100% - (1075px - 250px));
+/* 1.75 inches tall  */
+.p2gridMidContainerReg1 {
+  width: 100%; height: calc(100% - (1075px - 175px));
 }
 
-.p2gridMidContainer1::after {
+.p2gridMidContainerReg1::after {
   display: block; clear: both; content: "";
 }
 
-.p2TransactionSummary {
+.FixedMortgageReg {
+  line-height: 175px;
   width: 100%; height: 100%
 }
 
 /* 1.5 inches tall  */
-.p2gridMidContainer2 {
+.p2gridMidContainerReg2 {
   width: 100%; height: calc(100% - (1075px - 150px));
 }
 
-.p2gridMidContainer2::after {
+.p2gridMidContainerReg2::after {
   display: block; clear: both; content: "";
 }
 
-.p2InterestCharge {
-  width: 100%; height: 100%
-}
-
-/* 1.75 inches tall  */
-.p2gridMidContainer3 {
-  width: 100%; height: calc(100% - (1075px - 175px));
-}
-
-.p2gridMidContainer3::after {
-  display: block; clear: both; content: "";
-}
-
-.p2FeeSummary {
+.HomeEquityReg {
+  line-height: 150px;
   width: 100%; height: 100%
 }
 
 /* 0.75 inches tall  */
-.p2gridMidContainer4 {
+.p2gridMidContainerReg3 {
   width: 100%; height: calc(100% - (1075px - 75px));
 }
 
-.p2gridMidContainer4::after {
+.p2gridMidContainerReg3::after {
   display: block; clear: both; content: "";
 }
 
-.p2YTDSummary {
+.YTDSummaryReg {
+  line-height: 75px;
   width: 100%; height: 100%;
 }
 
-/* 3.5 inches tall  */
-.p2gridMidContainer5 {
-  width: 100%; height: calc(100% - (1075px - 350px));
+/* 2.75 inches tall  */
+.p2gridMidContainerReg4 {
+  width: 100%; height: calc(100% - (1075px - 275px));
 }
 
-.p2gridMidContainer5::after {
+.p2gridMidContainerReg4::after {
   display: block; clear: both; content: "";
 }
 
-.p2WhitespaceAd {
+.WhitespaceAdReg1 {
+  line-height: 275px;
+  width: 100%; height: 100%;
+}
+
+/* 2.5 inches tall  */
+.p2gridMidContainerReg5 {
+  width: 100%; height: calc(100% - (1075px - 250px));
+}
+
+.p2gridMidContainerReg5::after {
+  display: block; clear: both; content: "";
+}
+
+.WhitespaceAdReg2 {
+  line-height: 250px;
   width: 100%; height: 100%
 }
