@@ -1,11 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
-import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { Observable } from 'rxjs/Observable';
-import { finalize } from "rxjs/operators";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UploadService } from '../upload.service';
 
 @Component({
   selector: 'app-survey-pane',
@@ -45,8 +42,8 @@ export class SurveyPaneComponent implements OnInit {
 
   // Reacts to submit button on customer image upload form
   constructor(
-    private storage: AngularFireStorage,
-    public firebaseService: FirebaseService
+    public firebaseService: FirebaseService,
+    public uploadService: UploadService
   ) {}
 
   // Output emitter to build page component html page
@@ -68,24 +65,16 @@ export class SurveyPaneComponent implements OnInit {
     console.log("In onSubmit() " + this.formTemplate.valid);
     console.log("In onSubmit() " + this.formTemplate.status);
     this.isSubmitted = true;
-    //  var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      var filePath = `Customerlogo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      const fileRef = this.storage.ref(filePath);
-      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe((url) => {
-            formValue['imageUrl'] = url;
+    
+    this.uploadService.saveCustomerLogoToFirebaseStorage(this.selectedImage, this.activeCustomerlogo);
+    console.log("URL in survey component1: " + this.activeCustomerlogo);
+    this.activeCustomerlogo = this.uploadService.firebaseStorageURL;
+    console.log("URL in survey component2: " + this.activeCustomerlogo);
+    this.outputSurveyChange.emit("activeCustomerlogo");
+    this.emitSurveyFlags();
 
-            // Update preview pane
-            this.activeCustomerlogo = url;
-          //  this.activeCustomerlogo = this.selectedImage
-            this.outputSurveyChange.emit("activeCustomerlogo");
-            this.emitSurveyFlags();
-          //  this.service.insertImageDetails(formValue);
-          //  this.resetForm();
-          })
-        })
-      ).subscribe();
+
+
   }
 
   // Reacts to OnChange event for uploading a customer image
