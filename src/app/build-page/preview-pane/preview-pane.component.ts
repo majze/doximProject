@@ -220,28 +220,42 @@ export class PreviewPaneComponent implements OnInit {
   }
 
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
+
   populateSymitarCC()
   {
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
-
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
-    addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/address.png)";
-    
     let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
-
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
-
     let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
-    ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
-
     let couponSectionBuffer:HTMLElement = document.getElementsByClassName("couponSection")[0] as HTMLElement;
-    couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
-
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
-    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+    
+    if( this.activeColorMode == "undefined" || this.activeColorMode == "color")
+    {
+      logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+      addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/address.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+      couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
+      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+     
+    }
+    else if ( this.activeColorMode == "greyscale") //greyscale fix for pdf
+    {
+      logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
+      addressSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/address.png)";
+      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccHeader.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+      couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymCoupon.png)";
+      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccScanline.png)";
+    }
+    else
+    {
+
+    }
 
     // Page 2 Elements
 
@@ -266,7 +280,6 @@ export class PreviewPaneComponent implements OnInit {
     let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
   }
-  
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
   // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
@@ -274,8 +287,7 @@ export class PreviewPaneComponent implements OnInit {
     // Hide the borders around the viewBox divs
     let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
     let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    viewBoxBuffer.style.border = "2px solid rgba(0,0,0,0)";
     
     var data = document.getElementById('print');
     html2canvas(data).then(canvas =>{
