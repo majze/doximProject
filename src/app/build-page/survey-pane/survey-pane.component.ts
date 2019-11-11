@@ -114,12 +114,19 @@ export class SurveyPaneComponent implements OnInit {
   {
     if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account')))
     {
-      for (var i = 0; i < 15; i++)
+      var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
+      if (cardQNum <= 0)
       {
-        let hiddenCard: HTMLElement = document.getElementsByClassName("card")[i] as HTMLElement;
-        hiddenCard.classList.remove("hideThisDiv");
+        return;
+      }
+      for (var i = 0; i < cardQNum; i++)
+      {
+        var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
+        hiddenCard.classList.remove("initialhideThisDiv");
       }
     }
+    this.showHideCCQ();
+    this.showHideSQ();
   }
 
   // Function to hide and show the credit card question 
