@@ -13,6 +13,7 @@ export class PreviewPaneComponent implements OnInit {
   activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
+  activeHexCode: string;
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
@@ -46,6 +47,10 @@ export class PreviewPaneComponent implements OnInit {
 
   getColorMode() {
     this.activeColorMode = this.getParentComponent().activeColorMode;
+  }
+
+  getHexCode() {
+    this.activeHexCode = this.getParentComponent().activeHexCode;
   }
 
   getCClogo() {
@@ -116,89 +121,6 @@ export class PreviewPaneComponent implements OnInit {
     // future gets
   }
 
-  // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
-  updateColorMode() {
-    var gridSectionCount = 17;
-
-    if (this.activeColorMode == "greyscale") {
-      for (var i = 0; i < gridSectionCount; i++) {
-        let divChange: HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-        divChange.classList.add("black_and_white");
-      }
-    }
-    else {
-      for (var i = 0; i < gridSectionCount; i++) {
-        let divChange: HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
-        divChange.classList.remove("black_and_white");
-      }
-    }
-  }
-
-  //function to maniuplate the header color of the boxes
-  changeHue() {
-
-    var gridSectionCount = 17;
-    for (var i = 0; i < gridSectionCount; i++) {
-      if (i != 11) {
-        let divChange: HTMLElement = document.getElementsByClassName("changHeaderColor")[i] as HTMLElement;
-        var hexNumberFromUserInput = "poop";
-        //function HERE hex to hueNumber
-        var hueNumber = 25;
-        var degrees = hueNumber + "deg";
-        divChange.style.filter = "hue-rotate(" + degrees + ")";
-      }
-    }
-
-  }
-
-
-
-
-  // hexToHSL(H) {
-  //   // Convert hex to RGB first
-  //   let r = 0, g = 0, b = 0;
-  //   if (H.length == 4) {
-  //     r = "0x" + H[1] + H[1];
-  //     g = "0x" + H[2] + H[2];
-  //     b = "0x" + H[3] + H[3];
-  //   } else if (H.length == 7) {
-  //     r = "0x" + H[1] + H[2];
-  //     g = "0x" + H[3] + H[4];
-  //     b = "0x" + H[5] + H[6];
-  //   }
-  //   // Then to HSL
-  //   r /= 255;
-  //   g /= 255;
-  //   b /= 255;
-  //   let cmin = Math.min(r,g,b),
-  //       cmax = Math.max(r,g,b),
-  //       delta = cmax - cmin,
-  //       h = 0,
-  //       s = 0,
-  //       l = 0;
-
-  //   if (delta == 0)
-  //     h = 0;
-  //   else if (cmax == r)
-  //     h = ((g - b) / delta) % 6;
-  //   else if (cmax == g)
-  //     h = (b - r) / delta + 2;
-  //   else
-  //     h = (r - g) / delta + 4;
-
-  //   h = Math.round(h * 60);
-
-  //   if (h < 0)
-  //     h += 360;
-
-  //   l = (cmax + cmin) / 2;
-  //   s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-  //   s = +(s * 100).toFixed(1);
-  //   l = +(l * 100).toFixed(1);
-
-  //   return "hsl(" + h + "," + s + "%," + l + "%)";
-  // }
-
 
 
   // Alert system tells user what updated on the view panel when survey change is detected
@@ -218,7 +140,7 @@ export class PreviewPaneComponent implements OnInit {
 
   // Unloads all assets from all "gridSecion" divs
   unpopulateSkeleton() {
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < 17; i++) {
       let divChange: HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
       divChange.style.backgroundImage = "";
     }
@@ -311,6 +233,96 @@ export class PreviewPaneComponent implements OnInit {
     });
     viewBoxBuffer.style.border = "2px solid rgba(0,0,0,1)";
   }
+
+  // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
+  updateColorMode() {
+    var gridSectionCount = 17;
+
+    if (this.activeColorMode == "greyscale") {
+      for (var i = 0; i < gridSectionCount; i++) {
+        let divChange: HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+        divChange.classList.add("black_and_white");
+      }
+    }
+    else {
+      for (var i = 0; i < gridSectionCount; i++) {
+        let divChange: HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
+        divChange.classList.remove("black_and_white");
+      }
+    }
+  }
+
+  //function to maniuplate the header color of the different info boxes
+  changeHue() {
+    // var userHexNum = this.activeHexCode;
+    // var convertedHSL = this.hexToHSL(userHexNum);
+   // var hueChange = this.hslToDegreeChange(convertedHSL)
+    var testnum = 27, testnum1=112, testnum2 = 115;
+    
+    var filter1 = "hue-rotate("+testnum+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
+    for (var i = 0; i < 15; i++) {
+      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
+      divChange.style.filter = filter1;
+    }
+  }
+
+//helper function to change a hex code value into a usable HSL value
+  hexToHSL(H) {
+    // Convert hex to RGB first
+    let r = 0, g = 0, b = 0;
+    if (H.length == 4) {
+      r =  H[1] + H[1];
+      g =  H[2] + H[2];
+      b =  H[3] + H[3];
+    }
+    else if (H.length == 7) {
+      r =  H[1] + H[2];
+      g =  H[3] + H[4];
+      b =  H[5] + H[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
+      delta = cmax - cmin,
+      h = 0,
+      s = 0,
+      l = 0;
+
+    if (delta == 0)
+      h = 0;
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    else
+      h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+
+    if (h < 0)
+      h += 360;
+
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    let hslArray: number[] = [h,s,l]
+    return hslArray;
+  }
+
+  //Once the HSL is found it needs to be calculated away from the original
+ hslToDegreeChange(convertedHSL:number[]){
+  let startH = 195, startS = 100, startL = 44.1;
+  let newH = convertedHSL[0]- startH, 
+      newS = 100 + (startS -convertedHSL[1]),
+      newL = 100 + (convertedHSL[2] - startL);
+  let resultHSL: number[] = [newH, newS, newL];
+  return resultHSL;
+ }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
   changeCClogo() {

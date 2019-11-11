@@ -12,6 +12,7 @@ export class BuildPageComponent implements OnInit {
   activeCore: string = null;
   activeStatementType: string;
   activeColorMode: string;
+  activeHexCode: string;
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
@@ -42,7 +43,6 @@ export class BuildPageComponent implements OnInit {
     this.activeMaskType = splitted[4];
     this.activeScanline = splitted[5];
     this.activeMarketingLevel = splitted[6];
-
     this.activeOnsert = splitted[7];
     this.activeTransactionsMode =  splitted[8];
     this.activeWhitespaceMode = splitted[9];
@@ -51,6 +51,7 @@ export class BuildPageComponent implements OnInit {
     this.activeRewardsType = splitted[12];
     this.activeOutboundEnvelope = splitted[13];
     this.activeReplyEnvelope = splitted[14];
+    this.activeHexCode = splitted [15];
     this.writeSurveyToPreview();
   }
 

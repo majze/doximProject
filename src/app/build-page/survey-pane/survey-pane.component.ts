@@ -18,6 +18,7 @@ export class SurveyPaneComponent implements OnInit {
   activeCore: string = null;
   activeStatementType: string;
   activeColorMode: string;
+  activeHexCode: string;
   activeCClogo: string;
   activeMaskType: string;
   activeScanline: string;
@@ -30,7 +31,7 @@ export class SurveyPaneComponent implements OnInit {
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
-
+  
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
@@ -42,7 +43,7 @@ export class SurveyPaneComponent implements OnInit {
     if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account'))) {
       for (var i = 0; i < 15; i++) {
         let hiddenCard: HTMLElement = document.getElementsByClassName("card")[i] as HTMLElement;
-        hiddenCard.classList.remove("hideThisDiv");
+        hiddenCard.classList.remove("initialhideThisDiv");
       }
     }
   }
@@ -51,33 +52,42 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    let creditLogoQ: HTMLElement = document.getElementById("cclogoSelection") as HTMLElement;
+    var ccQNum = 17;
     if (this.activeStatementType == "creditCard") {
-      creditLogoQ.removeAttribute('style');
+      for(var i=0; i<ccQNum; i++){
+        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
+        creditCardQ.classList.remove("hideThisDiv");
+      }
+      
     }
     else if (this.activeStatementType != "creditCard") {
-      creditLogoQ.style.display = "none";
+      for(var i=0; i<ccQNum; i++){
+        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
+        creditCardQ.classList.add("hideThisDiv");
+      }
     }
   }
 
   // Function to hide and show statement only questions
   showHideSQ()
-  { 
-    
-    for(var i = 0; i<15; i++)
-    {
-      let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
-      if(this.activeStatementType == "statement")
-      {
-        statementQ.classList.remove("statementQs");
+  {
+    var statementQNum = 17;
+    if (this.activeStatementType == "account") {
+      for(var i=0; i< statementQNum; i++){
+        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+        statementQ.classList.remove("hideThisDiv");
       }
-      else if(this.activeStatementType != "statement")
-      {
-        statementQ.classList.add("statementQs");
+      
+    }
+    else if (this.activeStatementType != "account") {
+      for(var i =0; i< statementQNum; i++){
+        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+        statementQ.classList.add("hideThisDiv");
       }
-    
     }
   }
+
+  
 
   showHideColorPicker()
   { 
@@ -118,7 +128,14 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
     this.showHideColorPicker();
+  }
 
+  setHexCode()
+  {
+    this.activeHexCode = (<HTMLInputElement>event.target).value;
+    console.log("survey: select: ", this.activeHexCode);
+    this.outputSurveyChange.emit("activeHexCode");
+    this.emitSurveyFlags();
   }
 
   // Sets the credti card logo from user input on relevant question card
@@ -230,6 +247,7 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeRewardsType + "|";
     this.combinedFlags += this.activeOutboundEnvelope + "|";
     this.combinedFlags += this.activeReplyEnvelope + "|";
+    this.combinedFlags += this.activeHexCode + "|";
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 

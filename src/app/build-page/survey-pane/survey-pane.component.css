@@ -28,16 +28,16 @@
   background-color: #c000006c;
 }
 
-/* Disappear question cards based on component logic */
+/* Toggle hide/show class */
 .hideThisDiv{
   display: none;
 }
 
-/* Disappear statement question cards */
-.statementQs{
+/* Disappear all survey question cards until inital
+core and statement type are chosen */
+.initialhideThisDiv{
   display:none;
 }
-
 
 /* Internal hiding class */
 .hideForNow{
