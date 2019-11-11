@@ -38,11 +38,11 @@
   display: none;
 }
 
-/* Disappear statement question cards */
-.statementQs{
+/* Disappear all survey question cards until inital
+core and statement type are chosen */
+.initialhideThisDiv{
   display:none;
 }
-
 
 /* Internal hiding class */
 .hideForNow{
