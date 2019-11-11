@@ -14,6 +14,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { BuildPageComponent } from './build-page/build-page.component';
 import { PreviewPaneComponent } from './build-page/preview-pane/preview-pane.component';
 import { SurveyPaneComponent } from './build-page/survey-pane/survey-pane.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -24,7 +25,6 @@ import { AngularFireDatabaseModule } from "@angular/fire/database";
 
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } from '@angular/material';
-import { AdminPageComponent } from './admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     SurveyPaneComponent,
     AdminPageComponent
   ],
- // entryComponents: [AvatarDialogComponent],
   imports: [
     BrowserModule,
 	HttpClientModule,
