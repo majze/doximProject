@@ -14,6 +14,7 @@ export class BuildPageComponent implements OnInit {
   activeColorMode: string;
   activeHexCode: string;
   activeCClogo: string;
+  activeCustomerlogo: string;
   activeMaskType: string;
   activeScanline: string;
   activeMarketingLevel: string;
@@ -34,24 +35,26 @@ export class BuildPageComponent implements OnInit {
   readSurveyEmitted(val)
   {
     var surveyFlags = val;
-    console.log("build: combinedFlags: ", surveyFlags);
+    console.log("build-page: combinedFlags: ", surveyFlags);
     var splitted = surveyFlags.split("|");
     this.activeCore = splitted[0];
     this.activeStatementType =  splitted[1];
     this.activeColorMode = splitted[2];
-    this.activeCClogo = splitted[3];
-    this.activeMaskType = splitted[4];
-    this.activeScanline = splitted[5];
-    this.activeMarketingLevel = splitted[6];
-    this.activeOnsert = splitted[7];
-    this.activeTransactionsMode =  splitted[8];
-    this.activeWhitespaceMode = splitted[9];
-    this.activeJointOwners = splitted[10];
-    this.activeTYDMode = splitted[11];
-    this.activeRewardsType = splitted[12];
-    this.activeOutboundEnvelope = splitted[13];
-    this.activeReplyEnvelope = splitted[14];
-    this.activeHexCode = splitted [15];
+    this.activeHexCode = splitted [3];
+    this.activeCClogo = splitted[4];
+    this.activeCustomerlogo = splitted[5];
+    this.activeMaskType = splitted[6];
+    this.activeScanline = splitted[7];
+    this.activeMarketingLevel = splitted[8];
+
+    this.activeOnsert = splitted[9];
+    this.activeTransactionsMode =  splitted[10];
+    this.activeWhitespaceMode = splitted[11];
+    this.activeJointOwners = splitted[12];
+    this.activeTYDMode = splitted[13];
+    this.activeRewardsType = splitted[14];
+    this.activeOutboundEnvelope = splitted[15];
+    this.activeReplyEnvelope = splitted[16];
     this.writeSurveyToPreview();
   }
 
@@ -62,15 +65,12 @@ export class BuildPageComponent implements OnInit {
     console.log("build: Received update from: " + this.lastChange);
   }
 
-  // Sending updates to preview pane
+  // Sending survey flag updates to preview pane and repopulating the skeleton
   writeSurveyToPreview()
   {
-    console.log("build: calling child.popSkele()");
-    this.child.popSkele();
+    this.child.populateSkeleton();
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
 }
