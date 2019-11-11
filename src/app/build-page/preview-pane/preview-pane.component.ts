@@ -207,10 +207,11 @@ export class PreviewPaneComponent implements OnInit {
   unpopulateSkeleton()
   {
     var gridSectionCount = this.gridSectionCounter();
+    let divCount = document.getElementsByClassName("gridSection").length;
 
     if (this.activeStatementType == "creditcard" && this.activeCore == "symitar")
     {
-      for(var i =0; i < gridSectionCount; i++)
+      for(var i =0; i < divCount; i++)
       {
         let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
         divChange.style.backgroundImage="";
@@ -218,7 +219,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (this.activeStatementType == "account" && this.activeCore == "symitar")
     {
-      for(var i =0; i < gridSectionCount; i++)
+      for(var i =0; i < divCount; i++)
       {
         let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
         divChange.style.backgroundImage="";
