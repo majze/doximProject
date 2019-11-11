@@ -1,11 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
-import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs/Observable';
 import { finalize } from "rxjs/operators";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UploadService } from '../upload.service';
 
 @Component({
   selector: 'app-survey-pane',
@@ -17,6 +16,7 @@ export class SurveyPaneComponent implements OnInit {
   activeCore: string = null;
   activeStatementType: string;
   activeColorMode: string;
+  activeHexCode: string;
   activeCClogo: string;
   activeCustomerlogo: string;
   activeMaskType: string;
@@ -37,6 +37,7 @@ export class SurveyPaneComponent implements OnInit {
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
+  customerlogoSubmitted: boolean;
 
   formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required)
@@ -52,18 +53,25 @@ export class SurveyPaneComponent implements OnInit {
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
 
+  // PRATICK: Populate cores dropdown, work in progress!
   // Get core types from Firebase
   getCoreType() {
     this.firebaseService.getCores();
-
-    // var x = document.getElementById("coreSelection") as HTMLSelectElement;
-    // var y = x.options[x.selectedIndex].value;
-    // return y;
   }
 
   // Submit button turns the user uploaded image into an imageUrl
   onSubmit(formValue) {
-   // console.log("In onSubmit() " + this.formTemplate.valid);
+
+    // JOSH: Upload Service, work in progress!
+    // this.customerlogoSubmitted = true;
+    // console.log("In onSubmit() " + this.formTemplate.valid);
+    // console.log("In onSubmit() " + this.formTemplate.status);
+    // this.isSubmitted = true;
+    // this.uploadService.saveCustomerLogoToFirebaseStorage(this.selectedImage, this.imgSrc);
+    // console.log("made it past serice call");
+    // this.activeCustomerlogo = this.uploadService.firebaseStorageURL;
+    // console.log("URL in survey component2: " + this.activeCustomerlogo);
+
     this.isSubmitted = true;
       var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
@@ -76,8 +84,6 @@ export class SurveyPaneComponent implements OnInit {
             this.activeCustomerlogo = url;
             this.outputSurveyChange.emit("activeCustomerlogo");
             this.emitSurveyFlags();
-          //  this.service.insertImageDetails(formValue);
-          //  this.resetForm();
           })
         })
       ).subscribe();
@@ -106,47 +112,69 @@ export class SurveyPaneComponent implements OnInit {
   // Until a core and statement type are selected
   showSurvey()
   {
-    if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account'))) {
-      for (var i = 0; i < 15; i++) {
-        let hiddenCard: HTMLElement = document.getElementsByClassName("card")[i] as HTMLElement;
-        hiddenCard.classList.remove("hideThisDiv");
+    if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account')))
+    {
+      var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
+      if (cardQNum <= 0)
+      {
+        return;
+      }
+      for (var i = 0; i < cardQNum; i++)
+      {
+        var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
+        hiddenCard.classList.remove("initialhideThisDiv");
       }
     }
+    this.showHideCCQ();
+    this.showHideSQ();
   }
 
   // Function to hide and show the credit card question 
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    let creditLogoQ: HTMLElement = document.getElementById("cclogoSelection") as HTMLElement;
-    if (this.activeStatementType == "creditCard") {
-      creditLogoQ.removeAttribute('style');
+    let ccQNum = document.getElementsByClassName("creditcardQs").length;
+    if (this.activeStatementType == "creditCard")
+    {
+      for(var i=0; i < ccQNum; i++)
+      {
+        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
+        creditCardQ.classList.remove("hideThisDiv");
+      }
     }
-    else if (this.activeStatementType != "creditCard") {
-      creditLogoQ.style.display = "none";
+    else if (this.activeStatementType != "creditCard")
+    {
+      for(var i=0; i < ccQNum; i++)
+      {
+        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
+        creditCardQ.classList.add("hideThisDiv");
+      }
     }
   }
   
   // Function to hide and show statement only questions
   showHideSQ()
-  { 
-    
-    for(var i = 0; i<15; i++)
+  {
+    let statementQNum = document.getElementsByClassName("statementQs").length;
+    if (this.activeStatementType == "account")
     {
-      let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
-      if(this.activeStatementType == "statement")
+      for(var i=0; i< statementQNum; i++)
       {
-        statementQ.classList.remove("statementQs");
+        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+        statementQ.classList.remove("hideThisDiv");
       }
-      else if(this.activeStatementType != "statement")
+    }
+    else if (this.activeStatementType != "account")
+    {
+      for(var i =0; i< statementQNum; i++)
       {
-        statementQ.classList.add("statementQs");
+        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+        statementQ.classList.add("hideThisDiv");
       }
-    
     }
   }
 
-  // ?
+  // If "Greyscale" is chosen, hide any mention of color selection
   showHideColorPicker()
   { 
     let colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
@@ -164,7 +192,7 @@ export class SurveyPaneComponent implements OnInit {
   setCore(event: any)
   {
     this.activeCore = event.target.value;
-    console.log("survey: select: ", this.activeCore);
+    console.log("Survey choice:: ", this.activeCore);
     this.outputSurveyChange.emit("activeCore");
     this.emitSurveyFlags();
   }
@@ -173,7 +201,7 @@ export class SurveyPaneComponent implements OnInit {
   setStatementType()
   {
     this.activeStatementType = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeStatementType);
+    console.log("Survey choice:: ", this.activeStatementType);
     this.outputSurveyChange.emit("activeStatementType");
     this.emitSurveyFlags();
   }
@@ -183,18 +211,26 @@ export class SurveyPaneComponent implements OnInit {
   {
     this.activeColorMode = (<HTMLInputElement>event.target).value;
     this.showHideColorPicker();
-    console.log("survey: select: ", this.activeColorMode);
+    console.log("Survey choice:: ", this.activeColorMode);
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
     this.showHideColorPicker();
+  }
 
+  // If 'Full Color' is chosen, allow user to enter HEX info
+  setHexCode()
+  {
+    this.activeHexCode = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeHexCode);
+    this.outputSurveyChange.emit("activeHexCode");
+    this.emitSurveyFlags();
   }
 
   // Sets the credti card logo from user input on relevant question card
   setCClogo()
   {
     this.activeCClogo = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeCClogo);
+    console.log("Survey choice:: ", this.activeCClogo);
     this.outputSurveyChange.emit("activeCClogo");
     this.emitSurveyFlags();
   }
@@ -203,7 +239,7 @@ export class SurveyPaneComponent implements OnInit {
   setMaskType()
   {
     this.activeMaskType = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeMaskType);
+    console.log("Survey choice:: ", this.activeMaskType);
     this.outputSurveyChange.emit("activeMaskType");
     this.emitSurveyFlags();
   }
@@ -212,7 +248,7 @@ export class SurveyPaneComponent implements OnInit {
   setScanline()
   {
     this.activeScanline = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeScanline);
+    console.log("Survey choice:: ", this.activeScanline);
     this.outputSurveyChange.emit("activeScanline");
     this.emitSurveyFlags();
   }
@@ -221,7 +257,7 @@ export class SurveyPaneComponent implements OnInit {
   setMarketingLevel()
   {
     this.activeMarketingLevel = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeMarketingLevel);
+    console.log("Survey choice:: ", this.activeMarketingLevel);
     this.outputSurveyChange.emit("activeMarketingLevel");
     this.emitSurveyFlags();
   }
@@ -235,7 +271,7 @@ export class SurveyPaneComponent implements OnInit {
   setTransaction()
   {
     this.activeTransactionsMode = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeTransactionsMode);
+    console.log("Survey choice:: ", this.activeTransactionsMode);
     this.outputSurveyChange.emit("activeTransactionsMode");
     this.emitSurveyFlags();
   }
@@ -244,7 +280,7 @@ export class SurveyPaneComponent implements OnInit {
   setWhitespace()
   {
     this.activeWhitespaceMode = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeWhitespaceMode);
+    console.log("Survey choice:: ", this.activeWhitespaceMode);
     this.outputSurveyChange.emit("activeWhitespaceMode");
     this.emitSurveyFlags();
   }
@@ -258,7 +294,7 @@ export class SurveyPaneComponent implements OnInit {
   setYTD()
   {
     this.activeTYDMode = (<HTMLInputElement>event.target).value;
-    console.log("survey: select: ", this.activeTYDMode);
+    console.log("Survey choice:: ", this.activeTYDMode);
     this.outputSurveyChange.emit("activeTYDMode");
     this.emitSurveyFlags();
   }
@@ -282,11 +318,11 @@ export class SurveyPaneComponent implements OnInit {
   // Calls (outputSurveyFlags) on build-page.html then readSurveyEmitted() on build-page.ts
   emitSurveyFlags()
   {
-    console.log("survey: emitting flags to build");
     this.combinedFlags = "";
     this.combinedFlags += this.activeCore + "|";
     this.combinedFlags += this.activeStatementType + "|";
     this.combinedFlags += this.activeColorMode + "|";
+    this.combinedFlags += this.activeHexCode + "|";
     this.combinedFlags += this.activeCClogo + "|";
     this.combinedFlags += this.activeCustomerlogo + "|";
     this.combinedFlags += this.activeMaskType + "|";
