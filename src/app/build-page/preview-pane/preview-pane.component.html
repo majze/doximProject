@@ -3,21 +3,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- Alert system to notify user of changes -->
+<!-- 
 <div style="float:left;">
   <div style="width: 700px" class="alert alert-primary" role="alert">
     <span id="alertMessage">Primary Alert!</span>
   </div>
 </div>
-
-<!-- Generate PDF button -->
 <div style="float:right;">
   <button style="height:50px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
 </div>
+-->
 
-<br>
+<!-- Generate PDF button -->
+<!-- <div style="float:right;"> -->
+<div style="width:100%;">
+  <button style="height:50px; width:850px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
+</div>
 
-<!-- Start of the actual preview panel  -->
-<div  class="viewPanel" id="print" #print>
+<!-- <br> -->
+
+<!-- Start of the Credit Card Statement preview panel  -->
+<div class="viewPanel" id="print" #print>
 
   <div class="viewBox" id="page1">
     <div class="paperContainer">
@@ -49,7 +55,7 @@
     </div>
   </div>
  
-  <!-- Second page of the actual preview panel  -->
+  <!-- Second page of the Credit Card Statement preview panel  -->
   <div class="viewBox2" id="page2">
     <div class="paperContainer">
 
@@ -76,6 +82,95 @@
 
       <div class="p2gridMidContainer5">
         <div class="p2WhitespaceAd gridSection"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<br>
+
+<!-- Start of the Regular Statement preview panel  -->
+<div class="viewPanel" id="print2" #print2>
+
+  <div class="viewBox testTEST" id="page1">
+    <div class="paperContainer">
+
+      <div class="gridTopContainerReg">
+
+        <div class="gridTopLeftReg gridSection">
+          <div class="logoSectionReg gridSection">2</div>
+          <div class="addressSectionReg gridSection">3</div>
+        </div>
+
+        <div class="gridTopRightReg gridSection">
+          <div class="topGraphicSectionReg gridSection colorImage">4</div>
+          <div class="AccountInfoReg gridSection colorImage">5</div>
+        </div>
+
+      </div>
+  
+      <div class="gridMidContainerReg">
+        <div class="AccountSummaryReg gridSection colorImage">6</div>
+        <div class="shareSavingsReg gridSection colorImage">7</div>
+        <div class="whitespaceAdReg gridSection colorImage">8</div>
+      </div>
+
+      <!-- <div class="StatementGridScanline gridSection">
+        <div class="scanlineSectionLeft gridSection">1</div>
+      </div>
+
+      <div class="StatementGridRemaining gridSection">
+        <div class="gridTopContainerReg">
+          <div class="gridTopLeftReg gridSection">
+            <div class="logoSectionReg gridSection">2</div>
+            <div class="addressSectionReg gridSection">3</div>
+          </div>
+  
+          <div class="gridTopRightReg gridSection">
+            <div class="topGraphicSectionReg gridSection colorImage">4</div>
+            <div class="AccountInfoReg gridSection colorImage">5</div>
+          </div>
+        </div>
+    
+        <div class="gridMidContainerReg">
+          <div class="AccountSummaryReg gridSection colorImage">6</div>
+          <div class="shareSavingsReg gridSection colorImage">7</div>
+          <div class="whitespaceAdReg gridSection colorImage">8</div>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+ 
+  <!-- Second page of the Regular Statement preview panel  -->
+  <div class="viewBox2 testTEST" id="page2">
+    <div class="paperContainer">
+
+      <div class="p2gridTopContainerReg">
+        <div class="p2logoSectionReg gridSection">1</div>
+        <div class="p2headerSectionReg gridSection">2</div>
+      </div>
+
+      <div class="p2gridMidContainerReg1">
+        <div class="FixedMortgageReg gridSection">3</div>
+      </div>
+
+      <div class="p2gridMidContainerReg2">
+        <div class="HomeEquityReg gridSection">4</div>
+      </div>
+
+      <div class="p2gridMidContainerReg3">
+        <div class="YTDSummaryReg gridSection">5</div>
+      </div>
+
+      <div class="p2gridMidContainerReg4">
+        <div class="WhitespaceAdReg1 gridSection">6</div>
+      </div>
+
+      <div class="p2gridMidContainerReg5">
+        <div class="WhitespaceAdReg2 gridSection">7</div>
       </div>
 
     </div>

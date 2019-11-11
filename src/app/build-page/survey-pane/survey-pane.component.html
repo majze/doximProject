@@ -1,7 +1,9 @@
 <div class="surveyPanel">
   
+  <!--  
   <button (click)=getCoreType()>Console log: GetCores TEST</button>
-  
+   -->
+   
   <!--1st question: Choose your core-->
   <div class="card">
     <div class="question yellow form-group" id="coreSelection">
@@ -46,9 +48,8 @@
   </div>
 
   <!--4th question: Upload a company logo-->
-  <!-- UPLOAD LOGO -->
   <div class="card hideThisDiv">
-    <div class="question red" id="upLoadcustomerLogo">
+    <div class="question" id="upLoadcustomerLogo">
       <h3>Customer Logo</h3>
       <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
         <label for="uploadLogo">Upload your company logo:</label>
@@ -84,7 +85,7 @@
       <h3>Level of Marketing</h3>
       <p>What type of marketing would you like?</p>
       <form>
-        <input type="radio" [(ngModel)]="imageOnly" (change)="setMarketingLevel($event)" class="form-radio"
+        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio"
           name="marketingLevel" value="imageOnly" checked>Image<br>
         <!-- <input type="radio" class="form-radio" name="marketingLevel" value="textOnly">Text Only<br> -->
         <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio"
@@ -106,7 +107,7 @@
           name="maskingLevel" value="to4">4 Numbers revealed<br>
         <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
           value="to3">3 Numbers revealed<br>
-        <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
+        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
           value="none" checked>No numbers hidden<br>
       </form>
     </div>
@@ -145,7 +146,7 @@
       <p>How would you like your transaction details displayed on your summary?</p>
       <form>
         <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
-          value="yes">Yes<br>
+          value="yes" checked>Yes<br>
         <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
           value="no">No<br>
       </form>
@@ -158,9 +159,9 @@
       <h3>Whitespace Option</h3>
       <p>Would you like an image to fill your whitespace?</p>
       <form>
-        <input type="radio" [(ngModel)]="yes" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
+        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
           checked>Yes<br>
-        <input type="radio" [(ngModel)]="no" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No<br>
+        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No<br>
       </form>
     </div>
   </div>
