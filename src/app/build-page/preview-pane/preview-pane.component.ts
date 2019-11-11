@@ -12,6 +12,7 @@ export class PreviewPaneComponent implements OnInit {
   activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
+  activeHexCode: string;
   activeCClogo: string;
   activeCustomerlogo: string;
   activeMaskType: string;
@@ -50,6 +51,11 @@ export class PreviewPaneComponent implements OnInit {
   getColorMode()
   {
     this.activeColorMode = this.getParentComponent().activeColorMode;
+  }
+
+  getHexCode()
+  {
+    this.activeHexCode = this.getParentComponent().activeHexCode;
   }
 
   getCClogo()
@@ -123,6 +129,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getCore();
     this.getStatementType();
     this.getColorMode();
+    this.getHexCode();
     this.getCClogo();
     this.getCustomerlogo();
     this.getMaskType();
@@ -186,7 +193,7 @@ export class PreviewPaneComponent implements OnInit {
     try {
       let alertBuffer :HTMLElement = document.getElementsByClassName("alert-primary")[0] as HTMLElement; 
       alertBuffer.classList.add("flash");
-      alertBuffer.textContent = "Updated " + val.replace("active","");
+      alertBuffer.textContent = "Updated " + val.replace("active", "");
       setTimeout(function() {
         alertBuffer.classList.remove("flash");
       }, 150);
@@ -255,7 +262,7 @@ export class PreviewPaneComponent implements OnInit {
     this.updateTransactionSummary();
     this.updateYTD();
     this.updateWhitespace();
-    
+    this.changeHue();
   }
 
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
@@ -386,6 +393,85 @@ export class PreviewPaneComponent implements OnInit {
     viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
     viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
   }
+
+  // Maniuplate the header color of the different info boxes with hex to hue filter
+  changeHue()
+  {
+    // PATRICK: Work in progress
+    // var userHexNum = this.activeHexCode;
+    // var convertedHSL = this.hexToHSL(userHexNum);
+    // var hueChange = this.hslToDegreeChange(convertedHSL)
+    
+    var testnum = 27, testnum1=112, testnum2 = 115;
+    var filter1 = "hue-rotate("+testnum+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
+
+    let divCount = document.getElementsByClassName("changeHeaderColor").length;
+    for (var i = 0; i < divCount; i++)
+    {
+      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
+      divChange.style.filter = filter1;
+    }
+    console.log("Applied hue change with: testnum"); // + this.activeHexCode);
+  }
+
+  // Converts hex code value into a usable HSL (hue) value
+  hexToHSL(H)
+  {
+    // Convert hex to RGB first
+    let r = 0, g = 0, b = 0;
+    if (H.length == 4) {
+      r =  H[1] + H[1];
+      g =  H[2] + H[2];
+      b =  H[3] + H[3];
+    }
+    else if (H.length == 7) {
+      r =  H[1] + H[2];
+      g =  H[3] + H[4];
+      b =  H[5] + H[6];
+    }
+    // Then to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
+      delta = cmax - cmin,
+      h = 0,
+      s = 0,
+      l = 0;
+
+    if (delta == 0)
+      h = 0;
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    else
+      h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+
+    if (h < 0)
+      h += 360;
+
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    let hslArray: number[] = [h,s,l]
+    return hslArray;
+  }
+
+  // Once the HSL is found it needs to be calculated away from the original
+ hslToDegreeChange(convertedHSL:number[]){
+  let startH = 195, startS = 100, startL = 44.1;
+  let newH = convertedHSL[0]- startH, 
+      newS = 100 + (startS -convertedHSL[1]),
+      newL = 100 + (convertedHSL[2] - startL);
+  let resultHSL: number[] = [newH, newS, newL];
+  return resultHSL;
+ }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
   updateCClogo()

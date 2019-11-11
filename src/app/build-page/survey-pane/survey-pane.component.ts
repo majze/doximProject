@@ -16,6 +16,7 @@ export class SurveyPaneComponent implements OnInit {
   activeCore: string = null;
   activeStatementType: string;
   activeColorMode: string;
+  activeHexCode: string;
   activeCClogo: string;
   activeCustomerlogo: string;
   activeMaskType: string;
@@ -52,13 +53,10 @@ export class SurveyPaneComponent implements OnInit {
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
 
+  // PRATICK: Populate cores dropdown, work in progress!
   // Get core types from Firebase
   getCoreType() {
     this.firebaseService.getCores();
-
-    // var x = document.getElementById("coreSelection") as HTMLSelectElement;
-    // var y = x.options[x.selectedIndex].value;
-    // return y;
   }
 
   // Submit button turns the user uploaded image into an imageUrl
@@ -128,30 +126,43 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    let creditLogoQ: HTMLElement = document.getElementById("cclogoSelection") as HTMLElement;
+    let ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
-      creditLogoQ.removeAttribute('style');
+      for(var i=0; i < ccQNum; i++)
+      {
+        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
+        creditCardQ.classList.remove("hideThisDiv");
+      }
     }
     else if (this.activeStatementType != "creditCard")
     {
-      creditLogoQ.style.display = "none";
+      for(var i=0; i < ccQNum; i++)
+      {
+        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
+        creditCardQ.classList.add("hideThisDiv");
+      }
     }
   }
   
   // Function to hide and show statement only questions
   showHideSQ()
-  { 
-    for(var i = 0; i<15; i++)
+  {
+    let statementQNum = document.getElementsByClassName("statementQs").length;
+    if (this.activeStatementType == "account")
     {
-      let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
-      if(this.activeStatementType == "statement")
+      for(var i=0; i< statementQNum; i++)
       {
-        statementQ.classList.remove("statementQs");
+        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+        statementQ.classList.remove("hideThisDiv");
       }
-      else if(this.activeStatementType != "statement")
+    }
+    else if (this.activeStatementType != "account")
+    {
+      for(var i =0; i< statementQNum; i++)
       {
-        statementQ.classList.add("statementQs");
+        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
+        statementQ.classList.add("hideThisDiv");
       }
     }
   }
@@ -197,7 +208,15 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
     this.showHideColorPicker();
+  }
 
+  // If 'Full Color' is chosen, allow user to enter HEX info
+  setHexCode()
+  {
+    this.activeHexCode = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeHexCode);
+    this.outputSurveyChange.emit("activeHexCode");
+    this.emitSurveyFlags();
   }
 
   // Sets the credti card logo from user input on relevant question card
@@ -296,6 +315,7 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeCore + "|";
     this.combinedFlags += this.activeStatementType + "|";
     this.combinedFlags += this.activeColorMode + "|";
+    this.combinedFlags += this.activeHexCode + "|";
     this.combinedFlags += this.activeCClogo + "|";
     this.combinedFlags += this.activeCustomerlogo + "|";
     this.combinedFlags += this.activeMaskType + "|";
