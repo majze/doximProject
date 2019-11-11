@@ -4,11 +4,18 @@
 
 
 <div class="surveyPanel">
+<<<<<<< HEAD
 
 
   <!--1st question: Choose your core type-->
+=======
+  
+  <button (click)=getCoreType()>Console log: GetCores TEST</button>
+  
+  <!--1st question: Choose your core-->
+>>>>>>> 1fc51bdb92a2f4f9c6c03fb9394f874088d908ab
   <div class="card">
-    <div class="question form-group" id="coreSelection">
+    <div class="question yellow form-group" id="coreSelection">
       <h3>Utilized Data Core</h3>
       <p>The three main cores are listed below:</p>
       <form action="/determine_questionss.php">
@@ -38,24 +45,34 @@
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <!--3rd question: Upload a company logo-->
+=======
+  <!--4th question: Upload a company logo-->
+>>>>>>> 1fc51bdb92a2f4f9c6c03fb9394f874088d908ab
   <!-- UPLOAD LOGO -->
   <div class="card initialhideThisDiv">
     <div class="question red" id="upLoadcustomerLogo">
       <h3>Customer Logo</h3>
-      <form>
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
-        <input type="file" class="form-control-file" id="uploadLogo">
+        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
         <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <!--4th question: Choose color or greyscale statement-->
   <div class="card initialhideThisDiv ">
+=======
+  <!--5th question: Choose color or greyscale statement-->
+  <div class="card hideThisDiv">
+>>>>>>> 1fc51bdb92a2f4f9c6c03fb9394f874088d908ab
     <div class="question yellow" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
@@ -141,11 +158,17 @@
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <!--9th question: Choose to include an onsert (company marketing image) or not.
   cc statements only-->
   <div class="card initialhideThisDiv creditcardQs">
     <div class="question" id="onsertType">
+=======
+  <!--9th question: Choose to include an onsert (company marketing image) or not-->
+  <div class="card hideThisDiv">
+    <div class="question red" id="onsertType">
+>>>>>>> 1fc51bdb92a2f4f9c6c03fb9394f874088d908ab
       <h3>Onsert Option</h3>
       <p>Would you like an onsert included on your statement?</p>
       <form>
@@ -246,10 +269,16 @@ Regular statements only -->
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <!--15th question: joint owner information-->
   <div class="card initialhideThisDiv red creditcardQs">
     <div class="question" id="jointOwnerType">
+=======
+  <!--12th question: joint owner information-->
+  <div class="card hideThisDiv">
+    <div class="question red" id="jointOwnerType">
+>>>>>>> 1fc51bdb92a2f4f9c6c03fb9394f874088d908ab
       <h3>Joint Owner Option</h3>
       <p>Are there joint owners on the account?</p>
       <form>
@@ -273,6 +302,7 @@ Regular statements only -->
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <!--17th question: Outbound envelope type information-->
   <div class="card initialhideThisDiv red">
@@ -300,6 +330,11 @@ Regular statements only -->
   <!--18th question: Rewards information-->
   <div class="card initialhideThisDiv hideForNow">
     <div class="question" id="rewardsType">
+=======
+  <!--14th question: Rewards information-->
+  <div class="card hideThisDiv">
+    <div class="question red" id="rewardsType">
+>>>>>>> 1fc51bdb92a2f4f9c6c03fb9394f874088d908ab
       <h3>Rewards and Cashback Option</h3>
       <p>Would you like to include your rewards or cashback summary?</p>
       <form>
@@ -330,10 +365,5 @@ Regular statements only -->
       </form>
     </div>
   </div>
-
-
-
-
-
 
 </div>

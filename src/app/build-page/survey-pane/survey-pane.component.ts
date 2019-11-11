@@ -1,12 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
-
-function getCoreType() {
-  var x = document.getElementById("coreSelection") as HTMLSelectElement;
-  var y = x.options[x.selectedIndex].value;
-  return y;
-}
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireStorageModule, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { Observable } from 'rxjs/Observable';
+import { finalize } from "rxjs/operators";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-survey-pane',
@@ -31,10 +30,65 @@ export class SurveyPaneComponent implements OnInit {
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
-  
+  uploadPercent: Observable<number>
+  downloadURL: Observable<string>
+
+  imgSrc: string;
+  selectedImage: any = null;
+  isSubmitted: boolean;
+
+  formTemplate = new FormGroup({
+    imageUrl: new FormControl('', Validators.required)
+  })
+
+  constructor(public firebaseService: FirebaseService,
+    private storage: AngularFireStorage) { }
+
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
+
+  // Get core types from Firebase
+  getCoreType() {
+    this.firebaseService.getCores();
+
+    // var x = document.getElementById("coreSelection") as HTMLSelectElement;
+    // var y = x.options[x.selectedIndex].value;
+    // return y;
+  }
+
+  // Submit button turns the user uploaded image into an imageUrl
+  onSubmit(formValue) {
+    console.log("In onSubmit() " + this.formTemplate.valid);
+    this.isSubmitted = true;
+      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            formValue['imageUrl'] = url;
+          //  this.service.insertImageDetails(formValue);
+          //  this.resetForm();
+          })
+        })
+      ).subscribe();
+  }
+
+  // Shows a preview thumbnail of user uploaded image
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+      console.log("showPreview() if")
+    }
+    else {
+      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
+      console.log("showPreview() else")
+    }
+  }
 
   // The whole survey except core and statement type are hidden
   // Until a core and statement type are selected
@@ -67,7 +121,7 @@ export class SurveyPaneComponent implements OnInit {
       }
     }
   }
-
+  
   // Function to hide and show statement only questions
   showHideSQ()
   {
@@ -86,8 +140,6 @@ export class SurveyPaneComponent implements OnInit {
       }
     }
   }
-
-  
 
   showHideColorPicker()
   { 
@@ -124,6 +176,7 @@ export class SurveyPaneComponent implements OnInit {
   setColorMode()
   {
     this.activeColorMode = (<HTMLInputElement>event.target).value;
+    this.showHideColorPicker();
     console.log("survey: select: ", this.activeColorMode);
     this.outputSurveyChange.emit("activeColorMode");
     this.emitSurveyFlags();
@@ -251,8 +304,5 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 }
