@@ -21,7 +21,9 @@
   border: 2px solid;
   background-color: white;
 }
-
+.hideThisDiv{
+  display: none;
+}
 .paperContainer {
   /* 100 pixels = 1 inch */
   height: calc(100% - 25px);

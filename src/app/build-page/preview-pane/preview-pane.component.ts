@@ -264,6 +264,7 @@ export class PreviewPaneComponent implements OnInit {
     this.updateYTD();
     this.updateWhitespace();
     this.changeHue();
+    this.showExtraPages();
   }
 
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
@@ -639,6 +640,32 @@ export class PreviewPaneComponent implements OnInit {
     {
       whitespaceAdPage2Buffer.style.backgroundImage="";
     }
+  }
+
+  showExtraPages()
+  {
+    if ((this.activeCore == 'symitar') && (this.activeStatementType == 'creditCard'))
+    {
+      var hiddenCard: HTMLElement = document.getElementsByClassName("viewPanel")[0] as HTMLElement;
+      hiddenCard.classList.remove("hideThisDiv");
+    }
+    else
+    {
+      var hiddenCard: HTMLElement = document.getElementsByClassName("viewPanel")[0] as HTMLElement;
+      hiddenCard.classList.add("hideThisDiv");
+    }
+
+    // if ((this.activeCore == 'symitar') && (this.activeStatementType == 'account'))
+    // {
+    //   var hiddenCard: HTMLElement = document.getElementsByClassName("viewPanel")[0] as HTMLElement;
+    //   hiddenCard.classList.remove("hideThisDiv");
+    // }
+    // else
+    // {
+    //   var hiddenCard: HTMLElement = document.getElementsByClassName("viewPanel")[0] as HTMLElement;
+    //   hiddenCard.classList.add("hideThisDiv");
+    // }
+    
   }
 
   // Anything that should be set on page load goes in ngOnInit() 

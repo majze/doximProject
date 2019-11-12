@@ -28,7 +28,7 @@
         <h3>Utilized Data Core</h3>
         <p>The three main cores are listed below:</p>
         <form action="/determine_questionss.php">
-          <select (change)="setCore($event)" (change)="showSurvey($event)"  class="form-control" id="coreType">
+          <select (change)="setCore($event)" (change)="showSurvey($event)" (change)="showExtraPages($event)"  class="form-control" id="coreType">
             <option value="0" disabled selected>Choose a Core...</option>
             <option value="corelation" disabled>Corelation</option>
             <option value="fiServDNA" disabled>FiServDNA</option>
