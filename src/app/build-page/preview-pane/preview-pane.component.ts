@@ -307,7 +307,7 @@ export class PreviewPaneComponent implements OnInit {
     // Get all the survey flags from the build-page component
     this.getSurveyDataFromBuild();
 
-    // Determine whether the sekelton needs to be repopulated or not
+    // Determine whether the skeleton needs to be repopulated or not
     var lastChange = this.getParentComponent().lastChange;
     if (this.activeStatementType == "undefined")
     {
