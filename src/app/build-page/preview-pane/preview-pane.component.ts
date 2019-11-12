@@ -326,33 +326,63 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type Regular AND symitar
   populateSymitarRegular()
   {
-    let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
-    console.log(scanlineSectionBuffer);
-    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/scanlineLeft.png)";
-    console.log(scanlineSectionBuffer);
 
+    // Define each HTML element to apply style changes
+    // let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
+    // scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
-    logoSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/defaultLogo.png)";
-
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSectionReg")[0] as HTMLElement;
-    addressSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/address.png)";
-    
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
-    topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/topGraphic.png)";
-
     let AccountInfoSectionBuffer:HTMLElement = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
-    AccountInfoSectionBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/accountInfo.png)";
-
     let AccountSummaryBuffer:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
-    AccountSummaryBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/accountSummary.png)";
-
     let shareSavingsBuffer:HTMLElement = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
-    shareSavingsBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/shareSavings.png)";
-
     let whitespaceAdBuffer:HTMLElement = document.getElementsByClassName("whitespaceAdReg")[0] as HTMLElement;
-    whitespaceAdBuffer.style.backgroundImage="url(../../../assets/RegSymitar/page1/whitespaceAd.png)";
-
     // Page 2 Elements
+    let p2logoSectionRegBuffer:HTMLElement = document.getElementsByClassName("p2logoSectionReg")[0] as HTMLElement;
+    let p2headerSectionRegBuffer:HTMLElement = document.getElementsByClassName("p2headerSectionReg")[0] as HTMLElement;
+    let FixedMortgageRegBuffer:HTMLElement = document.getElementsByClassName("FixedMortgageReg")[0] as HTMLElement;
+    let HomeEquityRegBuffer:HTMLElement = document.getElementsByClassName("HomeEquityReg")[0] as HTMLElement;
+    let YTDSummaryRegBuffer:HTMLElement = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
+    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAdReg1")[0] as HTMLElement;
+    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAdReg2")[0] as HTMLElement;
+
+    // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
+    if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
+    {
+      logoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/defaultLogo.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/topGraphic.png)";
+      AccountSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      shareSavingsBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavings.png)";
+      whitespaceAdBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
+      // Page 2 Elements
+      p2logoSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/defaultLogo.png)";
+      FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/fixedMortgage.png)";
+      HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/homeEquity.png)";
+      YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+      WhitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
+      WhitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";      
+    }
+    else if (this.activeColorMode == "greyscale")
+    {
+      logoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/defaultLogo.png)";
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/topGraphic.png)";
+      AccountSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      shareSavingsBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavings.png)";
+      whitespaceAdBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
+      // Page 2 Elements
+      p2logoSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/defaultLogo.png)";
+      FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/fixedMortgage.png)";
+      HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/homeEquity.png)";
+      YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummary.png)";
+      WhitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
+      WhitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+    }
+
+    // These will update regardless of color settings
+    addressSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/address.png)";
+    AccountInfoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountInfo.png)";
+    p2headerSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeader.png)";
+    
   }
 
   // Takes a snapshot of the viewBox div in preview pane and saves the image to a PDF through the jsPDF library
@@ -513,6 +543,10 @@ export class PreviewPaneComponent implements OnInit {
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
     let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
     
+    // Don't update unless activeStatementType and activeCore are chosen
+    if (this.activeStatementType == "undefined" || this.activeCore == "undefined")
+      return;
+
     // If customer logo is uploaded, populate HTML Elements
     if (this.activeCustomerlogo != "undefined")
     {
