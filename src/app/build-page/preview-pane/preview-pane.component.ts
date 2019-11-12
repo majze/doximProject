@@ -26,6 +26,8 @@ export class PreviewPaneComponent implements OnInit {
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
+  activeSymitarCC: boolean;
+  activeSymitarReg: boolean;
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
@@ -187,13 +189,85 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
-  // Alert system tells user what updated on the view panel when survey change is detected
-  updateAlert(val)
+  // Updates a specific grid section when the user updates an option in the survey pane
+  makeChanges(lastChange)
   {
+    // Select which function to update
+    if (lastChange == "activeCore")
+    {
+      // Do nothing as populateSkeleton() already handles this
+    }
+    else if (lastChange == "activeStatementType")
+    {
+      // Do nothing as populateSkeleton() already handles this
+    }
+    else if (lastChange == "activeColorMode")
+    {
+      this.updateColorMode();
+    }
+    else if (lastChange == "activeHexCode")
+    {
+      // PATRICK: We need a link from survey to the hex function to change the hue, work in progress!!
+      // this.changeHue();
+    }
+    else if (lastChange == "activeCClogo")
+    {
+      this.updateCClogo();
+    }
+    else if (lastChange == "activeCustomerlogo")
+    {
+      this.updateCustomerlogo();
+    }
+    else if (lastChange == "activeMaskType")
+    {
+      this.updateMasking();
+    }
+    else if (lastChange == "activeScanline")
+    {
+      this.updateScanline();
+    }
+    else if (lastChange == "activeMarketingLevel")
+    {
+      this.updateMarketing();
+    }
+    else if (lastChange == "activeOnsert")
+    {
+      // DON: Need client input, work in progress!
+    }
+    else if (lastChange == "activeTransactionsMode")
+    {
+      this.updateTransactionSummary();
+    }
+    else if (lastChange == "activeWhitespaceMode")
+    {
+      this.updateWhitespace();
+    }
+    else if (lastChange == "activeJointOwners")
+    {
+      // DON: Need client input, work in progress!
+    }
+    else if (lastChange == "activeTYDMode")
+    {
+      this.updateYTD();
+    }
+    else if (lastChange == "activeRewardsType")
+    {
+      // DON: Need client input, work in progress!
+    }
+    else if (lastChange == "activeOutboundEnvelope")
+    {
+      // DON: Need client input, work in progress!
+    }
+    else if (lastChange == "activeReplyEnvelope")
+    {
+      // DON: Need client input, work in progress!
+    }
+
+    // Alert system tells user what updated on the view panel when survey change is detected
     try {
       let alertBuffer :HTMLElement = document.getElementsByClassName("alert-primary")[0] as HTMLElement; 
       alertBuffer.classList.add("flash");
-      alertBuffer.textContent = "Updated " + val.replace("active", "");
+      alertBuffer.textContent = "Updated " + lastChange.replace("active", "");
       setTimeout(function() {
         alertBuffer.classList.remove("flash");
       }, 150);
@@ -231,16 +305,39 @@ export class PreviewPaneComponent implements OnInit {
   populateSkeleton()
   {
     // Get all the survey flags from the build-page component
-    this.getSurveyDataFromBuild(); 
+    this.getSurveyDataFromBuild();
+
+    // Determine whether the sekelton needs to be repopulated or not
+    var lastChange = this.getParentComponent().lastChange;
+    if (this.activeStatementType == "undefined")
+    {
+      // Pass
+    }
+    else if (this.activeStatementType == "creditCard" && this.activeSymitarCC == true)
+    {
+      // Grab the latest survey pane change and update the component accordingly
+      this.makeChanges(lastChange);
+      return;
+    }
+    else if (this.activeStatementType == "account" && this.activeSymitarReg == true)
+    {
+      // Grab the latest survey pane change and update the component accordingly
+      this.makeChanges(lastChange);
+      return;
+    }
 
     // Populate the Symitar Credit Card skeleton if both options are selected
     if (this.activeCore == 'symitar' && this.activeStatementType == 'creditCard')
     {
+      this.activeSymitarCC = true;
+      this.activeSymitarReg = false;
       this.populateSymitarCC();
     }
     // Populate the Symitar Regular Statement skeleton if both options are selected
     else if (this.activeCore == 'symitar' && this.activeStatementType == 'account')
     {
+      this.activeSymitarCC = false;
+      this.activeSymitarReg = true;
       this.populateSymitarRegular();
     }
     // Safety check to alert user of missing or mismatched core and statement type
@@ -251,19 +348,6 @@ export class PreviewPaneComponent implements OnInit {
       alert("No assets found for selected core and statementType")
       return;
     }
-
-    // Grab all survey pane changes and update components accordingly
-    this.updateAlert(this.getParentComponent().lastChange);
-    this.updateCClogo();
-    this.updateColorMode();
-    this.updateCustomerlogo();
-    this.updateMasking();
-    this.updateScanline();
-    this.updateMarketing();
-    this.updateTransactionSummary();
-    this.updateYTD();
-    this.updateWhitespace();
-    this.changeHue();
   }
 
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
@@ -290,24 +374,44 @@ export class PreviewPaneComponent implements OnInit {
     // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
     if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
       {
-        logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+        // Load the user uploaded image before activeStatementType and activeCore are selected
+        if (this.activeCustomerlogo == "undefined")
+        {
+          logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+          logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
+        }
+        else
+        {
+          this.updateCustomerlogo();
+        }
+
+        // Load the remaining assets for the selected activeStatementType and activeCore
         topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
         ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
         couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
         // Page 2 Elements
-        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
         transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
         interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccInterestCharge.png)";
         whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
       }
       else if (this.activeColorMode == "greyscale")
       {
-        logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
+        // Load the user uploaded image before activeStatementType and activeCore are selected
+        if (this.activeCustomerlogo == "undefined")
+        {
+          logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
+          logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/defaultLogo.png)";
+        }
+        else
+        {
+          this.updateCustomerlogo();
+        }
+
+        // Load the remaining assets for the selected activeStatementType and activeCore
         topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
         ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
         couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymCoupon.png)";
         // Page 2 Elements
-        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/defaultLogo.png)";
         transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
         interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccInterestCharge.png)";
         whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
@@ -328,8 +432,7 @@ export class PreviewPaneComponent implements OnInit {
   {
 
     // Define each HTML element to apply style changes
-    // let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
-    // scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
+    let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSectionReg")[0] as HTMLElement;
     let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
@@ -349,13 +452,23 @@ export class PreviewPaneComponent implements OnInit {
     // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
     if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
     {
-      logoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/defaultLogo.png)";
+      // Load the user uploaded image before activeStatementType and activeCore are selected
+      if (this.activeCustomerlogo == "undefined")
+      {
+        logoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/defaultLogo.png)";
+        p2logoSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/defaultLogo.png)";
+      }
+      else
+      {
+        this.updateCustomerlogo();
+      }
+
+      // Load the remaining assets for the selected activeStatementType and activeCore
       topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/topGraphic.png)";
       AccountSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
       shareSavingsBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavings.png)";
       whitespaceAdBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
       // Page 2 Elements
-      p2logoSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/defaultLogo.png)";
       FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/fixedMortgage.png)";
       HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/homeEquity.png)";
       YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
@@ -364,13 +477,23 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (this.activeColorMode == "greyscale")
     {
-      logoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/defaultLogo.png)";
+      // Load the user uploaded image before activeStatementType and activeCore are selected
+      if (this.activeCustomerlogo == "undefined")
+      {
+        logoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/defaultLogo.png)";
+        p2logoSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/defaultLogo.png)";
+      }
+      else
+      {
+        this.updateCustomerlogo();
+      }
+
+      // Load the remaining assets for the selected activeStatementType and activeCore
       topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/topGraphic.png)";
       AccountSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
       shareSavingsBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavings.png)";
       whitespaceAdBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
       // Page 2 Elements
-      p2logoSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/defaultLogo.png)";
       FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/fixedMortgage.png)";
       HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/homeEquity.png)";
       YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummary.png)";
@@ -379,6 +502,7 @@ export class PreviewPaneComponent implements OnInit {
     }
 
     // These will update regardless of color settings
+    scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
     addressSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/address.png)";
     AccountInfoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountInfo.png)";
     p2headerSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeader.png)";
@@ -539,19 +663,41 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeCustomerlogo containing firebase storage link after customer logo submission on survey-pane
   updateCustomerlogo()
   {
-    // Define the HTML Elements where the customer logo should go
-    let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-    let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
-    
     // Don't update unless activeStatementType and activeCore are chosen
     if (this.activeStatementType == "undefined" || this.activeCore == "undefined")
       return;
+    
+    // Gather information about which divs to update depending on chosen statement type and core
+    var logoSectionBuffer;
+    var logoSectionPage2Buffer;
+    if (this.activeStatementType == "creditCard" && this.activeCore == "symitar")
+    {
+      // Define the HTML Elements where the customer logo should go
+      logoSectionBuffer = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+      logoSectionPage2Buffer = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
+    }
+    else if (this.activeStatementType == "account" && this.activeCore == "symitar")
+    {
+      // Define the HTML Elements where the customer logo should go
+      logoSectionBuffer = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
+      logoSectionPage2Buffer = document.getElementsByClassName("p2logoSectionReg")[0] as HTMLElement;
+    }
 
     // If customer logo is uploaded, populate HTML Elements
     if (this.activeCustomerlogo != "undefined")
     {
-      logoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
-      logoSectionPage2Buffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+      if (this.activeStatementType == "creditCard" && this.activeCore == "symitar")
+      {
+        // Place the customer uploaded logo
+        logoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+        logoSectionPage2Buffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+      }
+      else if (this.activeStatementType == "account" && this.activeCore == "symitar")
+      {
+        // Place the customer uploaded logo
+        logoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+        logoSectionPage2Buffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+      }
       // grey
       // https://codepen.io/duketeam/pen/ALEByA
     }
@@ -597,10 +743,28 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeScanline and changes view accordingly upon update from the survey pane
   updateScanline()
   {
-    let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
+    // Determine which div to update
+    var scanlineSectionBuffer:HTMLElement;
+    if (this.activeStatementType == "creditCard")
+    {
+      scanlineSectionBuffer = document.getElementsByClassName("scanlineSection")[0] as HTMLElement;
+    }
+    else
+    {
+      scanlineSectionBuffer = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
+    }
+
+    // Update the div accordingly with user input from activeScanline and activeStatementType
     if (this.activeScanline == "yes")
     {
-      scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+      if (this.activeStatementType == "creditCard")
+      {
+        scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
+      }
+      else
+      {
+        scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
+      }
     }
     else if (this.activeScanline == "no")
     {
@@ -650,14 +814,32 @@ export class PreviewPaneComponent implements OnInit {
   // Uses varaible activeWhitespace to change the advertisement on page 2
   updateYTD()
   {
-    let YTDSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
+    // Determine which div to update
+    var YTDSummaryBuffer:HTMLElement;
+    if (this.activeStatementType == "creditCard")
+    {
+      YTDSummaryBuffer = document.getElementsByClassName("p2YTDSummary")[0] as HTMLElement;
+    }
+    else
+    {
+      YTDSummaryBuffer = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
+    }
+
+    // Update the div accordingly with user input from activeScanline and activeStatementType
     if (this.activeTYDMode == "yes")
     {
-      YTDSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
+      if (this.activeStatementType == "creditCard")
+      {
+        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
+      }
+      else
+      {
+        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+      }
     }
     else if (this.activeTYDMode == "no")
     {
-      YTDSummaryPage2Buffer.style.backgroundImage="";
+      YTDSummaryBuffer.style.backgroundImage="";
     }
   }
 
