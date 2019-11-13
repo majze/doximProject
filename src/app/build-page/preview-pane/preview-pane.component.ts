@@ -899,7 +899,7 @@ export class PreviewPaneComponent implements OnInit {
   // Uses varaible activeTransactionsMode to update the Transaction Summary on page 2
   updateTransactionSummary()
   {
-    let TransactionPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+    var TransactionPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
     if (this.activeTransactionsMode == "yes")
     {
       TransactionPage2Buffer.style.display = "block";
@@ -912,7 +912,7 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
-  // Uses varaible activeWhitespace to change the advertisement on page 2
+  // Uses varaible activeTYDMode to change the YTD summary component on page 2
   updateYTD()
   {
     // Determine which div to update
@@ -925,9 +925,9 @@ export class PreviewPaneComponent implements OnInit {
     {
       YTDSummaryBuffer = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
     }
-
-    // Update the div accordingly with user input from activeScanline and activeStatementType
-    if (this.activeTYDMode == "yes")
+    
+    // Update the div accordingly with user input from activeTYDMode and activeStatementType
+    if (this.activeTYDMode == "current")
     {
       if (this.activeStatementType == "creditCard")
       {
@@ -938,16 +938,23 @@ export class PreviewPaneComponent implements OnInit {
         YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
       }
     }
-    else if (this.activeTYDMode == "no")
+    else if (this.activeTYDMode == "currentandprevious")
     {
-      YTDSummaryBuffer.style.backgroundImage="";
+      if (this.activeStatementType == "creditCard")
+      {
+        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDcurrentAndprevious.png)";
+      }
+      else
+      {
+        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+      }
     }
   }
 
   // Uses varaible activeWhitespace to change the advertisement on page 2
   updateWhitespace()
   {
-    let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    var whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     if (this.activeWhitespaceMode == "yes")
     {
       if (this.activeColorMode != "greyscale")
