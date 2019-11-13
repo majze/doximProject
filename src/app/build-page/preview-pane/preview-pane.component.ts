@@ -899,16 +899,46 @@ export class PreviewPaneComponent implements OnInit {
   // Uses varaible activeTransactionsMode to update the Transaction Summary on page 2
   updateTransactionSummary()
   {
-    var TransactionPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
-    if (this.activeTransactionsMode == "yes")
+    // Determine which div to update
+    var TransactionPage2Buffer:HTMLElement;
+    if (this.activeStatementType == "creditCard")
     {
-      TransactionPage2Buffer.style.display = "block";
-      TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+      TransactionPage2Buffer = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
     }
-    else if (this.activeTransactionsMode == "no")
+    else
     {
-      TransactionPage2Buffer.style.backgroundImage="";
-      TransactionPage2Buffer.style.display = "none";
+      TransactionPage2Buffer = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
+    }
+
+    // Update the div accordingly with user input from activeTransactionsMode and activeStatementType
+    if (this.activeStatementType == "creditCard")
+    {
+      if (this.activeTransactionsMode == "nochange")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+        }
+        else
+        {
+          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
+        }
+      }
+      else if (this.activeTransactionsMode == "amountonly")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummaryAmountOnly.png)";
+        }
+        else
+        {
+          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummaryAmountOnly.png)";
+        }
+      }
+    }
+    else
+    {
+      // Update Sym Reg here
     }
   }
 

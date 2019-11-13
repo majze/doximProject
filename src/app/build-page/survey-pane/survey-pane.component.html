@@ -24,7 +24,7 @@
     
   <!--2nd question: Choose your core-->
     <div class="card">
-      <div class="question yellow form-group" id="coreSelection">
+      <div class="question form-group" id="coreSelection">
         <h3>Utilized Data Core</h3>
         <p>The three main cores are listed below:</p>
         <form action="/determine_questionss.php">
@@ -172,7 +172,7 @@
   <!-- 10th question: Choose a newsflash image to be added if desired.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question red" id=newsflashType>
+    <div class="question yellow" id=newsflashType>
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
       <form>
@@ -188,7 +188,7 @@
   <!-- 11th question: Choose to add account balances at a glance type summary.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question red" id=glanceType>
+    <div class="question yellow" id=glanceType>
       <h3>Balance at a Glance</h3>
       <form>
         <!-- No change, already on “skeleton sample” -->
@@ -240,9 +240,9 @@
         <!-- cc only  -->
         <div class="creditcardQs">
           <!-- Action- remove onsert and shift up transactions and summaries replace with component with Amount only component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly" checked>Amount Only<br>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount Only<br>
           <!-- No change skeleton has Purchases /Advances and Credits/Payments  -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="nohange">No change<br>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="nochange" checked>No change<br>
         </div>
       </form>
     </div>
