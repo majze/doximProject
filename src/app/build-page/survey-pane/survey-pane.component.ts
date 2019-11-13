@@ -23,6 +23,8 @@ export class SurveyPaneComponent implements OnInit {
   activeScanline: string;
   activeMarketingLevel: string;
   activeOnsert: string;
+  activeNewsflash: string;
+  activeGlance: string;
   activeTransactionsMode: string;
   activeWhitespaceMode: string;
   activeJointOwners: string;
@@ -271,6 +273,18 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  // Sets the Newsflash graphic type and location from user input on relevant question card
+  setNewsflash()
+  {
+
+  }
+
+  // Sets the hidden status for the Balance at a glance component from user input on relevant question card
+  setGlance()
+  {
+
+  }
+
   // Sets the mode for the Transaction Summary box from user input on relevant question card
   setTransaction()
   {
@@ -291,7 +305,7 @@ export class SurveyPaneComponent implements OnInit {
 
   setJointOwner()
   {
-
+    
   }
 
   // Sets the option for YTD Totals from user input on relevant question card
@@ -333,6 +347,8 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeScanline + "|";
     this.combinedFlags += this.activeMarketingLevel + "|";
     this.combinedFlags += this.activeOnsert + "|";
+    this.combinedFlags += this.activeNewsflash + "|";
+    this.combinedFlags += this.activeGlance + "|";
     this.combinedFlags += this.activeTransactionsMode + "|";
     this.combinedFlags += this.activeWhitespaceMode + "|";
     this.combinedFlags += this.activeJointOwners + "|";

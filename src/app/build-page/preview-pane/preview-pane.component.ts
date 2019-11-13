@@ -19,6 +19,8 @@ export class PreviewPaneComponent implements OnInit {
   activeScanline: string;
   activeMarketingLevel: string;
   activeOnsert: string;
+  activeNewsflash: string;
+  activeGlance: string;
   activeTransactionsMode: string;
   activeWhitespaceMode: string;
   activeJointOwners: string;
@@ -90,6 +92,16 @@ export class PreviewPaneComponent implements OnInit {
     this.activeOnsert = this.getParentComponent().activeOnsert;
   }
 
+  getNewsflash()
+  {
+    this.activeNewsflash = this.getParentComponent().activeNewsflash;
+  }
+
+  getGlance()
+  {
+    this.activeGlance = this.getParentComponent().activeGlance;
+  }
+
   getTransactionMode()
   {
     this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
@@ -138,6 +150,8 @@ export class PreviewPaneComponent implements OnInit {
     this.getScanline();
     this.getMarketing();
     this.getOnsert();
+    this.getNewsflash();
+    this.getGlance();
     this.getTransactionMode();
     this.getWhitespaceMode();
     this.getJointOwners();
@@ -243,6 +257,14 @@ export class PreviewPaneComponent implements OnInit {
     else if (lastChange == "activeOnsert")
     {
       this.updateOnsert();
+    }
+    else if (lastChange == "activeNewsflash")
+    {
+      this.updateNewsflash();
+    }
+    else if (lastChange == "activeGlance")
+    {
+      this.updateGlance();
     }
     else if (lastChange == "activeTransactionsMode")
     {
@@ -815,6 +837,17 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
+  updateNewsflash()
+  {
+    // Updates Newsflash
+  }
+
+  // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
+  updateGlance()
+  {
+    // Updates Glance toggle visibility
+  }
 
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
