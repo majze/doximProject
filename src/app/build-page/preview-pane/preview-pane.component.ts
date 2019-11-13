@@ -21,6 +21,7 @@ export class PreviewPaneComponent implements OnInit {
   activeOnsert: string;
   activeNewsflash: string;
   activeGlance: string;
+  activeAccSum: string;
   activeTransactionsMode: string;
   activeWhitespaceMode: string;
   activeJointOwners: string;
@@ -539,7 +540,7 @@ export class PreviewPaneComponent implements OnInit {
     // These will update regardless of color settings
     scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
     addressSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/address.png)";
-    AccountInfoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountInfo.png)";
+    AccountInfoSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
     p2headerSectionRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeader.png)";
     
   }
@@ -847,6 +848,13 @@ export class PreviewPaneComponent implements OnInit {
   updateGlance()
   {
     // Updates Glance toggle visibility
+  }
+
+  updateAccountSummary()
+  {
+    // Update the look of account summary for reg symitar page 1
+    // options: group, startingbalance, endingbalance, total
+    // uses var this.activeAccSum
   }
 
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane

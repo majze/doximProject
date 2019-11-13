@@ -25,6 +25,7 @@ export class SurveyPaneComponent implements OnInit {
   activeOnsert: string;
   activeNewsflash: string;
   activeGlance: string;
+  activeAccSum: string;
   activeTransactionsMode: string;
   activeWhitespaceMode: string;
   activeJointOwners: string;
@@ -285,6 +286,11 @@ export class SurveyPaneComponent implements OnInit {
 
   }
 
+  setAccountSummary()
+  {
+
+  }
+
   // Sets the mode for the Transaction Summary box from user input on relevant question card
   setTransaction()
   {
@@ -317,16 +323,19 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setRewards()
   {
 
   }
 
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setOutbound()
   {
 
   }
 
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setEnvelope()
   {
 
@@ -349,6 +358,7 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeOnsert + "|";
     this.combinedFlags += this.activeNewsflash + "|";
     this.combinedFlags += this.activeGlance + "|";
+    this.combinedFlags += this.activeAccSum + "|";
     this.combinedFlags += this.activeTransactionsMode + "|";
     this.combinedFlags += this.activeWhitespaceMode + "|";
     this.combinedFlags += this.activeJointOwners + "|";

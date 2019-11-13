@@ -200,7 +200,7 @@
     </div>
   </div>
 
-  <!-- 12th question: Choose to add account balances at a glance type summary.
+  <!-- 12th question: Choose to change the look of the account balances type summary.
   Regular statements only -->
   <div class="card statementQs">
     <div class="question red" id=accountSummaryType>
@@ -212,10 +212,10 @@
           value="group">Group Shares and Loans Seperately<br>
         <!-- No change, already on “skeleton sample” -->
         <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="start">Starting Balance<br>
+          value="startingbalance">Starting Balance<br>
         <!-- Replace with Ending Balance Only account summary component -->
         <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="end">Ending Balance<br>
+          value="endingbalance">Ending Balance<br>
         <!-- Replace with Full account summary component -->
         <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="total">Total Deposits and Withdrawals<br>
