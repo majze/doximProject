@@ -169,8 +169,8 @@ export class PreviewPaneComponent implements OnInit {
   // Applies or removes greyscale filter to all "gridSection" divs based on status of variable "activeColorMode"
   updateColorMode()
   {
+    // Apply filter to preview pane
     var gridSectionCount = this.gridSectionCounter();
-
     if (this.activeColorMode == "greyscale")
     {
       for(var i =0; i < gridSectionCount; i++)
@@ -186,6 +186,16 @@ export class PreviewPaneComponent implements OnInit {
         let divChange:HTMLElement = document.getElementsByClassName("gridSection")[i] as HTMLElement;
         divChange.classList.remove("black_and_white");
       }
+    }
+
+    // Reload assets in color or greyscale
+    if (this.activeSymitarCC)
+    {
+      this.populateSymitarCC();
+    }
+    else if (this.activeSymitarReg)
+    {
+      this.populateSymitarRegular();
     }
   }
 
@@ -232,7 +242,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (lastChange == "activeOnsert")
     {
-      // DON: Need client input, work in progress!
+      this.updateOnsert();
     }
     else if (lastChange == "activeTransactionsMode")
     {
@@ -365,6 +375,7 @@ export class PreviewPaneComponent implements OnInit {
     // Page 2 Elements
     let logoSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
     let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+    let onsertImagePage2Buffer:HTMLElement = document.getElementsByClassName("p2OnsertImage")[0] as HTMLElement;
     let transactionSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
     let interestChargePage2Buffer:HTMLElement = document.getElementsByClassName("p2InterestCharge")[0] as HTMLElement;
     let feeSummaryPage2Buffer:HTMLElement = document.getElementsByClassName("p2FeeSummary")[0] as HTMLElement;
@@ -390,6 +401,7 @@ export class PreviewPaneComponent implements OnInit {
         ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
         couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymCoupon.png)";
         // Page 2 Elements
+        onsertImagePage2Buffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
         transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
         interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccInterestCharge.png)";
         whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
@@ -412,6 +424,7 @@ export class PreviewPaneComponent implements OnInit {
         ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
         couponSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymCoupon.png)";
         // Page 2 Elements
+        onsertImagePage2Buffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
         transactionSummaryPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
         interestChargePage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccInterestCharge.png)";
         whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
@@ -772,6 +785,37 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
+  // Uses variable activeOnsert to update the onsert graphic div or move other divs to its place
+  updateOnsert()
+  {
+    if (this.activeStatementType == "creditCard")
+    {
+      // Determine which div to update
+      var onsertContainer:HTMLElement = document.getElementById("onsertCollapse") as HTMLElement;
+      var whitespaceContainer:HTMLElement = document.getElementById("whitespaceCollapse") as HTMLElement;
+      var onsertBuffer:HTMLElement = document.getElementsByClassName("p2OnsertImage")[0] as HTMLElement;
+      // Make changes and move divs if needed
+      if (this.activeOnsert == "image")
+      {
+        onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        whitespaceContainer.classList.add("collapse");
+        onsertContainer.classList.remove("collapse");
+      }
+      else if (this.activeOnsert == "textonly")
+      {
+        whitespaceContainer.classList.add("collapse");
+        onsertContainer.classList.remove("collapse");
+        onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsertText2inch.png)";
+      }
+      else if (this.activeOnsert == "none")
+      {
+        whitespaceContainer.classList.remove("collapse");
+        onsertContainer.classList.add("collapse");
+      }
+    }
+  }
+
+
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
   {
@@ -780,18 +824,42 @@ export class PreviewPaneComponent implements OnInit {
 
     if (this.activeMarketingLevel == "imageOnly")
     {
-      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+      if (this.activeColorMode != "greyscale")
+      {
+        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+      }
+      else
+      {
+        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+      }
     }
     else if (this.activeMarketingLevel == "contactInfo")
     {
-      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopContactInfo.png)";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithoutContactInfo.png)";
+      if (this.activeColorMode != "greyscale")
+      {
+        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopContactInfo.png)";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithoutContactInfo.png)";
+      }
+      else
+      {
+        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopContactInfo.png)";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithoutContactInfo.png)";
+      }
     }
     else if (this.activeMarketingLevel == "none")
     {
-      topGraphicSectionBuffer.style.backgroundImage="";
-      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+      if (this.activeColorMode != "greyscale")
+      {
+        topGraphicSectionBuffer.style.backgroundImage="";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+      }
+      else
+      {
+        topGraphicSectionBuffer.style.backgroundImage="";
+        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+      }
     }
   }
 
@@ -849,7 +917,14 @@ export class PreviewPaneComponent implements OnInit {
     let whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     if (this.activeWhitespaceMode == "yes")
     {
-      whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+      if (this.activeColorMode != "greyscale")
+      {
+        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+      }
+      else
+      {
+        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
+      }
     }
     else if (this.activeWhitespaceMode == "no")
     {

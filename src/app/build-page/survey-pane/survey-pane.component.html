@@ -132,16 +132,19 @@
     </div>
   </div>
 
-  <!--9th question: Choose to include an onsert (company marketing image) or not.
-  cc statements only-->
-  <div class="card creditcardQs">
-    <div class="question red" id="onsertType">
+  <!--9th question: Choose to include an onsert (company marketing image) or not -->
+  <div class="card">
+    <div class="question" id="onsertType">
         <h3>Onsert Option</h3>
-      <p>Would you like an onsert included on your statement?</p>
+        <div class="creditcardQs">
+          <p>Would you like to have an onsert on the top of the 2nd page as shown?</p>
+          <form>
+            <input type="radio" checked onClick="document.getElementById('onsert2').checked = false;document.getElementById('onsert3').checked = false" (change)="setOnsert($event)" id="onsert1" class="form-radio" name="onsertLevel" value="image">Image<br>
+          </form>
+        </div>
       <form>
-        <input type="radio" (change)="setOnsert($event)" class="form-radio" name="onsertLevel" value="yes"
-          checked>Yes<br>
-        <input type="radio" (change)="setOnsert($event)" class="form-radio" name="onsertLevel" value="no">No<br>
+        <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert2" class="form-radio" name="onsertLevel" value="textonly">Text Only<br>
+        <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert3" class="form-radio" name="onsertLevel" value="none">None<br>
       </form>
     </div>
   </div>

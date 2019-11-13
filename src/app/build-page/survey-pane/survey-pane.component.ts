@@ -133,7 +133,7 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    let ccQNum = document.getElementsByClassName("creditcardQs").length;
+    var ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
       for(var i=0; i < ccQNum; i++)
@@ -142,7 +142,7 @@ export class SurveyPaneComponent implements OnInit {
         creditCardQ.classList.remove("hideThisDiv");
       }
     }
-    else if (this.activeStatementType != "creditCard")
+    else if (this.activeStatementType == "account")
     {
       for(var i=0; i < ccQNum; i++)
       {
@@ -155,7 +155,7 @@ export class SurveyPaneComponent implements OnInit {
   // Function to hide and show statement only questions
   showHideSQ()
   {
-    let statementQNum = document.getElementsByClassName("statementQs").length;
+    var statementQNum = document.getElementsByClassName("statementQs").length;
     if (this.activeStatementType == "account")
     {
       for(var i=0; i< statementQNum; i++)
@@ -164,7 +164,7 @@ export class SurveyPaneComponent implements OnInit {
         statementQ.classList.remove("hideThisDiv");
       }
     }
-    else if (this.activeStatementType != "account")
+    else if (this.activeStatementType == "creditcard")
     {
       for(var i =0; i< statementQNum; i++)
       {
@@ -177,7 +177,7 @@ export class SurveyPaneComponent implements OnInit {
   // If "Greyscale" is chosen, hide any mention of color selection
   showHideColorPicker()
   { 
-    let colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
+    var colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
     if (this.activeColorMode == "color")
     {
       colorPicker.classList.remove("hideThisDiv");
@@ -262,9 +262,13 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  // Sets the onsert graphic type and location from user input on relevant question card
   setOnsert()
   {
-
+    this.activeOnsert = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOnsert);
+    this.outputSurveyChange.emit("activeOnsert");
+    this.emitSurveyFlags();
   }
 
   // Sets the mode for the Transaction Summary box from user input on relevant question card
