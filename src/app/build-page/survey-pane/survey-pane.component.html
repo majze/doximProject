@@ -52,7 +52,7 @@
   </div>
 
   <!--4th question: Choose color or greyscale statement-->
-  <div class="card initialhideThisDiv ">
+  <div class="card ">
       <div class="question yellow" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
@@ -73,7 +73,7 @@
   </div>
 
   <!--5th question: Choose the level of marketing-->
-  <div class="card initialhideThisDiv">
+  <div class="card">
     <div class="question" id="marketingType">
       <h3>Level of Marketing</h3>
       <p>What type of marketing would you like?</p>
@@ -90,7 +90,7 @@
   </div>
 
   <!--6th question: Choose a credit card logo if cc statement-->
-  <div class="card initialhideThisDiv creditcardQs" id="borderFix">
+  <div class="card creditcardQs" id="borderFix">
     <div class="question form-group" id="cclogoSelection">
       <h3>Credit Card Logo</h3>
       <form>
@@ -104,7 +104,7 @@
   </div>
 
   <!--7th question: Choose the account masking style-->
-  <div class="card initialhideThisDiv statementQs">
+  <div class="card statementQs">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
       <p> How much of your account number would you like visible? </p>
@@ -115,18 +115,12 @@
         revealed<br>
         <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none"
           checked>No numbers hidden<br>
-        <input type="radio" (change)="setMaskType($event)" class="form-radio"
-          name="maskingLevel" value="to4">4 Numbers revealed<br>
-        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
-          value="to3">3 Numbers revealed<br>
-        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel"
-          value="none" checked>No numbers hidden<br>
         </form>
     </div>
   </div>
 
   <!--8th question: Choose to include a scanline or not-->
-  <div class="card initialhideThisDiv creditcardQs">
+  <div class="card creditcardQs">
     <div class="question" id="scanlineType">
       <h3>Scanline Option</h3>
       <p>Would you like a scanline included on your statement?</p>
@@ -140,7 +134,7 @@
 
   <!--9th question: Choose to include an onsert (company marketing image) or not.
   cc statements only-->
-  <div class="card initialhideThisDiv creditcardQs">
+  <div class="card creditcardQs">
     <div class="question red" id="onsertType">
         <h3>Onsert Option</h3>
       <p>Would you like an onsert included on your statement?</p>
@@ -154,7 +148,7 @@
 
   <!-- 10th question: Choose a newsflash image to be added if desired.
   Regular statements only -->
-  <div class="card initialhideThisDiv statementQs">
+  <div class="card statementQs">
     <div class="question red" id=newsflashType>
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
@@ -168,7 +162,7 @@
 
   <!-- 11th question: Choose to add account balances at a glance type summary.
   Regular statements only -->
-  <div class="card initialhideThisDiv statementQs">
+  <div class="card statementQs">
     <div class="question red" id=glanceType>
       <h3>Balance at a Glance</h3>
       <p>Would you like the balance at a glance summary?</p>
@@ -182,7 +176,7 @@
 
   <!-- 12th question: Choose to add account balances at a glance type summary.
   Regular statements only -->
-  <div class="card initialhideThisDiv statementQs">
+  <div class="card statementQs">
     <div class="question red" id=accountSummaryType>
       <h3>Account Summary</h3>
       <p>Select how you would like you summaries to be displayed.</p>
@@ -201,19 +195,13 @@
   </div>
 
   <!--13th question: Choose to the type of detail with the transaction summaries-->
-  <div class="card initialhideThisDiv">
-    <div class="question" id="transactionSummaryType">
-      <h3>Transcation Option</h3>
-      <p>How would you like your transaction details displayed on your summary?</p>
+  <div class="card">
+    <div class="question red yellow" id="transactionSummaryType">
+      <h3>Transcations Details</h3>
+      <p>How would you like your transaction details displayed?</p>
       <form>
 
-        <div class="creditcardQs">
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
-            value="yes">Yes<br>
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
-            value="no">No<br>
-        </div>
-
+        <!-- reg account only  -->
         <div class="statementQs">
           <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
             value="balanceLeft">Balance on the Left<br>
@@ -221,17 +209,19 @@
             value="balanceRight">Balance on the Right<br>
         </div>
 
-        <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
-          value="yes" checked>Yes<br>
-        <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
-          value="no">No<br>
-
+        <!-- cc only  -->
+        <!-- <div class="creditcardQs"> -->
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+            value="yes" checked>Amount Only<br>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+            value="no">No change<br>
+        <!-- </div> -->
       </form>
     </div>
   </div>
 
   <!--14th question: 2nd page whitespace management-->
-  <div class="card initialhideThisDiv">
+  <div class="card">
     <div class="question" id="whitespaceType">
       <h3>Whitespace Option</h3>
       <p>Would you like an image to fill your whitespace?</p>
@@ -244,7 +234,7 @@
   </div>
 
   <!--15th question: joint owner information-->
-  <div class="card initialhideThisDiv creditcardQs">
+  <div class="card creditcardQs">
     <div class="question red" id="jointOwnerType">
         <h3>Joint Owner Option</h3>
       <p>Are there joint owners on the account?</p>
@@ -257,7 +247,7 @@
   </div>
 
   <!--16th question: Year-to-date totals information-->
-  <div class="card initialhideThisDiv">
+  <div class="card">
     <div class="question" id="YTDType">
       <h3>Year-to-Date Totals Option</h3>
       <p>Would you like to include previous years YTD summary?</p>
@@ -268,8 +258,12 @@
     </div>
   </div>
 
+  <!-- ================================================================== -->
+  <!-- Extra questions to be added later (question backlog) -->
+  <!-- ================================================================== -->
+
   <!--17th question: Outbound envelope type information-->
-  <div class="card initialhideThisDiv">
+  <div class="card hideForNow">
     <div class="question red" id="outboundEnvelopeType">
       <h3>Outbound Envelope Options</h3>
       <p>Choose your outbound envelope type.</p>
@@ -286,12 +280,8 @@
     </div>
   </div>
 
-  <!-- ================================================================== -->
-  <!-- Extra questions to be added later (question backlog) -->
-  <!-- ================================================================== -->
-
   <!--18th question: Rewards information-->
-  <div class="card initialhideThisDiv">
+  <div class="card hideForNow">
     <div class="question red" id="rewardsType">
         <h3>Rewards and Cashback Option</h3>
       <p>Would you like to include your rewards or cashback summary?</p>
@@ -306,7 +296,7 @@
   </div>
 
   <!--19th question: Reply envelope type information-->
-  <div class="card initialhideThisDiv">
+  <div class="card hideForNow">
     <div class="question red" id="replyEnvelopeType">
       <h3>Reply Envelope Options</h3>
       <p>Choose your reply envelope type.</p>
