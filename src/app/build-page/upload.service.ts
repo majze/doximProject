@@ -28,7 +28,6 @@ export class UploadService {
           })
         ).subscribe();
   }
-
 }
 
 //old onSubmit() code

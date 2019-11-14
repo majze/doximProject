@@ -849,7 +849,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Updates Glance toggle visibility
   }
-
+  // For Joshua to update (statment/page 1)
   updateAccountSummary()
   {
     // Update the look of account summary for reg symitar page 1
