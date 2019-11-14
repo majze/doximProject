@@ -550,13 +550,24 @@ export class PreviewPaneComponent implements OnInit {
   // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
   {
-    // Hide the borders around the viewBox divs
-    let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
-    let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    // Hide the borders around the viewBox divs   
+    for (let i = 0; i < document.getElementsByClassName("viewBox").length; i++)
+    {
+      let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[i] as HTMLElement; 
+      let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[i] as HTMLElement;
+      viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
+      viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    }
 
-    var data = document.getElementById('print');
+    var data
+    if (this.activeSymitarCC == true)
+    {
+      data = document.getElementById('print');
+    }
+    else if (this.activeSymitarReg == true)
+    {
+      data = document.getElementById('print2');
+    }
     console.log(data);
     html2canvas(data, { logging: true, allowTaint: false, useCORS: true, scrollX: 0, scrollY: 0}).then(canvas =>{
       // Letter is 8.5 inches by 11 inches
@@ -581,9 +592,15 @@ export class PreviewPaneComponent implements OnInit {
       pdf.save('file.pdf');
     });
 
-    // Restore the borders around the viewBox divs
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
+    // Restore the borders around the viewBox divs  
+    for (let i = 0; i < document.getElementsByClassName("viewBox").length; i++)
+    {
+      let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[i] as HTMLElement; 
+      let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[i] as HTMLElement;
+      viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
+      viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
+    }
+    
   }
 
   // Maniuplate the header color of the different info boxes with hex to hue filter
