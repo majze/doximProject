@@ -224,7 +224,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (lastChange == "activeStatementType")
     {
-      // Do nothing as populateSkeleton() already handles this
+      this.showStatements();
     }
     else if (lastChange == "activeColorMode")
     {
@@ -339,6 +339,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Get all the survey flags from the build-page component
     this.getSurveyDataFromBuild();
+    this.showStatements();
 
     // Determine whether the skeleton needs to be repopulated or not
     var lastChange = this.getParentComponent().lastChange;
@@ -849,7 +850,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Updates Glance toggle visibility
   }
-  // For Joshua to update (statment/page 1)
+
   updateAccountSummary()
   {
     // Update the look of account summary for reg symitar page 1
@@ -860,8 +861,8 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
   {
-    let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    var topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
+    var ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
 
     if (this.activeMarketingLevel == "imageOnly")
     {
@@ -1007,6 +1008,26 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeWhitespaceMode == "no")
     {
       whitespaceAdPage2Buffer.style.backgroundImage="";
+    }
+  }
+
+  // Shows the correct statement type view boxs depending on activeStatementType
+  showStatements()
+  {
+    var symCC: HTMLElement = document.getElementById("print") as HTMLElement;
+    var symReg: HTMLElement = document.getElementById("print2") as HTMLElement;
+
+    if (this.activeCore == "symitar" && this.activeStatementType == "creditCard")
+    {
+      console.log("hising reg");
+      symCC.classList.remove("collapse");
+      symReg.classList.add("collapse");
+    }
+    else
+    {
+      console.log("hising cc");
+      symCC.classList.add("collapse");
+      symReg.classList.remove("collapse");
     }
   }
 
