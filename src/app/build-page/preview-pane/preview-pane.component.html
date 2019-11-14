@@ -23,7 +23,7 @@
 <!-- <br> -->
 
 <!-- Start of the Credit Card Statement preview panel  -->
-<div class="viewPanel" id="print" #print>
+<div class="viewPanel hideThisDiv" id="print" #print>
 
   <div class="viewBox" id="page1">
     <div class="paperContainer">
@@ -64,6 +64,10 @@
         <div class="p2headerSection gridSection"></div>
       </div>
 
+      <div class="p2gridMidContainer1" id="onsertCollapse">
+        <div class="p2OnsertImage gridSection"></div>
+      </div>
+      
       <div class="p2gridMidContainer1">
         <div class="p2TransactionSummary gridSection changeHeaderColor"></div>
       </div>
@@ -80,7 +84,7 @@
         <div class="p2YTDSummary gridSection"></div>
       </div>
 
-      <div class="p2gridMidContainer5">
+      <div class="p2gridMidContainer5 collapse" id="whitespaceCollapse">
         <div class="p2WhitespaceAd gridSection"></div>
       </div>
 
@@ -94,83 +98,63 @@
 <!-- Start of the Regular Statement preview panel  -->
 <div class="viewPanel" id="print2" #print2>
 
-  <div class="viewBox testTEST" id="page1">
-    <div class="paperContainer">
+  <div class="viewBox" id="page1">
+    <div class="paperContainerLeftScanline">
 
-      <div class="gridTopContainerReg">
-
-        <div class="gridTopLeftReg gridSection">
-          <div class="logoSectionReg gridSection">2</div>
-          <div class="addressSectionReg gridSection">3</div>
-        </div>
-
-        <div class="gridTopRightReg gridSection">
-          <div class="topGraphicSectionReg gridSection colorImage">4</div>
-          <div class="AccountInfoReg gridSection colorImage">5</div>
-        </div>
-
-      </div>
-  
-      <div class="gridMidContainerReg">
-        <div class="AccountSummaryReg gridSection colorImage changeHeaderColor">6</div>
-        <div class="shareSavingsReg gridSection colorImage changeHeaderColor">7</div>
-        <div class="whitespaceAdReg gridSection colorImage">8</div>
-      </div>
-
-      <!-- <div class="StatementGridScanline gridSection">
-        <div class="scanlineSectionLeft gridSection">1</div>
+      <div class="StatementGridScanline gridSection">
+        <div class="scanlineSectionLeft gridSection"></div>
       </div>
 
       <div class="StatementGridRemaining gridSection">
         <div class="gridTopContainerReg">
           <div class="gridTopLeftReg gridSection">
-            <div class="logoSectionReg gridSection">2</div>
-            <div class="addressSectionReg gridSection">3</div>
+            <div class="logoSectionReg gridSection"></div>
+            <div class="addressSectionReg gridSection"></div>
           </div>
-  
+
           <div class="gridTopRightReg gridSection">
-            <div class="topGraphicSectionReg gridSection colorImage changeHeaderColor">4</div>
-            <div class="AccountInfoReg gridSection colorImage changeHeaderColor">5</div>
+            <div class="topGraphicSectionReg gridSection colorImage"></div>
+            <div class="AccountInfoReg gridSection colorImage"></div>
           </div>
         </div>
     
         <div class="gridMidContainerReg">
-          <div class="AccountSummaryReg gridSection colorImage">6</div>
-          <div class="shareSavingsReg gridSection colorImage">7</div>
-          <div class="whitespaceAdReg gridSection colorImage">8</div>
+          <div class="AccountSummaryReg gridSection colorImage changeHeaderColor"></div>
+          <div class="shareSavingsReg gridSection colorImage changeHeaderColor"></div>
+          <div class="whitespaceAdReg gridSection colorImage"></div>
         </div>
-      </div> -->
+      </div>
 
     </div>
   </div>
  
   <!-- Second page of the Regular Statement preview panel  -->
-  <div class="viewBox2 testTEST" id="page2">
+  <div class="viewBox2" id="page2">
     <div class="paperContainer">
 
       <div class="p2gridTopContainerReg">
-        <div class="p2logoSectionReg gridSection colorImage">1</div>
-        <div class="p2headerSectionReg gridSection">2</div>
+        <div class="p2logoSectionReg gridSection colorImage"></div>
+        <div class="p2headerSectionReg gridSection"></div>
       </div>
 
       <div class="p2gridMidContainerReg1">
-        <div class="FixedMortgageReg gridSection changeHeaderColor">3</div>
+        <div class="FixedMortgageReg gridSection changeHeaderColor"></div>
       </div>
 
       <div class="p2gridMidContainerReg2">
-        <div class="HomeEquityReg gridSection changeHeaderColor">4</div>
+        <div class="HomeEquityReg gridSection changeHeaderColor"></div>
       </div>
 
       <div class="p2gridMidContainerReg3">
-        <div class="YTDSummaryReg gridSection changeHeaderColor">5</div>
+        <div class="YTDSummaryReg gridSection changeHeaderColor"></div>
       </div>
 
       <div class="p2gridMidContainerReg4">
-        <div class="WhitespaceAdReg1 gridSection">6</div>
+        <div class="WhitespaceAdReg1 gridSection"></div>
       </div>
 
       <div class="p2gridMidContainerReg5">
-        <div class="WhitespaceAdReg2 gridSection">7</div>
+        <div class="WhitespaceAdReg2 gridSection"></div>
       </div>
 
     </div>
