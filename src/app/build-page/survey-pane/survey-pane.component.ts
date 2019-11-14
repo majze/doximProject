@@ -23,6 +23,9 @@ export class SurveyPaneComponent implements OnInit {
   activeScanline: string;
   activeMarketingLevel: string;
   activeOnsert: string;
+  activeNewsflash: string;
+  activeGlance: string;
+  activeAccSum: string;
   activeTransactionsMode: string;
   activeWhitespaceMode: string;
   activeJointOwners: string;
@@ -133,7 +136,7 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    let ccQNum = document.getElementsByClassName("creditcardQs").length;
+    var ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
       for(var i=0; i < ccQNum; i++)
@@ -142,7 +145,7 @@ export class SurveyPaneComponent implements OnInit {
         creditCardQ.classList.remove("hideThisDiv");
       }
     }
-    else if (this.activeStatementType != "creditCard")
+    else if (this.activeStatementType == "account")
     {
       for(var i=0; i < ccQNum; i++)
       {
@@ -155,7 +158,7 @@ export class SurveyPaneComponent implements OnInit {
   // Function to hide and show statement only questions
   showHideSQ()
   {
-    let statementQNum = document.getElementsByClassName("statementQs").length;
+    var statementQNum = document.getElementsByClassName("statementQs").length;
     if (this.activeStatementType == "account")
     {
       for(var i=0; i< statementQNum; i++)
@@ -164,7 +167,7 @@ export class SurveyPaneComponent implements OnInit {
         statementQ.classList.remove("hideThisDiv");
       }
     }
-    else if (this.activeStatementType != "account")
+    else if (this.activeStatementType == "creditcard")
     {
       for(var i =0; i< statementQNum; i++)
       {
@@ -177,7 +180,7 @@ export class SurveyPaneComponent implements OnInit {
   // If "Greyscale" is chosen, hide any mention of color selection
   showHideColorPicker()
   { 
-    let colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
+    var colorPicker: HTMLElement = document.getElementsByClassName("headerColorPicker")[0] as HTMLElement;
     if (this.activeColorMode == "color")
     {
       colorPicker.classList.remove("hideThisDiv");
@@ -262,7 +265,28 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  // Sets the onsert graphic type and location from user input on relevant question card
   setOnsert()
+  {
+    this.activeOnsert = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOnsert);
+    this.outputSurveyChange.emit("activeOnsert");
+    this.emitSurveyFlags();
+  }
+
+  // Sets the Newsflash graphic type and location from user input on relevant question card
+  setNewsflash()
+  {
+
+  }
+
+  // Sets the hidden status for the Balance at a glance component from user input on relevant question card
+  setGlance()
+  {
+
+  }
+
+  setAccountSummary()
   {
 
   }
@@ -287,7 +311,7 @@ export class SurveyPaneComponent implements OnInit {
 
   setJointOwner()
   {
-
+    
   }
 
   // Sets the option for YTD Totals from user input on relevant question card
@@ -299,16 +323,19 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setRewards()
   {
 
   }
 
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setOutbound()
   {
 
   }
 
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setEnvelope()
   {
 
@@ -329,6 +356,9 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeScanline + "|";
     this.combinedFlags += this.activeMarketingLevel + "|";
     this.combinedFlags += this.activeOnsert + "|";
+    this.combinedFlags += this.activeNewsflash + "|";
+    this.combinedFlags += this.activeGlance + "|";
+    this.combinedFlags += this.activeAccSum + "|";
     this.combinedFlags += this.activeTransactionsMode + "|";
     this.combinedFlags += this.activeWhitespaceMode + "|";
     this.combinedFlags += this.activeJointOwners + "|";

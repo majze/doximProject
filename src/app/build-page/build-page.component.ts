@@ -19,6 +19,9 @@ export class BuildPageComponent implements OnInit {
   activeScanline: string;
   activeMarketingLevel: string;
   activeOnsert: string;
+  activeNewsflash: string;
+  activeGlance: string;
+  activeAccSum: string;
   activeTransactionsMode: string;
   activeWhitespaceMode: string;
   activeJointOwners: string;
@@ -48,13 +51,16 @@ export class BuildPageComponent implements OnInit {
     this.activeMarketingLevel = splitted[8];
 
     this.activeOnsert = splitted[9];
-    this.activeTransactionsMode =  splitted[10];
-    this.activeWhitespaceMode = splitted[11];
-    this.activeJointOwners = splitted[12];
-    this.activeTYDMode = splitted[13];
-    this.activeRewardsType = splitted[14];
-    this.activeOutboundEnvelope = splitted[15];
-    this.activeReplyEnvelope = splitted[16];
+    this.activeNewsflash = splitted[10];
+    this.activeGlance = splitted[11];
+    this.activeAccSum = splitted[12];
+    this.activeTransactionsMode =  splitted[13];
+    this.activeWhitespaceMode = splitted[14];
+    this.activeJointOwners = splitted[15];
+    this.activeTYDMode = splitted[16];
+    this.activeRewardsType = splitted[17];
+    this.activeOutboundEnvelope = splitted[18];
+    this.activeReplyEnvelope = splitted[19];
     this.writeSurveyToPreview();
   }
 

@@ -135,7 +135,7 @@
 
 .ccMidSection {
   line-height: 375px;
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* Bottom Container */
@@ -170,12 +170,12 @@
 
 .p2logoSection {
   line-height: 50%;
-  width: calc(100% - (750px - 250px)); height: 100%
+  width: calc(100% - (750px - 250px)); height: 100%;
 }
 
 .p2headerSection {
   line-height: 50%;
-  width: calc(100% - (750px - 500px)); height: 100%
+  width: calc(100% - (750px - 500px)); height: 100%;
 }
 
 /* 2.5 inches tall  */
@@ -187,8 +187,16 @@
   display: block; clear: both; content: "";
 }
 
+.p2OnsertImage {
+  width: 100%; height: 100%;
+}
+
+.collapse {
+  display: none;
+}
+
 .p2TransactionSummary {
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* 1.5 inches tall  */
@@ -201,7 +209,7 @@
 }
 
 .p2InterestCharge {
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* 1.75 inches tall  */
@@ -214,7 +222,7 @@
 }
 
 .p2FeeSummary {
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* 0.75 inches tall  */
@@ -240,14 +248,14 @@
 }
 
 .p2WhitespaceAd {
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* REGULAR STATEMENT GRID SYSTEM STARTS HERE ============================================================ */
 
 .paperContainerLeftScanline {
   /* 100 pixels = 1 inch */
-  height: calc(100% - 75px);
+  height: calc(100% - 25px);
   width: calc(100% - 50px);
   margin-top: 25px;
   margin-right: 50px;
@@ -270,7 +278,7 @@
 }
 
 .scanlineSectionLeft {
-  line-height: 1025px;
+  line-height: 1075px;
   width: 100%; height: 100%;
 }
 
@@ -339,6 +347,8 @@
 }
 
 .AccountSummaryReg {
+  background-image: url("../../../assets/shared/MidBlank.png");
+  background-size: cover;
   line-height: 275px;
   width: 100%; height: calc(100% - (100% - 275px));
 }
@@ -355,7 +365,7 @@
 
 /* Page 2 */
 
-.testTEST div {
+.debug div {
   border: 1px solid green;
 }
 
@@ -369,12 +379,12 @@
 
 .p2logoSectionReg {
   line-height: 100px;
-  width: 50%; height: 100%
+  width: 50%; height: 100%;
 }
 
 .p2headerSectionReg {
   line-height: 100px;
-  width: 50%; height: 100%
+  width: 50%; height: 100%;
 }
 
 /* 1.75 inches tall  */
@@ -388,7 +398,7 @@
 
 .FixedMortgageReg {
   line-height: 175px;
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* 1.5 inches tall  */
@@ -402,7 +412,7 @@
 
 .HomeEquityReg {
   line-height: 150px;
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
 
 /* 0.75 inches tall  */
@@ -444,5 +454,5 @@
 
 .WhitespaceAdReg2 {
   line-height: 250px;
-  width: 100%; height: 100%
+  width: 100%; height: 100%;
 }
