@@ -1019,13 +1019,11 @@ export class PreviewPaneComponent implements OnInit {
 
     if (this.activeCore == "symitar" && this.activeStatementType == "creditCard")
     {
-      console.log("hising reg");
       symCC.classList.remove("collapse");
       symReg.classList.add("collapse");
     }
     else
     {
-      console.log("hising cc");
       symCC.classList.add("collapse");
       symReg.classList.remove("collapse");
     }
