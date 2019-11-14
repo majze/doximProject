@@ -145,7 +145,7 @@ export class SurveyPaneComponent implements OnInit {
         creditCardQ.classList.remove("hideThisDiv");
       }
     }
-    else if (this.activeStatementType == "account")
+    else if (this.activeStatementType != "creditCard")
     {
       for(var i=0; i < ccQNum; i++)
       {
@@ -167,7 +167,7 @@ export class SurveyPaneComponent implements OnInit {
         statementQ.classList.remove("hideThisDiv");
       }
     }
-    else if (this.activeStatementType == "creditcard")
+    else if (this.activeStatementType != "account")
     {
       for(var i =0; i< statementQNum; i++)
       {
