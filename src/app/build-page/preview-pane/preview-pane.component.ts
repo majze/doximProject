@@ -559,7 +559,7 @@ export class PreviewPaneComponent implements OnInit {
       viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
     }
 
-    var data
+    var data;
     if (this.activeSymitarCC == true)
     {
       data = document.getElementById('print');
