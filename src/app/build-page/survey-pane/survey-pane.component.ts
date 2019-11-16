@@ -117,6 +117,7 @@ export class SurveyPaneComponent implements OnInit {
   // Until a core and statement type are selected
   showSurvey()
   {
+    console.log("Core: " + this.activeCore + " Type: " + this.activeStatementType);
     if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account')))
     {
       var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;

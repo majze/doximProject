@@ -22,13 +22,15 @@
     </div>
   </div>
     
-  <!--2nd question: Choose your core-->
+  <!--2nd question: Choose your core
+  (change)="showSurvey($event)" (change)="showExtraPages($event)"
+  -->
     <div class="card">
       <div class="question form-group" id="coreSelection">
         <h3>Utilized Data Core</h3>
         <p>The three main cores are listed below:</p>
         <form action="/determine_questionss.php">
-          <select (change)="setCore($event)" (change)="showSurvey($event)" (change)="showExtraPages($event)"  class="form-control" id="coreType">
+          <select (change)="setCore($event)" class="form-control" id="coreType">
             <option value="0" disabled selected>Choose a Core...</option>
             <option value="corelation" disabled>Corelation</option>
             <option value="fiServDNA" disabled>FiServDNA</option>
@@ -207,9 +209,9 @@
       <h3>Account Summary</h3>
       <p>Select how you would like you summaries to be displayed.</p>
       <form>
-        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group) -->
+        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
         <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="group">Group Shares and Loans Seperately<br>
+          value="group">Group Shares and Loans Seperately<br> -->
         <!-- No change, already on “skeleton sample” -->
         <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="startingbalance">Starting Balance<br>
@@ -217,7 +219,7 @@
         <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="endingbalance">Ending Balance<br>
         <!-- Replace with Full account summary component -->
-        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" checked (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="total">Total Deposits and Withdrawals<br>
       </form>
     </div>

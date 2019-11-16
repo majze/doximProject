@@ -878,6 +878,7 @@ export class PreviewPaneComponent implements OnInit {
     // Updates Glance toggle visibility
   }
 
+  // Uses variable activeAccSum to update the Account Summary graphic div or move other divs to its place
   updateAccountSummary()
   {
     // Define the HTML Elements where the Account Summary should go
