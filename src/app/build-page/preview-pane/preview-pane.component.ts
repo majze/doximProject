@@ -103,6 +103,11 @@ export class PreviewPaneComponent implements OnInit {
     this.activeGlance = this.getParentComponent().activeGlance;
   }
 
+  getAcctSum()
+  {
+    this.activeAccSum = this.getParentComponent().activeAccSum;
+  }
+
   getTransactionMode()
   {
     this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
@@ -153,6 +158,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getOnsert();
     this.getNewsflash();
     this.getGlance();
+    this.getAcctSum();
     this.getTransactionMode();
     this.getWhitespaceMode();
     this.getJointOwners();
@@ -266,6 +272,10 @@ export class PreviewPaneComponent implements OnInit {
     else if (lastChange == "activeGlance")
     {
       this.updateGlance();
+    }
+    else if (lastChange == "activeAccSum")
+    {
+      this.updateAccountSummary();
     }
     else if (lastChange == "activeTransactionsMode")
     {
@@ -930,11 +940,60 @@ export class PreviewPaneComponent implements OnInit {
     // Updates Glance toggle visibility
   }
 
+  // Uses variable activeAccSum to update the Account Summary graphic div or move other divs to its place
   updateAccountSummary()
   {
-    // Update the look of account summary for reg symitar page 1
-    // options: group, startingbalance, endingbalance, total
-    // uses var this.activeAccSum
+    // Define the HTML Elements where the Account Summary should go
+    let AccountSummaryReg:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
+
+    // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+    if (this.activeAccSum == "group")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      }
+    }
+    // No change, already on “skeleton sample”
+    else if (this.activeAccSum == "startingbalance")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryStartingBal.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryStartingBal.png)";
+      }
+    }
+    // Replace with Ending Balance Only account summary component
+    else if (this.activeAccSum == "endingbalance")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryEndingBal.png)";
+      }
+    }
+    // Replace with Full account summary component
+    else if (this.activeAccSum == "total")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      }
+    }
   }
 
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane

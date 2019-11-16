@@ -22,7 +22,9 @@
     </div>
   </div>
     
-  <!--2nd question: Choose your core-->
+  <!--2nd question: Choose your core
+  (change)="showSurvey($event)" (change)="showExtraPages($event)"
+  -->
     <div class="card">
       <div class="question form-group" id="coreSelection">
         <h3>Utilized Data Core</h3>
@@ -205,17 +207,17 @@
       <h3>Account Summary</h3>
       <p>Select how you would like you summaries to be displayed.</p>
       <form>
-        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group) -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="group">Group Shares and Loans Seperately<br>
+        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+          value="group">Group Shares and Loans Seperately<br> -->
         <!-- No change, already on “skeleton sample” -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="startingbalance">Starting Balance<br>
         <!-- Replace with Ending Balance Only account summary component -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="endingbalance">Ending Balance<br>
         <!-- Replace with Full account summary component -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" checked (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="total">Total Deposits and Withdrawals<br>
       </form>
     </div>
