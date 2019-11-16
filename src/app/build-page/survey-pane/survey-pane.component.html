@@ -28,7 +28,7 @@
         <h3>Utilized Data Core</h3>
         <p>The three main cores are listed below:</p>
         <form action="/determine_questionss.php">
-          <select (change)="setCore($event)" (change)="showSurvey($event)" (change)="showExtraPages($event)"  class="form-control" id="coreType">
+          <select (change)="setCore($event)" class="form-control" id="coreType">
             <option value="0" disabled selected>Choose a Core...</option>
             <option value="corelation" disabled>Corelation</option>
             <option value="fiServDNA" disabled>FiServDNA</option>
@@ -99,7 +99,7 @@
   </div>
 
   <!--6th question: Choose a credit card logo if cc statement-->
-  <div class="card creditcardQs" id="borderFix">
+  <div class="cc card creditcardQs" id="borderFix">
     <div class="question form-group" id="cclogoSelection">
       <h3>Credit Card Logo</h3>
       <form>
@@ -152,15 +152,13 @@
   <!--9th question: Choose to include an onsert (company marketing image) or not -->
   <div class="card">
     <div class="question" id="onsertType">
-        <h3>Onsert Option</h3>
-        <div class="creditcardQs">
-          <p>Would you like to have an onsert on the top of the 2nd page as shown?</p>
-          <form>
-            <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
-            <input type="radio" checked onClick="document.getElementById('onsert2').checked = false;document.getElementById('onsert3').checked = false" (change)="setOnsert($event)" id="onsert1" class="form-radio" name="onsertLevel" value="image">Image<br>
-          </form>
-        </div>
+      <h3>Onsert Option</h3>
+      <div class="creditcardQs">
+        <p>Would you like to have an onsert on the top of the 2nd page as shown?</p>
+      </div>
       <form>
+        <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
+        <input type="radio" checked onClick="document.getElementById('onsert2').checked = false;document.getElementById('onsert3').checked = false" (change)="setOnsert($event)" id="onsert1" class="form-radio" name="onsertLevel" value="image">Image<br>
         <!-- Replace image with text marketing message -->
         <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert2" class="form-radio" name="onsertLevel" value="textonly">Text Only<br>
         <!-- Remove image and shift up transactions and summaries -->
