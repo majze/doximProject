@@ -928,8 +928,26 @@ export class PreviewPaneComponent implements OnInit {
   updateGlance()
   {
     // Updates Glance toggle visibility
-  }
+    var headerSectionBuffer:HTMLElement;
+  
+    if (this.activeStatementType == "account")
+    {
+      headerSectionBuffer = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+    }
+    if (this.activeStatementType == "account")
+    {
+      if(this.activeGlance == "on")
+        {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+        }
+        else if (this.activeGlance == "off")
+        {
+        headerSectionBuffer.style.backgroundImage="";
+        }
 
+   }
+
+ }
   updateAccountSummary()
   {
     // Update the look of account summary for reg symitar page 1
