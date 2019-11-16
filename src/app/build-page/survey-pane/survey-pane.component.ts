@@ -34,6 +34,7 @@ export class SurveyPaneComponent implements OnInit {
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
  
+  // For displaying a progress bar on image uploads
   uploadPercent: Observable<number>
   downloadURL: Observable<string>
 
@@ -42,6 +43,7 @@ export class SurveyPaneComponent implements OnInit {
   isSubmitted: boolean;
   customerlogoSubmitted: boolean;
 
+  // Used for image validation
   formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required)
   })
@@ -288,7 +290,10 @@ export class SurveyPaneComponent implements OnInit {
 
   setAccountSummary()
   {
-
+    this.activeAccSum = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeAccSum);
+    this.outputSurveyChange.emit("activeAccSum");
+    this.emitSurveyFlags();
   }
 
   // Sets the mode for the Transaction Summary box from user input on relevant question card
