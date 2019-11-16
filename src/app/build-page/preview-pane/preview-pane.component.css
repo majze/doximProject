@@ -358,7 +358,7 @@
   width: 100%; height: calc(100% - (100% - 225px));
 }
 
-.whitespaceAdReg {
+.whitespaceAd1Reg {
   line-height: 200px;
   width: 100%; height: calc(100% - (100% - 200px));
 }
@@ -438,7 +438,7 @@
   display: block; clear: both; content: "";
 }
 
-.WhitespaceAdReg1 {
+.WhitespaceAd2Reg {
   line-height: 275px;
   width: 100%; height: 100%;
 }
@@ -452,7 +452,7 @@
   display: block; clear: both; content: "";
 }
 
-.WhitespaceAdReg2 {
+.WhitespaceAd3Reg {
   line-height: 250px;
   width: 100%; height: 100%;
 }

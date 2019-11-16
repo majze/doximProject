@@ -476,15 +476,15 @@ export class PreviewPaneComponent implements OnInit {
     let AccountInfoSectionBuffer:HTMLElement = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
     let AccountSummaryBuffer:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
     let shareSavingsBuffer:HTMLElement = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
-    let whitespaceAdBuffer:HTMLElement = document.getElementsByClassName("whitespaceAdReg")[0] as HTMLElement;
+    let whitespaceAdBuffer:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
     // Page 2 Elements
     let p2logoSectionRegBuffer:HTMLElement = document.getElementsByClassName("p2logoSectionReg")[0] as HTMLElement;
     let p2headerSectionRegBuffer:HTMLElement = document.getElementsByClassName("p2headerSectionReg")[0] as HTMLElement;
     let FixedMortgageRegBuffer:HTMLElement = document.getElementsByClassName("FixedMortgageReg")[0] as HTMLElement;
     let HomeEquityRegBuffer:HTMLElement = document.getElementsByClassName("HomeEquityReg")[0] as HTMLElement;
     let YTDSummaryRegBuffer:HTMLElement = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
-    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAdReg1")[0] as HTMLElement;
-    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAdReg2")[0] as HTMLElement;
+    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
+    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
 
     // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
     if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
@@ -550,13 +550,24 @@ export class PreviewPaneComponent implements OnInit {
   // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
   {
-    // Hide the borders around the viewBox divs
-    let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
-    let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    // Hide the borders around the viewBox divs   
+    for (let i = 0; i < document.getElementsByClassName("viewBox").length; i++)
+    {
+      let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[i] as HTMLElement; 
+      let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[i] as HTMLElement;
+      viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
+      viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    }
 
-    var data = document.getElementById('print');
+    var data;
+    if (this.activeSymitarCC == true)
+    {
+      data = document.getElementById('print');
+    }
+    else if (this.activeSymitarReg == true)
+    {
+      data = document.getElementById('print2');
+    }
     console.log(data);
     html2canvas(data, { logging: true, allowTaint: false, useCORS: true, scrollX: 0, scrollY: 0}).then(canvas =>{
       // Letter is 8.5 inches by 11 inches
@@ -581,9 +592,15 @@ export class PreviewPaneComponent implements OnInit {
       pdf.save('file.pdf');
     });
 
-    // Restore the borders around the viewBox divs
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
+    // Restore the borders around the viewBox divs  
+    for (let i = 0; i < document.getElementsByClassName("viewBox").length; i++)
+    {
+      let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[i] as HTMLElement; 
+      let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[i] as HTMLElement;
+      viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
+      viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
+    }
+    
   }
 
   // Maniuplate the header color of the different info boxes with hex to hue filter
@@ -757,23 +774,53 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane
   updateMasking()
   {
-    let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
-    
-    if (this.activeMaskType == "none")
+    // Determine which divs to update
+    var headerSectionBuffer:HTMLElement;
+    var headerSectionPage2Buffer:HTMLElement;
+
+    // Make the changes to the account masking in the headers on both pages
+    if (this.activeSymitarCC)
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+      headerSectionBuffer = document.getElementsByClassName("headerSection")[0] as HTMLElement;
+      headerSectionPage2Buffer = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+      if (this.activeMaskType == "none")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+      }
+      else if (this.activeMaskType == "to3")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
+      }
+      else if (this.activeMaskType == "to4")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
+      }
     }
-    else if (this.activeMaskType == "to3")
+    else if (this.activeSymitarReg)
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
-    }
-    else if (this.activeMaskType == "to4")
-    {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
+      headerSectionBuffer = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+      headerSectionPage2Buffer = document.getElementsByClassName("p2headerSectionReg")[0] as HTMLElement;
+      if (this.activeMaskType == "none")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeader.png)";
+      }
+      else if (this.activeMaskType == "to3")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo3.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeaderMaskTo3.png)";
+      }
+      else if (this.activeMaskType == "to4")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo4.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeaderMaskTo4.png)";
+      }
     }
   }
 
@@ -812,16 +859,23 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeOnsert to update the onsert graphic div or move other divs to its place
   updateOnsert()
   {
-    if (this.activeStatementType == "creditCard")
+    if (this.activeSymitarCC)
     {
-      // Determine which div to update
+      // Determine which divs to update
       var onsertContainer:HTMLElement = document.getElementById("onsertCollapse") as HTMLElement;
       var whitespaceContainer:HTMLElement = document.getElementById("whitespaceCollapse") as HTMLElement;
       var onsertBuffer:HTMLElement = document.getElementsByClassName("p2OnsertImage")[0] as HTMLElement;
       // Make changes and move divs if needed
       if (this.activeOnsert == "image")
       {
-        onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        }
+        else
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
+        }
         whitespaceContainer.classList.add("collapse");
         onsertContainer.classList.remove("collapse");
       }
@@ -835,6 +889,31 @@ export class PreviewPaneComponent implements OnInit {
       {
         whitespaceContainer.classList.remove("collapse");
         onsertContainer.classList.add("collapse");
+      }
+    }
+    else if (this.activeSymitarReg)
+    {
+      // Determine which div to update
+      var onsertBuffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
+      // Make changes and move divs if needed
+      if (this.activeOnsert == "image")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        }
+        else
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
+        }
+      }
+      else if (this.activeOnsert == "textonly")
+      {
+        onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsertText2inch.png)";
+      }
+      else if (this.activeOnsert == "none")
+      {
+        onsertBuffer.style.backgroundImage="";
       }
     }
   }
@@ -861,23 +940,52 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
   {
-    var topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    var ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    // Determine which divs to update
+    var topGraphicSectionBuffer:HTMLElement;
+    var ccMidSectionBuffer:HTMLElement;
+    if (this.activeSymitarCC)
+    {
+      topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
+      ccMidSectionBuffer = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg)
+    {
+      topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
+    }
 
+    // Make the changes depending on activeMarketingLevel and the activeStatementType
     if (this.activeMarketingLevel == "imageOnly")
     {
       if (this.activeColorMode != "greyscale")
       {
-        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        }
+        else if (this.activeSymitarReg)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/topGraphic.png)";
+        }
       }
       else
       {
-        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        }
+        else if (this.activeSymitarReg)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/topGraphic.png)";
+        }
       }
     }
-    else if (this.activeMarketingLevel == "contactInfo")
+    else if (this.activeMarketingLevel == "text")
+    {
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/shared/topMarketingText.png)";
+    }
+    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC)
     {
       if (this.activeColorMode != "greyscale")
       {
@@ -895,12 +1003,14 @@ export class PreviewPaneComponent implements OnInit {
       if (this.activeColorMode != "greyscale")
       {
         topGraphicSectionBuffer.style.backgroundImage="";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
       }
       else
       {
         topGraphicSectionBuffer.style.backgroundImage="";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
       }
     }
   }
@@ -993,21 +1103,54 @@ export class PreviewPaneComponent implements OnInit {
   // Uses varaible activeWhitespace to change the advertisement on page 2
   updateWhitespace()
   {
-    var whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    // Choose which divs to affect based on which statement combination is currently chosen
+    var whitespaceAdPage1:HTMLElement;
+    var whitespaceAdPage2:HTMLElement;
+    if (this.activeSymitarCC)
+    {
+      whitespaceAdPage2 = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg)
+    {
+      whitespaceAdPage1 = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
+      whitespaceAdPage2 = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
+    }
+
+    // Makes the changes according to activeStatementType, activeCore, activeColorMode, and activeWhitespaceMode
     if (this.activeWhitespaceMode == "yes")
     {
-      if (this.activeColorMode != "greyscale")
+      if (this.activeSymitarCC)
       {
-        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+        }
+        else
+        {
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
+        }
       }
-      else
+      else if (this.activeSymitarReg)
       {
-        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";
+        }
+        else
+        {
+          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+        }
       }
     }
     else if (this.activeWhitespaceMode == "no")
     {
-      whitespaceAdPage2Buffer.style.backgroundImage="";
+      if (this.activeSymitarReg)
+      {
+        whitespaceAdPage1.style.backgroundImage="";
+      }
+      whitespaceAdPage2.style.backgroundImage="";
     }
   }
 
