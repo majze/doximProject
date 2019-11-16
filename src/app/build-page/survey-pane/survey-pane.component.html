@@ -83,16 +83,16 @@
       <p>What type of marketing would you like?</p>
       <form>
         <!-- No change from skeleton (image on top) -->
-        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio"
-          name="marketingLevel" value="imageOnly" checked>Image<br>
+        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
         <!-- Replace image with text marketing message -->
-        <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio"
-          name="marketingLevel" value="contactInfo">Contact Info<br>
-        <!-- Remove image for regular statement -->
+        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="text" checked>Text Marketing<br>
         <!-- Credit Card only Option use it for contact information Action- replace image with contact samples, same
         size and allocation and remove Contact Info box from midsection -->
-        <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio"
-          name="marketingLevel" value="none">None<br>
+        <div class="creditcardQs">
+          <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
+        </div>
+        <!-- Remove image for regular statement -->
+        <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="none">None<br>
         <br>
       </form>
     </div>

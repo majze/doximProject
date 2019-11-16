@@ -940,23 +940,52 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
   {
-    var topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    var ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    // Determine which divs to update
+    var topGraphicSectionBuffer:HTMLElement;
+    var ccMidSectionBuffer:HTMLElement;
+    if (this.activeSymitarCC)
+    {
+      topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
+      ccMidSectionBuffer = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg)
+    {
+      topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
+    }
 
+    // Make the changes depending on activeMarketingLevel and the activeStatementType
     if (this.activeMarketingLevel == "imageOnly")
     {
       if (this.activeColorMode != "greyscale")
       {
-        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        }
+        else if (this.activeSymitarReg)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/topGraphic.png)";
+        }
       }
       else
       {
-        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        }
+        else if (this.activeSymitarReg)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/topGraphic.png)";
+        }
       }
     }
-    else if (this.activeMarketingLevel == "contactInfo")
+    else if (this.activeMarketingLevel == "text")
+    {
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/shared/topMarketingText.png)";
+    }
+    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC)
     {
       if (this.activeColorMode != "greyscale")
       {
@@ -974,12 +1003,14 @@ export class PreviewPaneComponent implements OnInit {
       if (this.activeColorMode != "greyscale")
       {
         topGraphicSectionBuffer.style.backgroundImage="";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
       }
       else
       {
         topGraphicSectionBuffer.style.backgroundImage="";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
       }
     }
   }
