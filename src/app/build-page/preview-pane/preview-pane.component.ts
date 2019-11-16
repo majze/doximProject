@@ -774,23 +774,53 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane
   updateMasking()
   {
-    let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
-    
-    if (this.activeMaskType == "none")
+    // Determine which divs to update
+    var headerSectionBuffer:HTMLElement;
+    var headerSectionPage2Buffer:HTMLElement;
+
+    // Make the changes to the account masking in the headers on both pages
+    if (this.activeSymitarCC)
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+      headerSectionBuffer = document.getElementsByClassName("headerSection")[0] as HTMLElement;
+      headerSectionPage2Buffer = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+      if (this.activeMaskType == "none")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+      }
+      else if (this.activeMaskType == "to3")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
+      }
+      else if (this.activeMaskType == "to4")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
+      }
     }
-    else if (this.activeMaskType == "to3")
+    else if (this.activeSymitarReg)
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
-    }
-    else if (this.activeMaskType == "to4")
-    {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
+      headerSectionBuffer = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+      headerSectionPage2Buffer = document.getElementsByClassName("p2headerSectionReg")[0] as HTMLElement;
+      if (this.activeMaskType == "none")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeader.png)";
+      }
+      else if (this.activeMaskType == "to3")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo3.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeaderMaskTo3.png)";
+      }
+      else if (this.activeMaskType == "to4")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo4.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeaderMaskTo4.png)";
+      }
     }
   }
 
