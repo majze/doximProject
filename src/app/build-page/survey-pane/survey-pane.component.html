@@ -175,15 +175,14 @@
   <!-- 10th question: Choose a newsflash image to be added if desired.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question yellow" id="newsflashType">
+    <div class="question" id="newsflashType">
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
       <form>
         <!-- Replace bottom onsert with Newsflash component -->
-        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes"
-          checked>Yes<br>
+        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
         <!-- No change -->
-        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no">No<br>
+        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
       </form>
     </div>
   </div>
