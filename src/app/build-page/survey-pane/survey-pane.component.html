@@ -15,7 +15,7 @@
   <div class="card">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
-      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value, $event)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
         <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
@@ -71,7 +71,7 @@
           <p>Choose your company color:</p>
           <input id="headerColor" type="color" name="favcolor" id="headerColorPicker" (change)="setHexCode($event)" value="#0055a4">
           <p> or input the hex value </p>
-          <input id="hexInput" type="text" name="hexNumber" (change)="setHexCode($event)">
+          <input id="hexInput" type="text" name="hexNumber" (change)="setHexCode($event)" value="#0055a4">
           <br>
         </div>
         <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
