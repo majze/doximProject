@@ -20,12 +20,16 @@
 
 /* Apply changes to card class on hover */
 .card:hover {
-  background-color: #85d5fd;
+  background-color: #53c6ffd8;
+}
+
+.cc:hover {
+  background-color: #ff3b3b9f;
 }
 
 /* Internal testing class to alert user to unfished cards */
 .red {
-  background-color: #c000006c;
+  background-color: #c0000099;
 }
 
 /* Internal testing class to alert user to unfished cards */
