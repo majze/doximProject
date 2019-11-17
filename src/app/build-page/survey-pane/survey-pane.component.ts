@@ -9,7 +9,10 @@ import { UploadService } from '../upload.service';
 @Component({
   selector: 'app-survey-pane',
   templateUrl: './survey-pane.component.html',
-  styleUrls: ['./survey-pane.component.css']
+  styleUrls: ['./survey-pane.component.css', 
+    "../../../assets/tympanus/CreativeButtons/css/component.css", 
+    "../../../assets/tympanus/CreativeButtons/css/default.css"
+  ]
 })
 export class SurveyPaneComponent implements OnInit {
   combinedFlags: string;
@@ -113,11 +116,9 @@ export class SurveyPaneComponent implements OnInit {
       if (hiddenCount > 0)
       {
         var hiddenCardDiv:HTMLElement = document.getElementsByClassName("initialhideThisDiv")[0] as HTMLElement;
-        console.log("in loop");
         hiddenCardDiv.classList.remove("initialhideThisDiv");
       }
     }
-    console.log("In showSurvey()");
     this.showHideCCQ();
     this.showHideSQ();
   }
@@ -126,7 +127,6 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    console.log("In showHideCCQ()");
     var ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
@@ -149,7 +149,6 @@ export class SurveyPaneComponent implements OnInit {
   // Function to hide and show statement only questions
   showHideSQ()
   {
-    console.log("In showHideSQ()");
     var statementQNum = document.getElementsByClassName("statementQs").length;
     if (this.activeStatementType == "account")
     {
