@@ -6,7 +6,12 @@ import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-preview-pane',
   templateUrl: './preview-pane.component.html',
-  styleUrls: ['./preview-pane.component.css', "../../../assets/tympanus/CreativeButtons/css/component.css", "../../../assets/tympanus/CreativeButtons/css/default.css"]
+  styleUrls: ['./preview-pane.component.css', 
+    "../../../assets/tympanus/CreativeButtons/css/component.css", 
+    "../../../assets/tympanus/CreativeButtons/css/default.css", 
+    "../../../assets/tympanus/ModalWindowEffects/css/component.css", 
+    "../../../assets/tympanus/ModalWindowEffects/css/default.css"
+  ]
 })
 export class PreviewPaneComponent implements OnInit {
   activeCore: string;
