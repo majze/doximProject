@@ -961,7 +961,33 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
   updateNewsflash()
   {
-    // Updates Newsflash
+    // Define the HTML Elements where the News Flash should go
+    let NewsflashType:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
+
+    // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+    if (this.activeNewsflash == "yes")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/shared/grey/newsflash.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
+      }
+    }
+    // Replace News Flash with original whitespaceAd
+    else if (this.activeNewsflash == "no")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
+      }
+    }
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
@@ -1003,7 +1029,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Define the HTML Elements where the Account Summary should go
     let AccountSummaryReg:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
-    console.log("hi");
+
     // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
     if (this.activeAccSum == "group")
     {
@@ -1019,8 +1045,6 @@ export class PreviewPaneComponent implements OnInit {
     // No change, already on “skeleton sample”
     else if (this.activeAccSum == "startingbalance")
     {
-      console.log("hi starting");
-
       if (this.activeColorMode == "greyscale")
       {
         AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryStartingBal.png)";
@@ -1033,8 +1057,6 @@ export class PreviewPaneComponent implements OnInit {
     // Replace with Ending Balance Only account summary component
     else if (this.activeAccSum == "endingbalance")
     {
-      console.log("hi ending");
-
       if (this.activeColorMode != "greyscale")
       {
         AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryEndingBal.png)";

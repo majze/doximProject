@@ -279,7 +279,10 @@ export class SurveyPaneComponent implements OnInit {
   // Sets the Newsflash graphic type and location from user input on relevant question card
   setNewsflash()
   {
-
+    this.activeNewsflash = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeNewsflash);
+    this.outputSurveyChange.emit("activeNewsflash");
+    this.emitSurveyFlags();
   }
 
   // Sets the hidden status for the Balance at a glance component from user input on relevant question card
