@@ -34,6 +34,7 @@ export class SurveyPaneComponent implements OnInit {
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
  
+  // For displaying a progress bar on image uploads
   uploadPercent: Observable<number>
   downloadURL: Observable<string>
 
@@ -42,6 +43,7 @@ export class SurveyPaneComponent implements OnInit {
   isSubmitted: boolean;
   customerlogoSubmitted: boolean;
 
+  // Used for image validation
   formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required)
   })
@@ -115,19 +117,20 @@ export class SurveyPaneComponent implements OnInit {
   // Until a core and statement type are selected
   showSurvey()
   {
-    if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account')))
+    console.log("Core: " + this.activeCore + " Type: " + this.activeStatementType);
+    if (this.activeCore != null && (this.activeStatementType == 'creditCard' || this.activeStatementType == 'account'))
     {
       var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
-      if (cardQNum <= 0)
+      if (cardQNum > 0)
       {
-        return;
-      }
-      for (var i = 0; i < cardQNum; i++)
-      {
-        var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
-        hiddenCard.classList.remove("initialhideThisDiv");
+        for (var i = 0; i < cardQNum; i++)
+        {
+          var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
+          hiddenCard.classList.remove("initialhideThisDiv");
+        }
       }
     }
+    console.log("In showSurvey()");
     this.showHideCCQ();
     this.showHideSQ();
   }
@@ -136,6 +139,7 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
+    console.log("In showHideCCQ()");
     var ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
@@ -158,6 +162,7 @@ export class SurveyPaneComponent implements OnInit {
   // Function to hide and show statement only questions
   showHideSQ()
   {
+    console.log("In showHideSQ()");
     var statementQNum = document.getElementsByClassName("statementQs").length;
     if (this.activeStatementType == "account")
     {
@@ -207,6 +212,17 @@ export class SurveyPaneComponent implements OnInit {
     console.log("Survey choice:: ", this.activeStatementType);
     this.outputSurveyChange.emit("activeStatementType");
     this.emitSurveyFlags();
+    
+    // Update color header picker input value for each default skeleton statement
+    const colorPicker: HTMLInputElement = document.getElementById('headerColorPicker') as HTMLInputElement;
+    if (this.activeStatementType == "creditCard" && (colorPicker.value == "#559ecd" || colorPicker.value == "#0055a4"))
+    {
+      colorPicker.value = "#559ecd";
+    }
+    else if (this.activeStatementType == "account" && (colorPicker.value == "#559ecd" || colorPicker.value == "#0055a4"))
+    {
+      colorPicker.value = "#0055a4";
+    }
   }
 
   // Sets the color mode from user input on relevant question card
@@ -291,9 +307,9 @@ export class SurveyPaneComponent implements OnInit {
 
   setAccountSummary()
   {
-    this.activeOnsert = (<HTMLInputElement>event.target).value;
-    console.log("Survey choice:: ", this.activeOnsert);
-    this.outputSurveyChange.emit("activeAccountsummary");
+    this.activeAccSum = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeAccSum);
+    this.outputSurveyChange.emit("activeAccSum");
     this.emitSurveyFlags();
   }
 

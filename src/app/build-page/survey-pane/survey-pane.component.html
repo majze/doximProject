@@ -1,4 +1,4 @@
-<!-- This page controls the client vie of the survey cards -->
+<!-- This page controls the client view of the survey cards -->
 <!-- Embedded scripts give the survey cards functions that allow for manipulation of the preview pane -->
 
 <div class="surveyPanel">
@@ -46,9 +46,9 @@
     <div class="question" id="statementTypeSelection">
       <h3>Billing Statement Type</h3>
       <form>
-        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey($event)" name="statementTypeSelection"
+        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey()" name="statementTypeSelection"
           value="account">Account<br>
-        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey($event)" name="statementTypeSelection"
+        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey()" name="statementTypeSelection"
           value="creditCard">Credit Card<br>
       </form>
     </div>
@@ -64,7 +64,7 @@
         <div class="headerColorPicker">
           <br>
           <p>Choose your company color:</p>
-          <input id="headerColor" type="color" name="favcolor" (change)="setHexCode($event)" value="#ff0000">
+          <input id="headerColor" type="color" name="favcolor" id="headerColorPicker" (change)="setHexCode($event)" value="#0055a4">
           <p> or input the hex value </p>
           <input id="hexInput" type="text" name="hexNumber" (change)="setHexCode($event)">
           <br>
@@ -85,7 +85,7 @@
         <!-- No change from skeleton (image on top) -->
         <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
         <!-- Replace image with text marketing message -->
-        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="text" checked>Text Marketing<br>
+        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="text">Text Marketing<br>
         <!-- Credit Card only Option use it for contact information Action- replace image with contact samples, same
         size and allocation and remove Contact Info box from midsection -->
         <div class="creditcardQs">
@@ -201,21 +201,21 @@
   <!-- 12th question: Choose to change the look of the account balances type summary.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question red" id=accountSummaryType>
+    <div class="question" id=accountSummaryType>
       <h3>Account Summary</h3>
       <p>Select how you would like you summaries to be displayed.</p>
       <form>
-        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group) -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="group">Group Shares and Loans Seperately<br>
+        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+          value="group">Group Shares and Loans Seperately<br> -->
         <!-- No change, already on “skeleton sample” -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="startingbalance">Starting Balance<br>
         <!-- Replace with Ending Balance Only account summary component -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="endingbalance">Ending Balance<br>
         <!-- Replace with Full account summary component -->
-        <input type="radio" (change)="setaccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+        <input type="radio" checked (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="total">Total Deposits and Withdrawals<br>
       </form>
     </div>
@@ -223,7 +223,7 @@
 
   <!--13th question: Choose to the type of detail with the transaction summaries-->
   <div class="card">
-    <div class="question yellow" id="transactionSummaryType">
+    <div class="question" id="transactionSummaryType">
       <h3>Transcations Details</h3>
       <p>How would you like your transaction details displayed?</p>
       <form>
@@ -232,7 +232,9 @@
             <!-- Display Balance on the Left component -->
           <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
           <!-- Display Balance on the Right component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight">Balance on the Right<br>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight" checked>Balance on the Right<br>
+          <!-- Amount and Running Balance Only -->
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount and Balance Only<br>
         </div>
 
         <!-- cc only  -->
@@ -261,19 +263,6 @@
     </div>
   </div>
 
-  <!--15th question: joint owner information-->
-  <div class="card creditcardQs">
-    <div class="question red" id="jointOwnerType">
-      <h3>Joint Owner Option</h3>
-      <p>Are there joint owners on the account?</p>
-      <form>
-        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="yes"
-          checked>Yes<br>
-        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="no">No<br>
-      </form>
-    </div>
-  </div>
-
   <!--16th question: Year-to-date totals information-->
   <div class="card">
     <div class="question" id="YTDType">
@@ -290,6 +279,19 @@
   <!-- ================================================================== -->
   <!-- Extra questions to be added later (question backlog) -->
   <!-- ================================================================== -->
+
+  <!--15th question: joint owner information-->
+  <div class="card hideForNow">
+    <div class="question red" id="jointOwnerType">
+      <h3>Joint Owner Option</h3>
+      <p>Are there joint owners on the account?</p>
+      <form>
+        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="yes"
+          checked>Yes<br>
+        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="no">No<br>
+      </form>
+    </div>
+  </div>
 
   <!--17th question: Outbound envelope type information-->
   <div class="card hideForNow">

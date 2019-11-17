@@ -103,6 +103,11 @@ export class PreviewPaneComponent implements OnInit {
     this.activeGlance = this.getParentComponent().activeGlance;
   }
 
+  getAcctSum()
+  {
+    this.activeAccSum = this.getParentComponent().activeAccSum;
+  }
+
   getTransactionMode()
   {
     this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
@@ -153,6 +158,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getOnsert();
     this.getNewsflash();
     this.getGlance();
+    this.getAcctSum();
     this.getTransactionMode();
     this.getWhitespaceMode();
     this.getJointOwners();
@@ -266,6 +272,10 @@ export class PreviewPaneComponent implements OnInit {
     else if (lastChange == "activeGlance")
     {
       this.updateGlance();
+    }
+    else if (lastChange == "activeAccSum")
+    {
+      this.updateAccountSummary();
     }
     else if (lastChange == "activeTransactionsMode")
     {
@@ -944,15 +954,63 @@ export class PreviewPaneComponent implements OnInit {
         {
         headerSectionBuffer.style.backgroundImage="";
         }
+    }
+  }
 
-   }
-
- }
+  // Uses variable activeAccSum to update the Account Summary graphic div or move other divs to its place
   updateAccountSummary()
   {
-    // Update the look of account summary for reg symitar page 1
-    // options: group, startingbalance, endingbalance, total
-    // uses var this.activeAccSum
+    // Define the HTML Elements where the Account Summary should go
+    let AccountSummaryReg:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
+
+    // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+    if (this.activeAccSum == "group")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      }
+    }
+    // No change, already on “skeleton sample”
+    else if (this.activeAccSum == "startingbalance")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryStartingBal.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryStartingBal.png)";
+      }
+    }
+    // Replace with Ending Balance Only account summary component
+    else if (this.activeAccSum == "endingbalance")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryEndingBal.png)";
+      }
+    }
+    // Replace with Full account summary component
+    else if (this.activeAccSum == "total")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      }
+    }
   }
 
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
@@ -1037,45 +1095,77 @@ export class PreviewPaneComponent implements OnInit {
   updateTransactionSummary()
   {
     // Determine which div to update
-    var TransactionPage2Buffer:HTMLElement;
+    var TransactionBuffer:HTMLElement;
     if (this.activeStatementType == "creditCard")
     {
-      TransactionPage2Buffer = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+      TransactionBuffer = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
     }
     else
     {
-      TransactionPage2Buffer = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
+      TransactionBuffer = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
     }
 
     // Update the div accordingly with user input from activeTransactionsMode and activeStatementType
-    if (this.activeStatementType == "creditCard")
+    if (this.activeSymitarCC)
     {
       if (this.activeTransactionsMode == "nochange")
       {
         if (this.activeColorMode != "greyscale")
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
         }
         else
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
         }
       }
       else if (this.activeTransactionsMode == "amountonly")
       {
         if (this.activeColorMode != "greyscale")
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummaryAmountOnly.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummaryAmountOnly.png)";
         }
         else
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummaryAmountOnly.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummaryAmountOnly.png)";
         }
       }
     }
-    else
+    else if (this.activeSymitarReg)
     {
-      // Update Sym Reg here
+      if (this.activeTransactionsMode == "balanceRight") // Default
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavings.png)";
+        }
+        else
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavings.png)";
+        }
+      }
+      else if (this.activeTransactionsMode == "balanceLeft")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavingsBalLeft.png)";
+        }
+        else
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavingsBalLeft.png)";
+        }
+      }
+      else if (this.activeTransactionsMode == "amountonly")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavingsAmountOnly.png)";
+        }
+        else
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavingsAmountOnly.png)";
+        }
+      }
     }
   }
 
@@ -1096,24 +1186,38 @@ export class PreviewPaneComponent implements OnInit {
     // Update the div accordingly with user input from activeTYDMode and activeStatementType
     if (this.activeTYDMode == "current")
     {
-      if (this.activeStatementType == "creditCard")
+      if (this.activeSymitarCC) // Has no header color
       {
         YTDSummaryBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
       }
-      else
+      else if (this.activeSymitarReg) // Has color
       {
-        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+        }
+        else
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummary.png)";
+        }
       }
     }
     else if (this.activeTYDMode == "currentandprevious")
     {
-      if (this.activeStatementType == "creditCard")
+      if (this.activeSymitarCC) // Has no header color
       {
         YTDSummaryBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDcurrentAndprevious.png)";
       }
-      else
+      else if (this.activeSymitarReg) // Has color
       {
-        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummaryPrev.png)";
+        }
+        else
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummaryPrev.png)";
+        }
       }
     }
   }
