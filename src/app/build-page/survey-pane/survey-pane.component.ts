@@ -118,17 +118,16 @@ export class SurveyPaneComponent implements OnInit {
   showSurvey()
   {
     console.log("Core: " + this.activeCore + " Type: " + this.activeStatementType);
-    if ((this.activeCore != null) && ((this.activeStatementType == 'creditCard') || (this.activeStatementType == 'account')))
+    if (this.activeCore != null && (this.activeStatementType == 'creditCard' || this.activeStatementType == 'account'))
     {
       var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
-      if (cardQNum <= 0)
+      if (cardQNum > 0)
       {
-      //  return;
-      }
-      for (var i = 0; i < cardQNum; i++)
-      {
-        var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
-        hiddenCard.classList.remove("initialhideThisDiv");
+        for (var i = 0; i < cardQNum; i++)
+        {
+          var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
+          hiddenCard.classList.remove("initialhideThisDiv");
+        }
       }
     }
     console.log("In showSurvey()");
