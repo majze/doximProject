@@ -128,55 +128,35 @@ export class SurveyPaneComponent implements OnInit {
         hiddenCard.classList.remove("initialhideThisDiv");
       }
     }
-    this.showHideCCQ();
-    this.showHideSQ();
+    this.showHideQuestions();
   }
 
   // Function to hide and show the credit card question 
   // Based off the selection of cc from the statement type question
-  showHideCCQ()
+  showHideQuestions()
   {
-    var ccQNum = document.getElementsByClassName("creditcardQs").length;
-    if (this.activeStatementType == "creditCard")
-    {
-      for(var i=0; i < ccQNum; i++)
-      {
-        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
-        creditCardQ.classList.remove("hideThisDiv");
-      }
-    }
-    else if (this.activeStatementType == "account")
-    {
-      for(var i=0; i < ccQNum; i++)
-      {
-        let creditCardQ: HTMLElement = document.getElementsByClassName("creditcardQs")[i] as HTMLElement;
-        creditCardQ.classList.add("hideThisDiv");
-      }
-    }
-  }
-  
-  // Function to hide and show statement only questions
-  showHideSQ()
-  {
-    var statementQNum = document.getElementsByClassName("statementQs").length;
-    if (this.activeStatementType == "account")
-    {
-      for(var i=0; i< statementQNum; i++)
-      {
-        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
-        statementQ.classList.remove("hideThisDiv");
-      }
-    }
-    else if (this.activeStatementType == "creditcard")
-    {
-      for(var i =0; i< statementQNum; i++)
-      {
-        let statementQ: HTMLElement = document.getElementsByClassName("statementQs")[i] as HTMLElement;
-        statementQ.classList.add("hideThisDiv");
-      }
-    }
-  }
 
+    var qNum = document.getElementsByClassName("card").length;
+    var qnum1 = 19;
+    if (this.activeStatementType == "creditCard"){
+      for(var i = 0; i< qnum1; i++){
+        var creditCardQ: HTMLElement = document.getElementsByClassName("creditCardQs")[i] as HTMLElement;
+        var regularCardQ:HTMLElement = document.getElementsByClassName("regularCardQs")[i] as HTMLElement;
+        creditCardQ.classList.remove("hideThisDiv");
+        regularCardQ.classList.add("hideThisDiv");
+      }
+    }
+    
+    if(this.activeStatementType == "account"){
+      for(var i = 0; i<qnum1; i++){
+        var creditCardQ: HTMLElement = document.getElementsByClassName("creditCardQs")[i] as HTMLElement;
+        var regularCardQ:HTMLElement = document.getElementsByClassName("regularCardQs")[i] as HTMLElement;
+        creditCardQ.classList.add("hideThisDiv");
+        regularCardQ.classList.remove("hidThisDiv")
+      }
+    }
+
+  }
   // If "Greyscale" is chosen, hide any mention of color selection
   showHideColorPicker()
   { 
@@ -277,6 +257,10 @@ export class SurveyPaneComponent implements OnInit {
   // Sets the Newsflash graphic type and location from user input on relevant question card
   setNewsflash()
   {
+    this.activeNewsflash = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ",this.activeNewsflash);
+    this.outputSurveyChange.emit("activeNewsflash");
+    this.emitSurveyFlags;
 
   }
 

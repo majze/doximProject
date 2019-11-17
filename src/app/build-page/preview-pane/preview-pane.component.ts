@@ -160,6 +160,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getRewardsType();
     this.getOutboundEnvelope();
     this.getReplyEnvelope();
+    this.getHexCode();
     // future gets
   }
 
@@ -591,23 +592,32 @@ export class PreviewPaneComponent implements OnInit {
     // PATRICK: Work in progress
     // var userHexNum = this.activeHexCode;
     // var convertedHSL = this.hexToHSL(userHexNum);
-    // var hueChange = this.hslToDegreeChange(convertedHSL)
+    var huechange = 90;
+    var test3 = huechange;
+    var test5 = test3 + huechange;
+   // var hueChange = this.hslToDegrseeChange(convertedHSL)
     
-    var testnum = 27, testnum1=112, testnum2 = 115;
-    var filter1 = "hue-rotate("+testnum+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
-
-    let divCount = document.getElementsByClassName("changeHeaderColor").length;
-    for (var i = 0; i < divCount; i++)
-    {
+    var filter1 = "hue-rotate("+test3+"deg)";
+    var filter2 = "hue-rotate("+test5+"deg)";
+    for (var i = 0; i < 15; i++) {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
       divChange.style.filter = filter1;
+      let divChange2: HTMLElement = document.getElementsByClassName("changeHeaderColor2")[i] as HTMLElement;
+      divChange2.style.filter = filter2;
+    }
+  }
+
+  resetHue(){
+    for(var i=0; i< 15; i++){
+      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
+      divChange.style.filter = "none";
     }
     console.log("Applied hue change with: testnum"); // + this.activeHexCode);
   }
 
-  // Converts hex code value into a usable HSL (hue) value
-  hexToHSL(H)
-  {
+//helper function to change a hex code value into a usable HSL value
+//used from css-tricks.com
+  hexToHSL(H) {
     // Convert hex to RGB first
     let r = 0, g = 0, b = 0;
     if (H.length == 4) {
@@ -656,7 +666,7 @@ export class PreviewPaneComponent implements OnInit {
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 195, startS = 100, startL = 44.1;
+  let startH = 0, startS = 100, startL = 44.1;
   let newH = convertedHSL[0]- startH, 
       newS = 100 + (startS -convertedHSL[1]),
       newL = 100 + (convertedHSL[2] - startL);
@@ -841,7 +851,25 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
   updateNewsflash()
   {
-    // Updates Newsflash
+    let newsflashSectionBuffer:HTMLElement = document.getElementById("newsflashType") as HTMLElement;
+
+    if (this.activeNewsflash == "yes")
+    {
+      if (this.activeColorMode != "greyscale")
+      {
+        newsflashSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/newsflash.png)";
+      }
+      else
+      {
+        newsflashSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/newsflash.png)";
+      }
+    }
+   
+    else if (this.activeNewsflash == "no")
+    {
+      newsflashSectionBuffer.style.backgroundImage="";
+    }
+
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component

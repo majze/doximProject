@@ -2,13 +2,11 @@
 <!-- Embedded scripts give the survey cards functions that allow for manipulation of the preview pane -->
 
 <div class="surveyPanel">
-    
-  <!-- PATRICK: Populate cores dropdown from firebase, work in progress!
+  
   <button (click)=getCoreType()>Console log: GetCores TEST</button>
-    -->
-
-  <!--1st question: Upload a company logo-->
-  <div class="card">
+  
+  <!--1st question: Choose your core-->
+  <div class="card initialhideThisDiv">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
       <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
@@ -46,17 +44,36 @@
     <div class="question" id="statementTypeSelection">
       <h3>Billing Statement Type</h3>
       <form>
-        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey($event)" name="statementTypeSelection"
+        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey($event)"
+          (change)="showHideQuestions($event)" name="statementTypeSelection"
           value="account">Account<br>
-        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey($event)" name="statementTypeSelection"
+        <input type="radio" class="form-radio" (change)="setStatementType($event)" (change)="showSurvey($event)"
+          (change)="showHideQuestions($event)" name="statementTypeSelection"
           value="creditCard">Credit Card<br>
       </form>
     </div>
   </div>
 
+
+  <!--3rd question: Upload a company logo-->
+  <!-- UPLOAD LOGO -->
+  <div class="card initialhideThisDiv">
+    <div class="question red" id="upLoadcustomerLogo">
+      <h3>Customer Logo</h3>
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
+        <label for="uploadLogo">Upload your company logo:</label>
+        <br>
+        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
   <!--4th question: Choose color or greyscale statement-->
-  <div class="card ">
-      <div class="question yellow" id="printColorType">
+  <div class="card initialhideThisDiv ">
+    <div class="question yellow" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
@@ -77,7 +94,7 @@
   </div>
 
   <!--5th question: Choose the level of marketing-->
-  <div class="card">
+  <div class="card initialhideThisDiv">
     <div class="question" id="marketingType">
       <h3>Level of Marketing</h3>
       <p>What type of marketing would you like?</p>
@@ -99,7 +116,7 @@
   </div>
 
   <!--6th question: Choose a credit card logo if cc statement-->
-  <div class="card creditcardQs" id="borderFix">
+  <div class="card initialhideThisDiv creditCardQs" id="borderFix">
     <div class="question form-group" id="cclogoSelection">
       <h3>Credit Card Logo</h3>
       <form>
@@ -116,7 +133,7 @@
   </div>
 
   <!--7th question: Choose the account masking style-->
-  <div class="card statementQs">
+  <div class="card initialhideThisDiv regularCardQs">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
       <p> How much of your account number would you like visible? </p>
@@ -135,7 +152,7 @@
   </div>
 
   <!--8th question: Choose to include a scanline or not-->
-  <div class="card creditcardQs">
+  <div class="card initialhideThisDiv creditcardQs">
     <div class="question" id="scanlineType">
       <h3>Scanline Option</h3>
       <p>Would you like a scanline included on your statement?</p>
@@ -149,17 +166,13 @@
     </div>
   </div>
 
-  <!--9th question: Choose to include an onsert (company marketing image) or not -->
-  <div class="card">
+
+  <!--9th question: Choose to include an onsert (company marketing image) or not.
+  cc statements only-->
+  <div class="card initialhideThisDiv creditcardQs">
     <div class="question" id="onsertType">
-        <h3>Onsert Option</h3>
-        <div class="creditcardQs">
-          <p>Would you like to have an onsert on the top of the 2nd page as shown?</p>
-          <form>
-            <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
-            <input type="radio" checked onClick="document.getElementById('onsert2').checked = false;document.getElementById('onsert3').checked = false" (change)="setOnsert($event)" id="onsert1" class="form-radio" name="onsertLevel" value="image">Image<br>
-          </form>
-        </div>
+      <h3>Onsert Option</h3>
+      <p>Would you like an onsert included on your statement?</p>
       <form>
         <!-- Replace image with text marketing message -->
         <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert2" class="form-radio" name="onsertLevel" value="textonly">Text Only<br>
@@ -170,9 +183,9 @@
   </div>
 
   <!-- 10th question: Choose a newsflash image to be added if desired.
-  Regular statements only -->
-  <div class="card statementQs">
-    <div class="question yellow" id=newsflashType>
+Regular statements only -->
+  <div class="card initialhideThisDiv regularCardQs">
+    <div class="question red" id=newsflashType>
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
       <form>
@@ -186,9 +199,9 @@
   </div>
 
   <!-- 11th question: Choose to add account balances at a glance type summary.
-  Regular statements only -->
-  <div class="card statementQs">
-    <div class="question yellow" id=glanceType>
+Regular statements only -->
+  <div class="card initialhideThisDiv regularCardQs">
+    <div class="question red" id=glanceType>
       <h3>Balance at a Glance</h3>
       <form>
         <!-- No change, already on “skeleton sample” -->
@@ -200,9 +213,10 @@
     </div>
   </div>
 
-  <!-- 12th question: Choose to change the look of the account balances type summary.
-  Regular statements only -->
-  <div class="card statementQs">
+
+  <!-- 12th question: Choose to add account balances at a glance type summary.
+Regular statements only -->
+  <div class="card initialhideThisDiv regularCardQs">
     <div class="question red" id=accountSummaryType>
       <h3>Account Summary</h3>
       <p>Select how you would like you summaries to be displayed.</p>
@@ -224,17 +238,24 @@
   </div>
 
   <!--13th question: Choose to the type of detail with the transaction summaries-->
-  <div class="card">
-    <div class="question yellow" id="transactionSummaryType">
-      <h3>Transcations Details</h3>
-      <p>How would you like your transaction details displayed?</p>
+  <div class="card initialhideThisDiv">
+    <div class="question" id="transactionSummaryType">
+      <h3>Transcation Summary</h3>
+      
       <form>
-        <!-- reg account only  -->
-        <div class="statementQs">
-            <!-- Display Balance on the Left component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
-          <!-- Display Balance on the Right component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight">Balance on the Right<br>
+        <div class="creditcardQs">
+          <p>Would you like your transaction details displayed on your statement?</p>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+            value="yes">Yes<br>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+            value="no">No<br>
+        </div>
+        <div class="regularCardQs">
+            <p>How would you like your transaction details displayed on your statement?</p>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+            value="balanceLeft">Balance on the Left<br>
+          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel"
+            value="balanceRight">Balance on the Right<br>
         </div>
 
         <!-- cc only  -->
@@ -249,7 +270,7 @@
   </div>
 
   <!--14th question: 2nd page whitespace management-->
-  <div class="card">
+  <div class="card initialhideThisDiv accountQs">
     <div class="question" id="whitespaceType">
       <h3>Whitespace Option</h3>
       <p>Would you like an image to fill your whitespace?</p>
@@ -263,9 +284,10 @@
     </div>
   </div>
 
+
   <!--15th question: joint owner information-->
-  <div class="card creditcardQs">
-    <div class="question red" id="jointOwnerType">
+  <div class="card initialhideThisDiv red creditcardQs">
+    <div class="question" id="jointOwnerType">
       <h3>Joint Owner Option</h3>
       <p>Are there joint owners on the account?</p>
       <form>
@@ -277,7 +299,7 @@
   </div>
 
   <!--16th question: Year-to-date totals information-->
-  <div class="card">
+  <div class="card initialhideThisDiv regularCardQs">
     <div class="question" id="YTDType">
       <h3>Year-to-Date Summary</h3>
       <form>
@@ -289,13 +311,15 @@
     </div>
   </div>
 
-  <!-- ================================================================== -->
-  <!-- Extra questions to be added later (question backlog) -->
-  <!-- ================================================================== -->
+
+
+<!-- =============================================================================== -->
+<!--Backlog Questions  -->
+<!-- =============================================================================== -->
 
   <!--17th question: Outbound envelope type information-->
-  <div class="card hideForNow">
-    <div class="question red" id="outboundEnvelopeType">
+  <div class="card initialhideThisDiv red regularCardQs">
+    <div class="question" id="outboundEnvelopeType">
       <h3>Outbound Envelope Options</h3>
       <p>Choose your outbound envelope type.</p>
       <form>
@@ -312,9 +336,9 @@
   </div>
 
   <!--18th question: Rewards information-->
-  <div class="card hideForNow">
-    <div class="question red" id="rewardsType">
-        <h3>Rewards and Cashback Option</h3>
+  <div class="card initialhideThisDiv hideForNow">
+    <div class="question" id="rewardsType">
+      <h3>Rewards and Cashback Option</h3>
       <p>Would you like to include your rewards or cashback summary?</p>
       <form>
         <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel"
