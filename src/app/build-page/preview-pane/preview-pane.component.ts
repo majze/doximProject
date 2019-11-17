@@ -60,9 +60,19 @@ export class PreviewPaneComponent implements OnInit {
     }, 1000);
   }
 
+  // Generates a runbook file for the sales force and design engineers from client preference
   generateRunbook()
   {
-    // to do
+    //var doc = new jsPDF('','','');
+    var doc;
+    doc.setFontSize(22);
+    doc.text(20, 20, 'This is a title');
+
+    doc.setFontSize(16);
+    doc.text(20, 30, 'This is some normal sized text underneath.');	
+
+    // Output as Data URI
+    doc.output('datauri');
   }
 
   // Any call to this function gets the build-page (parent) variables
