@@ -15,7 +15,7 @@
   <div class="card">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
-      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value, $event)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
         <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
