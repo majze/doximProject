@@ -123,7 +123,7 @@ export class SurveyPaneComponent implements OnInit {
       var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
       if (cardQNum <= 0)
       {
-        return;
+      //  return;
       }
       for (var i = 0; i < cardQNum; i++)
       {
@@ -131,6 +131,7 @@ export class SurveyPaneComponent implements OnInit {
         hiddenCard.classList.remove("initialhideThisDiv");
       }
     }
+    console.log("In showSurvey()");
     this.showHideCCQ();
     this.showHideSQ();
   }
@@ -139,6 +140,7 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
+    console.log("In showHideCCQ()");
     var ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
@@ -161,6 +163,7 @@ export class SurveyPaneComponent implements OnInit {
   // Function to hide and show statement only questions
   showHideSQ()
   {
+    console.log("In showHideSQ()");
     var statementQNum = document.getElementsByClassName("statementQs").length;
     if (this.activeStatementType == "account")
     {
