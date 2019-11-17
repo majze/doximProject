@@ -68,11 +68,10 @@ export class SurveyPaneComponent implements OnInit {
   }
 
   // Submit button turns the user uploaded image into an imageUrl
-  onSubmit(formValue, event: any) {
+  onSubmit(formValue) {
     this.isSubmitted = true;
     // Check for blank file
-    if (event.target.files && event.target.files[0]) {
-      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = "CustomerLogo" + `/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
@@ -86,7 +85,6 @@ export class SurveyPaneComponent implements OnInit {
           })
         })
       ).subscribe();
-    }
   }
 
   // Reacts to OnChange event for uploading a customer image

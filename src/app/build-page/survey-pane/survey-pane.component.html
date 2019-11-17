@@ -15,10 +15,10 @@
   <div class="card">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
-      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value, $event)">
+      <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
-        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
+        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)" required>
         <br>
         <app-progress [progress]="progress"></app-progress>
         <button type="submit" class="btn btn-3 btn-3e icon-arrow-right">Submit</button>
