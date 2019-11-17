@@ -268,8 +268,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (lastChange == "activeHexCode")
     {
-      // PATRICK: We need a link from survey to the hex function to change the hue, work in progress!!
-      // this.changeHue();
+      this.changeHue();
     }
     else if (lastChange == "activeCClogo")
     {
