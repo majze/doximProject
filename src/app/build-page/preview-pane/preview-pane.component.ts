@@ -933,7 +933,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Define the HTML Elements where the News Flash should go
     let NewsflashType:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
-    console.log("hi: " + this.activeNewsflash);
+
     // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
     if (this.activeNewsflash == "yes")
     {
@@ -946,6 +946,7 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
+    // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
     {
       if (this.activeColorMode == "greyscale")
