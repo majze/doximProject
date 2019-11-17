@@ -6,7 +6,7 @@ import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-preview-pane',
   templateUrl: './preview-pane.component.html',
-  styleUrls: ['./preview-pane.component.css']
+  styleUrls: ['./preview-pane.component.css', "../../../assets/tympanus/CreativeButtons/css/component.css", "../../../assets/tympanus/CreativeButtons/css/default.css"]
 })
 export class PreviewPaneComponent implements OnInit {
   activeCore: string;
@@ -34,6 +34,32 @@ export class PreviewPaneComponent implements OnInit {
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
+
+  // Animates the Drive-Thru sample button
+  driveThru()
+  {
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7a icon-truck")[0] as HTMLElement;
+    pdfButton.classList.add("btn-activated");
+    setTimeout(function(){
+      pdfButton.classList.remove("btn-activated");
+    }, 1000);
+  }
+
+  // Animates the Generate Runbook button
+  runbookButton()
+  {
+    console.log("poop");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
+    pdfButton.classList.add("btn-activated");
+    setTimeout(function(){
+      pdfButton.classList.remove("btn-activated");
+    }, 1000);
+  }
+
+  generateRunbook()
+  {
+    // to do
+  }
 
   // Any call to this function gets the build-page (parent) variables
   getParentComponent(): BuildPageComponent
