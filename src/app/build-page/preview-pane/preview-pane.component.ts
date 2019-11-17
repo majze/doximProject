@@ -60,9 +60,19 @@ export class PreviewPaneComponent implements OnInit {
     }, 1000);
   }
 
+  // Generates a runbook file for the sales force and design engineers from client preference
   generateRunbook()
   {
-    // to do
+    //var doc = new jsPDF('','','');
+    var doc;
+    doc.setFontSize(22);
+    doc.text(20, 20, 'This is a title');
+
+    doc.setFontSize(16);
+    doc.text(20, 30, 'This is some normal sized text underneath.');	
+
+    // Output as Data URI
+    doc.output('datauri');
   }
 
   // Any call to this function gets the build-page (parent) variables
@@ -646,9 +656,9 @@ export class PreviewPaneComponent implements OnInit {
   changeHue()
   {
     // PATRICK: Work in progress
-    // var userHexNum = this.activeHexCode;
-    // var convertedHSL = this.hexToHSL(userHexNum);
-    // var hueChange = this.hslToDegreeChange(convertedHSL)
+    var userHexNum = this.activeHexCode;
+    var convertedHSL = this.hexToHSL(userHexNum);
+    var hueChange = this.hslToDegreeChange(convertedHSL)
     
     var testnum = 27, testnum1=112, testnum2 = 115;
     var filter1 = "hue-rotate("+testnum+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
@@ -657,9 +667,9 @@ export class PreviewPaneComponent implements OnInit {
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      divChange.style.filter = filter1;
+      divChange.style.filter = "hue-rotate("+hueChange+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
     }
-    console.log("Applied hue change with: testnum"); // + this.activeHexCode);
+    console.log("Applied hue change with: " + this.activeHexCode);
   }
 
   // Converts hex code value into a usable HSL (hue) value
@@ -713,7 +723,7 @@ export class PreviewPaneComponent implements OnInit {
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 195, startS = 100, startL = 44.1;
+  let startH = 0, startS = 100, startL = 44.1;
   let newH = convertedHSL[0]- startH, 
       newS = 100 + (startS -convertedHSL[1]),
       newL = 100 + (convertedHSL[2] - startL);

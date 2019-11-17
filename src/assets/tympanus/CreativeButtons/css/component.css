@@ -30,6 +30,10 @@
 	transition: all 0.3s;
 }
 
+.btn-custom-hover:hover {
+	color: #9c0f0f;
+}
+
 #btn .btn {
 	border: none;
 	font-family: inherit;
@@ -415,6 +419,7 @@
 /* Button 3e */
 .btn-3e {
 	padding: 25px 120px 25px 60px;
+	/* padding: 20px 80px 12px 30px; */
 	overflow: hidden;
 }
 

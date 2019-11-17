@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css',
+    "../../assets/tympanus/CreativeButtons/css/component.css", 
+    "../../assets/tympanus/CreativeButtons/css/default.css"
+  ]
 })
 
 export class LoginPageComponent implements OnInit {
@@ -23,7 +26,6 @@ export class LoginPageComponent implements OnInit {
             password: ['', Validators.required]
         })
     }
-
     // OnClick() event triggered by login form submission
     onSubmit() {
         this.submitted = true;
@@ -36,7 +38,12 @@ export class LoginPageComponent implements OnInit {
         // Check Firestore for User ID
         this.getData(vusername, vpassword);
     }
-
+    // Send user to build page
+    nextPage() {
+        if (this.success && this.submitted) {
+            this.router.navigate(['./build']);
+        }
+    }
     // Check Firestore for User ID
 	getData(username, password) {
         this.firebaseService.getUsers(username, password)
@@ -59,18 +66,11 @@ export class LoginPageComponent implements OnInit {
         });
     }
 
-    // Alert user how to retrieve log in credentials
-    forgotLogin() {
+     // Alert user how to retrieve log in credentials
+     forgotLogin() {
         alert("Please contact your supervisor or send an email to ITSupport@doxim.com");
     }
     
-    // Send user to build page
-    nextPage() {
-        if (this.success && this.submitted) {
-            this.router.navigate(['./build']);
-        }
-    }
-
     // Front-end reacts to these to show valid/invalid notifications to the user
     refreshSubmit() {
         this.fail = false;
