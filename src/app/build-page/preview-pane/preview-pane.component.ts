@@ -590,50 +590,31 @@ export class PreviewPaneComponent implements OnInit {
   changeHue()
   {
     // PATRICK: Work in progress
-    // var userHexNum = this.activeHexCode;
-    // var convertedHSL = this.hexToHSL(userHexNum);
-    var huechange = 90;
-    var test3 = huechange;
-    var test5 = test3 + huechange;
-   // var hueChange = this.hslToDegrseeChange(convertedHSL)
-    
-    var filter1 = "hue-rotate("+test3+"deg)";
-    var filter2 = "hue-rotate("+test5+"deg)";
+    var userHexNum = this.activeHexCode;
+    var convertedHSL = this.hexToHSL(userHexNum);
+    var degreeChange = this.hslToDegreeChange(convertedHSL);
+    var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
+
     for (var i = 0; i < 15; i++) {
-      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      divChange.style.filter = filter1;
-      let divChange2: HTMLElement = document.getElementsByClassName("changeHeaderColor2")[i] as HTMLElement;
-      divChange2.style.filter = filter2;
+      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;//first page
+      divChange.style.filter = hueFilter;
+      let divChange2: HTMLElement = document.getElementsByClassName("changeHeaderColor2")[i] as HTMLElement;/*second page, side note, the 2nd page is off by about
+                                                                                                            30~40 degrees compared to the first, don't know why*/
+      divChange2.style.filter = hueFilter;
     }
   }
 
-  resetHue(){
-    for(var i=0; i< 15; i++){
-      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      divChange.style.filter = "none";
-    }
-    console.log("Applied hue change with: testnum"); // + this.activeHexCode);
-  }
-
+ 
 //helper function to change a hex code value into a usable HSL value
 //used from css-tricks.com
   hexToHSL(H) {
     // Convert hex to RGB first
-    let r = 0, g = 0, b = 0;
-    if (H.length == 4) {
-      r =  H[1] + H[1];
-      g =  H[2] + H[2];
-      b =  H[3] + H[3];
-    }
-    else if (H.length == 7) {
-      r =  H[1] + H[2];
-      g =  H[3] + H[4];
-      b =  H[5] + H[6];
-    }
-    // Then to HSL
-    r /= 255;
-    g /= 255;
-    b /= 255;
+
+    var r = parseInt(H.substr(1,2), 16); 
+    var g = parseInt(H.substr(3,2), 16);
+    var b = parseInt(H.substr(5,2), 16);  
+    
+    // after rgb is found, convert to HSL
     let cmin = Math.min(r, g, b),
       cmax = Math.max(r, g, b),
       delta = cmax - cmin,
@@ -641,6 +622,7 @@ export class PreviewPaneComponent implements OnInit {
       s = 0,
       l = 0;
 
+    //logic to decide which hue is dominant
     if (delta == 0)
       h = 0;
     else if (cmax == r)
@@ -652,6 +634,7 @@ export class PreviewPaneComponent implements OnInit {
 
     h = Math.round(h * 60);
 
+    //if hue is negative make it positive
     if (h < 0)
       h += 360;
 
@@ -660,13 +643,12 @@ export class PreviewPaneComponent implements OnInit {
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
 
-    let hslArray: number[] = [h,s,l]
-    return hslArray;
+    return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 0, startS = 100, startL = 44.1;
+  let startH = 195, startS = 100, startL = 44.1;
   let newH = convertedHSL[0]- startH, 
       newS = 100 + (startS -convertedHSL[1]),
       newL = 100 + (convertedHSL[2] - startL);
