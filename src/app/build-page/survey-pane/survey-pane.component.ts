@@ -15,7 +15,7 @@ export class SurveyPaneComponent implements OnInit {
   combinedFlags: string;
   activeCore: string = null;
   activeStatementType: string;
-  activeColorMode: string;
+  activeColorMode: string = "color";
   activeHexCode: string;
   activeCClogo: string;
   activeCustomerlogo: string;
@@ -66,17 +66,6 @@ export class SurveyPaneComponent implements OnInit {
 
   // Submit button turns the user uploaded image into an imageUrl
   onSubmit(formValue) {
-
-    // JOSH: Upload Service, work in progress!
-    // this.customerlogoSubmitted = true;
-    // console.log("In onSubmit() " + this.formTemplate.valid);
-    // console.log("In onSubmit() " + this.formTemplate.status);
-    // this.isSubmitted = true;
-    // this.uploadService.saveCustomerLogoToFirebaseStorage(this.selectedImage, this.imgSrc);
-    // console.log("made it past serice call");
-    // this.activeCustomerlogo = this.uploadService.firebaseStorageURL;
-    // console.log("URL in survey component2: " + this.activeCustomerlogo);
-
     this.isSubmitted = true;
       var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
@@ -120,14 +109,12 @@ export class SurveyPaneComponent implements OnInit {
     console.log("Core: " + this.activeCore + " Type: " + this.activeStatementType);
     if (this.activeCore != null && (this.activeStatementType == 'creditCard' || this.activeStatementType == 'account'))
     {
-      var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
-      if (cardQNum > 0)
+      var hiddenCount = document.getElementsByClassName("initialhideThisDiv").length;
+      if (hiddenCount > 0)
       {
-        for (var i = 0; i < cardQNum; i++)
-        {
-          var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
-          hiddenCard.classList.remove("initialhideThisDiv");
-        }
+        var hiddenCardDiv:HTMLElement = document.getElementsByClassName("initialhideThisDiv")[0] as HTMLElement;
+        console.log("in loop");
+        hiddenCardDiv.classList.remove("initialhideThisDiv");
       }
     }
     console.log("In showSurvey()");
@@ -299,8 +286,8 @@ export class SurveyPaneComponent implements OnInit {
   // Sets the hidden status for the Balance at a glance component from user input on relevant question card
   setGlance()
   {
-    this.activeOnsert = (<HTMLInputElement>event.target).value;
-    console.log("Survey choice:: ", this.activeOnsert);
+    this.activeGlance = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeGlance);
     this.outputSurveyChange.emit("activeGlance");
     this.emitSurveyFlags();
   }

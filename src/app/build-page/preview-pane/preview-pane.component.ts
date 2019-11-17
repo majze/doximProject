@@ -947,13 +947,24 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeStatementType == "account")
     {
       if(this.activeGlance == "on")
+      {
+        if (this.activeMaskType == "none" || this.activeMaskType == "undefined")
         {
-        headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
         }
-        else if (this.activeGlance == "off")
+        else if (this.activeMaskType == "to3")
         {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo3.png)";
+        }
+        else if(this.activeMaskType == "to4")
+        {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo4.png)";
+        }
+      }
+      else if (this.activeGlance == "off")
+      {
         headerSectionBuffer.style.backgroundImage="";
-        }
+      }
     }
   }
 
@@ -962,7 +973,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Define the HTML Elements where the Account Summary should go
     let AccountSummaryReg:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
-
+    console.log("hi");
     // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
     if (this.activeAccSum == "group")
     {
@@ -978,6 +989,8 @@ export class PreviewPaneComponent implements OnInit {
     // No change, already on “skeleton sample”
     else if (this.activeAccSum == "startingbalance")
     {
+      console.log("hi starting");
+
       if (this.activeColorMode == "greyscale")
       {
         AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryStartingBal.png)";
@@ -990,13 +1003,15 @@ export class PreviewPaneComponent implements OnInit {
     // Replace with Ending Balance Only account summary component
     else if (this.activeAccSum == "endingbalance")
     {
-      if (this.activeColorMode == "greyscale")
-      {
-        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
-      }
-      else if (this.activeColorMode == "color")
+      console.log("hi ending");
+
+      if (this.activeColorMode != "greyscale")
       {
         AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryEndingBal.png)";
+      }
+      else
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
       }
     }
     // Replace with Full account summary component
