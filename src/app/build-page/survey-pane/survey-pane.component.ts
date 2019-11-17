@@ -299,7 +299,10 @@ export class SurveyPaneComponent implements OnInit {
   // Sets the hidden status for the Balance at a glance component from user input on relevant question card
   setGlance()
   {
-
+    this.activeOnsert = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOnsert);
+    this.outputSurveyChange.emit("activeGlance");
+    this.emitSurveyFlags();
   }
 
   setAccountSummary()
@@ -330,7 +333,10 @@ export class SurveyPaneComponent implements OnInit {
 
   setJointOwner()
   {
-    
+    this.activeOnsert = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOnsert);
+    this.outputSurveyChange.emit("activeJointowner");
+    this.emitSurveyFlags();
   }
 
   // Sets the option for YTD Totals from user input on relevant question card

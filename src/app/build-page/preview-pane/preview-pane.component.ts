@@ -938,6 +938,23 @@ export class PreviewPaneComponent implements OnInit {
   updateGlance()
   {
     // Updates Glance toggle visibility
+    var headerSectionBuffer:HTMLElement;
+  
+    if (this.activeStatementType == "account")
+    {
+      headerSectionBuffer = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+    }
+    if (this.activeStatementType == "account")
+    {
+      if(this.activeGlance == "on")
+        {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+        }
+        else if (this.activeGlance == "off")
+        {
+        headerSectionBuffer.style.backgroundImage="";
+        }
+    }
   }
 
   // Uses variable activeAccSum to update the Account Summary graphic div or move other divs to its place
