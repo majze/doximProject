@@ -26,9 +26,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/custom.js",
-              "src/assets/tympanus/CreativeButtons/js/classie.js",
-              "src/assets/tympanus/CreativeButtons/js/modernizr.custom.js"
+              "src/assets/js/custom.js"
             ]
           },
           "configurations": {

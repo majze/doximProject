@@ -9,7 +9,7 @@ import { UploadService } from '../upload.service';
 @Component({
   selector: 'app-survey-pane',
   templateUrl: './survey-pane.component.html',
-  styleUrls: ['./survey-pane.component.css']
+  styleUrls: ['./survey-pane.component.css', "../../../assets/tympanus/CreativeButtons/css/component.css", "../../../assets/tympanus/CreativeButtons/css/default.css"]
 })
 export class SurveyPaneComponent implements OnInit {
   combinedFlags: string;

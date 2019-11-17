@@ -48,7 +48,6 @@ export class PreviewPaneComponent implements OnInit {
   // Animates the Generate Runbook button
   runbookButton()
   {
-    console.log("poop");
     let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
     pdfButton.classList.add("btn-activated");
     setTimeout(function(){
