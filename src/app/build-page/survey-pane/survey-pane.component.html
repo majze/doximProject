@@ -1,6 +1,10 @@
 <!-- This page controls the client view of the survey cards -->
 <!-- Embedded scripts give the survey cards functions that allow for manipulation of the preview pane -->
 
+<!-- For Creative Buttons -->
+<script src="../../../assets/tympanus/CreativeButtons/js/classie.js"></script>
+<script src="../../../assets/tympanus/CreativeButtons/js/modernizr.custom.js"></script>
+
 <div class="surveyPanel">
     
   <!-- PATRICK: Populate cores dropdown from firebase, work in progress!
@@ -17,7 +21,7 @@
         <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
         <br>
         <app-progress [progress]="progress"></app-progress>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-3 btn-3e icon-arrow-right">Submit</button>
       </form>
     </div>
   </div>

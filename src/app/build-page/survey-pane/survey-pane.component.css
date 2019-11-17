@@ -143,3 +143,11 @@ input[type="color"] {
   input[type="color"]::-webkit-color-swatch {
     border: none;
   }
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #2dd5ff;
+}
