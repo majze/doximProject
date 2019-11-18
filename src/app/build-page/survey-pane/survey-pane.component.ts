@@ -222,15 +222,15 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
     
     // Update color header picker input value for each default skeleton statement
-    // const colorPicker: HTMLInputElement = document.getElementById('headerColorPicker') as HTMLInputElement;
-    // if (this.activeStatementType == "creditCard" && (colorPicker.value == "#559ecd" || colorPicker.value == "#0055a4"))
-    // {
-    //   colorPicker.value = "#559ecd";
-    // }
-    // else if (this.activeStatementType == "account" && (colorPicker.value == "#559ecd" || colorPicker.value == "#0055a4"))
-    // {
-    //   colorPicker.value = "#0055a4";
-    // }
+    const colorPicker: HTMLInputElement = document.getElementById('headerColorPicker') as HTMLInputElement;
+    if (this.activeStatementType == "creditCard" && (colorPicker.value == "#559ecd" || colorPicker.value == "#0055a4"))
+    {
+      colorPicker.value = "#559ecd";
+    }
+    else if (this.activeStatementType == "account" && (colorPicker.value == "#559ecd" || colorPicker.value == "#0055a4"))
+    {
+      colorPicker.value = "#0055a4";
+    }
   }
 
   // Sets the color mode from user input on relevant question card

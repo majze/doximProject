@@ -70,7 +70,15 @@
       <form>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
           checked>Full color<br>
-        
+        <div class="headerColorPicker" style="display:none;">
+          <br>
+          <p>Choose your company color:</p>
+          <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
+          <p>Or input the hex value </p>
+          <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
+          <br>
+          <p style="color:red">Please note that header colors may not represent accurately on this page.</p>
+        </div>
         <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
           value="greyscale">Greyscale<br>
