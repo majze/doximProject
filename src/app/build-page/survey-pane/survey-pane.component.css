@@ -1,4 +1,4 @@
-/* === Question Containers ========== ========== ========== ========== ========== */
+/* === Question Containers ========== ========== ========== ========== ========== ========== */
 
 /* Style for entire survey panel master div  */
 .surveyPanel {
@@ -20,12 +20,16 @@
 
 /* Apply changes to card class on hover */
 .card:hover {
-  background-color: #85d5fd;
+  background-color: #53c6ffd8;
+}
+
+.cc:hover {
+  background-color: #ff3b3b9f;
 }
 
 /* Internal testing class to alert user to unfished cards */
 .red {
-  background-color: #c000006c;
+  background-color: #c0000099;
 }
 
 /* Internal testing class to alert user to unfished cards */
@@ -38,15 +42,25 @@
   display: none;
 }
 
-
-/* Disappear all survey question cards until inital
-core and statement type are chosen */
+/* Disappear all survey question cards until inital core and statement type are chosen */
 .initialhideThisDiv{
   display:none;
 }
 
 /* Internal hiding class */
 .hideForNow{
+  display:none;
+}
+
+/* Paragraph style to alert user of image upload success */
+.uploaded {
+  font-weight: bolder;
+  text-align: center;
+  position: sticky;
+}
+
+/* class change to only show "uploaded" div after image upload */
+.uploadedHidden {
   display:none;
 }
 
@@ -58,7 +72,7 @@ core and statement type are chosen */
   appearance: none;
   display: inline-block;
   position: relative;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   color: #666;
   top: 10px;
   height: 30px;
@@ -70,6 +84,12 @@ core and statement type are chosen */
   outline: none;
 }
 
+  .form-radio:checked {
+    background-color: #cfd8dc;
+    color: black;
+    font-weight: bolder;
+  }
+
   .form-radio:checked::before {
     position: absolute;
     font: 13px/1 'Open Sans', sans-serif;
@@ -80,11 +100,15 @@ core and statement type are chosen */
   }
 
   .form-radio:hover {
-    background-color: #f7f7f7;
+    background-color: #eceff1;
+    color: #1f6797;
   }
 
-  .form-radio:checked {
-    background-color: #f1f1f1;
+  .form-radio:hover:after {
+    -webkit-transform: scale(0.85);
+    -moz-transform: scale(0.85);
+    -ms-transform: scale(0.85);
+    transform: scale(0.85);
   }
 
 /* === Checkboxes ========== ========== ========== ========== ========== */
@@ -140,3 +164,11 @@ input[type="color"] {
   input[type="color"]::-webkit-color-swatch {
     border: none;
   }
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #2dd5ff;
+}

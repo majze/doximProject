@@ -6,7 +6,12 @@ import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-preview-pane',
   templateUrl: './preview-pane.component.html',
-  styleUrls: ['./preview-pane.component.css']
+  styleUrls: ['./preview-pane.component.css', 
+    "../../../assets/tympanus/CreativeButtons/css/component.css", 
+    "../../../assets/tympanus/CreativeButtons/css/default.css", 
+    "../../../assets/tympanus/ModalWindowEffects/css/component.css", 
+    "../../../assets/tympanus/ModalWindowEffects/css/default.css"
+  ]
 })
 export class PreviewPaneComponent implements OnInit {
   activeCore: string;
@@ -34,6 +39,83 @@ export class PreviewPaneComponent implements OnInit {
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
+
+  // Animates the Drive-Thru sample button
+  driveThru()
+  {
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7a icon-truck")[0] as HTMLElement;
+    pdfButton.classList.add("btn-activated");
+    setTimeout(function(){
+      pdfButton.classList.remove("btn-activated");
+    }, 1000);
+  }
+
+  // Animates the Generate Runbook button
+  runbookButton()
+  {
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
+    pdfButton.classList.add("btn-activated");
+    setTimeout(function(){
+      pdfButton.classList.remove("btn-activated");
+    }, 1000);
+  }
+
+  // Generates a runbook file for the sales force and design engineers from client preference
+  generateRunbook()
+  {
+    this.getSurveyDataFromBuild();
+    var runbook = "";
+    runbook += "\n" + "Core" + ": " + this.activeCore;
+    runbook += "\n" + "StatementType" + ": " + this.activeStatementType;
+    runbook += "\n" + "ColorMode" + ": " + this.activeColorMode;
+    runbook += "\n" + "HexCode" + ": " + this.activeHexCode;
+    if (this.activeSymitarCC)
+      runbook += "\n" + "CClogo" + ": " + this.activeCClogo;
+    if (this.activeCustomerlogo != "undefined")
+      runbook += "\n" + "Customerlogo" + ": " + "Yes";
+    runbook += "\n" + "MaskType" + ": " + this.activeMaskType;
+    runbook += "\n" + "Scanline" + ": " + this.activeScanline;
+    runbook += "\n" + "MarketingLevel" + ": " + this.activeMarketingLevel;
+    runbook += "\n" + "Onsert" + ": " + this.activeOnsert;
+    if (this.activeSymitarReg)
+    {
+      runbook += "\n" + "Newsflash" + ": " + this.activeNewsflash;
+      runbook += "\n" + "Glance" + ": " + this.activeGlance;
+      runbook += "\n" + "AccSum" + ": " + this.activeAccSum;
+    }
+    runbook += "\n" + "TransactionsMode" + ": " + this.activeTransactionsMode;
+    runbook += "\n" + "WhitespaceMode" + ": " + this.activeWhitespaceMode;
+    //runbook += "\n" + "JointOwners" + ": " + this.activeJointOwners;
+    runbook += "\n" + "TYDMode" + ": " + this.activeTYDMode;
+    //runbook += "\n" + "RewardsType" + ": " + this.activeRewardsType;
+    //runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
+    //runbook += "\n" + "ReplyEnvelope" + ": " + this.activeReplyEnvelope;
+    console.log(runbook);
+
+    (function () {
+      var textFile = null,
+      makeTextFile = function (text) {
+        var data = new Blob([text], {type: 'text/plain'});
+    
+        // If we are replacing a previously generated file we need to
+        // manually revoke the object URL to avoid memory leaks.
+        if (textFile !== null) {
+          window.URL.revokeObjectURL(textFile);
+        }
+        textFile = window.URL.createObjectURL(data);
+        return textFile;
+      };
+    
+      var create = document.getElementById('runBtn');
+      var textbox = runbook;
+    
+      create.addEventListener('click', function () {
+        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
+        link.href = makeTextFile(textbox);
+        link.classList.remove("collapse");
+      }, false);
+    })();
+  }
 
   // Any call to this function gets the build-page (parent) variables
   getParentComponent(): BuildPageComponent
@@ -103,6 +185,11 @@ export class PreviewPaneComponent implements OnInit {
     this.activeGlance = this.getParentComponent().activeGlance;
   }
 
+  getAcctSum()
+  {
+    this.activeAccSum = this.getParentComponent().activeAccSum;
+  }
+
   getTransactionMode()
   {
     this.activeTransactionsMode = this.getParentComponent().activeTransactionsMode;
@@ -153,6 +240,7 @@ export class PreviewPaneComponent implements OnInit {
     this.getOnsert();
     this.getNewsflash();
     this.getGlance();
+    this.getAcctSum();
     this.getTransactionMode();
     this.getWhitespaceMode();
     this.getJointOwners();
@@ -160,7 +248,6 @@ export class PreviewPaneComponent implements OnInit {
     this.getRewardsType();
     this.getOutboundEnvelope();
     this.getReplyEnvelope();
-    this.getHexCode();
     // future gets
   }
 
@@ -225,7 +312,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (lastChange == "activeStatementType")
     {
-      // Do nothing as populateSkeleton() already handles this
+      this.showStatements();
     }
     else if (lastChange == "activeColorMode")
     {
@@ -233,8 +320,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (lastChange == "activeHexCode")
     {
-      // PATRICK: We need a link from survey to the hex function to change the hue, work in progress!!
-      // this.changeHue();
+      this.changeHue();
     }
     else if (lastChange == "activeCClogo")
     {
@@ -267,6 +353,10 @@ export class PreviewPaneComponent implements OnInit {
     else if (lastChange == "activeGlance")
     {
       this.updateGlance();
+    }
+    else if (lastChange == "activeAccSum")
+    {
+      this.updateAccountSummary();
     }
     else if (lastChange == "activeTransactionsMode")
     {
@@ -340,6 +430,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     // Get all the survey flags from the build-page component
     this.getSurveyDataFromBuild();
+    this.showStatements();
 
     // Determine whether the skeleton needs to be repopulated or not
     var lastChange = this.getParentComponent().lastChange;
@@ -476,15 +567,15 @@ export class PreviewPaneComponent implements OnInit {
     let AccountInfoSectionBuffer:HTMLElement = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
     let AccountSummaryBuffer:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
     let shareSavingsBuffer:HTMLElement = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
-    let whitespaceAdBuffer:HTMLElement = document.getElementsByClassName("whitespaceAdReg")[0] as HTMLElement;
+    let whitespaceAdBuffer:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
     // Page 2 Elements
     let p2logoSectionRegBuffer:HTMLElement = document.getElementsByClassName("p2logoSectionReg")[0] as HTMLElement;
     let p2headerSectionRegBuffer:HTMLElement = document.getElementsByClassName("p2headerSectionReg")[0] as HTMLElement;
     let FixedMortgageRegBuffer:HTMLElement = document.getElementsByClassName("FixedMortgageReg")[0] as HTMLElement;
     let HomeEquityRegBuffer:HTMLElement = document.getElementsByClassName("HomeEquityReg")[0] as HTMLElement;
     let YTDSummaryRegBuffer:HTMLElement = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
-    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAdReg1")[0] as HTMLElement;
-    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAdReg2")[0] as HTMLElement;
+    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
+    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
 
     // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
     if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
@@ -550,13 +641,24 @@ export class PreviewPaneComponent implements OnInit {
   // Readme: https://artskydj.github.io/jsPDF/docs/module-addImage.html
   printPdf()
   {
-    // Hide the borders around the viewBox divs
-    let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[0] as HTMLElement; 
-    let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[0] as HTMLElement;
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    // Hide the borders around the viewBox divs   
+    for (let i = 0; i < document.getElementsByClassName("viewBox").length; i++)
+    {
+      let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[i] as HTMLElement; 
+      let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[i] as HTMLElement;
+      viewBoxBuffer.style.border= "2px solid rgba(0,0,0,0)";
+      viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,0)";
+    }
 
-    var data = document.getElementById('print');
+    var data;
+    if (this.activeSymitarCC == true)
+    {
+      data = document.getElementById('print');
+    }
+    else if (this.activeSymitarReg == true)
+    {
+      data = document.getElementById('print2');
+    }
     console.log(data);
     html2canvas(data, { logging: true, allowTaint: false, useCORS: true, scrollX: 0, scrollY: 0}).then(canvas =>{
       // Letter is 8.5 inches by 11 inches
@@ -581,9 +683,15 @@ export class PreviewPaneComponent implements OnInit {
       pdf.save('file.pdf');
     });
 
-    // Restore the borders around the viewBox divs
-    viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
-    viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
+    // Restore the borders around the viewBox divs  
+    for (let i = 0; i < document.getElementsByClassName("viewBox").length; i++)
+    {
+      let viewBoxBuffer :HTMLElement = document.getElementsByClassName("viewBox")[i] as HTMLElement; 
+      let viewBoxBuffer2: HTMLElement = document.getElementsByClassName("viewBox2")[i] as HTMLElement;
+      viewBoxBuffer.style.border= "2px solid rgba(0,0,0,1)";
+      viewBoxBuffer2.style.border= "2px solid rgba(0,0,0,1)";
+    }
+    
   }
 
   // Maniuplate the header color of the different info boxes with hex to hue filter
@@ -595,26 +703,23 @@ export class PreviewPaneComponent implements OnInit {
     var degreeChange = this.hslToDegreeChange(convertedHSL);
     var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
 
-    for (var i = 0; i < 15; i++) {
-      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;//first page
+    let divCount = document.getElementsByClassName("changeHeaderColor").length;
+    for (var i = 0; i < divCount; i++)
+    {
+      let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
       divChange.style.filter = hueFilter;
-      let divChange2: HTMLElement = document.getElementsByClassName("changeHeaderColor2")[i] as HTMLElement;/*second page, side note, the 2nd page is off by about
-                                                                                                            30~40 degrees compared to the first, don't know why*/
-      divChange2.style.filter = hueFilter;
     }
   }
 
- 
-//helper function to change a hex code value into a usable HSL value
-//used from css-tricks.com
-  hexToHSL(H) {
+  // Converts hex code value into a usable HSL (hue) value
+  hexToHSL(H)
+  {
     // Convert hex to RGB first
-
-    var r = parseInt(H.substr(1,2), 16); 
+    var r = parseInt(H.substr(1,2), 16);
     var g = parseInt(H.substr(3,2), 16);
-    var b = parseInt(H.substr(5,2), 16);  
-    
-    // after rgb is found, convert to HSL
+    var b = parseInt(H.substr(5,2), 16);
+
+    // Then to HSL
     let cmin = Math.min(r, g, b),
       cmax = Math.max(r, g, b),
       delta = cmax - cmin,
@@ -622,7 +727,7 @@ export class PreviewPaneComponent implements OnInit {
       s = 0,
       l = 0;
 
-    //logic to decide which hue is dominant
+    // Logic to decide which hue is dominant
     if (delta == 0)
       h = 0;
     else if (cmax == r)
@@ -634,7 +739,7 @@ export class PreviewPaneComponent implements OnInit {
 
     h = Math.round(h * 60);
 
-    //if hue is negative make it positive
+    // If hue is negative, make it positive
     if (h < 0)
       h += 360;
 
@@ -643,15 +748,17 @@ export class PreviewPaneComponent implements OnInit {
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
 
+    //let hslArray: number[] = [h,s,l]
+    //return hslArray;
     return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 195, startS = 100, startL = 44.1;
+  let startH = 0, startS = 100, startL = 44.1;
   let newH = convertedHSL[0]- startH, 
-      newS = 100 + (startS -convertedHSL[1]),
-      newL = 100 + (convertedHSL[2] - startL);
+    newS = 100 + (startS -convertedHSL[1]),
+    newL = 100 + (convertedHSL[2] - startL);
   let resultHSL: number[] = [newH, newS, newL];
   return resultHSL;
  }
@@ -748,23 +855,53 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeMaskType and changes view accordingly upon update from the survey pane
   updateMasking()
   {
-    let headerSectionBuffer:HTMLElement = document.getElementsByClassName("headerSection")[0] as HTMLElement;
-    let headerSectionPage2Buffer:HTMLElement = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
-    
-    if (this.activeMaskType == "none")
+    // Determine which divs to update
+    var headerSectionBuffer:HTMLElement;
+    var headerSectionPage2Buffer:HTMLElement;
+
+    // Make the changes to the account masking in the headers on both pages
+    if (this.activeSymitarCC)
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+      headerSectionBuffer = document.getElementsByClassName("headerSection")[0] as HTMLElement;
+      headerSectionPage2Buffer = document.getElementsByClassName("p2headerSection")[0] as HTMLElement;
+      if (this.activeMaskType == "none")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeader.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2.png)";
+      }
+      else if (this.activeMaskType == "to3")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
+      }
+      else if (this.activeMaskType == "to4")
+      {
+        headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
+      }
     }
-    else if (this.activeMaskType == "to3")
+    else if (this.activeSymitarReg)
     {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo3.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo3.png)";
-    }
-    else if (this.activeMaskType == "to4")
-    {
-      headerSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccHeaderMaskTo4.png)";
-      headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccHeader2MaskTo4.png)";
+      headerSectionBuffer = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+      headerSectionPage2Buffer = document.getElementsByClassName("p2headerSectionReg")[0] as HTMLElement;
+      if (this.activeMaskType == "none")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeader.png)";
+      }
+      else if (this.activeMaskType == "to3")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo3.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeaderMaskTo3.png)";
+      }
+      else if (this.activeMaskType == "to4")
+      {
+        if (this.activeGlance != "off")
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo4.png)";
+        headerSectionPage2Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/statementHeaderMaskTo4.png)";
+      }
     }
   }
 
@@ -803,16 +940,23 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeOnsert to update the onsert graphic div or move other divs to its place
   updateOnsert()
   {
-    if (this.activeStatementType == "creditCard")
+    if (this.activeSymitarCC)
     {
-      // Determine which div to update
+      // Determine which divs to update
       var onsertContainer:HTMLElement = document.getElementById("onsertCollapse") as HTMLElement;
       var whitespaceContainer:HTMLElement = document.getElementById("whitespaceCollapse") as HTMLElement;
       var onsertBuffer:HTMLElement = document.getElementsByClassName("p2OnsertImage")[0] as HTMLElement;
       // Make changes and move divs if needed
       if (this.activeOnsert == "image")
       {
-        onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        }
+        else
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
+        }
         whitespaceContainer.classList.add("collapse");
         onsertContainer.classList.remove("collapse");
       }
@@ -828,65 +972,204 @@ export class PreviewPaneComponent implements OnInit {
         onsertContainer.classList.add("collapse");
       }
     }
+    else if (this.activeSymitarReg)
+    {
+      // Determine which div to update
+      var onsertBuffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
+      // Make changes and move divs if needed
+      if (this.activeOnsert == "image")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+        }
+        else
+        {
+          onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
+        }
+      }
+      else if (this.activeOnsert == "textonly")
+      {
+        onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsertText2inch.png)";
+      }
+      else if (this.activeOnsert == "none")
+      {
+        onsertBuffer.style.backgroundImage="";
+      }
+    }
   }
 
   // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
   updateNewsflash()
   {
-    let newsflashSectionBuffer:HTMLElement = document.getElementById("newsflashType") as HTMLElement;
+    // Define the HTML Elements where the News Flash should go
+    let NewsflashType:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
 
+    // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
     if (this.activeNewsflash == "yes")
     {
-      if (this.activeColorMode != "greyscale")
+      if (this.activeColorMode == "greyscale")
       {
-        newsflashSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/newsflash.png)";
+        NewsflashType.style.backgroundImage="url(../../../assets/shared/grey/newsflash.png)";
       }
-      else
+      else if (this.activeColorMode == "color")
       {
-        newsflashSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/newsflash.png)";
+        NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
-   
+    // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
     {
-      newsflashSectionBuffer.style.backgroundImage="";
+      if (this.activeColorMode == "greyscale")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
+      }
     }
-
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
   updateGlance()
   {
     // Updates Glance toggle visibility
+    var headerSectionBuffer:HTMLElement;
+  
+    if (this.activeStatementType == "account")
+    {
+      headerSectionBuffer = document.getElementsByClassName("AccountInfoReg")[0] as HTMLElement;
+    }
+    if (this.activeStatementType == "account")
+    {
+      if(this.activeGlance == "on")
+      {
+        if (this.activeMaskType == "none" || this.activeMaskType == "undefined")
+        {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+        }
+        else if (this.activeMaskType == "to3")
+        {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo3.png)";
+        }
+        else if(this.activeMaskType == "to4")
+        {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo4.png)";
+        }
+      }
+      else if (this.activeGlance == "off")
+      {
+        headerSectionBuffer.style.backgroundImage="";
+      }
+    }
   }
 
+  // Uses variable activeAccSum to update the Account Summary graphic div or move other divs to its place
   updateAccountSummary()
   {
-    // Update the look of account summary for reg symitar page 1
-    // options: group, startingbalance, endingbalance, total
-    // uses var this.activeAccSum
+    // Define the HTML Elements where the Account Summary should go
+    let AccountSummaryReg:HTMLElement = document.getElementsByClassName("AccountSummaryReg")[0] as HTMLElement;
+
+    // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+    if (this.activeAccSum == "group")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      }
+    }
+    // No change, already on “skeleton sample”
+    else if (this.activeAccSum == "startingbalance")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryStartingBal.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryStartingBal.png)";
+      }
+    }
+    // Replace with Ending Balance Only account summary component
+    else if (this.activeAccSum == "endingbalance")
+    {
+      if (this.activeColorMode != "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryEndingBal.png)";
+      }
+      else
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
+      }
+    }
+    // Replace with Full account summary component
+    else if (this.activeAccSum == "total")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummary.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummary.png)";
+      }
+    }
   }
 
   // Uses variable activeMarketingLevel and changes view accordingly upon update from the survey pane
   updateMarketing()
   {
-    let topGraphicSectionBuffer:HTMLElement = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
-    let ccMidSectionBuffer:HTMLElement = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    // Determine which divs to update
+    var topGraphicSectionBuffer:HTMLElement;
+    var ccMidSectionBuffer:HTMLElement;
+    if (this.activeSymitarCC)
+    {
+      topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSection")[0] as HTMLElement;
+      ccMidSectionBuffer = document.getElementsByClassName("ccMidSection")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg)
+    {
+      topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
+    }
 
+    // Make the changes depending on activeMarketingLevel and the activeStatementType
     if (this.activeMarketingLevel == "imageOnly")
     {
       if (this.activeColorMode != "greyscale")
       {
-        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccTopGraphic.png)";
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        }
+        else if (this.activeSymitarReg)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/topGraphic.png)";
+        }
       }
       else
       {
-        topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccTopGraphic.png)";
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        }
+        else if (this.activeSymitarReg)
+        {
+          topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/topGraphic.png)";
+        }
       }
     }
-    else if (this.activeMarketingLevel == "contactInfo")
+    else if (this.activeMarketingLevel == "text")
+    {
+      topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/shared/topMarketingText.png)";
+    }
+    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC)
     {
       if (this.activeColorMode != "greyscale")
       {
@@ -904,12 +1187,14 @@ export class PreviewPaneComponent implements OnInit {
       if (this.activeColorMode != "greyscale")
       {
         topGraphicSectionBuffer.style.backgroundImage="";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
       }
       else
       {
         topGraphicSectionBuffer.style.backgroundImage="";
-        ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
+        if (this.activeSymitarCC)
+          ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/ccSymMidWithAll.png)";
       }
     }
   }
@@ -918,45 +1203,77 @@ export class PreviewPaneComponent implements OnInit {
   updateTransactionSummary()
   {
     // Determine which div to update
-    var TransactionPage2Buffer:HTMLElement;
+    var TransactionBuffer:HTMLElement;
     if (this.activeStatementType == "creditCard")
     {
-      TransactionPage2Buffer = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
+      TransactionBuffer = document.getElementsByClassName("p2TransactionSummary")[0] as HTMLElement;
     }
     else
     {
-      TransactionPage2Buffer = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
+      TransactionBuffer = document.getElementsByClassName("shareSavingsReg")[0] as HTMLElement;
     }
 
     // Update the div accordingly with user input from activeTransactionsMode and activeStatementType
-    if (this.activeStatementType == "creditCard")
+    if (this.activeSymitarCC)
     {
       if (this.activeTransactionsMode == "nochange")
       {
         if (this.activeColorMode != "greyscale")
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummary.png)";
         }
         else
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummary.png)";
         }
       }
       else if (this.activeTransactionsMode == "amountonly")
       {
         if (this.activeColorMode != "greyscale")
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummaryAmountOnly.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccTransactionSummaryAmountOnly.png)";
         }
         else
         {
-          TransactionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummaryAmountOnly.png)";
+          TransactionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccTransactionSummaryAmountOnly.png)";
         }
       }
     }
-    else
+    else if (this.activeSymitarReg)
     {
-      // Update Sym Reg here
+      if (this.activeTransactionsMode == "balanceRight") // Default
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavings.png)";
+        }
+        else
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavings.png)";
+        }
+      }
+      else if (this.activeTransactionsMode == "balanceLeft")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavingsBalLeft.png)";
+        }
+        else
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavingsBalLeft.png)";
+        }
+      }
+      else if (this.activeTransactionsMode == "amountonly")
+      {
+        if (this.activeColorMode != "greyscale")
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/shareSavingsAmountOnly.png)";
+        }
+        else
+        {
+          TransactionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/shareSavingsAmountOnly.png)";
+        }
+      }
     }
   }
 
@@ -977,24 +1294,38 @@ export class PreviewPaneComponent implements OnInit {
     // Update the div accordingly with user input from activeTYDMode and activeStatementType
     if (this.activeTYDMode == "current")
     {
-      if (this.activeStatementType == "creditCard")
+      if (this.activeSymitarCC) // Has no header color
       {
         YTDSummaryBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDsummary.png)";
       }
-      else
+      else if (this.activeSymitarReg) // Has color
       {
-        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+        }
+        else
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummary.png)";
+        }
       }
     }
     else if (this.activeTYDMode == "currentandprevious")
     {
-      if (this.activeStatementType == "creditCard")
+      if (this.activeSymitarCC) // Has no header color
       {
         YTDSummaryBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/YTDcurrentAndprevious.png)";
       }
-      else
+      else if (this.activeSymitarReg) // Has color
       {
-        YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummaryPrev.png)";
+        }
+        else
+        {
+          YTDSummaryBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummaryPrev.png)";
+        }
       }
     }
   }
@@ -1002,21 +1333,72 @@ export class PreviewPaneComponent implements OnInit {
   // Uses varaible activeWhitespace to change the advertisement on page 2
   updateWhitespace()
   {
-    var whitespaceAdPage2Buffer:HTMLElement = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    // Choose which divs to affect based on which statement combination is currently chosen
+    var whitespaceAdPage1:HTMLElement;
+    var whitespaceAdPage2:HTMLElement;
+    if (this.activeSymitarCC)
+    {
+      whitespaceAdPage2 = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg)
+    {
+      whitespaceAdPage1 = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
+      whitespaceAdPage2 = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
+    }
+
+    // Makes the changes according to activeStatementType, activeCore, activeColorMode, and activeWhitespaceMode
     if (this.activeWhitespaceMode == "yes")
     {
-      if (this.activeColorMode != "greyscale")
+      if (this.activeSymitarCC)
       {
-        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/ccSymitar/page2/ccWhitespaceAd.png)";
+        }
+        else
+        {
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
+        }
       }
-      else
+      else if (this.activeSymitarReg)
       {
-        whitespaceAdPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/ccWhitespaceAd.png)";
+        if (this.activeColorMode != "greyscale")
+        {
+          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";
+        }
+        else
+        {
+          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+        }
       }
     }
     else if (this.activeWhitespaceMode == "no")
     {
-      whitespaceAdPage2Buffer.style.backgroundImage="";
+      if (this.activeSymitarReg)
+      {
+        whitespaceAdPage1.style.backgroundImage="";
+      }
+      whitespaceAdPage2.style.backgroundImage="";
+    }
+  }
+
+  // Shows the correct statement type view boxs depending on activeStatementType
+  showStatements()
+  {
+    var symCC: HTMLElement = document.getElementById("print") as HTMLElement;
+    var symReg: HTMLElement = document.getElementById("print2") as HTMLElement;
+
+    if (this.activeCore == "symitar" && this.activeStatementType == "creditCard")
+    {
+      symCC.classList.remove("collapse");
+      symReg.classList.add("collapse");
+    }
+    else
+    {
+      symCC.classList.add("collapse");
+      symReg.classList.remove("collapse");
     }
   }
 
