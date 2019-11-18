@@ -3,6 +3,15 @@
 /* Credit card header blue # 559ecd */
 /* Doxim blue # 00a7e1 */
 
+#downloadDiv {
+  margin-left:125px;
+  padding: 6px;
+  width: 175px;
+  border-radius: 8px;
+  text-align: center;
+  background: orange;
+}
+
 .viewPanel {
   margin: 0 auto;
 }

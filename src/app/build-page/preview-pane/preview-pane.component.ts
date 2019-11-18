@@ -65,7 +65,7 @@ export class PreviewPaneComponent implements OnInit {
   {
     this.getSurveyDataFromBuild();
     var runbook = "";
-    runbook += "\n" + "Core" + ": " + this.activeCore;
+    runbook += "Core" + ": " + this.activeCore;
     runbook += "\n" + "StatementType" + ": " + this.activeStatementType;
     runbook += "\n" + "ColorMode" + ": " + this.activeColorMode;
     runbook += "\n" + "HexCode" + ": " + this.activeHexCode;
@@ -111,10 +111,12 @@ export class PreviewPaneComponent implements OnInit {
     
       create.addEventListener('click', function () {
         var link = <HTMLAnchorElement> document.getElementById('downloadlink');
+        var linkDiv = document.getElementById('downloadDiv');
+        linkDiv.classList.remove("collapse");
         link.href = makeTextFile(textbox);
-        link.classList.remove("collapse");
       }, false);
     })();
+    
   }
 
   // Any call to this function gets the build-page (parent) variables
