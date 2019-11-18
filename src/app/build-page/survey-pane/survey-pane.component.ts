@@ -20,19 +20,19 @@ export class SurveyPaneComponent implements OnInit {
   activeStatementType: string;
   activeColorMode: string = "color";
   activeHexCode: string;
-  activeCClogo: string;
+  activeCClogo: string = "visa";
   activeCustomerlogo: string;
-  activeMaskType: string;
-  activeScanline: string;
-  activeMarketingLevel: string;
-  activeOnsert: string;
-  activeNewsflash: string;
-  activeGlance: string;
-  activeAccSum: string;
-  activeTransactionsMode: string;
-  activeWhitespaceMode: string;
-  activeJointOwners: string;
-  activeTYDMode: string;
+  activeMaskType: string = "none";
+  activeScanline: string = "yes";
+  activeMarketingLevel: string = "image";
+  activeOnsert: string = "yes";
+  activeNewsflash: string = "no";
+  activeGlance: string = "yes";
+  activeAccSum: string = "total";
+  activeTransactionsMode: string = "balanceRight";
+  activeWhitespaceMode: string = "yes";
+  activeJointOwners: string = "no";
+  activeTYDMode: string = "current";
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
@@ -82,9 +82,30 @@ export class SurveyPaneComponent implements OnInit {
             this.activeCustomerlogo = url;
             this.outputSurveyChange.emit("activeCustomerlogo");
             this.emitSurveyFlags();
+            this.alertImageUploaded();
           })
         })
       ).subscribe();
+  }
+
+  // Alert user that image was uploaded
+  alertImageUploaded() {
+    let uploadedAlert:HTMLElement = document.getElementsByClassName("uploaded")[0] as HTMLElement;
+    uploadedAlert.classList.remove("uploadedHidden");
+
+    // Flash text evey time new image is uploaded
+    setTimeout(function(){
+      uploadedAlert.style.color="#008223";
+    }, 250);
+    setTimeout(function(){
+      uploadedAlert.style.color="black";
+    }, 500);
+    setTimeout(function(){
+      uploadedAlert.style.color="#008223";
+    }, 750);
+    setTimeout(function(){
+      uploadedAlert.style.color="black";
+    }, 1000);
   }
 
   // Reacts to OnChange event for uploading a customer image
@@ -230,6 +251,21 @@ export class SurveyPaneComponent implements OnInit {
     console.log("Survey choice:: ", this.activeHexCode);
     this.outputSurveyChange.emit("activeHexCode");
     this.emitSurveyFlags();
+  }
+
+  // Updates the other hex input field when the sibling hex input field is updated
+  updateHexes(origin)
+  {
+    var headerColorPicker:HTMLInputElement = document.getElementById('headerColorPicker') as HTMLInputElement;
+    var hexInput:HTMLInputElement = document.getElementById('hexInput') as HTMLInputElement;
+    if (origin == "fromPicker")
+    {
+      hexInput.value = headerColorPicker.value;
+    }
+    else if (origin == "fromText")
+    {
+      headerColorPicker.value = hexInput.value;
+    }
   }
 
   // Sets the credti card logo from user input on relevant question card

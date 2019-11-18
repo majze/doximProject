@@ -4,17 +4,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<a download="runbook.txt" id="downloadlink" class="collapse">Download Runbook</a>
 <!-- Buttons for generatin runbook and PDF -->
 <div style="height: 50px; clear:both;">
   <div style="float:left;">
-    <button style="height:60px; width:375px;" (click)="generateRunbook()" (click)="runbookButton()" class="btn btn-7 btn-7b icon-envelope">Generate Runbook</button>
+    <button style="height:60px; width:375px;" (click)="runbookButton()" (click)="generateRunbook()" class="btn btn-7 btn-7b icon-envelope">Generate Runbook</button>
   </div>
   <div style="float:right;">
-    <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" class="btn btn-7 btn-7a icon-truck">Generate PDF</button>
+    <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" id="runBtn" class="btn btn-7 btn-7a icon-truck">Generate PDF</button>
   </div>
 </div>
-
-
 
 <!-- Start of the Credit Card Statement preview panel  -->
 <div class="viewPanel" id="print" #print>

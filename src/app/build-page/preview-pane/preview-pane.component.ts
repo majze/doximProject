@@ -63,16 +63,58 @@ export class PreviewPaneComponent implements OnInit {
   // Generates a runbook file for the sales force and design engineers from client preference
   generateRunbook()
   {
-    //var doc = new jsPDF('','','');
-    var doc;
-    doc.setFontSize(22);
-    doc.text(20, 20, 'This is a title');
+    this.getSurveyDataFromBuild();
+    var runbook = "";
+    runbook += "\n" + "Core" + ": " + this.activeCore;
+    runbook += "\n" + "StatementType" + ": " + this.activeStatementType;
+    runbook += "\n" + "ColorMode" + ": " + this.activeColorMode;
+    runbook += "\n" + "HexCode" + ": " + this.activeHexCode;
+    if (this.activeSymitarCC)
+      runbook += "\n" + "CClogo" + ": " + this.activeCClogo;
+    if (this.activeCustomerlogo != "undefined")
+      runbook += "\n" + "Customerlogo" + ": " + "Yes";
+    runbook += "\n" + "MaskType" + ": " + this.activeMaskType;
+    runbook += "\n" + "Scanline" + ": " + this.activeScanline;
+    runbook += "\n" + "MarketingLevel" + ": " + this.activeMarketingLevel;
+    runbook += "\n" + "Onsert" + ": " + this.activeOnsert;
+    if (this.activeSymitarReg)
+    {
+      runbook += "\n" + "Newsflash" + ": " + this.activeNewsflash;
+      runbook += "\n" + "Glance" + ": " + this.activeGlance;
+      runbook += "\n" + "AccSum" + ": " + this.activeAccSum;
+    }
+    runbook += "\n" + "TransactionsMode" + ": " + this.activeTransactionsMode;
+    runbook += "\n" + "WhitespaceMode" + ": " + this.activeWhitespaceMode;
+    //runbook += "\n" + "JointOwners" + ": " + this.activeJointOwners;
+    runbook += "\n" + "TYDMode" + ": " + this.activeTYDMode;
+    //runbook += "\n" + "RewardsType" + ": " + this.activeRewardsType;
+    //runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
+    //runbook += "\n" + "ReplyEnvelope" + ": " + this.activeReplyEnvelope;
+    console.log(runbook);
 
-    doc.setFontSize(16);
-    doc.text(20, 30, 'This is some normal sized text underneath.');	
-
-    // Output as Data URI
-    doc.output('datauri');
+    (function () {
+      var textFile = null,
+      makeTextFile = function (text) {
+        var data = new Blob([text], {type: 'text/plain'});
+    
+        // If we are replacing a previously generated file we need to
+        // manually revoke the object URL to avoid memory leaks.
+        if (textFile !== null) {
+          window.URL.revokeObjectURL(textFile);
+        }
+        textFile = window.URL.createObjectURL(data);
+        return textFile;
+      };
+    
+      var create = document.getElementById('runBtn');
+      var textbox = runbook;
+    
+      create.addEventListener('click', function () {
+        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
+        link.href = makeTextFile(textbox);
+        link.classList.remove("collapse");
+      }, false);
+    })();
   }
 
   // Any call to this function gets the build-page (parent) variables
@@ -658,39 +700,26 @@ export class PreviewPaneComponent implements OnInit {
     // PATRICK: Work in progress
     var userHexNum = this.activeHexCode;
     var convertedHSL = this.hexToHSL(userHexNum);
-    var hueChange = this.hslToDegreeChange(convertedHSL)
-    
-    var testnum = 27, testnum1=112, testnum2 = 115;
-    var filter1 = "hue-rotate("+testnum+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
+    var degreeChange = this.hslToDegreeChange(convertedHSL);
+    var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
 
     let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      divChange.style.filter = "hue-rotate("+hueChange+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
+      divChange.style.filter = hueFilter;
     }
-    console.log("Applied hue change with: " + this.activeHexCode);
   }
 
   // Converts hex code value into a usable HSL (hue) value
   hexToHSL(H)
   {
     // Convert hex to RGB first
-    let r = 0, g = 0, b = 0;
-    if (H.length == 4) {
-      r =  H[1] + H[1];
-      g =  H[2] + H[2];
-      b =  H[3] + H[3];
-    }
-    else if (H.length == 7) {
-      r =  H[1] + H[2];
-      g =  H[3] + H[4];
-      b =  H[5] + H[6];
-    }
+    var r = parseInt(H.substr(1,2), 16);
+    var g = parseInt(H.substr(3,2), 16);
+    var b = parseInt(H.substr(5,2), 16);
+
     // Then to HSL
-    r /= 255;
-    g /= 255;
-    b /= 255;
     let cmin = Math.min(r, g, b),
       cmax = Math.max(r, g, b),
       delta = cmax - cmin,
@@ -698,6 +727,7 @@ export class PreviewPaneComponent implements OnInit {
       s = 0,
       l = 0;
 
+    // Logic to decide which hue is dominant
     if (delta == 0)
       h = 0;
     else if (cmax == r)
@@ -709,6 +739,7 @@ export class PreviewPaneComponent implements OnInit {
 
     h = Math.round(h * 60);
 
+    // If hue is negative, make it positive
     if (h < 0)
       h += 360;
 
@@ -717,16 +748,17 @@ export class PreviewPaneComponent implements OnInit {
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
 
-    let hslArray: number[] = [h,s,l]
-    return hslArray;
+    //let hslArray: number[] = [h,s,l]
+    //return hslArray;
+    return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
   let startH = 0, startS = 100, startL = 44.1;
   let newH = convertedHSL[0]- startH, 
-      newS = 100 + (startS -convertedHSL[1]),
-      newL = 100 + (convertedHSL[2] - startL);
+    newS = 100 + (startS -convertedHSL[1]),
+    newL = 100 + (convertedHSL[2] - startL);
   let resultHSL: number[] = [newH, newS, newL];
   return resultHSL;
  }
