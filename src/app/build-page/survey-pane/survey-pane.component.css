@@ -21,6 +21,9 @@
 /* Apply changes to card class on hover */
 .card:hover {
   background-color: #53c6ffd8;
+  -webkit-box-shadow: 0 0 3px 2px #777;
+    -moz-box-shadow: 0 0 3px 2px #777;
+    box-shadow: 0 0 3px 2px #777;
 }
 
 .cc:hover {
