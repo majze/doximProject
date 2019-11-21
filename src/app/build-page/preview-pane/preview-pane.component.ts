@@ -703,19 +703,15 @@ export class PreviewPaneComponent implements OnInit {
     var userHexNum = this.activeHexCode;
     var convertedHSL = this.hexToHSL(userHexNum);
     var degreeChange = this.hslToDegreeChange(convertedHSL);
-    var degreeChange2 = degreeChange[0] + 90;
     var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
-    var hueFilter2 = "hue-rotate("+degreeChange2+"deg)";
 
 
-   // let divCount = document.getElementsByClassName("changeHeaderColor").length;
-    for (var i = 0; i < 15; i++)
+   let divCount = document.getElementsByClassName("changeHeaderColor").length;
+    for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      let divChange2: HTMLElement = document.getElementsByClassName("changeHeaderColor2")[i] as HTMLElement;
       console.log(i+hueFilter);
       divChange.style.filter = hueFilter;
-      divChange2.style.filter = hueFilter2;
     }
   }
 
