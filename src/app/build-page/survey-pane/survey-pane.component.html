@@ -22,6 +22,9 @@
         <br>
         <app-progress [progress]="progress"></app-progress>
         <button type="submit" class="btn btn-3 btn-3e icon-arrow-right">Submit</button>
+        <div class="uploaded uploadedHidden">
+          <p>Image successfully loaded!</p>
+        </div>
       </form>
     </div>
   </div>
@@ -58,21 +61,23 @@
     </div>
   </div>
 
+  <!--  -->
   <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
   <div class="card">
-      <div class="question yellow" id="printColorType">
+      <div class="question" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
           checked>Full color<br>
-        <div class="headerColorPicker">
+        <div class="headerColorPicker" style="display:none;">
           <br>
           <p>Choose your company color:</p>
-          <input id="headerColor" type="color" name="favcolor" id="headerColorPicker" (change)="setHexCode($event)" value="#0055a4">
-          <p> or input the hex value </p>
-          <input id="hexInput" type="text" name="hexNumber" (change)="setHexCode($event)" value="#0055a4">
+          <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
+          <p>Or input the hex value </p>
+          <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
           <br>
+          <p style="color:red">Please note that header colors may not represent accurately on this page.</p>
         </div>
         <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
@@ -121,7 +126,7 @@
   </div>
 
   <!--7th question: Choose the account masking style-->
-  <div class="card statementQs">
+  <div class="card">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
       <p> How much of your account number would you like visible? </p>
