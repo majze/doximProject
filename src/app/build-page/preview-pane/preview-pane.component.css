@@ -3,15 +3,23 @@
 /* Credit card header blue # 559ecd */
 /* Doxim blue # 00a7e1 */
 
-#downloadDiv {
-  margin-left:125px;
-  padding: 6px;
-  width: 175px;
-  border-radius: 8px;
-  text-align: center;
-  background: orange;
+/* Anchor attribute to download runbook file */
+#downloadlink {
+  margin-left: 18px;
+  color: white;
 }
 
+/* Div style for the Generate Runbook Button Div container */
+#generateBtnDiv {
+  float: left;
+}
+
+/* Div style for the Download Runbook Button Div container */
+#downloadBtnDiv {
+  float: left;
+}
+
+/* The view panel is the master container for all pages of one statement type */
 .viewPanel {
   margin: 0 auto;
 }
