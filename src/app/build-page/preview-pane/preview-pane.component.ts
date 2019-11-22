@@ -49,7 +49,7 @@ export class PreviewPaneComponent implements OnInit {
   }
 
   // Animates the Generate Runbook button
-  runbookButton()
+  animateRunbookBtn()
   {
     let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
     pdfButton.classList.add("btn-activated");
@@ -108,11 +108,16 @@ export class PreviewPaneComponent implements OnInit {
       var textbox = runbook;
     
       create.addEventListener('click', function () {
-        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
-        var linkDiv = document.getElementById('downloadDiv');
+        var linkDiv = document.getElementById('downloadBtnDiv');
         linkDiv.classList.remove("collapse");
+        var runDiv = document.getElementById('generateBtnDiv');
+        runDiv.classList.add("collapse");
+        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
         link.href = makeTextFile(textbox);
       }, false);
+      
+      document.getElementById("generateBtnDiv").click();
+
     })();
     
   }
