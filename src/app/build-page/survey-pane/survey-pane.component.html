@@ -61,7 +61,24 @@
     </div>
   </div>
 
-  <!--  -->
+											
+					
+												  
+							  
+																			   
+																 
+			
+																															  
+			
+														   
+																					   
+											 
+										   
+			  
+			 
+		  
+		
+  
   <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
   <div class="card">
@@ -90,7 +107,7 @@
   <div class="card">
     <div class="question" id="marketingType">
       <h3>Level of Marketing</h3>
-      <p>What type of marketing would you like?</p>
+      <p>Please select preferred level of marketing: </p>
       <form>
         <!-- No change from skeleton (image on top) -->
         <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
@@ -112,6 +129,7 @@
   <div class="card creditcardQs" id="borderFix">
     <div class="question form-group" id="cclogoSelection">
       <h3>Credit Card Logo</h3>
+	  <p>Select credit card logo: </p>
       <form>
         <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
           <!-- If “YES, Visa logo”, display logo on the top -->
@@ -129,17 +147,15 @@
   <div class="card">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
-      <p> How much of your account number would you like visible? </p>
+      <p> Please select account number visibilty: </p>
       <form>
         <!-- Display account number masking 3 digits component option (on all pages) -->
-        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to4">4 Numbers
-        revealed<br>
+        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to4">Last four digits only<br>
         <!-- Display account number masking 4 digits component option (on all pages) -->
-        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">3 Numbers
-        revealed<br>
+        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">Last three digits only<br>
         <!-- No change from skeleton -->
         <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none"
-          checked>No numbers hidden<br>
+          checked>Full account visibility<br>
         </form>
     </div>
   </div>
@@ -197,10 +213,10 @@
   <div class="card statementQs">
     <div class="question" id="glanceType">
       <h3>Balance at a Glance</h3>
+																  
       <form>
         <!-- No change, already on “skeleton sample” -->
-        <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="on"
-          checked>On<br>
+        <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="on" checked>On<br>
         <!-- Remove from “skeleton sample” -->
         <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="off">Off<br>
       </form>
@@ -212,7 +228,7 @@
   <div class="card statementQs">
     <div class="question" id="accountSummaryType">
       <h3>Account Summary</h3>
-      <p>Select how you would like you summaries to be displayed.</p>
+      <p>Please select account summary display:</p>
       <form>
         <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
         <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
@@ -276,6 +292,7 @@
   <div class="card">
     <div class="question" id="YTDType">
       <h3>Year-to-Date Summary</h3>
+	  <p>Please select year-to-date display:</p>
       <form>
         <!-- Default - use current YTD component -->
         <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="current" checked>Current Year Only<br>
@@ -343,7 +360,7 @@
   <div class="card">
     <div class="question red" id="replyEnvelopeType">
       <h3>Reply Envelope Options</h3>
-      <p>Choose your reply envelope type.</p>
+      <p>Choose your reply envelope type: </p>
       <form>
         <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
           value="windowCourtesy">Window Courtey Reply<br>
