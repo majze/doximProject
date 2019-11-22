@@ -1,24 +1,20 @@
+<!-- For jspdf and html2canvas -->
 <script type="text/javascript" src="./lib/jquery-3.4.1.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<!-- Alert system to notify user of changes -->
-<!-- 
-<div style="float:left;">
-  <div style="width: 700px" class="alert alert-primary" role="alert">
-    <span id="alertMessage">Primary Alert!</span>
+<div class="collapse" id="downloadDiv">
+  <a download="runbook.txt" id="downloadlink">Download Runbook</a>
+</div>
+<!-- Buttons for generatin runbook and PDF -->
+<div style="height: 50px; clear:both;">
+  <div style="float:left;">
+    <button style="height:60px; width:375px;" (click)="runbookButton()" (click)="generateRunbook()" id="runBtn" class="btn btn-7 btn-7b icon-envelope">Generate Runbook</button>
   </div>
-</div>
-<div style="float:right;">
-  <button style="height:50px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
-</div>
--->
-
-<!-- Generate PDF button -->
-<!-- <div style="float:right;"> -->
-<div style="width:100%;">
-  <button style="height:50px; width:850px;" (click)=printPdf() class="btn btn-primary">Generate PDF</button>
+  <div style="float:right;">
+    <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" class="btn btn-7 btn-7a icon-truck">Generate PDF</button>
+  </div>
 </div>
 
 <!-- Start of the Credit Card Statement preview panel  -->
@@ -29,7 +25,7 @@
 
       <div class="gridTopContainer">
         <div class="gridTopLeft gridSection">
-          <div class="logoSection gridSection"></div>
+          <div class="logoSection gridSection colorImage"></div>
           <div class="addressSection gridSection"></div>
         </div>
 
@@ -42,12 +38,12 @@
      
       <div class="wideFillerSpace"></div>
 
-      <div class="gridMidContainer">
+      <div class="gridMidContainer changeHeaderColor">
         <div class="ccMidSection gridSection colorImage changeHeaderColor" ></div>
       </div>
 
       <div class="gridBotContainer">
-        <div class="couponSection gridSection colorImage changeHeaderColor"></div>
+        <div class="couponSection gridSection colorImage"></div>
         <div class="scanlineSection gridSection colorImage"></div>
       </div>
 
@@ -59,7 +55,7 @@
     <div class="paperContainer">
 
       <div class="p2gridTopContainer">
-        <div class="p2logoSection gridSection"></div>
+        <div class="p2logoSection gridSection colorImage"></div>
         <div class="p2headerSection gridSection"></div>
       </div>
 

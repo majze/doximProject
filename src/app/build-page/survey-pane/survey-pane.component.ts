@@ -9,27 +9,30 @@ import { UploadService } from '../upload.service';
 @Component({
   selector: 'app-survey-pane',
   templateUrl: './survey-pane.component.html',
-  styleUrls: ['./survey-pane.component.css']
+  styleUrls: ['./survey-pane.component.css', 
+    "../../../assets/tympanus/CreativeButtons/css/component.css", 
+    "../../../assets/tympanus/CreativeButtons/css/default.css"
+  ]
 })
 export class SurveyPaneComponent implements OnInit {
   combinedFlags: string;
   activeCore: string = null;
   activeStatementType: string;
-  activeColorMode: string;
+  activeColorMode: string = "color";
   activeHexCode: string;
-  activeCClogo: string;
+  activeCClogo: string = "visa";
   activeCustomerlogo: string;
-  activeMaskType: string;
-  activeScanline: string;
-  activeMarketingLevel: string;
-  activeOnsert: string;
-  activeNewsflash: string;
-  activeGlance: string;
-  activeAccSum: string;
-  activeTransactionsMode: string;
-  activeWhitespaceMode: string;
-  activeJointOwners: string;
-  activeTYDMode: string;
+  activeMaskType: string = "none";
+  activeScanline: string = "yes";
+  activeMarketingLevel: string = "image";
+  activeOnsert: string = "yes";
+  activeNewsflash: string = "no";
+  activeGlance: string = "yes";
+  activeAccSum: string = "total";
+  activeTransactionsMode: string = "balanceRight";
+  activeWhitespaceMode: string = "yes";
+  activeJointOwners: string = "no";
+  activeTYDMode: string = "current";
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
@@ -66,19 +69,9 @@ export class SurveyPaneComponent implements OnInit {
 
   // Submit button turns the user uploaded image into an imageUrl
   onSubmit(formValue) {
-
-    // JOSH: Upload Service, work in progress!
-    // this.customerlogoSubmitted = true;
-    // console.log("In onSubmit() " + this.formTemplate.valid);
-    // console.log("In onSubmit() " + this.formTemplate.status);
-    // this.isSubmitted = true;
-    // this.uploadService.saveCustomerLogoToFirebaseStorage(this.selectedImage, this.imgSrc);
-    // console.log("made it past serice call");
-    // this.activeCustomerlogo = this.uploadService.firebaseStorageURL;
-    // console.log("URL in survey component2: " + this.activeCustomerlogo);
-
     this.isSubmitted = true;
-      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    // Check for blank file
+      var filePath = "CustomerLogo" + `/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
@@ -89,9 +82,30 @@ export class SurveyPaneComponent implements OnInit {
             this.activeCustomerlogo = url;
             this.outputSurveyChange.emit("activeCustomerlogo");
             this.emitSurveyFlags();
+            this.alertImageUploaded();
           })
         })
       ).subscribe();
+  }
+
+  // Alert user that image was uploaded
+  alertImageUploaded() {
+    let uploadedAlert:HTMLElement = document.getElementsByClassName("uploaded")[0] as HTMLElement;
+    uploadedAlert.classList.remove("uploadedHidden");
+
+    // Flash text evey time new image is uploaded
+    setTimeout(function(){
+      uploadedAlert.style.color="#008223";
+    }, 250);
+    setTimeout(function(){
+      uploadedAlert.style.color="black";
+    }, 500);
+    setTimeout(function(){
+      uploadedAlert.style.color="#008223";
+    }, 750);
+    setTimeout(function(){
+      uploadedAlert.style.color="black";
+    }, 1000);
   }
 
   // Reacts to OnChange event for uploading a customer image
@@ -120,17 +134,13 @@ export class SurveyPaneComponent implements OnInit {
     console.log("Core: " + this.activeCore + " Type: " + this.activeStatementType);
     if (this.activeCore != null && (this.activeStatementType == 'creditCard' || this.activeStatementType == 'account'))
     {
-      var cardQNum = document.getElementsByClassName("initialhideThisDiv").length;
-      if (cardQNum > 0)
+      var hiddenCount = document.getElementsByClassName("initialhideThisDiv").length;
+      if (hiddenCount > 0)
       {
-        for (var i = 0; i < cardQNum; i++)
-        {
-          var hiddenCard: HTMLElement = document.getElementsByClassName("initialhideThisDiv")[i] as HTMLElement;
-          hiddenCard.classList.remove("initialhideThisDiv");
-        }
+        var hiddenCardDiv:HTMLElement = document.getElementsByClassName("initialhideThisDiv")[0] as HTMLElement;
+        hiddenCardDiv.classList.remove("initialhideThisDiv");
       }
     }
-    console.log("In showSurvey()");
     this.showHideCCQ();
     this.showHideSQ();
   }
@@ -139,7 +149,6 @@ export class SurveyPaneComponent implements OnInit {
   // Based off the selection of cc from the statement type question
   showHideCCQ()
   {
-    console.log("In showHideCCQ()");
     var ccQNum = document.getElementsByClassName("creditcardQs").length;
     if (this.activeStatementType == "creditCard")
     {
@@ -162,7 +171,6 @@ export class SurveyPaneComponent implements OnInit {
   // Function to hide and show statement only questions
   showHideSQ()
   {
-    console.log("In showHideSQ()");
     var statementQNum = document.getElementsByClassName("statementQs").length;
     if (this.activeStatementType == "account")
     {
@@ -245,6 +253,21 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
+  // Updates the other hex input field when the sibling hex input field is updated
+  updateHexes(origin)
+  {
+    var headerColorPicker:HTMLInputElement = document.getElementById('headerColorPicker') as HTMLInputElement;
+    var hexInput:HTMLInputElement = document.getElementById('hexInput') as HTMLInputElement;
+    if (origin == "fromPicker")
+    {
+      hexInput.value = headerColorPicker.value;
+    }
+    else if (origin == "fromText")
+    {
+      headerColorPicker.value = hexInput.value;
+    }
+  }
+
   // Sets the credti card logo from user input on relevant question card
   setCClogo()
   {
@@ -293,14 +316,17 @@ export class SurveyPaneComponent implements OnInit {
   // Sets the Newsflash graphic type and location from user input on relevant question card
   setNewsflash()
   {
-
+    this.activeNewsflash = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeNewsflash);
+    this.outputSurveyChange.emit("activeNewsflash");
+    this.emitSurveyFlags();
   }
 
   // Sets the hidden status for the Balance at a glance component from user input on relevant question card
   setGlance()
   {
-    this.activeOnsert = (<HTMLInputElement>event.target).value;
-    console.log("Survey choice:: ", this.activeOnsert);
+    this.activeGlance = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeGlance);
     this.outputSurveyChange.emit("activeGlance");
     this.emitSurveyFlags();
   }

@@ -6,7 +6,12 @@ import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-preview-pane',
   templateUrl: './preview-pane.component.html',
-  styleUrls: ['./preview-pane.component.css']
+  styleUrls: ['./preview-pane.component.css', 
+    "../../../assets/tympanus/CreativeButtons/css/component.css", 
+    "../../../assets/tympanus/CreativeButtons/css/default.css", 
+    "../../../assets/tympanus/ModalWindowEffects/css/component.css", 
+    "../../../assets/tympanus/ModalWindowEffects/css/default.css"
+  ]
 })
 export class PreviewPaneComponent implements OnInit {
   activeCore: string;
@@ -34,6 +39,85 @@ export class PreviewPaneComponent implements OnInit {
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
+
+  // Animates the Drive-Thru sample button
+  driveThru()
+  {
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7a icon-truck")[0] as HTMLElement;
+    pdfButton.classList.add("btn-activated");
+    setTimeout(function(){
+      pdfButton.classList.remove("btn-activated");
+    }, 1000);
+  }
+
+  // Animates the Generate Runbook button
+  runbookButton()
+  {
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
+    pdfButton.classList.add("btn-activated");
+    setTimeout(function(){
+      pdfButton.classList.remove("btn-activated");
+    }, 1000);
+  }
+
+  // Generates a runbook file for the sales force and design engineers from client preference
+  generateRunbook()
+  {
+    this.getSurveyDataFromBuild();
+    var runbook = "";
+    runbook += "Core" + ": " + this.activeCore;
+    runbook += "\n" + "StatementType" + ": " + this.activeStatementType;
+    runbook += "\n" + "ColorMode" + ": " + this.activeColorMode;
+    runbook += "\n" + "HexCode" + ": " + this.activeHexCode;
+    if (this.activeSymitarCC)
+      runbook += "\n" + "CClogo" + ": " + this.activeCClogo;
+    if (this.activeCustomerlogo != "undefined")
+      runbook += "\n" + "Customerlogo" + ": " + "Yes";
+    runbook += "\n" + "MaskType" + ": " + this.activeMaskType;
+    runbook += "\n" + "Scanline" + ": " + this.activeScanline;
+    runbook += "\n" + "MarketingLevel" + ": " + this.activeMarketingLevel;
+    runbook += "\n" + "Onsert" + ": " + this.activeOnsert;
+    if (this.activeSymitarReg)
+    {
+      runbook += "\n" + "Newsflash" + ": " + this.activeNewsflash;
+      runbook += "\n" + "Glance" + ": " + this.activeGlance;
+      runbook += "\n" + "AccSum" + ": " + this.activeAccSum;
+    }
+    runbook += "\n" + "TransactionsMode" + ": " + this.activeTransactionsMode;
+    runbook += "\n" + "WhitespaceMode" + ": " + this.activeWhitespaceMode;
+    //runbook += "\n" + "JointOwners" + ": " + this.activeJointOwners;
+    runbook += "\n" + "TYDMode" + ": " + this.activeTYDMode;
+    //runbook += "\n" + "RewardsType" + ": " + this.activeRewardsType;
+    //runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
+    //runbook += "\n" + "ReplyEnvelope" + ": " + this.activeReplyEnvelope;
+    console.log(runbook);
+
+    (function () {
+      var textFile = null,
+      makeTextFile = function (text) {
+        var data = new Blob([text], {type: 'text/plain'});
+    
+        // If we are replacing a previously generated file we need to
+        // manually revoke the object URL to avoid memory leaks.
+        if (textFile !== null) {
+          window.URL.revokeObjectURL(textFile);
+        }
+        textFile = window.URL.createObjectURL(data);
+        return textFile;
+      };
+    
+      var create = document.getElementById('runBtn');
+      var textbox = runbook;
+    
+      create.addEventListener('click', function () {
+        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
+        var linkDiv = document.getElementById('downloadDiv');
+        linkDiv.classList.remove("collapse");
+        link.href = makeTextFile(textbox);
+      }, false);
+    })();
+    
+  }
 
   // Any call to this function gets the build-page (parent) variables
   getParentComponent(): BuildPageComponent
@@ -238,8 +322,7 @@ export class PreviewPaneComponent implements OnInit {
     }
     else if (lastChange == "activeHexCode")
     {
-      // PATRICK: We need a link from survey to the hex function to change the hue, work in progress!!
-      // this.changeHue();
+      this.changeHue();
     }
     else if (lastChange == "activeCClogo")
     {
@@ -617,41 +700,28 @@ export class PreviewPaneComponent implements OnInit {
   changeHue()
   {
     // PATRICK: Work in progress
-    // var userHexNum = this.activeHexCode;
-    // var convertedHSL = this.hexToHSL(userHexNum);
-    // var hueChange = this.hslToDegreeChange(convertedHSL)
-    
-    var testnum = 27, testnum1=112, testnum2 = 115;
-    var filter1 = "hue-rotate("+testnum+"deg) saturate("+testnum1+"%) brightness("+testnum2+"%)";
+    var userHexNum = this.activeHexCode;
+    var convertedHSL = this.hexToHSL(userHexNum);
+    var degreeChange = this.hslToDegreeChange(convertedHSL);
+    var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
 
     let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      divChange.style.filter = filter1;
+      divChange.style.filter = hueFilter;
     }
-    console.log("Applied hue change with: testnum"); // + this.activeHexCode);
   }
 
   // Converts hex code value into a usable HSL (hue) value
   hexToHSL(H)
   {
     // Convert hex to RGB first
-    let r = 0, g = 0, b = 0;
-    if (H.length == 4) {
-      r =  H[1] + H[1];
-      g =  H[2] + H[2];
-      b =  H[3] + H[3];
-    }
-    else if (H.length == 7) {
-      r =  H[1] + H[2];
-      g =  H[3] + H[4];
-      b =  H[5] + H[6];
-    }
+    var r = parseInt(H.substr(1,2), 16);
+    var g = parseInt(H.substr(3,2), 16);
+    var b = parseInt(H.substr(5,2), 16);
+
     // Then to HSL
-    r /= 255;
-    g /= 255;
-    b /= 255;
     let cmin = Math.min(r, g, b),
       cmax = Math.max(r, g, b),
       delta = cmax - cmin,
@@ -659,6 +729,7 @@ export class PreviewPaneComponent implements OnInit {
       s = 0,
       l = 0;
 
+    // Logic to decide which hue is dominant
     if (delta == 0)
       h = 0;
     else if (cmax == r)
@@ -670,6 +741,7 @@ export class PreviewPaneComponent implements OnInit {
 
     h = Math.round(h * 60);
 
+    // If hue is negative, make it positive
     if (h < 0)
       h += 360;
 
@@ -678,16 +750,17 @@ export class PreviewPaneComponent implements OnInit {
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
 
-    let hslArray: number[] = [h,s,l]
-    return hslArray;
+    //let hslArray: number[] = [h,s,l]
+    //return hslArray;
+    return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 195, startS = 100, startL = 44.1;
+  let startH = 0, startS = 100, startL = 44.1;
   let newH = convertedHSL[0]- startH, 
-      newS = 100 + (startS -convertedHSL[1]),
-      newL = 100 + (convertedHSL[2] - startL);
+    newS = 100 + (startS -convertedHSL[1]),
+    newL = 100 + (convertedHSL[2] - startL);
   let resultHSL: number[] = [newH, newS, newL];
   return resultHSL;
  }
@@ -931,7 +1004,33 @@ export class PreviewPaneComponent implements OnInit {
   // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
   updateNewsflash()
   {
-    // Updates Newsflash
+    // Define the HTML Elements where the News Flash should go
+    let NewsflashType:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
+
+    // Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+    if (this.activeNewsflash == "yes")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/shared/grey/newsflash.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
+      }
+    }
+    // Replace News Flash with original whitespaceAd
+    else if (this.activeNewsflash == "no")
+    {
+      if (this.activeColorMode == "greyscale")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
+      }
+      else if (this.activeColorMode == "color")
+      {
+        NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
+      }
+    }
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
@@ -947,13 +1046,24 @@ export class PreviewPaneComponent implements OnInit {
     if (this.activeStatementType == "account")
     {
       if(this.activeGlance == "on")
+      {
+        if (this.activeMaskType == "none" || this.activeMaskType == "undefined")
         {
-        headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlance.png)";
         }
-        else if (this.activeGlance == "off")
+        else if (this.activeMaskType == "to3")
         {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo3.png)";
+        }
+        else if(this.activeMaskType == "to4")
+        {
+          headerSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/accountGlanceMaskTo4.png)";
+        }
+      }
+      else if (this.activeGlance == "off")
+      {
         headerSectionBuffer.style.backgroundImage="";
-        }
+      }
     }
   }
 
@@ -990,13 +1100,13 @@ export class PreviewPaneComponent implements OnInit {
     // Replace with Ending Balance Only account summary component
     else if (this.activeAccSum == "endingbalance")
     {
-      if (this.activeColorMode == "greyscale")
-      {
-        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
-      }
-      else if (this.activeColorMode == "color")
+      if (this.activeColorMode != "greyscale")
       {
         AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/accountSummaryEndingBal.png)";
+      }
+      else
+      {
+        AccountSummaryReg.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/accountSummaryEndingBal.png)";
       }
     }
     // Replace with Full account summary component

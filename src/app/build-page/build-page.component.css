@@ -1,20 +1,27 @@
 .surveyPanel {
   position: fixed;
   overflow-y: scroll;
-  top: 30px;
+  /* top: 30px; */
+  top: 10px;
   bottom: 0;
   margin-left: -120px;
   margin-top: 10px;
   max-width: 420px;
 
   /* Hide scrollbar in firefox */
+  scrollbar-color:  rgba(77, 105, 114, 0.8) transparent;
+
+  /* 
+  Doxim Blue scroll bar
   scrollbar-color:  rgba(0,167,225,0.8) transparent;
+  */
 }
 
 .previewPanel {
   position: fixed;
   overflow-y: scroll;
-  top: 30px;
+  /* top: 30px; */
+  top: 10px;
   bottom: 0;
   margin-left: 330px;
   margin-top: 10px;
@@ -26,7 +33,7 @@
    max-width: 900px; 
 
   /* Hide scrollbar in firefox */
-  scrollbar-color:  rgba(0,167,225,0.8) transparent;
+  scrollbar-color:  rgba(77, 105, 114, 0.8) transparent;
 }
 /* Hiding scrollbar for Google Chrome using webkit  */
 ::-webkit-scrollbar { background: transparent; }

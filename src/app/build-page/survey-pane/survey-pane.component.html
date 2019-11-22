@@ -1,6 +1,10 @@
 <!-- This page controls the client view of the survey cards -->
 <!-- Embedded scripts give the survey cards functions that allow for manipulation of the preview pane -->
 
+<!-- For Creative Buttons -->
+<script src="../../../assets/tympanus/CreativeButtons/js/classie.js"></script>
+<script src="../../../assets/tympanus/CreativeButtons/js/modernizr.custom.js"></script>
+
 <div class="surveyPanel">
     
   <!-- PATRICK: Populate cores dropdown from firebase, work in progress!
@@ -14,10 +18,13 @@
       <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
         <label for="uploadLogo">Upload your company logo:</label>
         <br>
-        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)">
+        <input type="file" class="form-control-file" id="uploadLogo" accept="image/*" (change)="showPreview($event)" required>
         <br>
         <app-progress [progress]="progress"></app-progress>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-3 btn-3e icon-arrow-right">Submit</button>
+        <div class="uploaded uploadedHidden">
+          <p>Image successfully loaded!</p>
+        </div>
       </form>
     </div>
   </div>
@@ -54,20 +61,23 @@
     </div>
   </div>
 
+  <!--  -->
+  <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
-  <div class="card ">
-      <div class="question yellow" id="printColorType">
+  <div class="card">
+      <div class="question" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
           checked>Full color<br>
-        <div class="headerColorPicker">
+        <div class="headerColorPicker" style="display:none;">
           <br>
           <p>Choose your company color:</p>
-          <input id="headerColor" type="color" name="favcolor" id="headerColorPicker" (change)="setHexCode($event)" value="#0055a4">
-          <p> or input the hex value </p>
-          <input id="hexInput" type="text" name="hexNumber" (change)="setHexCode($event)">
+          <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
+          <p>Or input the hex value </p>
+          <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
           <br>
+          <p style="color:red">Please note that header colors may not represent accurately on this page.</p>
         </div>
         <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
@@ -116,7 +126,7 @@
   </div>
 
   <!--7th question: Choose the account masking style-->
-  <div class="card statementQs">
+  <div class="card">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
       <p> How much of your account number would you like visible? </p>
@@ -170,15 +180,14 @@
   <!-- 10th question: Choose a newsflash image to be added if desired.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question yellow" id=newsflashType>
+    <div class="question" id="newsflashType">
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
       <form>
         <!-- Replace bottom onsert with Newsflash component -->
-        <input type="radio" (change)="setnewsflash($event)" class="form-radio" name="newsflashLevel" value="yes"
-          checked>Yes<br>
+        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
         <!-- No change -->
-        <input type="radio" (change)="setnewsflash($event)" class="form-radio" name="newsflashLevel" value="no">No<br>
+        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
       </form>
     </div>
   </div>
@@ -186,7 +195,7 @@
   <!-- 11th question: Choose to add account balances at a glance type summary.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question yellow" id=glanceType>
+    <div class="question" id="glanceType">
       <h3>Balance at a Glance</h3>
       <form>
         <!-- No change, already on “skeleton sample” -->
@@ -201,7 +210,7 @@
   <!-- 12th question: Choose to change the look of the account balances type summary.
   Regular statements only -->
   <div class="card statementQs">
-    <div class="question" id=accountSummaryType>
+    <div class="question" id="accountSummaryType">
       <h3>Account Summary</h3>
       <p>Select how you would like you summaries to be displayed.</p>
       <form>
@@ -343,5 +352,5 @@
       </form>
     </div>
   </div>
-  
+  </div>
 </div>
