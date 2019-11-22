@@ -8,9 +8,7 @@ import html2canvas from 'html2canvas';
   templateUrl: './preview-pane.component.html',
   styleUrls: ['./preview-pane.component.css', 
     "../../../assets/tympanus/CreativeButtons/css/component.css", 
-    "../../../assets/tympanus/CreativeButtons/css/default.css", 
-    "../../../assets/tympanus/ModalWindowEffects/css/component.css", 
-    "../../../assets/tympanus/ModalWindowEffects/css/default.css"
+    "../../../assets/tympanus/CreativeButtons/css/default.css"
   ]
 })
 export class PreviewPaneComponent implements OnInit {
@@ -51,7 +49,7 @@ export class PreviewPaneComponent implements OnInit {
   }
 
   // Animates the Generate Runbook button
-  runbookButton()
+  animateRunbookBtn()
   {
     let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
     pdfButton.classList.add("btn-activated");
@@ -110,11 +108,16 @@ export class PreviewPaneComponent implements OnInit {
       var textbox = runbook;
     
       create.addEventListener('click', function () {
-        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
-        var linkDiv = document.getElementById('downloadDiv');
+        var linkDiv = document.getElementById('downloadBtnDiv');
         linkDiv.classList.remove("collapse");
+        var runDiv = document.getElementById('generateBtnDiv');
+        runDiv.classList.add("collapse");
+        var link = <HTMLAnchorElement> document.getElementById('downloadlink');
         link.href = makeTextFile(textbox);
       }, false);
+      
+      document.getElementById("generateBtnDiv").click();
+
     })();
     
   }
@@ -705,10 +708,12 @@ export class PreviewPaneComponent implements OnInit {
     var degreeChange = this.hslToDegreeChange(convertedHSL);
     var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
 
-    let divCount = document.getElementsByClassName("changeHeaderColor").length;
+
+   let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
+      console.log(i+hueFilter);
       divChange.style.filter = hueFilter;
     }
   }
@@ -745,19 +750,19 @@ export class PreviewPaneComponent implements OnInit {
     if (h < 0)
       h += 360;
 
+    //some conversions necessary to find S and L values
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    s = +(s * 100).toFixed(1);
-    l = +(l * 100).toFixed(1);
+    s = +(s * 100);
+    l = +(l * 100);
 
-    //let hslArray: number[] = [h,s,l]
-    //return hslArray;
+
     return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 0, startS = 100, startL = 44.1;
+  let startH = 203, startS = 240, startL = 160;
   let newH = convertedHSL[0]- startH, 
     newS = 100 + (startS -convertedHSL[1]),
     newL = 100 + (convertedHSL[2] - startL);
