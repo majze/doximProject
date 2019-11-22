@@ -1,3 +1,9 @@
+/* Master Color Information */
+/* https://tympanus.net/Development/CreativeButtons/ */
+/* Statement header blue # 0055a4 */
+/* Credit card header blue # 559ecd */
+/* Doxim blue # 00a7e1 */
+
 /* === Question Containers ========== ========== ========== ========== ========== ========== */
 
 /* Style for entire survey panel master div  */
@@ -21,13 +27,10 @@
 /* Apply changes to card class on hover */
 .card:hover {
   background-color: #53c6ffd8;
-  -webkit-box-shadow: 0 0 3px 2px #777;
-    -moz-box-shadow: 0 0 3px 2px #777;
-    box-shadow: 0 0 3px 2px #777;
-}
-
-.cc:hover {
-  background-color: #ff3b3b9f;
+  -webkit-box-shadow: 0 0 4px 2px #53c6ffd8;
+  -moz-box-shadow: 0 0 4px 2px #53c6ffd8;
+  box-shadow: 0 0 4px 2px #53c6ffd8;
+  transition: box-shadow 0.33s;
 }
 
 /* Internal testing class to alert user to unfished cards */
@@ -38,6 +41,13 @@
 /* Internal testing class to alert user to unfished cards */
 .yellow {
   background-color: #fffb1cc4;
+}
+
+/* Alert user of the limited support for web-filter color and hue-rotation */
+.warning {
+  width: 80%;
+  color: red;
+  font-size: 0.7em;
 }
 
 /* Disappear question cards based on component logic */

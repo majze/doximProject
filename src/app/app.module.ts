@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { BuildPageComponent } from './build-page/build-page.component';
 import { PreviewPaneComponent } from './build-page/preview-pane/preview-pane.component';
@@ -30,7 +29,6 @@ import { MatButtonModule, MatInputModule, MatSliderModule, MatDialogModule } fro
   declarations: [
     AppComponent,
 	NavMenuComponent,
-    FetchDataComponent,
     LoginPageComponent,
     BuildPageComponent,
     PreviewPaneComponent,
