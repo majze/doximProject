@@ -705,10 +705,12 @@ export class PreviewPaneComponent implements OnInit {
     var degreeChange = this.hslToDegreeChange(convertedHSL);
     var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
 
-    let divCount = document.getElementsByClassName("changeHeaderColor").length;
+
+   let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
+      console.log(i+hueFilter);
       divChange.style.filter = hueFilter;
     }
   }
@@ -745,19 +747,19 @@ export class PreviewPaneComponent implements OnInit {
     if (h < 0)
       h += 360;
 
+    //some conversions necessary to find S and L values
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    s = +(s * 100).toFixed(1);
-    l = +(l * 100).toFixed(1);
+    s = +(s * 100);
+    l = +(l * 100);
 
-    //let hslArray: number[] = [h,s,l]
-    //return hslArray;
+
     return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 0, startS = 100, startL = 44.1;
+  let startH = 203, startS = 240, startL = 160;
   let newH = convertedHSL[0]- startH, 
     newS = 100 + (startS -convertedHSL[1]),
     newL = 100 + (convertedHSL[2] - startL);
