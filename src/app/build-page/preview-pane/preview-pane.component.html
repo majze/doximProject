@@ -4,14 +4,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<div class="collapse" id="downloadDiv">
-  <a download="runbook.txt" id="downloadlink">Download Runbook</a>
-</div>
 <!-- Buttons for generatin runbook and PDF -->
 <div style="height: 50px; clear:both;">
-  <div style="float:left;">
-    <button style="height:60px; width:375px;" (click)="runbookButton()" (click)="generateRunbook()" id="runBtn" class="btn btn-7 btn-7b icon-envelope">Generate Runbook</button>
+  <!-- Default Generate Runbook Button -->
+  <div id="generateBtnDiv">
+    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn btn-7 btn-7b icon-envelope">Generate Runbook</button>
   </div>
+  <!-- Download Runbook Button occurs after generating -->
+  <div id="downloadBtnDiv" class="collapse">
+    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn btn-7 btn-7b icon-envelope"><a download="runbook.txt" id="downloadlink">Download Runbook</a></button>
+  </div>
+  <!-- Generate PDF Button calls printPdf() to start the jsPDF process -->
   <div style="float:right;">
     <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" class="btn btn-7 btn-7a icon-truck">Generate PDF</button>
   </div>
@@ -19,7 +22,8 @@
 
 <!-- Start of the Credit Card Statement preview panel  -->
 <div class="viewPanel" id="print" #print>
-
+  
+  <!-- Page 1  -->
   <div class="viewBox" id="page1">
     <div class="paperContainer">
 
@@ -38,7 +42,7 @@
      
       <div class="wideFillerSpace"></div>
 
-      <div class="gridMidContainer changeHeaderColor">
+      <div class="gridMidContainer">
         <div class="ccMidSection gridSection colorImage changeHeaderColor" ></div>
       </div>
 
@@ -50,7 +54,7 @@
     </div>
   </div>
  
-  <!-- Second page of the Credit Card Statement preview panel  -->
+  <!-- Page 2  -->
   <div class="viewBox2" id="page2">
     <div class="paperContainer">
 
@@ -90,7 +94,8 @@
 
 <!-- Start of the Regular Statement preview panel  -->
 <div class="viewPanel" id="print2" #print2>
-
+  
+  <!-- Page 1  -->
   <div class="viewBox" id="page1">
     <div class="paperContainerLeftScanline">
 
@@ -121,7 +126,7 @@
     </div>
   </div>
  
-  <!-- Second page of the Regular Statement preview panel  -->
+  <!-- Page 2  -->
   <div class="viewBox2" id="page2">
     <div class="paperContainer">
 
