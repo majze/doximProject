@@ -41,6 +41,7 @@ export class SurveyPaneComponent implements OnInit {
   uploadPercent: Observable<number>
   downloadURL: Observable<string>
 
+  cores: Array<any>;
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
@@ -420,5 +421,14 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.firebaseService.getCores()
+    .subscribe(result => {
+      this.cores = result;
+      
+      console.log(this.cores[0]);
+     // this.age_filtered_items = result;
+     // this.name_filtered_items = result;
+    })
+  }
 }

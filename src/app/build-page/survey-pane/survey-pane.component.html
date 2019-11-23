@@ -29,20 +29,26 @@
     </div>
   </div>
     
-  <!--2nd question: Choose your core-->
-    <div class="card">
-      <div class="question form-group" id="coreSelection">
-        <h3>Utilized Data Core</h3>
-        <p>The three main cores are listed below:</p>
-        <form action="/determine_questionss.php">
-          <select (change)="setCore($event)" (change)="showSurvey()" class="form-control" id="coreType">
-            <option value="0" disabled selected>Choose a Core...</option>
-            <option value="corelation" disabled>Corelation</option>
-            <option value="fiServDNA" disabled>FiServDNA</option>
-            <option value="symitar">Symitar</option>
+  <!--2nd question: Choose your core
+          <option value="0" disabled selected>Choose a Core...</option>
+          <option value="corelation" disabled>Corelation</option>
+          <option value="fiServDNA" disabled>FiServDNA</option>
+          <option value="symitar">Symitar</option>
+        -->
+  <div class="card">
+    <div class="question form-group" id="coreSelection">
+      <h3>Utilized Data Core</h3>
+      <p>The three main cores are listed below:</p>
+      <form action="/determine_questionss.php">
+        <select (change)="setCore($event)" (change)="showSurvey()" class="form-control" id="coreType">
+          <option value="0" disabled selected>Choose a Core...</option>
+          <!-- <option value="\'"+ {{ cores.payload.doc.data().name }} + "\'" ></option> -->
+          <option *ngFor="let core of cores; let i = index" [value]="core.payload.doc.data().name">
+            {{ core.payload.doc.data().name }}
+          </option>
           </select>
-        </form>
-      </div>
+      </form>
+    </div>
   </div>
 
   <!--3rd question: Choose your statement type-->
@@ -60,24 +66,6 @@
       </form>
     </div>
   </div>
-
-											
-					
-												  
-							  
-																			   
-																 
-			
-																															  
-			
-														   
-																					   
-											 
-										   
-			  
-			 
-		  
-		
   
   <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
