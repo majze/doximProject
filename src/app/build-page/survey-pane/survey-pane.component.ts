@@ -425,10 +425,6 @@ export class SurveyPaneComponent implements OnInit {
     this.firebaseService.getCores()
     .subscribe(result => {
       this.cores = result;
-      
-      console.log(this.cores[0]);
-     // this.age_filtered_items = result;
-     // this.name_filtered_items = result;
     })
   }
 }

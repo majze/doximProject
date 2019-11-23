@@ -36,7 +36,7 @@ export class LoginPageComponent implements OnInit {
         var vusername = this.messageForm.controls.username.value;
         var vpassword = this.messageForm.controls.password.value;
         // Check Firestore for User ID
-        this.getData(vusername, vpassword);
+        this.getUserData(vusername, vpassword);
     }
     // Send user to build page
     nextPage() {
@@ -45,8 +45,8 @@ export class LoginPageComponent implements OnInit {
         }
     }
     // Check Firestore for User ID
-	getData(username, password) {
-        this.firebaseService.getUsers(username, password)
+	getUserData(username, password) {
+        this.firebaseService.getUserData(username, password)
         .subscribe(result => { 
             this.items = result; 
             try {
