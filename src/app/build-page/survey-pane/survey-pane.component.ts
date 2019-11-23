@@ -266,6 +266,11 @@ export class SurveyPaneComponent implements OnInit {
     {
       headerColorPicker.value = hexInput.value;
     }
+
+    // Show the warning for hue and header colors once a custom hex color is chosen
+    var hexWarning = document.getElementsByClassName("hex-warning");
+    if (hexWarning.length > 0)
+      hexWarning[0].classList.remove("hex-warning");
   }
 
   // Sets the credti card logo from user input on relevant question card

@@ -21,7 +21,7 @@
         <input type="file" class="form-control-file input-group-text" id="uploadLogo" accept="image/*" (change)="showPreview($event)" required>
         <br>
         <app-progress [progress]="progress"></app-progress>
-        <button type="submit" class="btn btn-3 btn-3e icon-arrow-right">Submit</button>
+        <button type="submit" class="btn-ty btn-ty-3 btn-ty-3e icon-arrow-right">Submit</button>
         <div class="uploaded uploadedHidden">
           <p>Image successfully loaded!</p>
         </div>
@@ -61,24 +61,6 @@
     </div>
   </div>
 
-											
-					
-												  
-							  
-																			   
-																 
-			
-																															  
-			
-														   
-																					   
-											 
-										   
-			  
-			 
-		  
-		
-  
   <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
   <div class="card">
@@ -91,10 +73,11 @@
           <br>
           <p>Choose your company color:</p>
           <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
-          <p>Or input the hex value </p>
+          <p>Or input the hex value:</p>
           <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
+          <button type="button" class="btn btn-primary colorConfirmBtn">Confirm</button>
           <br>
-          <p class="warning">Your browser may not represent the header colors perfectly due to limited filter support.</p>
+          <p class="warning hex-warning">Your browser may not represent the header colors perfectly due to limited filter support.</p>
         </div>
         <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
