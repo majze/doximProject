@@ -8,13 +8,15 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore) {}
 
-  getUsers(username, password){ 
+  // Query Firestore database for a user account with the following username and password
+  getUserData(username, password){ 
     return this.db.collection('users',ref => ref.where("username", "==", username)
     .where("password", "==", password)).snapshotChanges();
    }
 
   getCores()
   {
+    return this.db.collection('cores').snapshotChanges();
     this.db.collection("cores").get().toPromise().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots

@@ -5,11 +5,7 @@
 <script src="../../../assets/tympanus/CreativeButtons/js/classie.js"></script>
 <script src="../../../assets/tympanus/CreativeButtons/js/modernizr.custom.js"></script>
 
-<div class="surveyPanel">
-    
-  <!-- PATRICK: Populate cores dropdown from firebase, work in progress!
-  <button (click)=getCoreType()>Console log: GetCores TEST</button>
-    -->
+<div class="surveyPanel" id="surveyList">
 
   <!--1st question: Upload a company logo-->
   <div class="card">
@@ -30,19 +26,20 @@
   </div>
     
   <!--2nd question: Choose your core-->
-    <div class="card">
-      <div class="question form-group" id="coreSelection">
-        <h3>Utilized Data Core</h3>
-        <p>The three main cores are listed below:</p>
-        <form action="/determine_questionss.php">
-          <select (change)="setCore($event)" (change)="showSurvey()" class="form-control" id="coreType">
-            <option value="0" disabled selected>Choose a Core...</option>
-            <option value="corelation" disabled>Corelation</option>
-            <option value="fiServDNA" disabled>FiServDNA</option>
-            <option value="symitar">Symitar</option>
+  <div class="card">
+    <div class="question form-group" id="coreSelection">
+      <h3>Utilized Data Core</h3>
+      <p>The three main cores are listed below:</p>
+      <form action="/determine_questionss.php">
+        <select (change)="setCore($event)" (change)="showSurvey()" class="form-control" id="coreType">
+          <option value="0" disabled selected>Choose a Core...</option>
+          <!-- Disabled setting controlled in Firestore settings in each individual record -->
+          <option *ngFor="let core of cores; let i = index" [disabled]="core.payload.doc.data().disabled" [value]="core.payload.doc.data().name">
+            {{ core.payload.doc.data().displayName }}
+          </option>
           </select>
-        </form>
-      </div>
+      </form>
+    </div>
   </div>
 
   <!--3rd question: Choose your statement type-->

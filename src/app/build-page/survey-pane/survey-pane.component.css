@@ -9,6 +9,7 @@
 /* Style for entire survey panel master div  */
 .surveyPanel {
   margin: 0 auto;
+  position: relative;
 }
 
 /* Main question card box  */
