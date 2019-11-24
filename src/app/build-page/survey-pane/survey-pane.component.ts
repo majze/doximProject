@@ -62,7 +62,6 @@ export class SurveyPaneComponent implements OnInit {
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
 
-  // PRATICK: Populate cores dropdown, work in progress!
   // Get core types from Firebase
   getCoreType() {
     this.firebaseService.getCores();

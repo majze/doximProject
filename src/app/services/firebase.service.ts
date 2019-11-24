@@ -8,6 +8,7 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore) {}
 
+  // Query Firestore database for a user account with the following username and password
   getUserData(username, password){ 
     return this.db.collection('users',ref => ref.where("username", "==", username)
     .where("password", "==", password)).snapshotChanges();
