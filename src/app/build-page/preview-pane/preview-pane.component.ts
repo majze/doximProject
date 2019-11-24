@@ -1421,12 +1421,12 @@ export class PreviewPaneComponent implements OnInit {
     console.log("inside preview.YTDSummaryClick()");
     this.clickedPreviewFlag = "YTDSummaryReg";
     this.outputPreviewClick.emit("YTDSummaryReg");
-    this.emitPreviewClick();
+    this.emitPreviewClick(this.clickedPreviewFlag );
   }
 
-  emitPreviewClick()
+  emitPreviewClick(clickedPreviewFLag)
   {
-    this.outputPreviewFlag.emit("test");
+    this.outputPreviewFlag.emit(clickedPreviewFLag);
     //this.outputPreviewFlag.emit(this.clickedPreviewFlag);
   }
 

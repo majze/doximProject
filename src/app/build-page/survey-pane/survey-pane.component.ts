@@ -64,10 +64,14 @@ export class SurveyPaneComponent implements OnInit {
   @Output() outputSurveyChange = new EventEmitter<string>();
 
   // Set focus
-  setFocusQCard()
+  setFocusQCard(val)
   {
-    console.log("setfocus");
-  // console.log("In survey.setFocusQCard(val): " + val);
+    console.log("In survey.setFocusQCard(val): " + val);
+    var myElement = document.getElementById('YTDType');
+    var topPos = myElement.offsetTop;
+    document.getElementById('surveyList').scrollTop = topPos;
+    //var posArray = $('YTDType').positionedOffset();
+    //$('surveyList').scrollTop = posArray[1]; 
   }
 
   // Submit button turns the user uploaded image into an imageUrl

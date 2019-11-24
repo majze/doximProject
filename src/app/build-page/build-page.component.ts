@@ -32,14 +32,14 @@ export class BuildPageComponent implements OnInit {
   activeReplyEnvelope: string;
 
   @ViewChild(PreviewPaneComponent) previewChild: PreviewPaneComponent;
-  @ViewChild(PreviewPaneComponent) surveyChild: SurveyPaneComponent;
+  @ViewChild(SurveyPaneComponent) surveyChild: SurveyPaneComponent;
   
   constructor() {}
 
   readPreviewEmitted(val)
   {
     console.log("inside build.readPreviewEmitted(val)");
-    this.surveyChild.setFocusQCard();
+    this.surveyChild.setFocusQCard(val);
   }
 
   // Reading events emitted by survey-child component
