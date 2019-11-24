@@ -269,11 +269,11 @@
   </div>
 
   <!--16th question: Year-to-date totals information-->
-  <div class="card">
+  <div class="card" id="YTDTypeCard">
     <div class="question" id="YTDType">
       <h3>Year-to-Date Summary</h3>
 	  <p>Please select year-to-date display:</p>
-      <form id="testID">
+      <form>
         <!-- Default - use current YTD component -->
         <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="current" checked>Current Year Only<br>
         <!-- Add previous year summary component to end of year-to-date totals section -->

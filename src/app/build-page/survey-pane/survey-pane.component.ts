@@ -67,13 +67,8 @@ export class SurveyPaneComponent implements OnInit {
   setFocusQCard(val)
   {
     console.log("In survey.setFocusQCard(val): " + val);
-    var myElement = document.getElementById('testID'); //YTDType
-    var topPos = myElement.offsetTop;
-    console.log("topPos: " + topPos);
-    console.log("otherthing: " + document.getElementById('surveyList').scrollTop);
-    document.getElementById('surveyList').scrollTop = topPos;
-    //var posArray = $('YTDType').positionedOffset();
-    //$('surveyList').scrollTop = posArray[1]; 
+    var myElement = document.getElementById(val);
+    myElement.scrollIntoView();
   }
 
   // Submit button turns the user uploaded image into an imageUrl
