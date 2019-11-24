@@ -1419,7 +1419,7 @@ export class PreviewPaneComponent implements OnInit {
   YTDSummaryClick()
   { 
     console.log("inside preview.YTDSummaryClick()");
-    this.clickedPreviewFlag = "YTDSummaryReg";
+    this.clickedPreviewFlag = "YTDTypeCard";
     this.outputPreviewClick.emit("YTDSummaryReg");
     this.emitPreviewClick(this.clickedPreviewFlag );
   }
