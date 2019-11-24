@@ -10,7 +10,7 @@
 }
 
 /* General button style (reset) */
-.btn {
+.btn-ty {
 	border: none;
 	font-family: inherit;
 	font-size: inherit;
@@ -30,11 +30,11 @@
 	transition: all 0.3s;
 }
 
-.btn-custom-hover:hover {
+.btn-ty-custom-hover:hover {
 	color: #9c0f0f;
 }
 
-#btn .btn {
+#btn-ty .btn-ty {
 	border: none;
 	font-family: inherit;
 	font-size: inherit;
@@ -54,7 +54,7 @@
 	transition: all 0.3s;
 }
 
-.btn:after {
+.btn-ty:after {
 	content: '';
 	position: absolute;
 	z-index: -1;
@@ -64,7 +64,7 @@
 }
 
 /* Pseudo elements for icons */
-.btn:before,
+.btn-ty:before,
 .icon-heart:after,
 .icon-star:after,
 .icon-plus:after,
@@ -158,21 +158,21 @@
 }
 
 /* Button 1 */
-.btn-1 {
+.btn-ty-1 {
 	border: 3px solid #fff;
 	color: #1212ee;
 	background: #0e83cd;
 }
 
 /* Button 1a */
-.btn-1a:hover,
-.btn-1a:active {
+.btn-ty-1a:hover,
+.btn-ty-1a:active {
 	color: #0e83cd;
 	background: #fff;
 }
 
 /* Button 1b */
-.btn-1b:after {
+.btn-ty-1b:after {
 	width: 100%;
 	height: 0;
 	top: 0;
@@ -180,18 +180,18 @@
 	background: #fff;
 }
 
-.btn-1b:hover,
-.btn-1b:active {
+.btn-ty-1b:hover,
+.btn-ty-1b:active {
 	color: #0e83cd;
 }
 
-.btn-1b:hover:after,
-.btn-1b:active:after {
+.btn-ty-1b:hover:after,
+.btn-ty-1b:active:after {
 	height: 100%;
 }
 
 /* Button 1c */
-.btn-1c:after {
+.btn-ty-1c:after {
 	width: 0%;
 	height: 100%;
 	top: 0;
@@ -199,22 +199,22 @@
 	background: #fff;
 }
 
-.btn-1c:hover,
-.btn-1c:active {
+.btn-ty-1c:hover,
+.btn-ty-1c:active {
 	color: #0e83cd;
 }
 
-.btn-1c:hover:after,
-.btn-1c:active:after {
+.btn-ty-1c:hover:after,
+.btn-ty-1c:active:after {
 	width: 100%;
 }
 
 /* Button 1d */
-.btn-1d {
+.btn-ty-1d {
 	overflow: hidden;
 }
 
-.btn-1d:after {
+.btn-ty-1d:after {
 	width: 0;
 	height: 103%;
 	top: 50%;
@@ -227,27 +227,27 @@
 	transform: translateX(-50%) translateY(-50%);
 }
 
-.btn-1d:hover,
-.btn-1d:active {
+.btn-ty-1d:hover,
+.btn-ty-1d:active {
 	color: #0e83cd;
 }
 
-.btn-1d:hover:after {
+.btn-ty-1d:hover:after {
 	width: 90%;
 	opacity: 1;
 }
 
-.btn-1d:active:after {
+.btn-ty-1d:active:after {
 	width: 101%;
 	opacity: 1;
 }
 
 /* Button 1e */
-.btn-1e {
+.btn-ty-1e {
 	overflow: hidden;
 }
 
-.btn-1e:after {
+.btn-ty-1e:after {
 	width: 100%;
 	height: 0;
 	top: 50%;
@@ -260,27 +260,27 @@
 	transform: translateX(-50%) translateY(-50%) rotate(45deg);
 }
 
-.btn-1e:hover,
-.btn-1e:active {
+.btn-ty-1e:hover,
+.btn-ty-1e:active {
 	color: #1212ee;
 }
 
-.btn-1e:hover:after {
+.btn-ty-1e:hover:after {
 	height: 260%;
 	opacity: 1;
 }
 
-.btn-1e:active:after {
+.btn-ty-1e:active:after {
 	height: 400%;
 	opacity: 1;
 }
 
 /* Button 1f */
-.btn-1f {
+.btn-ty-1f {
 	overflow: hidden;
 }
 
-.btn-1f:after {
+.btn-ty-1f:after {
 	width: 101%;
 	height: 0;
 	top: 50%;
@@ -293,38 +293,38 @@
 	transform: translateX(-50%) translateY(-50%);
 }
 
-.btn-1f:hover,
-.btn-1f:active {
+.btn-ty-1f:hover,
+.btn-ty-1f:active {
 	color: #0e83cd;
 }
 
-.btn-1f:hover:after {
+.btn-ty-1f:hover:after {
 	height: 75%;
 	opacity: 1;
 }
 
-.btn-1f:active:after {
+.btn-ty-1f:active:after {
 	height: 130%;
 	opacity: 1;
 }
 
 
 /* Button 3 */
-.btn-3 {
+.btn-ty-3 {
 	background: #00a7e1;
 	color: #fff;
 }
 
-.btn-3:hover {
+.btn-ty-3:hover {
 	background: #f29e0d;
 }
 
-.btn-3:active {
+.btn-ty-3:active {
 	background: #f58500;
 	top: 2px;
 }
 
-.btn-3:before {
+.btn-ty-3:before {
 	position: absolute;
 	height: 100%;
 	left: 0;
@@ -335,36 +335,36 @@
 }
 
 /* Button 3a */
-.btn-3a {
+.btn-ty-3a {
 	padding: 25px 60px 25px 120px;
 }
 
-.btn-3a:before {
+.btn-ty-3a:before {
 	background: rgba(0,0,0,0.05);
 }
 
 /* Button 3b */
-.btn-3b {
+.btn-ty-3b {
 	padding: 25px 60px 25px 120px;
 	border-radius: 10px;
 }
 
-.btn-3b:before {
+.btn-ty-3b:before {
 	border-right: 2px solid rgba(255,255,255,0.5);
 }
 
 /* Button 3c */
-.btn-3c {
+.btn-ty-3c {
 	padding: 80px 20px 20px 20px;
 	border-radius: 10px;
 	box-shadow: 0 3px #da9622;
 }
 
-.btn-3c:active {
+.btn-ty-3c:active {
 	box-shadow: 0 3px #dc7801;
 }
 
-.btn-3c:before {
+.btn-ty-3c:before {
 	height: 60px;
 	width: 100%;
 	line-height: 60px;
@@ -373,24 +373,24 @@
 	border-radius: 10px 10px 0 0;
 }
 
-.btn-3c:active:before {
+.btn-ty-3c:active:before {
 	color: #f58500;
 }
 
 /* Button 3d */
-.btn-3d {
+.btn-ty-3d {
 	padding: 25px 60px 25px 120px;
 	border-radius: 10px;
 }
 
-.btn-3d:before {
+.btn-ty-3d:before {
 	background: #fff;
 	color: #fcad26;
 	z-index: 2;
 	border-radius: 10px 0 0 10px;
 }
 
-.btn-3d:after {
+.btn-ty-3d:after {
 	width: 20px;
 	height: 20px;
 	background: #fff;
@@ -404,32 +404,32 @@
 	transform: rotate(45deg);
 }
 
-.btn-3d:active:before {
+.btn-ty-3d:active:before {
 	color: #f58500;
 }
 
-.btn-3d:active {
+.btn-ty-3d:active {
 	top: 0;
 }
 
-.btn-3d:active:after {
+.btn-ty-3d:active:after {
 	left: 60px;
 }
 
 /* Button 3e */
-.btn-3e {
+.btn-ty-3e {
 	padding: 25px 120px 25px 60px;
 	/* padding: 20px 80px 12px 30px; */
 	overflow: hidden;
 }
 
-.btn-3e:before {
+.btn-ty-3e:before {
 	left: auto;
 	right: 10px;
 	z-index: 2;
 }
 
-.btn-3e:after {
+.btn-ty-3e:after {
 	width: 30%;
 	height: 200%;
 	background: rgba(255,255,255,0.1);
@@ -447,12 +447,12 @@
 	transform: rotate(-20deg);
 }
 
-.btn-3e:hover:after {
+.btn-ty-3e:hover:after {
 	width: 40%;
 }
 
 /* Button 7 */
-.btn-7 {
+.btn-ty-7 {
 	background: #2dd5ff;
 	color: #fff;
 	border-radius: 7px;
@@ -461,16 +461,16 @@
 }
 
 /* Button 7a */
-.btn-7a {
+.btn-ty-7a {
 	overflow: hidden;
 }
 
-.btn-7a:hover {
+.btn-ty-7a:hover {
 	background: #f29e0d;
 	box-shadow: 0 5px #915e08;
 }
 
-.btn-7a:before {
+.btn-ty-7a:before {
 	position: absolute;
 	left: 0;
 	width: 40%;
@@ -479,13 +479,13 @@
 	color: #133236;
 }
 
-.btn-7a.btn-activated {
+.btn-ty-7a.btn-ty-activated {
 	-webkit-animation: fadeOutText 0.5s;
 	-moz-animation: fadeOutText 0.5s;
 	animation: fadeOutText 0.5s;
 }
 
-.btn-7a.btn-activated:before {
+.btn-ty-7a.btn-ty-activated:before {
 	-webkit-animation: moveToRight 0.5s;
 	-moz-animation: moveToRight 0.5s;
 	animation: moveToRight 0.5s;
@@ -537,16 +537,16 @@
 }
 
 /* Button 7b */
-.btn-7b {
+.btn-ty-7b {
 	overflow: hidden;
 }
 
-.btn-7b:hover {
+.btn-ty-7b:hover {
 	background: #f29e0d;
 	box-shadow: 0 5px #915e08;
 }
 
-.btn-7b:before {
+.btn-ty-7b:before {
 	position: absolute;
 	left: 0;
 	width: 40%;
@@ -555,7 +555,7 @@
 	color: #ffffff;
 }
 
-.btn-7b.btn-activated:before {
+.btn-ty-7b.btn-ty-activated:before {
 	-webkit-animation: scaleUp 0.5s;
 	-moz-animation: scaleUp 0.5s;
 	animation: scaleUp 0.5s;
@@ -595,12 +595,12 @@
 }
 
 /* Icon only style */
-.btn-icon-only {
+.btn-ty-icon-only {
 	font-size: 0;
 	padding: 25px 30px;
 }
 
-.btn-icon-only:before {
+.btn-ty-icon-only:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -614,16 +614,16 @@
 }
 
 /* Button 7c */
-.btn-7c {
+.btn-ty-7c {
 	overflow: hidden;
 }
 
-.btn-7c:before {
+.btn-ty-7c:before {
 	color: #fff;
 	z-index: 1;
 }
 
-.btn-7c:after {
+.btn-ty-7c:after {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -636,7 +636,7 @@
 	transition: none;
 }
 
-.btn-7c.btn-activated:after {
+.btn-ty-7c.btn-ty-activated:after {
 	-webkit-animation: fillToRight 0.7s forwards;
 	-moz-animation: fillToRight 0.7s forwards;
 	animation: fillToRight 0.7s forwards;
@@ -661,16 +661,16 @@
 }
 
 /* Button 7d */
-.btn-7d {
+.btn-ty-7d {
 	overflow: hidden;
 }
 
-.btn-7d:before {
+.btn-ty-7d:before {
 	color: #fff;
 	z-index: 1;
 }
 
-.btn-7d:after {
+.btn-ty-7d:after {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -683,7 +683,7 @@
 	transition: none;
 }
 
-.btn-7d.btn-activated:after {
+.btn-ty-7d.btn-ty-activated:after {
 	-webkit-animation: emptyBottom 0.7s forwards;
 	-moz-animation: emptyBottom 0.7s forwards;
 	animation: emptyBottom 0.7s forwards;
@@ -708,7 +708,7 @@
 }
 
 /* Button 7e */
-.btn-7e:after {
+.btn-ty-7e:after {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -728,7 +728,7 @@
 	transition: none;
 }
 
-.btn-7e.btn-activated:after {
+.btn-ty-7e.btn-ty-activated:after {
 	-webkit-animation: scaleFade 0.5s forwards;
 	-moz-animation: scaleFade 0.5s forwards;
 	animation: scaleFade 0.5s forwards;
@@ -768,11 +768,11 @@
 }
 
 /* Button 7f */
-.btn-7f:before {
+.btn-ty-7f:before {
 	-webkit-text-stroke-width: 1px;
 	-webkit-text-stroke-color: #fff;
 }
-.btn-7f:after {
+.btn-ty-7f:after {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -795,7 +795,7 @@
 	transition: none;
 }
 
-.btn-7f.btn-activated:after {
+.btn-ty-7f.btn-ty-activated:after {
 	visibility: visible;
 	-webkit-animation: dropDown 0.3s forwards;
 	-moz-animation: dropDown 0.3s forwards;
@@ -824,7 +824,7 @@
 }
 
 /* Button 7g */
-.btn-7g:after {
+.btn-ty-7g:after {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -845,7 +845,7 @@
 	transition: none;
 }
 
-.btn-7g.btn-activated:after {
+.btn-ty-7g.btn-ty-activated:after {
 	visibility: visible;
 	-webkit-animation: dropDownFade 0.5s forwards;
 	-moz-animation: dropDownFade 0.5s forwards;
@@ -887,12 +887,12 @@
 
 /* Button 7h */
 
-.btn-7h span {
+.btn-ty-7h span {
 	display: inline-block;
 	width: 100%;
 }
 
-.btn-7h:before {
+.btn-ty-7h:before {
 	position: absolute;
 	left: 0;
 	width: 40%;
@@ -903,23 +903,23 @@
 
 /* Success and error */
 
-.btn-success,
-.btn-error {
+.btn-ty-success,
+.btn-ty-error {
 	color: transparent;
 }
 
-.btn-success:after,
-.btn-error:after {
+.btn-ty-success:after,
+.btn-ty-error:after {
 	z-index: 1;
 	color: #fff;
 	left: 40%;
 }
 
-.btn-success:before {
+.btn-ty-success:before {
 	content: "\e001";
 }
 
-.btn-success:after {
+.btn-ty-success:after {
 	content: "Success!";
 	-webkit-animation: moveUp 0.5s;
 	-moz-animation: moveUp 0.5s;
@@ -959,7 +959,7 @@
 	}
 }
 
-.btn-error {
+.btn-ty-error {
 	-webkit-animation: shake 0.5s;
 	-moz-animation: shake 0.5s;
 	animation: shake 0.5s;
@@ -984,11 +984,11 @@
 	20%, 40%, 60%, 80% {transform: translateX(10px);}
 }
 
-.btn-error:before {
+.btn-ty-error:before {
 	content: "\e002";
 }
 
-.btn-error:after {
+.btn-ty-error:after {
 	content: "Error!";
 	-webkit-animation: scaleFromUp 0.5s;
 	-moz-animation: scaleFromUp 0.5s;
@@ -1080,7 +1080,7 @@
 }
 
 /* Button 7i */
-.btn-7i {
+.btn-ty-7i {
 	box-shadow: none;
 	border-radius: 0 0 7px 7px;
 	padding: 27px 33px;
@@ -1090,11 +1090,11 @@
 	transform: translateX(-100px);
 }
 
-.btn-7i:before {
+.btn-ty-7i:before {
 	line-height: 45px;
 }
 
-.btn-7i:after {
+.btn-ty-7i:after {
 	height: 11px; /* should be 10px but in Chrome Version 34.0.1847.131 there's a gap because of the transform of the button */
 	width: 100%;
 	background: #17aa56;
@@ -1108,7 +1108,7 @@
 	transform-origin: 0 100%;
 }
 
-.trash-effect-active .btn-7i:after {
+.trash-effect-active .btn-ty-7i:after {
 	-webkit-animation: openTrash 0.5s;
 	-moz-animation: openTrash 0.5s;
 	animation: openTrash 0.5s;
