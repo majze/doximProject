@@ -14,6 +14,7 @@ import { UploadService } from '../upload.service';
     "../../../assets/tympanus/CreativeButtons/css/default.css"
   ]
 })
+
 export class SurveyPaneComponent implements OnInit {
   combinedFlags: string;
   activeCore: string = null;
@@ -108,6 +109,13 @@ export class SurveyPaneComponent implements OnInit {
     }, 1000);
   }
 
+  // Set focus
+  setFocusQCard()
+  {
+    console.log("setfocus");
+   // console.log("In survey.setFocusQCard(val): " + val);
+  }
+
   // Reacts to OnChange event for uploading a customer image
   // Shows a preview thumbnail of user uploaded image
   showPreview(event: any) {
@@ -126,6 +134,8 @@ export class SurveyPaneComponent implements OnInit {
       this.selectedImage = null;
     }
   }
+
+  
 
   // The whole survey except core and statement type are hidden
   // Until a core and statement type are selected

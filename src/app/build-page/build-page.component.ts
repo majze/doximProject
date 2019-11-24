@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
 import { PreviewPaneComponent } from './preview-pane/preview-pane.component';
+import { SurveyPaneComponent } from './survey-pane/survey-pane.component';
 
 @Component({
   selector: 'app-build-page',
@@ -30,9 +31,16 @@ export class BuildPageComponent implements OnInit {
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
 
-  @ViewChild(PreviewPaneComponent) child: PreviewPaneComponent;
+  @ViewChild(PreviewPaneComponent) previewChild: PreviewPaneComponent;
+  @ViewChild(PreviewPaneComponent) surveyChild: SurveyPaneComponent;
   
   constructor() {}
+
+  readPreviewEmitted(val)
+  {
+    console.log("inside build.readPreviewEmitted(val)");
+    this.surveyChild.setFocusQCard();
+  }
 
   // Reading events emitted by survey-child component
   readSurveyEmitted(val)
@@ -65,6 +73,13 @@ export class BuildPageComponent implements OnInit {
   }
 
   // Reads whenever there is an update in the survey input and records that last change
+  readPreviewClick(val)
+  {
+    this.lastChange = val;
+    console.log("build: Received update from: " + this.lastChange);
+  }
+
+  // Reads whenever there is an update in the survey input and records that last change
   readSurveyChange(val)
   {
     this.lastChange = val;
@@ -74,7 +89,7 @@ export class BuildPageComponent implements OnInit {
   // Sending survey flag updates to preview pane and repopulating the skeleton
   writeSurveyToPreview()
   {
-    this.child.populateSkeleton();
+    this.previewChild.populateSkeleton();
   }
 
   ngOnInit() {}

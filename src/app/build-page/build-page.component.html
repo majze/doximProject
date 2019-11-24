@@ -9,7 +9,7 @@
 
     <div class="col-8 previewPanel">
       <br>
-      <app-preview-pane></app-preview-pane>
+      <app-preview-pane (outputPreviewFlag)="readPreviewEmitted($event)" (outputPreviewClick)="readPreviewClick($event)"></app-preview-pane>
       <br>
     </div>
 

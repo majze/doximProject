@@ -39,7 +39,7 @@
           <option value="0" disabled selected>Choose a Core...</option>
           <!-- Disabled setting controlled in Firestore settings in each individual record -->
           <option *ngFor="let core of cores; let i = index" [disabled]="core.payload.doc.data().disabled" [value]="core.payload.doc.data().name">
-            {{ core.payload.doc.data().name }}
+            {{ core.payload.doc.data().displayName }}
           </option>
           </select>
       </form>
