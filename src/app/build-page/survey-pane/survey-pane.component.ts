@@ -63,13 +63,16 @@ export class SurveyPaneComponent implements OnInit {
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
 
-  // Get core types from Firebase
-  getCoreType() {
-    this.firebaseService.getCores();
+  // Set focus
+  setFocusQCard()
+  {
+    console.log("setfocus");
+  // console.log("In survey.setFocusQCard(val): " + val);
   }
 
   // Submit button turns the user uploaded image into an imageUrl
-  onSubmit(formValue) {
+  onSubmit(formValue) 
+  {
     this.isSubmitted = true;
     // Check for blank file
       var filePath = "CustomerLogo" + `/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -90,7 +93,8 @@ export class SurveyPaneComponent implements OnInit {
   }
 
   // Alert user that image was uploaded
-  alertImageUploaded() {
+  alertImageUploaded() 
+  {
     let uploadedAlert:HTMLElement = document.getElementsByClassName("uploaded")[0] as HTMLElement;
     uploadedAlert.classList.remove("uploadedHidden");
 
@@ -107,13 +111,6 @@ export class SurveyPaneComponent implements OnInit {
     setTimeout(function(){
       uploadedAlert.style.color="black";
     }, 1000);
-  }
-
-  // Set focus
-  setFocusQCard()
-  {
-    console.log("setfocus");
-   // console.log("In survey.setFocusQCard(val): " + val);
   }
 
   // Reacts to OnChange event for uploading a customer image
@@ -134,8 +131,6 @@ export class SurveyPaneComponent implements OnInit {
       this.selectedImage = null;
     }
   }
-
-  
 
   // The whole survey except core and statement type are hidden
   // Until a core and statement type are selected
