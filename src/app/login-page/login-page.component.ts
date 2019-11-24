@@ -27,7 +27,8 @@ export class LoginPageComponent implements OnInit {
         })
     }
     // OnClick() event triggered by login form submission
-    onSubmit() {
+    onSubmit() 
+    {
         this.submitted = true;
         // Check for valid fields on form
         if (this.messageForm.invalid) {
@@ -36,17 +37,19 @@ export class LoginPageComponent implements OnInit {
         var vusername = this.messageForm.controls.username.value;
         var vpassword = this.messageForm.controls.password.value;
         // Check Firestore for User ID
-        this.getData(vusername, vpassword);
+        this.getUserData(vusername, vpassword);
     }
     // Send user to build page
-    nextPage() {
+    nextPage() 
+    {
         if (this.success && this.submitted) {
             this.router.navigate(['./build']);
         }
     }
     // Check Firestore for User ID
-	getData(username, password) {
-        this.firebaseService.getUsers(username, password)
+    getUserData(username, password) 
+    {
+        this.firebaseService.getUserData(username, password)
         .subscribe(result => { 
             this.items = result; 
             try {
@@ -66,13 +69,15 @@ export class LoginPageComponent implements OnInit {
         });
     }
 
-     // Alert user how to retrieve log in credentials
-     forgotLogin() {
+    // Alert user how to retrieve log in credentials
+    forgotLogin() 
+     {
         alert("Please contact your supervisor or send an email to ITSupport@doxim.com");
     }
     
     // Front-end reacts to these to show valid/invalid notifications to the user
-    refreshSubmit() {
+    refreshSubmit() 
+    {
         this.fail = false;
         this.success = false;
         this.submitted = false;

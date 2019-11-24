@@ -9,6 +9,7 @@
 /* Style for entire survey panel master div  */
 .surveyPanel {
   margin: 0 auto;
+  position: relative;
 }
 
 /* Main question card box  */
@@ -48,6 +49,22 @@
   width: 80%;
   color: red;
   font-size: 0.7em;
+}
+
+/* Custom class for hiding a div until it is ready to be shown  */
+.hex-warning {
+  display: none;
+}
+
+/* Custom resizing for bootstrap button to fit alongside the Hex input text field  */
+.colorConfirmBtn {
+  margin-left:8px;
+  margin-bottom:5px;
+  height:32px;
+  width:88px;
+  text-align:center;
+  vertical-align:middle;
+  padding:2px;
 }
 
 /* Disappear question cards based on component logic */

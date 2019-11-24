@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Output, EventEmitter } from '@angular/core';
 import { BuildPageComponent } from '../build-page.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -11,7 +11,9 @@ import html2canvas from 'html2canvas';
     "../../../assets/tympanus/CreativeButtons/css/default.css"
   ]
 })
+
 export class PreviewPaneComponent implements OnInit {
+  clickedPreviewFlag: string;
   activeCore: string;
   activeStatementType: string;
   activeColorMode: string;
@@ -37,6 +39,10 @@ export class PreviewPaneComponent implements OnInit {
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
+
+  // Output emitter to build page component html page
+  @Output() outputPreviewFlag = new EventEmitter<string>();
+  @Output() outputPreviewClick = new EventEmitter<string>();
 
   // Animates the Drive-Thru sample button
   driveThru()
@@ -1407,6 +1413,21 @@ export class PreviewPaneComponent implements OnInit {
       symCC.classList.add("collapse");
       symReg.classList.remove("collapse");
     }
+  }
+
+  // Sets focus on the YTDSummary question card in the survey component
+  YTDSummaryClick()
+  { 
+    console.log("inside preview.YTDSummaryClick()");
+    this.clickedPreviewFlag = "YTDSummaryReg";
+    this.outputPreviewClick.emit("YTDSummaryReg");
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  emitPreviewClick(clickedPreviewFLag)
+  {
+    this.outputPreviewFlag.emit(clickedPreviewFLag);
+    //this.outputPreviewFlag.emit(this.clickedPreviewFlag);
   }
 
   // Anything that should be set on page load goes in ngOnInit() 

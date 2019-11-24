@@ -14,6 +14,7 @@ import { UploadService } from '../upload.service';
     "../../../assets/tympanus/CreativeButtons/css/default.css"
   ]
 })
+
 export class SurveyPaneComponent implements OnInit {
   combinedFlags: string;
   activeCore: string = null;
@@ -41,6 +42,7 @@ export class SurveyPaneComponent implements OnInit {
   uploadPercent: Observable<number>
   downloadURL: Observable<string>
 
+  cores: Array<any>;
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
@@ -61,14 +63,20 @@ export class SurveyPaneComponent implements OnInit {
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
 
-  // PRATICK: Populate cores dropdown, work in progress!
-  // Get core types from Firebase
-  getCoreType() {
-    this.firebaseService.getCores();
+  // Set focus
+  setFocusQCard(val)
+  {
+    console.log("In survey.setFocusQCard(val): " + val);
+    var myElement = document.getElementById('YTDType');
+    var topPos = myElement.offsetTop;
+    document.getElementById('surveyList').scrollTop = topPos;
+    //var posArray = $('YTDType').positionedOffset();
+    //$('surveyList').scrollTop = posArray[1]; 
   }
 
   // Submit button turns the user uploaded image into an imageUrl
-  onSubmit(formValue) {
+  onSubmit(formValue) 
+  {
     this.isSubmitted = true;
     // Check for blank file
       var filePath = "CustomerLogo" + `/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -89,7 +97,8 @@ export class SurveyPaneComponent implements OnInit {
   }
 
   // Alert user that image was uploaded
-  alertImageUploaded() {
+  alertImageUploaded() 
+  {
     let uploadedAlert:HTMLElement = document.getElementsByClassName("uploaded")[0] as HTMLElement;
     uploadedAlert.classList.remove("uploadedHidden");
 
@@ -266,6 +275,11 @@ export class SurveyPaneComponent implements OnInit {
     {
       headerColorPicker.value = hexInput.value;
     }
+
+    // Show the warning for hue and header colors once a custom hex color is chosen
+    var hexWarning = document.getElementsByClassName("hex-warning");
+    if (hexWarning.length > 0)
+      hexWarning[0].classList.remove("hex-warning");
   }
 
   // Sets the credti card logo from user input on relevant question card
@@ -420,5 +434,10 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.firebaseService.getCores()
+    .subscribe(result => {
+      this.cores = result;
+    })
+  }
 }
