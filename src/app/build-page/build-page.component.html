@@ -3,12 +3,14 @@
 
     <div class="col-4 surveyPanel">
       <br>
+      <!-- (output) functions communicate survey data to build page to preview page -->
       <app-survey-pane (outputSurveyFlags)="readSurveyEmitted($event)" (outputSurveyChange)="readSurveyChange($event)"></app-survey-pane>
       <br>
     </div>
 
     <div class="col-8 previewPanel">
       <br>
+      <!-- (output) functions communicate preview data to build page to survey page -->
       <app-preview-pane (outputPreviewFlag)="readPreviewEmitted($event)" (outputPreviewClick)="readPreviewClick($event)"></app-preview-pane>
       <br>
     </div>
