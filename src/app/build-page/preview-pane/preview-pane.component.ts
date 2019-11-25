@@ -1537,6 +1537,7 @@ export class PreviewPaneComponent implements OnInit {
     this.emitPreviewClick(this.clickedPreviewFlag );
   }
 
+  // Sends data to build page to send to survey page
   emitPreviewClick(clickedPreviewFLag)
   {
     this.outputPreviewFlag.emit(clickedPreviewFLag);
