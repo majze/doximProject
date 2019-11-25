@@ -8,35 +8,35 @@
 <div style="height: 50px; clear:both;">
   <!-- Default Generate Runbook Button -->
   <div id="generateBtnDiv">
-    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn btn-7 btn-7b icon-envelope">Generate Runbook</button>
+    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn-ty btn-ty-7 btn-ty-7b icon-envelope">Generate Runbook</button>
   </div>
   <!-- Download Runbook Button occurs after generating -->
   <div id="downloadBtnDiv" class="collapse">
-    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn btn-7 btn-7b icon-envelope"><a download="runbook.txt" id="downloadlink">Download Runbook</a></button>
+    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn-ty btn-ty-7 btn-ty-7b icon-envelope"><a download="runbook.txt" id="downloadlink">Download Runbook</a></button>
   </div>
   <!-- Generate PDF Button calls printPdf() to start the jsPDF process -->
   <div style="float:right;">
-    <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" class="btn btn-7 btn-7a icon-truck">Generate PDF</button>
+    <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" class="btn-ty btn-ty-7 btn-ty-7a icon-truck">Generate PDF</button>
   </div>
 </div>
 
 <!-- Start of the Credit Card Statement preview panel  -->
 <div class="viewPanel" id="print" #print>
-  
+
   <!-- Page 1  -->
   <div class="viewBox" id="page1">
     <div class="paperContainer">
 
       <div class="gridTopContainer">
         <div class="gridTopLeft gridSection">
-          <div class="logoSection gridSection colorImage"></div>
+          <div class="logoSection gridSection colorImage" (click)="CustomerLogoSectionClick()"></div>
           <div class="addressSection gridSection"></div>
         </div>
 
         <div class="gridTopRight gridSection">
-          <div class="ccLogoSection gridSection"></div>
-          <div class="headerSection gridSection"></div>
-          <div class="topGraphicSection gridSection"></div>
+          <div class="ccLogoSection gridSection" (click)="cclogoSelectionClick()"></div>
+          <div class="headerSection gridSection" (click)="MarketingTypeClick()"></div>
+          <div class="topGraphicSection gridSection" (click)="MarketingTypeClick()"></div>
         </div>
       </div>
      
@@ -48,7 +48,7 @@
 
       <div class="gridBotContainer">
         <div class="couponSection gridSection colorImage"></div>
-        <div class="scanlineSection gridSection colorImage"></div>
+        <div class="scanlineSection gridSection colorImage" (click)="ScanlineTypeClick()"></div>
       </div>
 
     </div>
@@ -59,16 +59,16 @@
     <div class="paperContainer">
 
       <div class="p2gridTopContainer">
-        <div class="p2logoSection gridSection colorImage"></div>
-        <div class="p2headerSection gridSection"></div>
+        <div class="p2logoSection gridSection colorImage" (click)="CustomerLogoSectionClick()"></div>
+        <div class="p2headerSection gridSection" (click)="MaskingTypeClick()"></div>
       </div>
 
       <div class="p2gridMidContainer1" id="onsertCollapse">
-        <div class="p2OnsertImage gridSection"></div>
+        <div class="p2OnsertImage gridSection" (click)="OnsertTypeClick()"></div>
       </div>
       
       <div class="p2gridMidContainer1">
-        <div class="p2TransactionSummary gridSection changeHeaderColor"></div>
+        <div class="p2TransactionSummary gridSection changeHeaderColor" (click)="TransactionSummaryClick()"></div>
       </div>
 
       <div class="p2gridMidContainer2">
@@ -80,11 +80,11 @@
       </div>
 
       <div class="p2gridMidContainer4">
-        <div class="p2YTDSummary gridSection"></div>
+        <div class="p2YTDSummary gridSection" (click)="YTDSummaryClick()"></div>
       </div>
 
       <div class="p2gridMidContainer5 collapse" id="whitespaceCollapse">
-        <div class="p2WhitespaceAd gridSection"></div>
+        <div class="p2WhitespaceAd gridSection" (click)="OnsertTypeClick()"></div>
       </div>
 
     </div>
@@ -100,26 +100,26 @@
     <div class="paperContainerLeftScanline">
 
       <div class="StatementGridScanline gridSection">
-        <div class="scanlineSectionLeft gridSection"></div>
+        <div class="scanlineSectionLeft gridSection" (click)="ScanlineTypeClick()"></div>
       </div>
 
       <div class="StatementGridRemaining gridSection">
         <div class="gridTopContainerReg">
           <div class="gridTopLeftReg gridSection">
-            <div class="logoSectionReg gridSection"></div>
+            <div class="logoSectionReg gridSection" (click)="CustomerLogoSectionClick()"></div>
             <div class="addressSectionReg gridSection"></div>
           </div>
 
           <div class="gridTopRightReg gridSection">
-            <div class="topGraphicSectionReg gridSection colorImage"></div>
-            <div class="AccountInfoReg gridSection colorImage"></div>
+            <div class="topGraphicSectionReg gridSection colorImage" (click)="MarketingTypeClick()"></div>
+            <div class="AccountInfoReg gridSection colorImage" (click)="MaskingTypeClick()"></div>
           </div>
         </div>
     
         <div class="gridMidContainerReg">
-          <div class="AccountSummaryReg gridSection colorImage changeHeaderColor"></div>
-          <div class="shareSavingsReg gridSection colorImage changeHeaderColor"></div>
-          <div class="whitespaceAd1Reg gridSection colorImage"></div>
+          <div class="AccountSummaryReg gridSection colorImage changeHeaderColor" (click)="AccountSummaryClick()"></div>
+          <div class="shareSavingsReg gridSection colorImage changeHeaderColor" (click)="TransactionSummaryClick()"></div>
+          <div class="whitespaceAd1Reg gridSection colorImage" (click)="NewsflashTypeClick()"></div>
         </div>
       </div>
 
@@ -131,8 +131,8 @@
     <div class="paperContainer">
 
       <div class="p2gridTopContainerReg">
-        <div class="p2logoSectionReg gridSection colorImage"></div>
-        <div class="p2headerSectionReg gridSection"></div>
+        <div class="p2logoSectionReg gridSection colorImage" (click)="CustomerLogoSectionClick()"></div>
+        <div class="p2headerSectionReg gridSection" (click)="MaskingTypeClick()"></div>
       </div>
 
       <div class="p2gridMidContainerReg1">
@@ -144,11 +144,11 @@
       </div>
 
       <div class="p2gridMidContainerReg3">
-        <div class="YTDSummaryReg gridSection changeHeaderColor"></div>
+        <div class="YTDSummaryReg gridSection changeHeaderColor" (click)="YTDSummaryClick()"></div>
       </div>
 
       <div class="p2gridMidContainerReg4">
-        <div class="WhitespaceAd2Reg gridSection"></div>
+        <div class="WhitespaceAd2Reg gridSection" (click)="OnsertTypeClick()"></div>
       </div>
 
       <div class="p2gridMidContainerReg5">

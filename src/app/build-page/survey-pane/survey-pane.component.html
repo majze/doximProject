@@ -5,14 +5,10 @@
 <script src="../../../assets/tympanus/CreativeButtons/js/classie.js"></script>
 <script src="../../../assets/tympanus/CreativeButtons/js/modernizr.custom.js"></script>
 
-<div class="surveyPanel">
-    
-  <!-- PATRICK: Populate cores dropdown from firebase, work in progress!
-  <button (click)=getCoreType()>Console log: GetCores TEST</button>
-    -->
+<div class="surveyPanel" id="surveyList">
 
   <!--1st question: Upload a company logo-->
-  <div class="card">
+  <div class="card" id="upLoadcustomerLogoCard">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
       <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
@@ -21,7 +17,7 @@
         <input type="file" class="form-control-file input-group-text" id="uploadLogo" accept="image/*" (change)="showPreview($event)" required>
         <br>
         <app-progress [progress]="progress"></app-progress>
-        <button type="submit" class="btn btn-3 btn-3e icon-arrow-right">Submit</button>
+        <button type="submit" class="btn-ty btn-ty-3 btn-ty-3e icon-arrow-right">Submit</button>
         <div class="uploaded uploadedHidden">
           <p>Image successfully loaded!</p>
         </div>
@@ -30,26 +26,27 @@
   </div>
     
   <!--2nd question: Choose your core-->
-    <div class="card">
-      <div class="question form-group" id="coreSelection">
-        <h3>Utilized Data Core</h3>
-        <p>The three main cores are listed below:</p>
-        <form action="/determine_questionss.php">
-          <select (change)="setCore($event)" (change)="showSurvey()" class="form-control" id="coreType">
-            <option value="0" disabled selected>Choose a Core...</option>
-            <option value="corelation" disabled>Corelation</option>
-            <option value="fiServDNA" disabled>FiServDNA</option>
-            <option value="symitar">Symitar</option>
+  <div class="card" id="coreSelectionCard">
+    <div class="question form-group" id="coreSelection">
+      <h3>Utilized Data Core</h3>
+      <p>The three main cores are listed below:</p>
+      <form action="/determine_questionss.php">
+        <select (change)="setCore($event)" (change)="showSurvey()" class="form-control" id="coreType">
+          <option value="0" disabled selected>Choose a Core...</option>
+          <!-- Disabled setting controlled in Firestore settings in each individual record -->
+          <option *ngFor="let core of cores; let i = index" [disabled]="core.payload.doc.data().disabled" [value]="core.payload.doc.data().name">
+            {{ core.payload.doc.data().displayName }}
+          </option>
           </select>
-        </form>
-      </div>
+      </form>
+    </div>
   </div>
 
   <!--3rd question: Choose your statement type-->
   <!-- At this point app will Display standard member statement skeleton (based on core selected) with
   customer-branded logo (Doxim default logo if no customer logo uploaded), header bars in customer-branded
   color chosen above, and all images in full color to start. -->
-  <div class="card">
+  <div class="card" id="statementTypeSelectionCard">
     <div class="question" id="statementTypeSelection">
       <h3>Billing Statement Type</h3>
       <form>
@@ -61,27 +58,9 @@
     </div>
   </div>
 
-											
-					
-												  
-							  
-																			   
-																 
-			
-																															  
-			
-														   
-																					   
-											 
-										   
-			  
-			 
-		  
-		
-  
   <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
-  <div class="card">
+  <div class="card" id="printColorTypeCard">
       <div class="question" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
@@ -91,10 +70,11 @@
           <br>
           <p>Choose your company color:</p>
           <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
-          <p>Or input the hex value </p>
+          <p>Or input the hex value:</p>
           <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
+          <button type="button" class="btn btn-primary colorConfirmBtn">Confirm</button>
           <br>
-          <p class="warning">Your browser may not represent the header colors perfectly due to limited filter support.</p>
+          <p class="warning hex-warning">Your browser may not represent the header colors perfectly due to limited filter support.</p>
         </div>
         <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
         <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
@@ -104,7 +84,7 @@
   </div>
 
   <!--5th question: Choose the level of marketing-->
-  <div class="card">
+  <div class="card" id="marketingTypeCard">
     <div class="question" id="marketingType">
       <h3>Level of Marketing</h3>
       <p>Please select preferred level of marketing: </p>
@@ -125,11 +105,11 @@
     </div>
   </div>
 
-  <!--6th question: Choose a credit card logo if cc statement-->
-  <div class="card creditcardQs" id="borderFix">
+  <!--6th question: Choose a credit card logo if cc statement (borderFix)-->
+  <div class="card creditcardQs" id="cclogoSelectionCard"> 
     <div class="question form-group" id="cclogoSelection">
       <h3>Credit Card Logo</h3>
-	  <p>Select credit card logo: </p>
+	    <p>Select credit card logo: </p>
       <form>
         <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
           <!-- If “YES, Visa logo”, display logo on the top -->
@@ -144,7 +124,7 @@
   </div>
 
   <!--7th question: Choose the account masking style-->
-  <div class="card">
+  <div class="card" id="maskingTypeCard">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
       <p> Please select account number visibilty: </p>
@@ -161,7 +141,7 @@
   </div>
 
   <!--8th question: Choose to include a scanline or not-->
-  <div class="card creditcardQs">
+  <div class="card" id="scanlineTypeCard">
     <div class="question" id="scanlineType">
       <h3>Scanline Option</h3>
       <p>Would you like a scanline included on your statement?</p>
@@ -176,7 +156,7 @@
   </div>
 
   <!--9th question: Choose to include an onsert (company marketing image) or not -->
-  <div class="card">
+  <div class="card" id="onsertTypeCard">
     <div class="question" id="onsertType">
       <h3>Onsert Option</h3>
       <div class="creditcardQs">
@@ -195,7 +175,7 @@
 
   <!-- 10th question: Choose a newsflash image to be added if desired.
   Regular statements only -->
-  <div class="card statementQs">
+  <div class="card statementQs" id="newsflashTypeCard">
     <div class="question" id="newsflashType">
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
@@ -210,10 +190,9 @@
 
   <!-- 11th question: Choose to add account balances at a glance type summary.
   Regular statements only -->
-  <div class="card statementQs">
+  <div class="card statementQs" id="glanceTypeCard">
     <div class="question" id="glanceType">
-      <h3>Balance at a Glance</h3>
-																  
+      <h3>Balance at a Glance</h3>									  
       <form>
         <!-- No change, already on “skeleton sample” -->
         <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="on" checked>On<br>
@@ -225,7 +204,7 @@
 
   <!-- 12th question: Choose to change the look of the account balances type summary.
   Regular statements only -->
-  <div class="card statementQs">
+  <div class="card statementQs" id="accountSummaryTypeCard">
     <div class="question" id="accountSummaryType">
       <h3>Account Summary</h3>
       <p>Please select account summary display:</p>
@@ -247,7 +226,7 @@
   </div>
 
   <!--13th question: Choose to the type of detail with the transaction summaries-->
-  <div class="card">
+  <div class="card" id="transactionSummaryTypeCard">
     <div class="question" id="transactionSummaryType">
       <h3>Transcations Details</h3>
       <p>How would you like your transaction details displayed?</p>
@@ -274,7 +253,7 @@
   </div>
 
   <!--14th question: 2nd page whitespace management-->
-  <div class="card">
+  <div class="card statementQs" id="whitespaceTypeCard">
     <div class="question" id="whitespaceType">
       <h3>Whitespace Option</h3>
       <p>Would you like an image to fill your whitespace?</p>
@@ -289,7 +268,7 @@
   </div>
 
   <!--16th question: Year-to-date totals information-->
-  <div class="card">
+  <div class="card" id="YTDTypeCard">
     <div class="question" id="YTDType">
       <h3>Year-to-Date Summary</h3>
 	  <p>Please select year-to-date display:</p>
@@ -308,7 +287,7 @@
 
   <!--15th question: joint owner information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="jointOwnerTypeCard">
     <div class="question red" id="jointOwnerType">
       <h3>Joint Owner Option</h3>
       <p>Are there joint owners on the account?</p>
@@ -322,7 +301,7 @@
 
   <!--17th question: Outbound envelope type information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="outboundEnvelopeTypeCard">
     <div class="question red" id="outboundEnvelopeType">
       <h3>Outbound Envelope Options</h3>
       <p>Choose your outbound envelope type.</p>
@@ -341,7 +320,7 @@
 
   <!--18th question: Rewards information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="rewardsTypeCard">
     <div class="question red" id="rewardsType">
         <h3>Rewards and Cashback Option</h3>
       <p>Would you like to include your rewards or cashback summary?</p>
@@ -357,7 +336,7 @@
 
   <!--19th question: Reply envelope type information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="replyEnvelopeTypeCard">
     <div class="question red" id="replyEnvelopeType">
       <h3>Reply Envelope Options</h3>
       <p>Choose your reply envelope type: </p>

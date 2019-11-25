@@ -8,6 +8,7 @@
       <div class="form-group">
         <label><b>Username </b></label>
         <input type="text" class="form-control" (change)="refreshSubmit()" placeholder="Enter Username" formControlName="username" autofocus>
+        <!-- Check if variable submitted is true and if the username field has no errors -->
         <div *ngIf="submitted && messageForm.controls.username.errors">
           <div *ngIf="messageForm.controls.username.errors.required">Username is required.</div>
         </div>
@@ -16,19 +17,22 @@
       <div class="form-group">
         <label><b>Password </b></label>
         <input type="password" class="form-control" (change)="refreshSubmit()" placeholder="Enter Password" formControlName="password">
+        <!-- Check if variable submitted is true and if the password field has no errors -->
         <div *ngIf="submitted && messageForm.controls.password.errors">
           <div *ngIf="messageForm.controls.password.errors.required">Password is required.</div>
         </div>
         <br />
-        <!-- <input type="submit" class="btn btn-primary" value="Log in"> -->
-        <button type="submit" class="btn btn-3 btn-3e icon-arrow-right" style="width:250px;">Log in</button>
-        <input type="button" class="btn btn-custom-hover btn-primary" value="Forgot Username/Password" style="width:250px;font-size:0.8em;margin: 6px; margin-left: 30px; padding: 12px; background: orange;" (click)="forgotLogin()">
+        <!-- <input type="submit" class="btn-ty btn-ty-primary" value="Log in"> -->
+        <button type="submit" class="btn-ty btn-ty-3 btn-ty-3e icon-arrow-right" style="width:250px;">Log in</button>
+        <input type="button" class="btn-ty btn-ty-custom-hover btn-ty-primary" value="Forgot Username/Password" style="width:250px;font-size:0.8em;margin: 6px; margin-left: 30px; padding: 12px; background: orange;" (click)="forgotLogin()">
       </div>
     </form>
+    <!-- Display if variable submitted is true and variable success is true -->
     <div *ngIf="submitted && success">
       <h5>Login successful</h5>
     </div>
   
+    <!-- Display if variable submitted is true and variable fail is true -->
     <div *ngIf="submitted && fail">
       <h5>Invalid login</h5>
     </div>
