@@ -8,7 +8,7 @@
 <div class="surveyPanel" id="surveyList">
 
   <!--1st question: Upload a company logo-->
-  <div class="card">
+  <div class="card" id="upLoadcustomerLogoCard">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
       <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
@@ -26,7 +26,7 @@
   </div>
     
   <!--2nd question: Choose your core-->
-  <div class="card">
+  <div class="card" id="coreSelectionCard">
     <div class="question form-group" id="coreSelection">
       <h3>Utilized Data Core</h3>
       <p>The three main cores are listed below:</p>
@@ -46,7 +46,7 @@
   <!-- At this point app will Display standard member statement skeleton (based on core selected) with
   customer-branded logo (Doxim default logo if no customer logo uploaded), header bars in customer-branded
   color chosen above, and all images in full color to start. -->
-  <div class="card">
+  <div class="card" id="statementTypeSelectionCard">
     <div class="question" id="statementTypeSelection">
       <h3>Billing Statement Type</h3>
       <form>
@@ -60,7 +60,7 @@
 
   <div class="initialhideThisDiv">
   <!--4th question: Choose color or greyscale statement-->
-  <div class="card">
+  <div class="card" id="printColorTypeCard">
       <div class="question" id="printColorType">
       <h3>Print Color Options</h3>
       <form>
@@ -84,7 +84,7 @@
   </div>
 
   <!--5th question: Choose the level of marketing-->
-  <div class="card">
+  <div class="card" id="marketingTypeCard">
     <div class="question" id="marketingType">
       <h3>Level of Marketing</h3>
       <p>Please select preferred level of marketing: </p>
@@ -105,11 +105,11 @@
     </div>
   </div>
 
-  <!--6th question: Choose a credit card logo if cc statement-->
-  <div class="card creditcardQs" id="borderFix">
+  <!--6th question: Choose a credit card logo if cc statement (borderFix)-->
+  <div class="card creditcardQs" id="cclogoSelectionCard"> 
     <div class="question form-group" id="cclogoSelection">
       <h3>Credit Card Logo</h3>
-	  <p>Select credit card logo: </p>
+	    <p>Select credit card logo: </p>
       <form>
         <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
           <!-- If “YES, Visa logo”, display logo on the top -->
@@ -124,7 +124,7 @@
   </div>
 
   <!--7th question: Choose the account masking style-->
-  <div class="card">
+  <div class="card" id="maskingTypeCard">
     <div class="question" id="maskingType">
       <h3>Account Masking</h3>
       <p> Please select account number visibilty: </p>
@@ -141,7 +141,7 @@
   </div>
 
   <!--8th question: Choose to include a scanline or not-->
-  <div class="card creditcardQs">
+  <div class="card" id="scanlineTypeCard">
     <div class="question" id="scanlineType">
       <h3>Scanline Option</h3>
       <p>Would you like a scanline included on your statement?</p>
@@ -156,7 +156,7 @@
   </div>
 
   <!--9th question: Choose to include an onsert (company marketing image) or not -->
-  <div class="card">
+  <div class="card" id="onsertTypeCard">
     <div class="question" id="onsertType">
       <h3>Onsert Option</h3>
       <div class="creditcardQs">
@@ -175,7 +175,7 @@
 
   <!-- 10th question: Choose a newsflash image to be added if desired.
   Regular statements only -->
-  <div class="card statementQs">
+  <div class="card statementQs" id="newsflashTypeCard">
     <div class="question" id="newsflashType">
       <h3>Newsflash</h3>
       <p>Would you like a Newsflash to be added?</p>
@@ -190,10 +190,9 @@
 
   <!-- 11th question: Choose to add account balances at a glance type summary.
   Regular statements only -->
-  <div class="card statementQs">
+  <div class="card statementQs" id="glanceTypeCard">
     <div class="question" id="glanceType">
-      <h3>Balance at a Glance</h3>
-																  
+      <h3>Balance at a Glance</h3>									  
       <form>
         <!-- No change, already on “skeleton sample” -->
         <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="on" checked>On<br>
@@ -205,7 +204,7 @@
 
   <!-- 12th question: Choose to change the look of the account balances type summary.
   Regular statements only -->
-  <div class="card statementQs">
+  <div class="card statementQs" id="accountSummaryTypeCard">
     <div class="question" id="accountSummaryType">
       <h3>Account Summary</h3>
       <p>Please select account summary display:</p>
@@ -227,7 +226,7 @@
   </div>
 
   <!--13th question: Choose to the type of detail with the transaction summaries-->
-  <div class="card">
+  <div class="card" id="transactionSummaryTypeCard">
     <div class="question" id="transactionSummaryType">
       <h3>Transcations Details</h3>
       <p>How would you like your transaction details displayed?</p>
@@ -254,7 +253,7 @@
   </div>
 
   <!--14th question: 2nd page whitespace management-->
-  <div class="card">
+  <div class="card statementQs" id="whitespaceTypeCard">
     <div class="question" id="whitespaceType">
       <h3>Whitespace Option</h3>
       <p>Would you like an image to fill your whitespace?</p>
@@ -288,7 +287,7 @@
 
   <!--15th question: joint owner information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="jointOwnerTypeCard">
     <div class="question red" id="jointOwnerType">
       <h3>Joint Owner Option</h3>
       <p>Are there joint owners on the account?</p>
@@ -302,7 +301,7 @@
 
   <!--17th question: Outbound envelope type information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="outboundEnvelopeTypeCard">
     <div class="question red" id="outboundEnvelopeType">
       <h3>Outbound Envelope Options</h3>
       <p>Choose your outbound envelope type.</p>
@@ -321,7 +320,7 @@
 
   <!--18th question: Rewards information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="rewardsTypeCard">
     <div class="question red" id="rewardsType">
         <h3>Rewards and Cashback Option</h3>
       <p>Would you like to include your rewards or cashback summary?</p>
@@ -337,7 +336,7 @@
 
   <!--19th question: Reply envelope type information-->
   <!-- hideForNow -->
-  <div class="card">
+  <div class="card" id="replyEnvelopeTypeCard">
     <div class="question red" id="replyEnvelopeType">
       <h3>Reply Envelope Options</h3>
       <p>Choose your reply envelope type: </p>
