@@ -36,9 +36,11 @@ export class BuildPageComponent implements OnInit {
   
   constructor() {}
 
+  // Reading events emitted by preview-child component
   readPreviewEmitted(val)
   {
     console.log("inside build.readPreviewEmitted(val)");
+    // Send value to survey-child to set focus on the passed question card
     this.surveyChild.setFocusQCard(val);
   }
 
@@ -72,7 +74,7 @@ export class BuildPageComponent implements OnInit {
     this.writeSurveyToPreview();
   }
 
-  // Reads whenever there is an update in the survey input and records that last change
+  // Reads whenever there is an update in the preview input and records that last change
   readPreviewClick(val)
   {
     this.lastChange = val;
