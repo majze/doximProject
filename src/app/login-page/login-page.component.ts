@@ -13,12 +13,17 @@ import { Router } from '@angular/router';
 })
 
 export class LoginPageComponent implements OnInit {
+    // Used to sync with the login form for property
+    // extensions like verification of required fields
     messageForm: FormGroup;
+
+    // Variables used to show conditional error messages for input fields on login form
     submitted = false;
     success = false;
     fail = false;
-    items: Array<any>;
-    docid: string;
+
+    // Will contain the user loaded from Firestore users table
+    user: Array<any>;
 
     constructor(private formBuilder: FormBuilder, public firebaseService: FirebaseService, private router: Router) {
         this.messageForm = this.formBuilder.group({
@@ -51,15 +56,18 @@ export class LoginPageComponent implements OnInit {
     {
         this.firebaseService.getUserData(username, password)
         .subscribe(result => { 
-            this.items = result; 
+            this.user = result;
+            // If the query has a valid return do this
             try {
                 console.log("try");
-                console.log(this.items[0].payload.doc.id);
+                console.log(this.user[0].payload.doc.id);
                 this.fail = false;
                 this.submitted = true;
                 this.success = true;
+                // Send user to build page
                 this.nextPage();
             }
+            // If the query does not have a valid return do this
             catch(err) {
                 console.log(err);
                 this.fail = true;
@@ -75,7 +83,8 @@ export class LoginPageComponent implements OnInit {
         alert("Please contact your supervisor or send an email to ITSupport@doxim.com");
     }
     
-    // Front-end reacts to these to show valid/invalid notifications to the user
+    // Front-end reacts to these to show 
+    // valid/invalid notifications to the user
     refreshSubmit() 
     {
         this.fail = false;

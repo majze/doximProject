@@ -1415,19 +1415,132 @@ export class PreviewPaneComponent implements OnInit {
     }
   }
 
-  // Sets focus on the YTDSummary question card in the survey component
-  YTDSummaryClick()
-  { 
-    console.log("inside preview.YTDSummaryClick()");
-    this.clickedPreviewFlag = "YTDTypeCard";
-    this.outputPreviewClick.emit("YTDSummaryReg");
+  // Sets focus on Account Summary question card in the survey component
+  AccountSummaryClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "accountSummaryTypeCard";
+    this.outputPreviewClick.emit("AccountSummary");
+    // Notify build page to notify survey page
     this.emitPreviewClick(this.clickedPreviewFlag );
   }
 
+  // Sets focus on Credit Card Logo question card in the survey component
+  cclogoSelectionClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "cclogoSelectionCard";
+    this.outputPreviewClick.emit("ccLogo");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on Customer Logo question card in the survey component
+  CustomerLogoSectionClick()
+  { 
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "upLoadcustomerLogoCard";
+    this.outputPreviewClick.emit("CustomerLogo");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on Balance at a Glance question card in the survey component
+  // Currently not being used as (click)="MaskingTypeClick()" already is
+  GlanceBalanceClick()
+  { 
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "glanceTypeCard";
+    this.outputPreviewClick.emit("GlanceBalanceType");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Marketing Type question card in the survey component
+  MarketingTypeClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "marketingTypeCard";
+    this.outputPreviewClick.emit("MarketingType");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Masking Type question card in the survey component
+  MaskingTypeClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "maskingTypeCard";
+    this.outputPreviewClick.emit("MaskingType");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Newsflash question card in the survey component
+  NewsflashTypeClick()
+  { 
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "newsflashTypeCard";
+    this.outputPreviewClick.emit("Newsflash");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Onsert Type question card in the survey component
+  OnsertTypeClick()
+  { 
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "onsertTypeCard";
+    this.outputPreviewClick.emit("OnserType");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Scanline Type question card in the survey component
+  ScanlineTypeClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "scanlineTypeCard";
+    this.outputPreviewClick.emit("ScanlineType");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Transaction Summary Type question card in the survey component
+  TransactionSummaryClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "transactionSummaryTypeCard";
+    this.outputPreviewClick.emit("TransactionSummary");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the Transaction Summary Type question card in the survey component
+  // Currently not being used as (click)="NewsflashTypeClick()" already is
+  WhitespaceClick()
+  {
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "whitespaceTypeCard";
+    this.outputPreviewClick.emit("WhitespaceType");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sets focus on the YTDSummary question card in the survey component
+  YTDSummaryClick()
+  { 
+    //Set shared variable to card ID 
+    this.clickedPreviewFlag = "YTDTypeCard";
+    this.outputPreviewClick.emit("YTDSummaryReg");
+    // Notify build page to notify survey page
+    this.emitPreviewClick(this.clickedPreviewFlag );
+  }
+
+  // Sends data to build page to send to survey page
   emitPreviewClick(clickedPreviewFLag)
   {
     this.outputPreviewFlag.emit(clickedPreviewFLag);
-    //this.outputPreviewFlag.emit(this.clickedPreviewFlag);
   }
 
   // Anything that should be set on page load goes in ngOnInit() 
