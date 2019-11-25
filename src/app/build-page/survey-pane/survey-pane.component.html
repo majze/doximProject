@@ -159,8 +159,8 @@
   <div class="card" id="onsertTypeCard">
     <div class="question" id="onsertType">
       <h3>Onsert Option</h3>
+      <p>Would you like to have an onsert on the 2nd page as shown?</p>
       <div class="creditcardQs">
-        <p>Would you like to have an onsert on the top of the 2nd page as shown?</p>
       </div>
       <form>
         <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
@@ -214,10 +214,10 @@
           value="group">Group Shares and Loans Seperately<br> -->
         <!-- No change, already on “skeleton sample” -->
         <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="startingbalance">Starting Balance<br>
+          value="startingbalance">Starting Balance and Ending Balance<br>
         <!-- Replace with Ending Balance Only account summary component -->
         <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="endingbalance">Ending Balance<br>
+          value="endingbalance">Ending Balance Only<br>
         <!-- Replace with Full account summary component -->
         <input type="radio" checked (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
           value="total">Total Deposits and Withdrawals<br>
