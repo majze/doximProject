@@ -183,7 +183,7 @@
         <!-- Replace bottom onsert with Newsflash component -->
         <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
         <!-- No change -->
-        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
+        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No, Default Ad <br>
       </form>
     </div>
   </div>
@@ -260,9 +260,9 @@
       <form>
         <!-- No change, White Space Mgmt (7.5” wide x 2.5” tall) is a part of the “skeleton sample” -->
         <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
-          checked>Yes<br>
+          checked> Default Ad<br>
         <!-- Remove image -->
-        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No<br>
+        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No Image<br>
       </form>
     </div>
   </div>
