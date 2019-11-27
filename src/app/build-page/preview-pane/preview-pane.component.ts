@@ -47,20 +47,20 @@ export class PreviewPaneComponent implements OnInit {
   // Animates the Drive-Thru sample button
   driveThru()
   {
-    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7a icon-truck")[0] as HTMLElement;
-    pdfButton.classList.add("btn-activated");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn-ty btn-ty-7 btn-ty-7a icon-truck")[0] as HTMLElement;
+    pdfButton.classList.add("btn-ty-activated");
     setTimeout(function(){
-      pdfButton.classList.remove("btn-activated");
+      pdfButton.classList.remove("btn-ty-activated");
     }, 1000);
   }
 
   // Animates the Generate Runbook button
   animateRunbookBtn()
   {
-    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
-    pdfButton.classList.add("btn-activated");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn-ty btn-ty-7 btn-ty-7b icon-envelope")[0] as HTMLElement;
+    pdfButton.classList.add("btn-ty-activated");
     setTimeout(function(){
-      pdfButton.classList.remove("btn-activated");
+      pdfButton.classList.remove("btn-ty-activated");
     }, 1000);
   }
 
