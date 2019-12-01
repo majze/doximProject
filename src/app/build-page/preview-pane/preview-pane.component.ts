@@ -149,6 +149,59 @@ export class PreviewPaneComponent implements OnInit {
     genDiv.classList.remove("collapse");
   }
 
+  // Converts the user uploaded logo to greyscale
+  greyItUp()
+  {
+    // Gather all HTMLElements which can contain the user uploaded image
+    var logo1, logo2;
+    if (this.activeSymitarCC == true)
+    {
+      logo1 = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+      logo2 = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg == true)
+    {
+      logo1 = document.getElementsByClassName("logoSectionReg")[0];
+      logo2 = document.getElementsByClassName("p2logoSectionReg")[0];
+    }
+
+    // Create DOM elements of the user uploaded image to manipulate
+    var DOM_workArea = document.getElementById("hiddenArea");
+    DOM_workArea.classList.remove("collapse");
+    var img = document.createElement("img");
+    img.id = "logoSource";
+    //img.src = this.activeCustomerlogo; //<-Put this back after testing
+    img.src = "https://firebasestorage.googleapis.com/v0/b/doxim-web-app.appspot.com/o/CustomerLogo%2Fducky_1575232915163?alt=media&token=941e7b94-090c-4207-8498-dcf4fc6774bc";
+    DOM_workArea.appendChild(img);
+
+    // Cast the user uploaded image URL to a hidden canvas for translation
+    var canvas = document.getElementById("hiddenCanvas") as HTMLCanvasElement;
+    var context = canvas.getContext('2d');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+
+    // Convert color to grayscale using luminosity
+    context.save();
+    context.fillStyle = '#FFF';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.globalCompositeOperation = 'luminosity';
+    context.drawImage(img, 0, 0);
+    context.restore();
+    
+    return;
+
+    // Cast the greyscale-converted canvas to imageURL
+    var greyImg = canvas.toDataURL();
+
+    // Place the greyscale logo into the correct div containers as background images
+    logo1.style.backgroundImage = greyImg;
+
+    // Remove the working images when done and hide the working div
+    DOM_workArea.removeChild(img);
+    DOM_workArea.classList.add("collapse");
+  }
+
   // Any call to this function gets the build-page (parent) variables
   getParentComponent(): BuildPageComponent
   {
@@ -510,7 +563,7 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
   populateSymitarCC()
   {
-
+    
     // Define each HTML element to apply style changes
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
@@ -590,7 +643,7 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type Regular AND symitar
   populateSymitarRegular()
   {
-
+    
     // Define each HTML element to apply style changes
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
