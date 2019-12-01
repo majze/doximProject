@@ -1030,6 +1030,10 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
+    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
+    {
+      NewsflashType.style.backgroundImage = "";
+    }
     // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
     {
@@ -1042,10 +1046,7 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
       }
     }
-    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
-    {
-      NewsflashType.style.backgroundImage = " ";
-    }
+    
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
