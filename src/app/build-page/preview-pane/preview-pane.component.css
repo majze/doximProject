@@ -19,11 +19,30 @@
   float: left;
 }
 
+/* Gives color animation to download runbook button after generation  */
+#runDownBtn:hover {
+  -webkit-filter: none;
+  filter: none;
+  -webkit-animation: hue 5s infinite;
+  animation: hue 5s infinite;
+}
+
+/* Animation for the hue rotation applied to the download runbook button  */
+@keyframes hue{
+  0%{
+      filter: hue-rotate(0deg);
+  }
+  100%{
+      filter: hue-rotate(360deg);
+  }
+}
+  
 /* The view panel is the master container for all pages of one statement type */
 .viewPanel {
   margin: 0 auto;
 }
 
+/* One piece of paper represented as a page of a statement preview */
 .viewBox {
   /* 100 pixels = 1 inch */
   /* DO NOT CHANGE DIMENSIONS */
@@ -34,6 +53,15 @@
   background-color: white;
 }
 
+/* Apply changes to viewBox class on hover */
+.viewBox:hover {
+  -webkit-box-shadow: 0 0 1px 2px #53c6ffd8;
+  -moz-box-shadow: 0 0 1px 2px #53c6ffd8;
+  box-shadow: 0 0 1px 2px #53c6ffd8;
+  transition: box-shadow 0.33s;
+}
+
+/* One piece of paper represented as a page of a statement preview */
 .viewBox2 {
   /* 100 pixels = 1 inch */
   /* DO NOT CHANGE DIMENSIONS */
@@ -42,6 +70,14 @@
   margin-top: 42px;
   border: 2px solid;
   background-color: white;
+}
+
+/* Apply changes to viewBox2 class on hover */
+.viewBox2:hover {
+  -webkit-box-shadow: 0 0 1px 2px #53c6ffd8;
+  -moz-box-shadow: 0 0 1px 2px #53c6ffd8;
+  box-shadow: 0 0 1px 2px #53c6ffd8;
+  transition: box-shadow 0.33s;
 }
 
 .paperContainer {
@@ -73,6 +109,13 @@
 /* Flash the alert box to catch user's attention  */
 .flash {
   background-color: #b8e5ffdc;
+}
+
+#topArrow {
+  float: right;
+  font-weight: bolder;
+  font-size: large;
+  margin: 6px 4px 6px 0px;
 }
 
 /* Greyscale Class*/

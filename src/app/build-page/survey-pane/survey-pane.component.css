@@ -33,6 +33,17 @@
   transition: box-shadow 0.33s;
 }
 
+#topArrow {
+  float: right;
+  font-weight: bolder;
+  font-size: large;
+  margin: 6px 12px 6px 0px;
+}
+
+#uploadBtn {
+  width:300px;
+}
+
 /* Internal testing class to alert user to unfished cards */
 .red {
   background-color: #c0000099;

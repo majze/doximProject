@@ -17,10 +17,7 @@
         <input type="file" class="form-control-file input-group-text" id="uploadLogo" accept="image/*" (change)="showPreview($event)" required>
         <br>
         <app-progress [progress]="progress"></app-progress>
-        <button type="submit" class="btn-ty btn-ty-3 btn-ty-3e icon-arrow-right">Submit</button>
-        <div class="uploaded uploadedHidden">
-          <p>Image successfully loaded!</p>
-        </div>
+        <button type="submit" id="uploadBtn" class="btn-ty btn-ty-7 btn-ty-7h icon-envelope">Submit</button>
       </form>
     </div>
   </div>
@@ -58,301 +55,308 @@
     </div>
   </div>
 
+  <!-- The remaining survey question cards are hidden until the core and the statement type are chosen  -->
   <div class="initialhideThisDiv">
-  <!--4th question: Choose color or greyscale statement-->
-  <div class="card" id="printColorTypeCard">
-      <div class="question" id="printColorType">
-      <h3>Print Color Options</h3>
-      <form>
-        <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
-          checked>Full color<br>
-        <div class="headerColorPicker">
-          <br>
-          <p>Choose your company color:</p>
-          <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
-          <p>Or input the hex value:</p>
-          <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
-          <button type="button" class="btn btn-primary colorConfirmBtn">Confirm</button>
-          <br>
-          <p class="warning hex-warning">Your browser may not represent the header colors perfectly due to limited filter support.</p>
-        </div>
-        <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
-        <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
-          value="greyscale">Greyscale<br>
-      </form>
-    </div>
-  </div>
 
-  <!--5th question: Choose the level of marketing-->
-  <div class="card" id="marketingTypeCard">
-    <div class="question" id="marketingType">
-      <h3>Level of Marketing</h3>
-      <p>Please select preferred level of marketing: </p>
-      <form>
-        <!-- No change from skeleton (image on top) -->
-        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
-        <!-- Replace image with text marketing message -->
-        <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="text">Text Marketing<br>
-        <!-- Credit Card only Option use it for contact information Action- replace image with contact samples, same
-        size and allocation and remove Contact Info box from midsection -->
-        <div class="creditcardQs">
-          <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
-        </div>
-        <!-- Remove image for regular statement -->
-        <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="none">None<br>
-        <br>
-      </form>
-    </div>
-  </div>
-
-  <!--6th question: Choose a credit card logo if cc statement (borderFix)-->
-  <div class="card creditcardQs" id="cclogoSelectionCard"> 
-    <div class="question form-group" id="cclogoSelection">
-      <h3>Credit Card Logo</h3>
-	    <p>Select credit card logo: </p>
-      <form>
-        <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
-          <!-- If “YES, Visa logo”, display logo on the top -->
-          <option value="visa">Visa</option>
-          <!-- “YES, MasterCard logo” ”, display logo on the top -->
-          <option value="mastercard">Mastercard</option>
-          <!-- If NO, remove cc logo -->
-          <option value="none" selected>No Logo</option>
-        </select>
-      </form>
-    </div>
-  </div>
-
-  <!--7th question: Choose the account masking style-->
-  <div class="card" id="maskingTypeCard">
-    <div class="question" id="maskingType">
-      <h3>Account Masking</h3>
-      <p> Please select account number visibilty: </p>
-      <form>
-        <!-- Display account number masking 3 digits component option (on all pages) -->
-        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to4">Last four digits only<br>
-        <!-- Display account number masking 4 digits component option (on all pages) -->
-        <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">Last three digits only<br>
-        <!-- No change from skeleton -->
-        <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none"
-          checked>Full account visibility<br>
+    <!--4th question: Choose color or greyscale statement-->
+    <div class="card" id="printColorTypeCard">
+        <div class="question" id="printColorType">
+        <h3>Print Color Options</h3>
+        <form>
+          <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)" value="color"
+            checked>Full color<br>
+          <div class="headerColorPicker">
+            <br>
+            <p>Choose your company color:</p>
+            <input id="headerColorPicker" type="color" name="favcolor" (change)="updateHexes('fromPicker')" (change)="setHexCode($event)" value="#0055a4">
+            <p>Or input the hex value:</p>
+            <input id="hexInput" type="text" name="hexNumber" (change)="updateHexes('fromText')" (change)="setHexCode($event)" value="#0055a4">
+            <button type="button" class="btn btn-primary colorConfirmBtn">Confirm</button>
+            <br>
+            <p class="warning hex-warning">Your browser may not represent the header colors perfectly due to limited filter support.</p>
+          </div>
+          <!-- Switch to grayscale skeleton with grayscale customer logo, header bars, and images -->
+          <input type="radio" class="form-radio" name="colorType" (change)="setColorMode($event)"
+            value="greyscale">Greyscale<br>
         </form>
-    </div>
-  </div>
-
-  <!--8th question: Choose to include a scanline or not-->
-  <div class="card" id="scanlineTypeCard">
-    <div class="question" id="scanlineType">
-      <h3>Scanline Option</h3>
-      <p>Would you like a scanline included on your statement?</p>
-      <form>
-        <!-- If “YES”, no actions -->
-        <input type="radio" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="yes"
-          checked>Yes<br>
-        <!-- “NO” remove scan line component -->
-        <input type="radio" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="no">No<br>
-      </form>
-    </div>
-  </div>
-
-  <!--9th question: Choose to include an onsert (company marketing image) or not -->
-  <div class="card" id="onsertTypeCard">
-    <div class="question" id="onsertType">
-      <h3>Onsert Option</h3>
-      <p>Would you like to have an onsert on the 2nd page as shown?</p>
-      <div class="creditcardQs">
       </div>
-      <form>
-        <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
-        <input type="radio" checked onClick="document.getElementById('onsert2').checked = false;document.getElementById('onsert3').checked = false" (change)="setOnsert($event)" id="onsert1" class="form-radio" name="onsertLevel" value="image">Image<br>
-        <!-- Replace image with text marketing message -->
-        <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert2" class="form-radio" name="onsertLevel" value="textonly">Text Only<br>
-        <!-- Remove image and shift up transactions and summaries -->
-        <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert3" class="form-radio" name="onsertLevel" value="none">None<br>
-      </form>
     </div>
-  </div>
 
-  <!-- 10th question: Choose a newsflash image to be added if desired.
-  Regular statements only -->
-  <div class="card statementQs" id="newsflashTypeCard">
-    <div class="question" id="newsflashType">
-      <h3>Newsflash</h3>
-      <p>Would you like a Newsflash to be added?</p>
-      <form>
-        <!-- Replace bottom onsert with Newsflash component -->
-        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
-        <!-- No change -->
-        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
-      </form>
+    <!--5th question: Choose the level of marketing-->
+    <div class="card" id="marketingTypeCard">
+      <div class="question" id="marketingType">
+        <h3>Level of Marketing</h3>
+        <p>Please select preferred level of marketing: </p>
+        <form>
+          <!-- No change from skeleton (image on top) -->
+          <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="imageOnly" checked>Image<br>
+          <!-- Replace image with text marketing message -->
+          <input type="radio" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="text">Text Marketing<br>
+          <!-- Credit Card only Option use it for contact information Action- replace image with contact samples, same
+          size and allocation and remove Contact Info box from midsection -->
+          <div class="creditcardQs">
+            <input type="radio" [(ngModel)]="contactInfo" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="contactInfo">Contact Info<br>
+          </div>
+          <!-- Remove image for regular statement -->
+          <input type="radio" [(ngModel)]="none" (change)="setMarketingLevel($event)" class="form-radio" name="marketingLevel" value="none">None<br>
+          <br>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <!-- 11th question: Choose to add account balances at a glance type summary.
-  Regular statements only -->
-  <div class="card statementQs" id="glanceTypeCard">
-    <div class="question" id="glanceType">
-      <h3>Balance at a Glance</h3>									  
-      <form>
-        <!-- No change, already on “skeleton sample” -->
-        <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="on" checked>On<br>
-        <!-- Remove from “skeleton sample” -->
-        <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="off">Off<br>
-      </form>
+    <!--6th question: Choose a credit card logo if cc statement (borderFix)-->
+    <div class="card creditcardQs" id="cclogoSelectionCard"> 
+      <div class="question form-group" id="cclogoSelection">
+        <h3>Credit Card Logo</h3>
+        <p>Select credit card logo: </p>
+        <form>
+          <select (change)="setCClogo($event)" class="form-control" id="ccLogo">
+            <!-- If “YES, Visa logo”, display logo on the top -->
+            <option value="visa">Visa</option>
+            <!-- “YES, MasterCard logo” ”, display logo on the top -->
+            <option value="mastercard">Mastercard</option>
+            <!-- If NO, remove cc logo -->
+            <option value="none" selected>No Logo</option>
+          </select>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <!-- 12th question: Choose to change the look of the account balances type summary.
-  Regular statements only -->
-  <div class="card statementQs" id="accountSummaryTypeCard">
-    <div class="question" id="accountSummaryType">
-      <h3>Account Summary</h3>
-      <p>Please select account summary display:</p>
-      <form>
-        <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
-        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="group">Group Shares and Loans Seperately<br> -->
-        <!-- No change, already on “skeleton sample” -->
-        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="startingbalance">Starting Balance and Ending Balance<br>
-        <!-- Replace with Ending Balance Only account summary component -->
-        <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="endingbalance">Ending Balance Only<br>
-        <!-- Replace with Full account summary component -->
-        <input type="radio" checked (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
-          value="total">Total Deposits and Withdrawals<br>
-      </form>
-    </div>
-  </div>
-
-  <!--13th question: Choose to the type of detail with the transaction summaries-->
-  <div class="card" id="transactionSummaryTypeCard">
-    <div class="question" id="transactionSummaryType">
-      <h3>Transcations Details</h3>
-      <p>How would you like your transaction details displayed?</p>
-        <!-- reg account only  -->
-        <div class="statementQs">
-          <form>
-            <!-- Display Balance on the Left component -->
-            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
-            <!-- Display Balance on the Right component -->
-            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight" checked>Balance on the Right<br>
-            <!-- Amount and Running Balance Only -->
-            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount and Balance Only<br>
+    <!--7th question: Choose the account masking style-->
+    <div class="card" id="maskingTypeCard">
+      <div class="question" id="maskingType">
+        <h3>Account Masking</h3>
+        <p> Please select account number visibilty: </p>
+        <form>
+          <!-- Display account number masking 3 digits component option (on all pages) -->
+          <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to4">Last four digits only<br>
+          <!-- Display account number masking 4 digits component option (on all pages) -->
+          <input type="radio" (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="to3">Last three digits only<br>
+          <!-- No change from skeleton -->
+          <input type="radio" selected (change)="setMaskType($event)" class="form-radio" name="maskingLevel" value="none"
+            checked>Full account visibility<br>
           </form>
-        </div>
+      </div>
+    </div>
 
-        <!-- cc only  -->
+    <!--8th question: Choose to include a scanline or not-->
+    <div class="card" id="scanlineTypeCard">
+      <div class="question" id="scanlineType">
+        <h3>Scanline Option</h3>
+        <p>Would you like a scanline included on your statement?</p>
+        <form>
+          <!-- If “YES”, no actions -->
+          <input type="radio" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="yes"
+            checked>Yes<br>
+          <!-- “NO” remove scan line component -->
+          <input type="radio" (change)="setScanline($event)" class="form-radio" name="scanlineLevel" value="no">No<br>
+        </form>
+      </div>
+    </div>
+
+    <!--9th question: Choose to include an onsert (company marketing image) or not -->
+    <div class="card" id="onsertTypeCard">
+      <div class="question" id="onsertType">
+        <h3>Onsert Option</h3>
+        <p>Would you like to have an onsert on the 2nd page as shown?</p>
         <div class="creditcardQs">
-          <form>
-            <!-- Action- remove onsert and shift up transactions and summaries replace with component with Amount only component -->
-            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount Only<br>
-            <!-- No change skeleton has Purchases /Advances and Credits/Payments  -->
-            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="nochange" checked>No change<br>
-          </form>
         </div>
+        <form>
+          <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
+          <input type="radio" checked onClick="document.getElementById('onsert2').checked = false;document.getElementById('onsert3').checked = false" (change)="setOnsert($event)" id="onsert1" class="form-radio" name="onsertLevel" value="image">Image<br>
+          <!-- Replace image with text marketing message -->
+          <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert2" class="form-radio" name="onsertLevel" value="textonly">Text Only<br>
+          <!-- Remove image and shift up transactions and summaries -->
+          <input type="radio" onClick="document.getElementById('onsert1').checked = false" (change)="setOnsert($event)" id="onsert3" class="form-radio" name="onsertLevel" value="none">None<br>
+        </form>
+      </div>
     </div>
+
+    <!-- 10th question: Choose a newsflash image to be added if desired.
+    Regular statements only -->
+    <div class="card statementQs" id="newsflashTypeCard">
+      <div class="question" id="newsflashType">
+        <h3>Newsflash</h3>
+        <p>Would you like a Newsflash to be added?</p>
+        <form>
+          <!-- Replace bottom onsert with Newsflash component -->
+          <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
+          <!-- No change -->
+          <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
+        </form>
+      </div>
+    </div>
+
+    <!-- 11th question: Choose to add account balances at a glance type summary.
+    Regular statements only -->
+    <div class="card statementQs" id="glanceTypeCard">
+      <div class="question" id="glanceType">
+        <h3>Balance at a Glance</h3>									  
+        <form>
+          <!-- No change, already on “skeleton sample” -->
+          <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="on" checked>On<br>
+          <!-- Remove from “skeleton sample” -->
+          <input type="radio" (change)="setGlance($event)" class="form-radio" name="glanceLevel" value="off">Off<br>
+        </form>
+      </div>
+    </div>
+
+    <!-- 12th question: Choose to change the look of the account balances type summary.
+    Regular statements only -->
+    <div class="card statementQs" id="accountSummaryTypeCard">
+      <div class="question" id="accountSummaryType">
+        <h3>Account Summary</h3>
+        <p>Please select account summary display:</p>
+        <form>
+          <!-- Replace with grouped separate account summary component (“skeleton sample” will have all shares and loans in one group)
+          <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+            value="group">Group Shares and Loans Seperately<br> -->
+          <!-- No change, already on “skeleton sample” -->
+          <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+            value="startingbalance">Starting Balance and Ending Balance<br>
+          <!-- Replace with Ending Balance Only account summary component -->
+          <input type="radio" (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+            value="endingbalance">Ending Balance Only<br>
+          <!-- Replace with Full account summary component -->
+          <input type="radio" checked (change)="setAccountSummary($event)" class="form-radio" name="accountSummaryLevel"
+            value="total">Total Deposits and Withdrawals<br>
+        </form>
+      </div>
+    </div>
+
+    <!--13th question: Choose to the type of detail with the transaction summaries-->
+    <div class="card" id="transactionSummaryTypeCard">
+      <div class="question" id="transactionSummaryType">
+        <h3>Transcations Details</h3>
+        <p>How would you like your transaction details displayed?</p>
+          <!-- reg account only  -->
+          <div class="statementQs">
+            <form>
+              <!-- Display Balance on the Left component -->
+              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
+              <!-- Display Balance on the Right component -->
+              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight" checked>Balance on the Right<br>
+              <!-- Amount and Running Balance Only -->
+              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount and Balance Only<br>
+            </form>
+          </div>
+
+          <!-- cc only  -->
+          <div class="creditcardQs">
+            <form>
+              <!-- Action- remove onsert and shift up transactions and summaries replace with component with Amount only component -->
+              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount Only<br>
+              <!-- No change skeleton has Purchases /Advances and Credits/Payments  -->
+              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="nochange" checked>No change<br>
+            </form>
+          </div>
+      </div>
+    </div>
+
+    <!--14th question: 2nd page whitespace management-->
+    <div class="card statementQs" id="whitespaceTypeCard">
+      <div class="question" id="whitespaceType">
+        <h3>Whitespace Option</h3>
+        <p>Would you like an image to fill your whitespace?</p>
+        <form>
+          <!-- No change, White Space Mgmt (7.5” wide x 2.5” tall) is a part of the “skeleton sample” -->
+          <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
+            checked>Yes<br>
+          <!-- Remove image -->
+          <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No Image<br>
+        </form>
+      </div>
+    </div>
+
+    <!--16th question: Year-to-date totals information-->
+    <div class="card" id="YTDTypeCard">
+      <div class="question" id="YTDType">
+        <h3>Year-to-Date Summary</h3>
+      <p>Please select year-to-date display:</p>
+        <form>
+          <!-- Default - use current YTD component -->
+          <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="current" checked>Current Year Only<br>
+          <!-- Add previous year summary component to end of year-to-date totals section -->
+          <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="currentandprevious">Current and Previous Year<br>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- Extra questions to be added later (question backlog) -->
+    <!-- ================================================================== -->
+
+    <!--15th question: joint owner information-->
+    <!-- hideForNow -->
+    <div class="card" id="jointOwnerTypeCard">
+      <div class="question red" id="jointOwnerType">
+        <h3>Joint Owner Option</h3>
+        <p>Are there joint owners on the account?</p>
+        <form>
+          <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="yes"
+            checked>Yes<br>
+          <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="no">No<br>
+        </form>
+      </div>
+    </div>
+
+    <!--17th question: Outbound envelope type information-->
+    <!-- hideForNow -->
+    <div class="card" id="outboundEnvelopeTypeCard">
+      <div class="question red" id="outboundEnvelopeType">
+        <h3>Outbound Envelope Options</h3>
+        <p>Choose your outbound envelope type.</p>
+        <form>
+          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+            value="halfWindow">Half Window<br>
+          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+            value="fullWindow">Full Window<br>
+          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+            value="doubleWindow">Double Window<br>
+          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+            value="singleWindow">Single Window<br>
+        </form>
+      </div>
+    </div>
+
+    <!--18th question: Rewards information-->
+    <!-- hideForNow -->
+    <div class="card" id="rewardsTypeCard">
+      <div class="question red" id="rewardsType">
+          <h3>Rewards and Cashback Option</h3>
+        <p>Would you like to include your rewards or cashback summary?</p>
+        <form>
+          <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel"
+            value="rewards">Rewards<br>
+          <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel"
+            value="cashback">Cashback<br>
+          <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="none">None<br>
+        </form>
+      </div>
+    </div>
+
+    <!--19th question: Reply envelope type information-->
+    <!-- hideForNow -->
+    <div class="card" id="replyEnvelopeTypeCard">
+      <div class="question red" id="replyEnvelopeType">
+        <h3>Reply Envelope Options</h3>
+        <p>Choose your reply envelope type: </p>
+        <form>
+          <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
+            value="windowCourtesy">Window Courtey Reply<br>
+          <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
+            value="nonwindowCourtesy">Non-Window Courtesy Reply<br>
+          <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
+            value="windowBusiness">Window Business Reply<br>
+          <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
+            value="nonwindowBusiness">Non-Window Business Reply<br>
+        </form>
+      </div>
+    </div>
+
+    <!-- Top Arrow jumps to top of page -->
+    <button id="topArrow" class="btn-ty btn-ty-7 btn-ty-7c" (click)="toTop()">▲</button>
+    <br><br>
   </div>
 
-  <!--14th question: 2nd page whitespace management-->
-  <div class="card statementQs" id="whitespaceTypeCard">
-    <div class="question" id="whitespaceType">
-      <h3>Whitespace Option</h3>
-      <p>Would you like an image to fill your whitespace?</p>
-      <form>
-        <!-- No change, White Space Mgmt (7.5” wide x 2.5” tall) is a part of the “skeleton sample” -->
-        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
-          checked>Yes<br>
-        <!-- Remove image -->
-        <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No Image<br>
-      </form>
-    </div>
-  </div>
-
-  <!--16th question: Year-to-date totals information-->
-  <div class="card" id="YTDTypeCard">
-    <div class="question" id="YTDType">
-      <h3>Year-to-Date Summary</h3>
-	  <p>Please select year-to-date display:</p>
-      <form>
-        <!-- Default - use current YTD component -->
-        <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="current" checked>Current Year Only<br>
-        <!-- Add previous year summary component to end of year-to-date totals section -->
-        <input type="radio" (change)="setYTD($event)" class="form-radio" name="YTDLevel" value="currentandprevious">Current and Previous Year<br>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================================================================== -->
-  <!-- Extra questions to be added later (question backlog) -->
-  <!-- ================================================================== -->
-
-  <!--15th question: joint owner information-->
-  <!-- hideForNow -->
-  <div class="card" id="jointOwnerTypeCard">
-    <div class="question red" id="jointOwnerType">
-      <h3>Joint Owner Option</h3>
-      <p>Are there joint owners on the account?</p>
-      <form>
-        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="yes"
-          checked>Yes<br>
-        <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="no">No<br>
-      </form>
-    </div>
-  </div>
-
-  <!--17th question: Outbound envelope type information-->
-  <!-- hideForNow -->
-  <div class="card" id="outboundEnvelopeTypeCard">
-    <div class="question red" id="outboundEnvelopeType">
-      <h3>Outbound Envelope Options</h3>
-      <p>Choose your outbound envelope type.</p>
-      <form>
-        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-          value="halfWindow">Half Window<br>
-        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-          value="fullWindow">Full Window<br>
-        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-          value="doubleWindow">Double Window<br>
-        <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-          value="singleWindow">Single Window<br>
-      </form>
-    </div>
-  </div>
-
-  <!--18th question: Rewards information-->
-  <!-- hideForNow -->
-  <div class="card" id="rewardsTypeCard">
-    <div class="question red" id="rewardsType">
-        <h3>Rewards and Cashback Option</h3>
-      <p>Would you like to include your rewards or cashback summary?</p>
-      <form>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel"
-          value="rewards">Rewards<br>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel"
-          value="cashback">Cashback<br>
-        <input type="radio" (change)="setRewards($event)" class="form-radio" name="rewardsLevel" value="none">None<br>
-      </form>
-    </div>
-  </div>
-
-  <!--19th question: Reply envelope type information-->
-  <!-- hideForNow -->
-  <div class="card" id="replyEnvelopeTypeCard">
-    <div class="question red" id="replyEnvelopeType">
-      <h3>Reply Envelope Options</h3>
-      <p>Choose your reply envelope type: </p>
-      <form>
-        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
-          value="windowCourtesy">Window Courtey Reply<br>
-        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
-          value="nonwindowCourtesy">Non-Window Courtesy Reply<br>
-        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
-          value="windowBusiness">Window Business Reply<br>
-        <input type="radio" (change)="setEnvelope($event)" class="form-radio" name="replyEnvelope"
-          value="nonwindowBusiness">Non-Window Business Reply<br>
-      </form>
-    </div>
-  </div>
-  </div>
 </div>

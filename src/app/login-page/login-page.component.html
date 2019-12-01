@@ -22,9 +22,9 @@
           <div *ngIf="messageForm.controls.password.errors.required">Password is required.</div>
         </div>
         <br />
-        <!-- <input type="submit" class="btn-ty btn-ty-primary" value="Log in"> -->
-        <button type="submit" class="btn-ty btn-ty-3 btn-ty-3e icon-arrow-right" style="width:250px;">Log in</button>
-        <input type="button" class="btn-ty btn-ty-custom-hover btn-ty-primary" value="Forgot Username/Password" style="width:250px;font-size:0.8em;margin: 6px; margin-left: 30px; padding: 12px; background: orange;" (click)="forgotLogin()">
+        <input type="submit" class="btn btn-primary" value="Log in">
+        <!-- <button type="submit" class="btn-ty btn-ty-3 btn-ty-3e icon-arrow-right" style="width:250px;">Log in</button> -->
+        <input type="button" class="btn btn-primary" id="forgotBtn" value="Forgot Username/Password" (click)="forgotLogin()">
       </div>
     </form>
     <!-- Display if variable submitted is true and variable success is true -->
