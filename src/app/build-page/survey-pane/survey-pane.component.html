@@ -183,7 +183,7 @@
         <!-- Replace bottom onsert with Newsflash component -->
         <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
         <!-- No change -->
-        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No, Default Ad <br>
+        <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
       </form>
     </div>
   </div>
@@ -230,25 +230,27 @@
     <div class="question" id="transactionSummaryType">
       <h3>Transcations Details</h3>
       <p>How would you like your transaction details displayed?</p>
-      <form>
         <!-- reg account only  -->
         <div class="statementQs">
+          <form>
             <!-- Display Balance on the Left component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
-          <!-- Display Balance on the Right component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight" checked>Balance on the Right<br>
-          <!-- Amount and Running Balance Only -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount and Balance Only<br>
+            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
+            <!-- Display Balance on the Right component -->
+            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight" checked>Balance on the Right<br>
+            <!-- Amount and Running Balance Only -->
+            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount and Balance Only<br>
+          </form>
         </div>
 
         <!-- cc only  -->
         <div class="creditcardQs">
-          <!-- Action- remove onsert and shift up transactions and summaries replace with component with Amount only component -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount Only<br>
-          <!-- No change skeleton has Purchases /Advances and Credits/Payments  -->
-          <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="nochange" checked>No change<br>
+          <form>
+            <!-- Action- remove onsert and shift up transactions and summaries replace with component with Amount only component -->
+            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="amountonly">Amount Only<br>
+            <!-- No change skeleton has Purchases /Advances and Credits/Payments  -->
+            <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="nochange" checked>No change<br>
+          </form>
         </div>
-      </form>
     </div>
   </div>
 
@@ -260,7 +262,7 @@
       <form>
         <!-- No change, White Space Mgmt (7.5” wide x 2.5” tall) is a part of the “skeleton sample” -->
         <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="yes"
-          checked> Default Ad<br>
+          checked>Yes<br>
         <!-- Remove image -->
         <input type="radio" (change)="setWhitespace($event)" class="form-radio" name="whitespaceLevel" value="no">No Image<br>
       </form>
