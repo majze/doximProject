@@ -87,31 +87,22 @@ export class SurveyPaneComponent implements OnInit {
             this.activeCustomerlogo = url;
             this.outputSurveyChange.emit("activeCustomerlogo");
             this.emitSurveyFlags();
-            this.alertImageUploaded();
+            this.animateUploadBtn();
           })
         })
       ).subscribe();
   }
 
-  // Alert user that image was uploaded
-  alertImageUploaded() 
+  // Animates the upload user image button upon success
+  animateUploadBtn()
   {
-    let uploadedAlert:HTMLElement = document.getElementsByClassName("uploaded")[0] as HTMLElement;
-    uploadedAlert.classList.remove("uploadedHidden");
-
-    // Flash text evey time new image is uploaded
+    let uploadBtn:HTMLElement = document.getElementById("uploadBtn") as HTMLElement;
+    uploadBtn.classList.add("btn-ty-success");
+    uploadBtn.classList.add("btn-ty-7h-activated");
     setTimeout(function(){
-      uploadedAlert.style.color="#008223";
-    }, 250);
-    setTimeout(function(){
-      uploadedAlert.style.color="black";
-    }, 500);
-    setTimeout(function(){
-      uploadedAlert.style.color="#008223";
-    }, 750);
-    setTimeout(function(){
-      uploadedAlert.style.color="black";
-    }, 1000);
+      uploadBtn.classList.remove("btn-ty-success");
+      uploadBtn.classList.remove("btn-ty-7h-activated");
+    }, 2500);
   }
 
   // Reacts to OnChange event for uploading a customer image
@@ -429,6 +420,13 @@ export class SurveyPaneComponent implements OnInit {
     this.combinedFlags += this.activeOutboundEnvelope + "|";
     this.combinedFlags += this.activeReplyEnvelope + "|";
     this.outputSurveyFlags.emit(this.combinedFlags);
+  }
+
+  // Up Arrow - Sends user to top of preview panel on click
+  toTop()
+  {
+    var topDivPos = document.getElementById("surveyList");
+    topDivPos.scrollIntoView();
   }
 
   ngOnInit() {

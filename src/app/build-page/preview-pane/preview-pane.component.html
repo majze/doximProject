@@ -5,18 +5,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <!-- Buttons for generatin runbook and PDF -->
-<div style="height: 50px; clear:both;">
+<div style="height:50px; clear:both;">
   <!-- Default Generate Runbook Button -->
   <div id="generateBtnDiv">
-    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn-ty btn-ty-7 btn-ty-7b icon-envelope">Generate Runbook</button>
+    <button style="height:60px; width:400px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn-ty btn-ty-7 btn-ty-7b icon-envelope">Generate Runbook</button>
   </div>
   <!-- Download Runbook Button occurs after generating -->
   <div id="downloadBtnDiv" class="collapse">
-    <button style="height:60px; width:375px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" id="runBtn" class="btn-ty btn-ty-7 btn-ty-7b icon-envelope"><a download="runbook.txt" id="downloadlink">Download Runbook</a></button>
+    <button style="height:60px; width:400px;" (click)="animateRunbookBtn()" (click)="generateRunbook()" (click)="undoBtnHighlight()" id="runDownBtn" class="btn-ty btn-ty-7 btn-ty-7b icon-envelope"><a download="runbook.txt" id="downloadlink">Download Runbook</a></button>
   </div>
   <!-- Generate PDF Button calls printPdf() to start the jsPDF process -->
   <div style="float:right;">
-    <button style="height:60px; width:350px;" (click)="printPdf()" (click)="driveThru()" class="btn-ty btn-ty-7 btn-ty-7a icon-truck">Generate PDF</button>
+    <button style="height:60px; width:400px;" (click)="printPdf()" (click)="driveThru()" class="btn-ty btn-ty-7 btn-ty-7a icon-truck">Generate PDF</button>
   </div>
 </div>
 
@@ -159,4 +159,5 @@
   </div>
 
 </div>
-<br>
+<button id="topArrow" class="btn-ty btn-ty-7 btn-ty-7c" (click)="toTop()">▲</button>
+<br><br>

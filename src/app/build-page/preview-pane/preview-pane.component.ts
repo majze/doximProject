@@ -47,20 +47,20 @@ export class PreviewPaneComponent implements OnInit {
   // Animates the Drive-Thru sample button
   driveThru()
   {
-    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7a icon-truck")[0] as HTMLElement;
-    pdfButton.classList.add("btn-activated");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn-ty btn-ty-7 btn-ty-7a icon-truck")[0] as HTMLElement;
+    pdfButton.classList.add("btn-ty-activated");
     setTimeout(function(){
-      pdfButton.classList.remove("btn-activated");
+      pdfButton.classList.remove("btn-ty-activated");
     }, 1000);
   }
 
   // Animates the Generate Runbook button
   animateRunbookBtn()
   {
-    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
-    pdfButton.classList.add("btn-activated");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn-ty btn-ty-7 btn-ty-7b icon-envelope")[0] as HTMLElement;
+    pdfButton.classList.add("btn-ty-activated");
     setTimeout(function(){
-      pdfButton.classList.remove("btn-activated");
+      pdfButton.classList.remove("btn-ty-activated");
     }, 1000);
   }
 
@@ -113,11 +113,18 @@ export class PreviewPaneComponent implements OnInit {
       var create = document.getElementById('runBtn');
       var textbox = runbook;
     
+      // Attach link to download button and apply changes to generate button
       create.addEventListener('click', function () {
+        
         var linkDiv = document.getElementById('downloadBtnDiv');
         linkDiv.classList.remove("collapse");
+        
+        var runDownBtn = document.getElementById("runDownBtn");
+        runDownBtn.classList.add("btn-ty-7h-activated");
+
         var runDiv = document.getElementById('generateBtnDiv');
         runDiv.classList.add("collapse");
+        
         var link = <HTMLAnchorElement> document.getElementById('downloadlink');
         link.href = makeTextFile(textbox);
       }, false);
@@ -126,6 +133,20 @@ export class PreviewPaneComponent implements OnInit {
 
     })();
     
+  }
+
+  // After downloading the runbook, the button is no longer highlighted
+  undoBtnHighlight()
+  {
+    // Remove the highlight
+    var runDownBtn = document.getElementById("runDownBtn");
+    runDownBtn.classList.remove("btn-ty-7h-activated");
+
+    // Make the button go back to "Generate" instead of "Download"
+    var linkDiv = document.getElementById('downloadBtnDiv');
+    var genDiv = document.getElementById('generateBtnDiv');
+    linkDiv.classList.add("collapse");
+    genDiv.classList.remove("collapse");
   }
 
   // Any call to this function gets the build-page (parent) variables
@@ -1030,6 +1051,10 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
+    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
+    {
+      NewsflashType.style.backgroundImage = "";
+    }
     // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
     {
@@ -1042,10 +1067,7 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
       }
     }
-    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
-    {
-      NewsflashType.style.backgroundImage = " ";
-    }
+    
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
@@ -1545,6 +1567,13 @@ export class PreviewPaneComponent implements OnInit {
   emitPreviewClick(clickedPreviewFLag)
   {
     this.outputPreviewFlag.emit(clickedPreviewFLag);
+  }
+
+  // Up Arrow - Sends user to top of preview panel on click
+  toTop()
+  {
+    var topDivPos = document.getElementById("runBtn");
+    topDivPos.scrollIntoView();
   }
 
   // Anything that should be set on page load goes in ngOnInit() 
