@@ -1574,6 +1574,26 @@ export class PreviewPaneComponent implements OnInit {
   SetFocusOnSample(clickedQuestionCard)
   {
     console.log("In preview.SetFocusOnSample(clickedQuestionCard): " + clickedQuestionCard);
+    
+    // Set focus on customer logo component
+    if (clickedQuestionCard == "activeCustomerlogo")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("logoSection");
+          myElement.scrollIntoView();
+        }
+        else if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("logoSectionReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
 
     // Set focus on marketing level component
     if (clickedQuestionCard == "activeMarketingLevel")
