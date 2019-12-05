@@ -47,20 +47,20 @@ export class PreviewPaneComponent implements OnInit {
   // Animates the Drive-Thru sample button
   driveThru()
   {
-    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7a icon-truck")[0] as HTMLElement;
-    pdfButton.classList.add("btn-activated");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn-ty btn-ty-7 btn-ty-7a icon-truck")[0] as HTMLElement;
+    pdfButton.classList.add("btn-ty-activated");
     setTimeout(function(){
-      pdfButton.classList.remove("btn-activated");
+      pdfButton.classList.remove("btn-ty-activated");
     }, 1000);
   }
 
   // Animates the Generate Runbook button
   animateRunbookBtn()
   {
-    let pdfButton:HTMLElement = document.getElementsByClassName("btn btn-7 btn-7b icon-envelope")[0] as HTMLElement;
-    pdfButton.classList.add("btn-activated");
+    let pdfButton:HTMLElement = document.getElementsByClassName("btn-ty btn-ty-7 btn-ty-7b icon-envelope")[0] as HTMLElement;
+    pdfButton.classList.add("btn-ty-activated");
     setTimeout(function(){
-      pdfButton.classList.remove("btn-activated");
+      pdfButton.classList.remove("btn-ty-activated");
     }, 1000);
   }
 
@@ -113,11 +113,18 @@ export class PreviewPaneComponent implements OnInit {
       var create = document.getElementById('runBtn');
       var textbox = runbook;
     
+      // Attach link to download button and apply changes to generate button
       create.addEventListener('click', function () {
+        
         var linkDiv = document.getElementById('downloadBtnDiv');
         linkDiv.classList.remove("collapse");
+        
+        var runDownBtn = document.getElementById("runDownBtn");
+        runDownBtn.classList.add("btn-ty-7h-activated");
+
         var runDiv = document.getElementById('generateBtnDiv');
         runDiv.classList.add("collapse");
+        
         var link = <HTMLAnchorElement> document.getElementById('downloadlink');
         link.href = makeTextFile(textbox);
       }, false);
@@ -126,6 +133,20 @@ export class PreviewPaneComponent implements OnInit {
 
     })();
     
+  }
+
+  // After downloading the runbook, the button is no longer highlighted
+  undoBtnHighlight()
+  {
+    // Remove the highlight
+    var runDownBtn = document.getElementById("runDownBtn");
+    runDownBtn.classList.remove("btn-ty-7h-activated");
+
+    // Make the button go back to "Generate" instead of "Download"
+    var linkDiv = document.getElementById('downloadBtnDiv');
+    var genDiv = document.getElementById('generateBtnDiv');
+    linkDiv.classList.add("collapse");
+    genDiv.classList.remove("collapse");
   }
 
   // Any call to this function gets the build-page (parent) variables
@@ -1030,6 +1051,10 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
+    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
+    {
+      NewsflashType.style.backgroundImage = "";
+    }
     // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
     {
@@ -1042,10 +1067,7 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
       }
     }
-    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
-    {
-      NewsflashType.style.backgroundImage = " ";
-    }
+    
   }
 
   // Uses variable activeGlance to toggle visibility on the top right div for Summary at a Glance component
@@ -1542,9 +1564,213 @@ export class PreviewPaneComponent implements OnInit {
   }
 
   // Sends data to build page to send to survey page
-  emitPreviewClick(clickedPreviewFLag)
+  emitPreviewClick(clickedPreviewFlag)
   {
-    this.outputPreviewFlag.emit(clickedPreviewFLag);
+    this.outputPreviewFlag.emit(clickedPreviewFlag);
+  }
+
+  // Set focus on the div containing the corresponding component
+  // that is being updated sent from the build page/survey component
+  SetFocusOnSample(clickedQuestionCard)
+  {
+    console.log("In preview.SetFocusOnSample(clickedQuestionCard): " + clickedQuestionCard);
+    
+    // Set focus on customer logo component
+    if (clickedQuestionCard == "activeCustomerlogo")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("logoSection");
+          myElement.scrollIntoView();
+        }
+        else if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("logoSectionReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on marketing level component
+    if (clickedQuestionCard == "activeMarketingLevel")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("topGraphicSection");
+          myElement.scrollIntoView();
+        }
+        else if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("topGraphicSectionReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on credit card logo component
+    if (clickedQuestionCard == "activeCClogo")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("ccLogoSection");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on scanline component
+    if (clickedQuestionCard == "activeScanline")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("scanlineSection");
+          myElement.scrollIntoView();
+        }
+        else if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("scanlineSectionLeft");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on onsert component
+    if (clickedQuestionCard == "activeOnsert")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("p2OnsertImage");
+          myElement.scrollIntoView();
+        }
+        else if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("WhitespaceAd2Reg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on transaction detail component
+    if (clickedQuestionCard == "activeTransactionsMode")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("p2TransactionSummary");
+          myElement.scrollIntoView();
+        }
+        if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("shareSavingsReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on year-to-date summary component
+    if (clickedQuestionCard == "activeTYDMode")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        // Check statement type, question is on more than one type
+        if (this.activeStatementType == "creditCard")
+        {
+          var myElement = document.getElementById("p2YTDSummary");
+          myElement.scrollIntoView();
+        }
+        if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("YTDSummaryReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on newsflash component
+    if (clickedQuestionCard == "activeNewsflash")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("whitespaceAd1Reg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on account glance info component
+    if (clickedQuestionCard == "activeGlance")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("AccountInfoReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on account summary info component
+    if (clickedQuestionCard == "activeAccSum")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("AccountSummaryReg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+
+    // Set focus on whiespace component
+    if (clickedQuestionCard == "activeWhitespaceMode")
+    {
+      // Check core type
+      if (this.activeCore == "symitar")
+      {
+        if (this.activeStatementType == "account")
+        {
+          var myElement = document.getElementById("whitespaceAd1Reg");
+          myElement.scrollIntoView();
+        }
+      }
+    }
+  }
+
+  // Up Arrow - Sends user to top of preview panel on click
+  toTop()
+  {
+    var topDivPos = document.getElementById("runBtn");
+    topDivPos.scrollIntoView();
   }
 
   // Anything that should be set on page load goes in ngOnInit() 

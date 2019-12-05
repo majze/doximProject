@@ -13,9 +13,9 @@
 	border-radius: 5px 25px 25px 15px;
 	background-color: rgba(210,210,210,0.6);
 	padding: 12px;
-	margin-left: 40px;
+	margin-left: 80px;
   margin-top: 80px;
-  width:440px;
+  width: 375px;
 	max-width: 440px;
 }
 
@@ -26,4 +26,14 @@
   margin-right: 20px;
   margin-top: 60px;
   max-width: 700px;
+}
+
+#forgotBtn {
+  width:250px;
+  margin-left: 30px;
+}
+
+#forgotBtn:hover {
+  background: orange;
+  color: black;
 }

@@ -19,7 +19,7 @@
 	cursor: pointer;
 	padding: 25px 80px;
 	display: inline-block;
-	margin: 15px 30px;
+	margin: 5px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 700;
@@ -453,10 +453,12 @@
 
 /* Button 7 */
 .btn-ty-7 {
-	background: #2dd5ff;
+	/* background: #2dd5ff; */
+	background: #0288D1;
 	color: #fff;
 	border-radius: 7px;
-	box-shadow: 0 5px #1aa6dd;
+	/* box-shadow: 0 5px #1aa6dd; */
+	box-shadow: 0 5px #01579B;
 	padding: 10px 25px 10px 25px;
 }
 
@@ -616,6 +618,11 @@
 /* Button 7c */
 .btn-ty-7c {
 	overflow: hidden;
+}
+
+.btn-ty-7c:hover {
+	background: #f29e0d;
+	box-shadow: 0 5px #915e08;
 }
 
 .btn-ty-7c:before {
@@ -898,7 +905,17 @@
 	width: 40%;
 	font-size: 160%;
 	line-height: 0.8;
-	color: #0a833d;
+	color: #fff;
+}
+
+.btn-ty-7h:hover {
+	background: #f29e0d;
+	box-shadow: 0 5px #915e08;
+}
+
+.btn-ty-7h-activated {
+	background: #4FC3F7;
+	box-shadow: 0 5px #03A9F4;
 }
 
 /* Success and error */

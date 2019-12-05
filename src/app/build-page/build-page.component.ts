@@ -86,6 +86,7 @@ export class BuildPageComponent implements OnInit {
   {
     this.lastChange = val;
     console.log("build: Received update from: " + this.lastChange);
+    this.previewChild.SetFocusOnSample(val);
   }
 
   // Sending survey flag updates to preview pane and repopulating the skeleton
