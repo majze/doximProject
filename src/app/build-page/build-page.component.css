@@ -34,7 +34,9 @@
   scrollbar-color:  rgba(77, 105, 114, 0.8) transparent;
 }
 /* Hiding scrollbar for Google Chrome using webkit  */
-::-webkit-scrollbar { background: transparent; }
+::-webkit-scrollbar { background: transparent;
+ }
+ ::-webkit-scrollbar { display:none }
 /* Optional: show position indicator in doxim blue */
 ::-webkit-scrollbar-thumb {
   background: rgba(0,167,225,0.8);

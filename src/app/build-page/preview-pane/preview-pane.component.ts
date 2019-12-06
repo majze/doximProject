@@ -8,7 +8,9 @@ import html2canvas from 'html2canvas';
   templateUrl: './preview-pane.component.html',
   styleUrls: ['./preview-pane.component.css', 
     "../../../assets/tympanus/CreativeButtons/css/component.css", 
-    "../../../assets/tympanus/CreativeButtons/css/default.css"
+    "../../../assets/tympanus/CreativeButtons/css/default.css",
+    './SymitarCreditCard.css',
+    './SymitarRegular.css'
   ]
 })
 
