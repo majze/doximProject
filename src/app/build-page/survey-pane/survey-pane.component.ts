@@ -359,14 +359,6 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
-  setJointOwner()
-  {
-    this.activeOnsert = (<HTMLInputElement>event.target).value;
-    console.log("Survey choice:: ", this.activeOnsert);
-    this.outputSurveyChange.emit("activeJointowner");
-    this.emitSurveyFlags();
-  }
-
   // Sets the option for YTD Totals from user input on relevant question card
   setYTD()
   {
@@ -377,21 +369,31 @@ export class SurveyPaneComponent implements OnInit {
   }
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
+  setJointOwner()
+  {
+    // Awaiting client approval
+    this.activeOnsert = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOnsert);
+    this.outputSurveyChange.emit("activeJointowner");
+    this.emitSurveyFlags();
+  }
+
+  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setRewards()
   {
-
+    // Awaiting client approval
   }
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setOutbound()
   {
-
+    // Awaiting client approval
   }
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setEnvelope()
   {
-
+    // Awaiting client approval
   }
 
   // Any survey option change triggers the emitter
