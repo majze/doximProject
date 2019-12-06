@@ -161,10 +161,12 @@ export class PreviewPaneComponent implements OnInit {
   greyItUp()
   {
     this.greyItUpClicked = !this.greyItUpClicked;
+    // debugger;
     console.log(this.rubberDuckie);
     console.log(this.myCanvas);
     console.log(`Grey it up state is: ${this.greyItUpClicked}`);
     // debugger;
+
     // Gather all HTMLElements which can contain the user uploaded image
     var logo1, logo2;
     if (this.activeSymitarCC == true)
@@ -177,15 +179,6 @@ export class PreviewPaneComponent implements OnInit {
       logo1 = document.getElementsByClassName("logoSectionReg")[0];
       logo2 = document.getElementsByClassName("p2logoSectionReg")[0];
     }
-
-    // Create DOM elements of the user uploaded image to manipulate
-    // var DOM_workArea = document.getElementById("hiddenArea");
-    // DOM_workArea.classList.remove("collapse");
-    // var img = document.createElement("img");
-    // img.id = "logoSource";
-    // //img.src = this.activeCustomerlogo; //<-Put this back after testing
-    // img.src = "https://firebasestorage.googleapis.com/v0/b/doxim-web-app.appspot.com/o/CustomerLogo%2Fducky_1575232915163?alt=media&token=941e7b94-090c-4207-8498-dcf4fc6774bc";
-    // DOM_workArea.appendChild(img);
 
     // Cast the user uploaded image URL to a hidden canvas for translation
     let activationContext = this.myCanvas.nativeElement.getContext('2d');
@@ -206,9 +199,8 @@ export class PreviewPaneComponent implements OnInit {
     logo1.style.backgroundImage = "url('" + this.greyString + "')";
     logo2.style.backgroundImage = "url('" + this.greyString + "')";
 
-    // Remove the working images when done and hide the working div
-    // DOM_workArea.removeChild(img);
-    // DOM_workArea.classList.add("collapse");
+    // Remove the working images when done and hide the working div and canvas
+    this.greyItUpClicked = !this.greyItUpClicked;
   }
 
   // Any call to this function gets the build-page (parent) variables
@@ -393,6 +385,11 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeSymitarReg)
     {
       this.populateSymitarRegular();
+    }
+
+    if (this.activeColorMode == "greyscale")
+    {
+      this.greyItUp();
     }
   }
 
