@@ -1,0 +1,131 @@
+/* https://tympanus.net/Development/CreativeButtons/ */
+/* Statement header blue # 0055a4 */
+/* Credit card header blue # 559ecd */
+/* Doxim blue # 00a7e1 */
+
+/* Anchor attribute to download runbook file */
+#downloadlink {
+  margin-left: 18px;
+  color: white;
+}
+
+/* Div style for the Generate Runbook Button Div container */
+#generateBtnDiv {
+  float: left;
+}
+
+/* Div style for the Download Runbook Button Div container */
+#downloadBtnDiv {
+  float: left;
+}
+
+/* Gives color animation to download runbook button after generation  */
+#runDownBtn:hover {
+  -webkit-filter: none;
+  filter: none;
+  -webkit-animation: hue 5s infinite;
+  animation: hue 5s infinite;
+}
+
+/* Animation for the hue rotation applied to the download runbook button  */
+@keyframes hue{
+  0%{
+      filter: hue-rotate(0deg);
+  }
+  100%{
+      filter: hue-rotate(360deg);
+  }
+}
+  
+/* The view panel is the master container for all pages of one statement type */
+.viewPanel {
+  margin: 0 auto;
+}
+
+/* One piece of paper represented as a page of a statement preview */
+.viewBox {
+  /* 100 pixels = 1 inch */
+  /* DO NOT CHANGE DIMENSIONS */
+  height: 1100px;
+  width: 850px;
+  margin-top: 42px;
+  border: 2px solid;
+  background-color: white;
+}
+
+/* Apply changes to viewBox class on hover */
+.viewBox:hover {
+  -webkit-box-shadow: 0 0 1px 2px #53c6ffd8;
+  -moz-box-shadow: 0 0 1px 2px #53c6ffd8;
+  box-shadow: 0 0 1px 2px #53c6ffd8;
+  transition: box-shadow 0.33s;
+}
+
+/* One piece of paper represented as a page of a statement preview */
+.viewBox2 {
+  /* 100 pixels = 1 inch */
+  /* DO NOT CHANGE DIMENSIONS */
+  height: 1100px;
+  width: 850px;
+  margin-top: 42px;
+  border: 2px solid;
+  background-color: white;
+}
+
+/* Apply changes to viewBox2 class on hover */
+.viewBox2:hover {
+  -webkit-box-shadow: 0 0 1px 2px #53c6ffd8;
+  -moz-box-shadow: 0 0 1px 2px #53c6ffd8;
+  box-shadow: 0 0 1px 2px #53c6ffd8;
+  transition: box-shadow 0.33s;
+}
+
+.paperContainer {
+  /* 100 pixels = 1 inch */
+  height: calc(100% - 25px);
+  width: calc(100% - 100px);
+  margin-top: 25px;
+  margin-right: 50px;
+  margin-left: 50px;
+  background-color: white;
+}
+
+.paperContainer::after {
+  display: block; clear: both; content: "";
+}
+
+.gridSection {
+  float: left;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.collapse {
+  display: none;
+}
+
+/* Flash the alert box to catch user's attention  */
+.flash {
+  background-color: #b8e5ffdc;
+}
+
+#topArrow {
+  float: right;
+  font-weight: bolder;
+  font-size: large;
+  margin: 6px 4px 6px 0px;
+}
+
+/* Greyscale Class*/
+
+.black_and_white { 
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+  filter: gray; /* IE6-9 */
+  /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+  -webkit-filter: grayscale(100%);
+}
+
+
+
