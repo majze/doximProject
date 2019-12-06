@@ -424,6 +424,12 @@ export class SurveyPaneComponent implements OnInit {
     this.outputSurveyFlags.emit(this.combinedFlags);
   }
 
+  // Sends data to build page to send to survey page
+  emitSurveyClick(clickedPreviewFlag)
+  {
+    this.outputSurveyFlags.emit(clickedPreviewFlag);
+  }
+
   // Up Arrow - Sends user to top of preview panel on click
   toTop()
   {
