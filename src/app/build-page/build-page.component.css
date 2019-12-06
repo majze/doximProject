@@ -36,7 +36,9 @@
 /* Hiding scrollbar for Google Chrome using webkit  */
 ::-webkit-scrollbar { background: transparent;
  }
- ::-webkit-scrollbar { display:none }
+ body ::-webkit-scrollbar { width: 0 !important } 
+ body { overflow: -moz-scrollbars-none; }
+ body { -ms-overflow-style: none; }
 /* Optional: show position indicator in doxim blue */
 ::-webkit-scrollbar-thumb {
   background: rgba(0,167,225,0.8);
