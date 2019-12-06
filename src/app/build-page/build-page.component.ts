@@ -89,6 +89,11 @@ export class BuildPageComponent implements OnInit {
     this.previewChild.SetFocusOnSample(val);
   }
 
+  //reads in there hover value and passes it to the highlighting function in the preview pane.ts
+  readSurveyHover(val){
+   this.previewChild.setHighlight(val);
+  }
+
   // Sending survey flag updates to preview pane and repopulating the skeleton
   writeSurveyToPreview()
   {
