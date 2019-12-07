@@ -665,8 +665,8 @@ export class PreviewPaneComponent implements OnInit {
     let FixedMortgageRegBuffer:HTMLElement = document.getElementsByClassName("FixedMortgageReg")[0] as HTMLElement;
     let HomeEquityRegBuffer:HTMLElement = document.getElementsByClassName("HomeEquityReg")[0] as HTMLElement;
     let YTDSummaryRegBuffer:HTMLElement = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
-    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
-    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
+    let whitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("whitespaceAd2Reg")[0] as HTMLElement;
+    let whitespaceAdReg2:HTMLElement = document.getElementsByClassName("whitespaceAd3Reg")[0] as HTMLElement;
 
     // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
     if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
@@ -691,8 +691,8 @@ export class PreviewPaneComponent implements OnInit {
       FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/fixedMortgage.png)";
       HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/homeEquity.png)";
       YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
-      WhitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
-      WhitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";      
+      whitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
+      whitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";      
     }
     else if (this.activeColorMode == "greyscale")
     {
@@ -716,8 +716,8 @@ export class PreviewPaneComponent implements OnInit {
       FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/fixedMortgage.png)";
       HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/homeEquity.png)";
       YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummary.png)";
-      WhitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
-      WhitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+      whitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
+      whitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
     }
 
     // These will update regardless of color settings
@@ -1078,17 +1078,18 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeSymitarReg)
     {
       // Determine which div to update
-      var onsertBuffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
+      // For Reg Statement, Piggy Bank image is onsert
+      var onsertBuffer:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
       // Make changes and move divs if needed
       if (this.activeOnsert == "image")
       {
         if (this.activeColorMode != "greyscale")
         {
-          onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+          onsertBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
         }
         else
         {
-          onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
+          onsertBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
         }
       }
       else if (this.activeOnsert == "textonly")
@@ -1463,16 +1464,16 @@ export class PreviewPaneComponent implements OnInit {
   updateWhitespace()
   {
     // Choose which divs to affect based on which statement combination is currently chosen
-    var whitespaceAdPage1:HTMLElement;
     var whitespaceAdPage2:HTMLElement;
+    var whitespaceAdPage3:HTMLElement;
     if (this.activeSymitarCC)
     {
       whitespaceAdPage2 = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     }
     else if (this.activeSymitarReg)
     {
-      whitespaceAdPage1 = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
-      whitespaceAdPage2 = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
+      whitespaceAdPage2 = document.getElementsByClassName("whitespaceAd2Reg")[0] as HTMLElement;
+      whitespaceAdPage3 = document.getElementsByClassName("whitespaceAd3Reg")[0] as HTMLElement;
     }
 
     // Makes the changes according to activeStatementType, activeCore, activeColorMode, and activeWhitespaceMode
@@ -1493,13 +1494,13 @@ export class PreviewPaneComponent implements OnInit {
       {
         if (this.activeColorMode != "greyscale")
         {
-          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
-          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
+          whitespaceAdPage3.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";
         }
         else
         {
-          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
-          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
+          whitespaceAdPage3.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
         }
       }
     }
@@ -1507,7 +1508,7 @@ export class PreviewPaneComponent implements OnInit {
     {
       if (this.activeSymitarReg)
       {
-        whitespaceAdPage1.style.backgroundImage="";
+        whitespaceAdPage3.style.backgroundImage="";
       }
       whitespaceAdPage2.style.backgroundImage="";
     }
@@ -1753,7 +1754,7 @@ export class PreviewPaneComponent implements OnInit {
         }
         else if (this.activeStatementType == "account")
         {
-          var myElement = document.getElementById("WhitespaceAd2Reg");
+          var myElement = document.getElementById("whitespaceAd1Reg");
           myElement.scrollIntoView();
         }
       }
@@ -1849,7 +1850,7 @@ export class PreviewPaneComponent implements OnInit {
       {
         if (this.activeStatementType == "account")
         {
-          var myElement = document.getElementById("whitespaceAd1Reg");
+          var myElement = document.getElementById("WhitespaceAd2Reg");
           myElement.scrollIntoView();
         }
       }
