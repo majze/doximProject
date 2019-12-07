@@ -794,6 +794,19 @@ export class PreviewPaneComponent implements OnInit {
     var degreeChange = this.hslToDegreeChange(convertedHSL);
     var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
 
+    // Special case where the 'Contact Info' box moves up to the marketing area
+    if (this.activeSymitarCC)
+    {
+      let contactBox: HTMLElement = document.getElementById("topGraphicSection") as HTMLElement;
+      if (this.activeMarketingLevel == "contactInfo")
+      {
+        contactBox.classList.add("changeHeaderColor");
+      }
+      else if (contactBox.classList.contains("changeHeaderColor"))
+      {
+        contactBox.classList.remove("changeHeaderColor");
+      }
+    }
 
    let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
@@ -1230,6 +1243,27 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeSymitarReg)
     {
       topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
+    }
+
+    // Special case where the 'Contact Info' box moves up to the marketing area and user chose custom hue header
+    if (this.activeSymitarCC)
+    {
+      let contactBox: HTMLElement = document.getElementById("topGraphicSection") as HTMLElement;
+      var userHexNum = this.activeHexCode;
+      var convertedHSL = this.hexToHSL(userHexNum);
+      var degreeChange = this.hslToDegreeChange(convertedHSL);
+      if (this.activeMarketingLevel == "contactInfo" && !contactBox.classList.contains("changeHeaderColor"))
+      {
+        contactBox.classList.add("changeHeaderColor");
+        var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
+        contactBox.style.filter = hueFilter;
+      }
+      else if (contactBox.classList.contains("changeHeaderColor"))
+      {
+        var hueFilter = "hue-rotate("+0+"deg)";
+        contactBox.style.filter = hueFilter;
+        contactBox.classList.remove("changeHeaderColor");
+      }
     }
 
     // Make the changes depending on activeMarketingLevel and the activeStatementType
