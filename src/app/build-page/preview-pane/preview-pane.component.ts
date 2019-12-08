@@ -734,8 +734,8 @@ export class PreviewPaneComponent implements OnInit {
     var userHexNum = this.activeHexCode;
     var convertedHSL = this.hexToHSL(userHexNum);
     var degreeChange = this.hslToDegreeChange(convertedHSL);
-    var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
-  //"saturate("+degreeChange[1]+"%)"
+    var satChange = degreeChange[1];
+    var hueFilter = "hue-rotate("+degreeChange[0]+"deg) saturate("+satChange+"%)";
 
    let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
@@ -781,20 +781,21 @@ export class PreviewPaneComponent implements OnInit {
     //some conversions necessary to find S and L values
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    s = +(s * 100);
+    s = (s * 100);
     l = +(l * 100);
 
-
     return [h,s,l];
+    
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
   let startH = 203, startS = 131, startL = 160;
   let newH = convertedHSL[0]- startH, 
-    newS = 100 + (startS -convertedHSL[1]),
+    newS =  (startS -convertedHSL[1]),
     newL = 100 + (convertedHSL[2] - startL);
   let resultHSL: number[] = [newH, newS, newL];
+  console.log([newS])
   return resultHSL;
  }
 
