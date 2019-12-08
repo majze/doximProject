@@ -100,7 +100,7 @@ export class PreviewPaneComponent implements OnInit {
     //runbook += "\n" + "JointOwners" + ": " + this.activeJointOwners;
     runbook += "\n" + "TYDMode" + ": " + this.activeTYDMode;
     //runbook += "\n" + "RewardsType" + ": " + this.activeRewardsType;
-    //runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
+    runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
     //runbook += "\n" + "ReplyEnvelope" + ": " + this.activeReplyEnvelope;
     console.log(runbook);
 

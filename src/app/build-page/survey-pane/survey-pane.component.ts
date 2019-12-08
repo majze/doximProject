@@ -384,10 +384,44 @@ export class SurveyPaneComponent implements OnInit {
     // Awaiting client approval
   }
 
-  // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setOutbound()
   {
-    // Awaiting client approval
+    this.activeOutboundEnvelope = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOutboundEnvelope);
+    this.outputSurveyChange.emit("activeOutboundEnvelope");
+    this.emitSurveyFlags();
+
+    // Determine which asset to load into pop-up window
+    var imgString = "";
+    if (this.activeOutboundEnvelope == "fullWindow") {
+      imgString = '../../assets/shared/env_fullwindow.png';
+    }
+    else if (this.activeOutboundEnvelope == "doubleWindow")
+    {
+      imgString = '../../assets/shared/env_doublewindow.png';
+    }
+    else if (this.activeOutboundEnvelope == "singleWindow")
+    {
+      imgString = '../../assets/shared/env_singlewindow.png';
+    }
+    else if (this.activeOutboundEnvelope == "halfWindow")
+    {
+      imgString = '../../assets/shared/env_halfwindow.png';
+    }
+
+    // Get size info for pop-up window
+    var w = 900, h = 600;
+    if (document.getElementById) {
+      w = screen.availWidth;
+      h = screen.availHeight;
+    }  
+    var popW = 1400, popH = 500;
+    var leftPos = (w-popW)/2;
+    var topPos = (h-popH)/2;
+
+    // Show envelope selected in pop-up window
+    var msgWindow = window.open('','popup','width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos + ',       scrollbars=yes');
+    msgWindow.document.write ('<img src="'+imgString+'" >');
   }
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===

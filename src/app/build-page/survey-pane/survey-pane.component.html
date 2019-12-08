@@ -283,6 +283,24 @@
       </div>
     </div>
 
+    <!--17th question: Outbound envelope type information-->
+    <div class="card" id="outboundEnvelopeTypeCard">
+        <div class="question" id="outboundEnvelopeType">
+          <h3>Outbound Envelope Options</h3>
+          <p>Choose your outbound envelope type.</p>
+          <form>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="halfWindow">Half Window<br>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="fullWindow">Full Window<br>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="doubleWindow">Double Window<br>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="singleWindow">Single Window<br>
+          </form>
+        </div>
+      </div>
+
     <!-- ================================================================== -->
     <!-- Extra questions to be added later (question backlog) -->
     <!-- ================================================================== -->
@@ -297,25 +315,6 @@
           <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="yes"
             checked>Yes<br>
           <input type="radio" (change)="setJointOwner($event)" class="form-radio" name="jointOwnerLevel" value="no">No<br>
-        </form>
-      </div>
-    </div>
-
-    <!--17th question: Outbound envelope type information-->
-    <!-- hideForNow -->
-    <div class="card" id="outboundEnvelopeTypeCard">
-      <div class="question red" id="outboundEnvelopeType">
-        <h3>Outbound Envelope Options</h3>
-        <p>Choose your outbound envelope type.</p>
-        <form>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="halfWindow">Half Window<br>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="fullWindow">Full Window<br>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="doubleWindow">Double Window<br>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="singleWindow">Single Window<br>
         </form>
       </div>
     </div>
