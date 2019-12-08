@@ -19,6 +19,13 @@ Run `npm install` to install all the required dependencies. This may take a whil
 Then run `ng serve` to start a dev server.
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Running the Project
+### Login
+A default user has been added for presentation purposes. Username:sales Password:doxim
+
+### Build Page
+The build page controls the entire web application. Once you select both the data core in question card #2 and the statement type in question card #3, the remaining survey question cards for that combination of choices will populate, as well as a skeleton of the preview panel with default assets. Any changes you make using the survey question cards will update the preview panel accordingly.
+
 ## Special Thanks
 This project was part of an Angular tutorial called Angular CRUD with Firebase.
 
