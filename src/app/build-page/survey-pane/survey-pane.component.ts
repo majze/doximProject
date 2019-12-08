@@ -468,7 +468,7 @@ export class SurveyPaneComponent implements OnInit {
   toTop()
   {
     var topDivPos = document.getElementById("surveyList");
-    topDivPos.scrollIntoView();
+    topDivPos.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   ngOnInit() {

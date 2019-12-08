@@ -161,11 +161,6 @@ export class PreviewPaneComponent implements OnInit {
   greyItUp()
   {
     this.greyItUpClicked = !this.greyItUpClicked;
-    // debugger;
-    console.log(this.rubberDuckie);
-    console.log(this.myCanvas);
-    console.log(`Grey it up state is: ${this.greyItUpClicked}`);
-    // debugger;
 
     // Gather all HTMLElements which can contain the user uploaded image
     var logo1, logo2;
@@ -195,7 +190,6 @@ export class PreviewPaneComponent implements OnInit {
     activationContext.restore();
     this.greyString = this.myCanvas.nativeElement.toDataURL('image/png'); // try without image/png
     console.log(`The grey string is: ${this.greyString}`);
-    debugger;
     logo1.style.backgroundImage = "url('" + this.greyString + "')";
     logo2.style.backgroundImage = "url('" + this.greyString + "')";
 
@@ -1676,12 +1670,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("logoSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("logoSectionReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1696,12 +1690,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("topGraphicSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("topGraphicSectionReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1715,7 +1709,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("ccLogoSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1730,12 +1724,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("scanlineSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("scanlineSectionLeft");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1750,12 +1744,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("p2OnsertImage");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("whitespaceAd1Reg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1770,12 +1764,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("p2TransactionSummary");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("shareSavingsReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1790,12 +1784,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("p2YTDSummary");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("YTDSummaryReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1809,7 +1803,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("whitespaceAd1Reg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1823,7 +1817,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("AccountInfoReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1837,7 +1831,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("AccountSummaryReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1851,7 +1845,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("WhitespaceAd2Reg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1861,7 +1855,7 @@ export class PreviewPaneComponent implements OnInit {
   toTop()
   {
     var topDivPos = document.getElementById("runBtn");
-    topDivPos.scrollIntoView();
+    topDivPos.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   // Anything that should be set on page load goes in ngOnInit() 

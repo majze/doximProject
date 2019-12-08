@@ -123,7 +123,8 @@
   float: right;
   font-weight: bolder;
   font-size: large;
-  margin: 6px 4px 6px 0px;
+  margin: 3px 4px 3px 0px;
+  padding: 2px 6px;
 }
 
 /* Greyscale Class for greyscale filter, does not apply to print, only rendering */
