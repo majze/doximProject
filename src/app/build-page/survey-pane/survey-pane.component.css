@@ -37,7 +37,8 @@
   float: right;
   font-weight: bolder;
   font-size: large;
-  margin: 6px 12px 6px 0px;
+  margin: 3px 8px 3px 0px;
+  padding: 2px 6px;
 }
 
 #uploadBtn {
