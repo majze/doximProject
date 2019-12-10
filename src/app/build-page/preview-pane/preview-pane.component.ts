@@ -1019,13 +1019,10 @@ export class PreviewPaneComponent implements OnInit {
     // Update the div accordingly with user input from activeScanline and activeStatementType
     if (this.activeScanline == "yes")
     {
+      // This option is ONLY for credit card statements
       if (this.activeStatementType == "creditCard")
       {
         scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
-      }
-      else
-      {
-        scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
       }
     }
     else if (this.activeScanline == "no")
@@ -1092,12 +1089,27 @@ export class PreviewPaneComponent implements OnInit {
       }
       else if (this.activeOnsert == "none")
       {
-        onsertBuffer.style.backgroundImage="";
+        if (this.activeNewsflash == "no")
+        {
+          onsertBuffer.style.backgroundImage="";
+        }
+        else // Special support for NO-onsert and YES-Newsflash
+        {
+          if (this.activeColorMode == "greyscale")
+          {
+            onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/newsflash.png)";
+          }
+          else if (this.activeColorMode == "color")
+          {
+            onsertBuffer.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
+          }
+        }
       }
     }
   }
 
   // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
+  // Newsflash and Onsert currently share the same space, so both functions affect each other
   updateNewsflash()
   {
     // Define the HTML Elements where the News Flash should go
@@ -1115,9 +1127,15 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
-    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
+    // No newsflash and no onsert - blank the image space
+    else if (this.activeNewsflash == "no" && this.activeOnsert == "none")
     {
       NewsflashType.style.backgroundImage = "";
+    }
+    // No newsflash, put the test-based onsert back
+    else if (this.activeNewsflash == "no" && this.activeOnsert == "textonly")
+    {
+      NewsflashType.style.backgroundImage="url(../../../assets/shared/onsertText2inch.png)";
     }
     // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
@@ -1292,8 +1310,9 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeMarketingLevel == "text")
     {
       topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/shared/topMarketingText.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
     }
-    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC)
+    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC) // Credit card only option
     {
       if (this.activeColorMode != "greyscale")
       {

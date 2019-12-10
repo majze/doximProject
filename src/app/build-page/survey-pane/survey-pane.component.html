@@ -140,7 +140,8 @@
     </div>
 
     <!--8th question: Choose to include a scanline or not-->
-    <div class="card" id="scanlineTypeCard">
+    <!-- This question ONLY for Credit Card Statements  -->
+    <div class="card creditcardQs" id="scanlineTypeCard">
       <div class="question" id="scanlineType">
         <h3>Scanline Option</h3>
         <p>Would you like a scanline included on your statement?</p>
@@ -183,7 +184,7 @@
           <!-- Replace bottom onsert with Newsflash component -->
           <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
           <!-- No change -->
-          <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
+          <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" id="newsflash-no" checked>No<br>
         </form>
       </div>
     </div>
@@ -255,6 +256,7 @@
     </div>
 
     <!--14th question: 2nd page whitespace management-->
+    <!-- This question for BOTH statements, but only appears for CC after selecting 'no' for onsert question -->
     <div class="card statementQs" id="whitespaceTypeCard">
       <div class="question" id="whitespaceType">
         <h3>Whitespace Option</h3>
