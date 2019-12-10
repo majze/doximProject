@@ -68,7 +68,13 @@ export class SurveyPaneComponent implements OnInit {
   {
     console.log("In survey.setFocusQCard(val): " + val);
     var myElement = document.getElementById(val);
-    myElement.scrollIntoView();
+    myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+
+    // Flash outline around qCard
+    myElement.classList.add("scrollViewFlash");
+    setTimeout(function(){
+      myElement.classList.remove("scrollViewFlash");
+    }, 1000);
   }
 
   // Submit button turns the user uploaded image into an imageUrl
@@ -313,6 +319,35 @@ export class SurveyPaneComponent implements OnInit {
     console.log("Survey choice:: ", this.activeOnsert);
     this.outputSurveyChange.emit("activeOnsert");
     this.emitSurveyFlags();
+
+    // If credit card statement and 'no' for onsert, include whitespace qCard, otherwise remove
+    if (this.activeStatementType == "creditCard" && this.activeOnsert == "none")
+    {
+      var whitespaceQCard = document.getElementById("whitespaceTypeCard") as HTMLElement;
+      whitespaceQCard.classList.remove("statementQs");
+      whitespaceQCard.classList.remove("hideThisDiv");
+
+    }
+    else if (this.activeStatementType == "creditCard" && this.activeOnsert != "none")
+    {
+      var whitespaceQCard = document.getElementById("whitespaceTypeCard") as HTMLElement;
+      whitespaceQCard.classList.add("statementQs");
+      whitespaceQCard.classList.add("hideThisDiv");
+    }
+    else if (this.activeStatementType == "account")
+    {
+      var whitespaceQCard = document.getElementById("whitespaceTypeCard") as HTMLElement;
+      whitespaceQCard.classList.add("statementQs");
+      whitespaceQCard.classList.remove("hideThisDiv");
+    }
+
+    // Change the newsflash radio button to no if 'image' or 'text' onsert is selected for Account
+    if (this.activeStatementType == "account" && this.activeOnsert != "none")
+    {
+      var checkCircle = document.getElementById("newsflash-no") as HTMLInputElement;
+      checkCircle.checked = true;
+      this.activeNewsflash = "no";
+    }
   }
 
   // Sets the Newsflash graphic type and location from user input on relevant question card

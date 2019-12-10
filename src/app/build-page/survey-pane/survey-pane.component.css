@@ -105,6 +105,14 @@
   display:none;
 }
 
+/* Flashes outline of qCard when click-scrolling into view */
+.scrollViewFlash {
+  -webkit-box-shadow: 0 0 4px 2px #dfff53d8;
+  -moz-box-shadow: 0 0 4px 2px #dfff53d8;
+  box-shadow: 0 0 4px 2px #dfff53d8;
+  transition: box-shadow 0.33s;
+}
+
 /* === radio buttons ========== ========== ========== ========== ========== */
 
 .form-radio {
