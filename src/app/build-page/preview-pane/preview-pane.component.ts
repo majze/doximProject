@@ -735,13 +735,13 @@ export class PreviewPaneComponent implements OnInit {
     var convertedHSL = this.hexToHSL(userHexNum);
     var degreeChange = this.hslToDegreeChange(convertedHSL);
     var satChange = degreeChange[1];
-    var hueFilter = "hue-rotate("+degreeChange[0]+"deg) saturate("+satChange+"%)";
+    var hueFilter = "hue-rotate("+degreeChange[0]+"deg) saturate("+satChange+"%)" ;
 
    let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      console.log(i+hueFilter);
+      console.log(i+" "+hueFilter);
       divChange.style.filter = hueFilter;
     }
   }
@@ -754,49 +754,54 @@ export class PreviewPaneComponent implements OnInit {
     var g = parseInt(H.substr(3,2), 16);
     var b = parseInt(H.substr(5,2), 16);
 
+    console.log("Target RGB " + r,g,b);//should output picked color RGB
+   
+    r /= 255;
+    g /= 255;
+    b /= 255;
     // Then to HSL
     let cmin = Math.min(r, g, b),
       cmax = Math.max(r, g, b),
-      delta = cmax - cmin,
+      d = cmax - cmin,
       h = 0,
       s = 0,
       l = 0;
 
     // Logic to decide which hue is dominant
-    if (delta == 0)
+    if (d == 0)
       h = 0;
     else if (cmax == r)
-      h = ((g - b) / delta) % 6;
+      h = ((g - b) / d) % 6;
     else if (cmax == g)
-      h = (b - r) / delta + 2;
+      h = (b - r) / d + 2;
     else
-      h = (r - g) / delta + 4;
+      h = (r - g) / d + 4;
 
-    h = Math.round(h * 60);
+   h = Math.round(h * 60);
 
     // If hue is negative, make it positive
     if (h < 0)
       h += 360;
 
-    //some conversions necessary to find S and L values
-    l = (cmax + cmin) / 2;
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    s = (s * 100);
-    l = +(l * 100);
 
+   //some conversions necessary to find S and L
+    // l = (cmax + cmin) / 2;
+    s = cmax == 0 ? 0 : d / cmax;
+     s = +(s * 100);
+    // l = +(l * 100);
+
+    console.log("Target HSL " + h,s,l)// should output HSL of picked color
     return [h,s,l];
     
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 203, startS = 131, startL = 160;
+  let startH = 203, startS = 58;
   let newH = convertedHSL[0]- startH, 
-    newS =  (startS -convertedHSL[1]),
-    newL = 100 + (convertedHSL[2] - startL);
-  let resultHSL: number[] = [newH, newS, newL];
-  console.log([newS])
-  return resultHSL;
+    newS = 100 + (convertedHSL[1]-startS)
+  console.log("Converted values " + newH,newS);
+  return [newH,newS];
  }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
