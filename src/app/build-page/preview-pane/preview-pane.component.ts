@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { BuildPageComponent } from '../build-page.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -13,6 +13,14 @@ import html2canvas from 'html2canvas';
 })
 
 export class PreviewPaneComponent implements OnInit {
+  // These variables control the hidden canvas for greyscale conversion of images
+  @ViewChild('testImg') rubberDuckie: ElementRef; 
+  @ViewChild('can') myCanvas: ElementRef;
+  greyItUpClicked: boolean;
+  greyImgDataString: string;
+  greyString: string;
+  
+  // These variables act as flags that control the flow of information that affects rendering of assets
   clickedPreviewFlag: string;
   activeCore: string;
   activeStatementType: string;
@@ -93,7 +101,7 @@ export class PreviewPaneComponent implements OnInit {
     //runbook += "\n" + "JointOwners" + ": " + this.activeJointOwners;
     runbook += "\n" + "TYDMode" + ": " + this.activeTYDMode;
     //runbook += "\n" + "RewardsType" + ": " + this.activeRewardsType;
-    //runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
+    runbook += "\n" + "OutboundEnvelope" + ": " + this.activeOutboundEnvelope;
     //runbook += "\n" + "ReplyEnvelope" + ": " + this.activeReplyEnvelope;
     console.log(runbook);
 
@@ -148,6 +156,46 @@ export class PreviewPaneComponent implements OnInit {
     var genDiv = document.getElementById('generateBtnDiv');
     linkDiv.classList.add("collapse");
     genDiv.classList.remove("collapse");
+  }
+
+  // Converts the user uploaded logo to greyscale
+  greyItUp()
+  {
+    this.greyItUpClicked = !this.greyItUpClicked;
+
+    // Gather all HTMLElements which can contain the user uploaded image
+    var logo1, logo2;
+    if (this.activeSymitarCC == true)
+    {
+      logo1 = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+      logo2 = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
+    }
+    else if (this.activeSymitarReg == true)
+    {
+      logo1 = document.getElementsByClassName("logoSectionReg")[0];
+      logo2 = document.getElementsByClassName("p2logoSectionReg")[0];
+    }
+
+    // Cast the user uploaded image URL to a hidden canvas for translation
+    let activationContext = this.myCanvas.nativeElement.getContext('2d');
+    this.myCanvas.nativeElement.width = this.rubberDuckie.nativeElement.width;
+    this.myCanvas.nativeElement.height = this.rubberDuckie.nativeElement.height;
+    activationContext.drawImage(this.rubberDuckie.nativeElement, 0, 0, this.rubberDuckie.nativeElement.width, this.rubberDuckie.nativeElement.height, 0, 0, this.myCanvas.nativeElement.width, this.myCanvas.nativeElement.height);
+																						   
+    // Convert color to grayscale using luminosity
+    activationContext.save();
+    activationContext.fillStyle = '#FFF';
+    activationContext.fillRect(0, 0, this.myCanvas.nativeElement.width, this.myCanvas.nativeElement.height);
+    activationContext.globalCompositeOperation = 'luminosity';
+    activationContext.drawImage(this.rubberDuckie.nativeElement, 0, 0);
+    activationContext.restore();
+    this.greyString = this.myCanvas.nativeElement.toDataURL('image/png'); // try without image/png
+    console.log(`The grey string is: ${this.greyString}`);
+    logo1.style.backgroundImage = "url('" + this.greyString + "')";
+    logo2.style.backgroundImage = "url('" + this.greyString + "')";
+
+    // Remove the working images when done and hide the working div and canvas
+    this.greyItUpClicked = !this.greyItUpClicked;
   }
 
   // Any call to this function gets the build-page (parent) variables
@@ -333,6 +381,11 @@ export class PreviewPaneComponent implements OnInit {
     {
       this.populateSymitarRegular();
     }
+
+    if (this.activeColorMode == "greyscale")
+    {
+      this.greyItUp();
+    }
   }
 
   // Updates a specific grid section when the user updates an option in the survey pane
@@ -511,7 +564,7 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type creditCard AND symitar
   populateSymitarCC()
   {
-
+    
     // Define each HTML element to apply style changes
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSection")[0] as HTMLElement;
     let addressSectionBuffer:HTMLElement = document.getElementsByClassName("addressSection")[0] as HTMLElement;
@@ -591,7 +644,7 @@ export class PreviewPaneComponent implements OnInit {
   // Populates the viewBox div with all default assets that are of type Regular AND symitar
   populateSymitarRegular()
   {
-
+    
     // Define each HTML element to apply style changes
     let scanlineSectionBuffer:HTMLElement = document.getElementsByClassName("scanlineSectionLeft")[0] as HTMLElement;
     let logoSectionBuffer:HTMLElement = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
@@ -607,8 +660,8 @@ export class PreviewPaneComponent implements OnInit {
     let FixedMortgageRegBuffer:HTMLElement = document.getElementsByClassName("FixedMortgageReg")[0] as HTMLElement;
     let HomeEquityRegBuffer:HTMLElement = document.getElementsByClassName("HomeEquityReg")[0] as HTMLElement;
     let YTDSummaryRegBuffer:HTMLElement = document.getElementsByClassName("YTDSummaryReg")[0] as HTMLElement;
-    let WhitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
-    let WhitespaceAdReg2:HTMLElement = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
+    let whitespaceAdReg1Buffer:HTMLElement = document.getElementsByClassName("whitespaceAd2Reg")[0] as HTMLElement;
+    let whitespaceAdReg2:HTMLElement = document.getElementsByClassName("whitespaceAd3Reg")[0] as HTMLElement;
 
     // Update assets accordingly depending on whether greyscale was chosen for activeColorMode
     if (this.activeColorMode == "undefined" || this.activeColorMode == "color")
@@ -633,8 +686,8 @@ export class PreviewPaneComponent implements OnInit {
       FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/fixedMortgage.png)";
       HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/homeEquity.png)";
       YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/YTDsummary.png)";
-      WhitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
-      WhitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";      
+      whitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
+      whitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";      
     }
     else if (this.activeColorMode == "greyscale")
     {
@@ -658,8 +711,8 @@ export class PreviewPaneComponent implements OnInit {
       FixedMortgageRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/fixedMortgage.png)";
       HomeEquityRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/homeEquity.png)";
       YTDSummaryRegBuffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/YTDsummary.png)";
-      WhitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
-      WhitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+      whitespaceAdReg1Buffer.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
+      whitespaceAdReg2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
     }
 
     // These will update regardless of color settings
@@ -736,6 +789,20 @@ export class PreviewPaneComponent implements OnInit {
     var degreeChange = this.hslToDegreeChange(convertedHSL);
     var satChange = degreeChange[1];
     var hueFilter = "hue-rotate("+degreeChange[0]+"deg) saturate("+satChange+"%)" ;
+
+    // Special case where the 'Contact Info' box moves up to the marketing area
+    if (this.activeSymitarCC)
+    {
+      let contactBox: HTMLElement = document.getElementById("topGraphicSection") as HTMLElement;
+      if (this.activeMarketingLevel == "contactInfo")
+      {
+        contactBox.classList.add("changeHeaderColor");
+      }
+      else if (contactBox.classList.contains("changeHeaderColor"))
+      {
+        contactBox.classList.remove("changeHeaderColor");
+      }
+    }
 
    let divCount = document.getElementsByClassName("changeHeaderColor").length;
     for (var i = 0; i < divCount; i++)
@@ -844,51 +911,48 @@ export class PreviewPaneComponent implements OnInit {
       return;
     
     // Gather information about which divs to update depending on chosen statement type and core
-    var logoSectionBuffer;
-    var logoSectionPage2Buffer;
-    if (this.activeStatementType == "creditCard" && this.activeCore == "symitar")
+    var logo1, logo2;
+    if (this.activeSymitarCC == true)
     {
       // Define the HTML Elements where the customer logo should go
-      logoSectionBuffer = document.getElementsByClassName("logoSection")[0] as HTMLElement;
-      logoSectionPage2Buffer = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
+      logo1 = document.getElementsByClassName("logoSection")[0] as HTMLElement;
+      logo2 = document.getElementsByClassName("p2logoSection")[0] as HTMLElement;
     }
-    else if (this.activeStatementType == "account" && this.activeCore == "symitar")
+    else if (this.activeSymitarReg == true)
     {
       // Define the HTML Elements where the customer logo should go
-      logoSectionBuffer = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
-      logoSectionPage2Buffer = document.getElementsByClassName("p2logoSectionReg")[0] as HTMLElement;
+      logo1 = document.getElementsByClassName("logoSectionReg")[0] as HTMLElement;
+      logo2 = document.getElementsByClassName("p2logoSectionReg")[0] as HTMLElement;
     }
 
     // If customer logo is uploaded, populate HTML Elements
     if (this.activeCustomerlogo != "undefined")
     {
-      if (this.activeStatementType == "creditCard" && this.activeCore == "symitar")
+      // Determine activeColorMode and populate elements accordingly
+      if (this.activeColorMode == "greyscale")
       {
-        // Place the customer uploaded logo
-        logoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
-        logoSectionPage2Buffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+        logo1.style.backgroundImage = "url('" + this.greyString + "')";
+        logo2.style.backgroundImage = "url('" + this.greyString + "')";
       }
-      else if (this.activeStatementType == "account" && this.activeCore == "symitar")
+      else
       {
-        // Place the customer uploaded logo
-        logoSectionBuffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
-        logoSectionPage2Buffer.style.backgroundImage="url('" + this.activeCustomerlogo + "')";
+        logo1.style.backgroundImage = "url('" + this.activeCustomerlogo + "')";
+        logo2.style.backgroundImage = "url('" + this.activeCustomerlogo + "')";
       }
-      // grey
-      // https://codepen.io/duketeam/pen/ALEByA
     }
+    // If no customer logo is uploaded, load the default doxim logo
     else
     {
       // Determine activeColorMode and populate elements accordingly
       if (this.activeColorMode == "greyscale")
       {
-        logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
-        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/defaultLogo.png)";
+        logo1.style.backgroundImage="url(../../../assets/ccSymitar/page1/grey/defaultLogo.png)";
+        logo2.style.backgroundImage="url(../../../assets/ccSymitar/page2/grey/defaultLogo.png)";
       }
       else
       {
-        logoSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
-        logoSectionPage2Buffer.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
+        logo1.style.backgroundImage="url(../../../assets/ccSymitar/page1/defaultLogo.png)";
+        logo2.style.backgroundImage="url(../../../assets/ccSymitar/page2/defaultLogo.png)";
       }
     }
   }
@@ -963,13 +1027,10 @@ export class PreviewPaneComponent implements OnInit {
     // Update the div accordingly with user input from activeScanline and activeStatementType
     if (this.activeScanline == "yes")
     {
+      // This option is ONLY for credit card statements
       if (this.activeStatementType == "creditCard")
       {
         scanlineSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccScanline.png)";
-      }
-      else
-      {
-        scanlineSectionBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/scanlineLeft.png)";
       }
     }
     else if (this.activeScanline == "no")
@@ -1016,17 +1077,18 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeSymitarReg)
     {
       // Determine which div to update
-      var onsertBuffer:HTMLElement = document.getElementsByClassName("WhitespaceAd2Reg")[0] as HTMLElement;
+      // For Reg Statement, Piggy Bank image is onsert
+      var onsertBuffer:HTMLElement = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
       // Make changes and move divs if needed
       if (this.activeOnsert == "image")
       {
         if (this.activeColorMode != "greyscale")
         {
-          onsertBuffer.style.backgroundImage="url(../../../assets/shared/onsert2inch.png)";
+          onsertBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
         }
         else
         {
-          onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/onsert2inch.png)";
+          onsertBuffer.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
         }
       }
       else if (this.activeOnsert == "textonly")
@@ -1035,12 +1097,27 @@ export class PreviewPaneComponent implements OnInit {
       }
       else if (this.activeOnsert == "none")
       {
-        onsertBuffer.style.backgroundImage="";
+        if (this.activeNewsflash == "no")
+        {
+          onsertBuffer.style.backgroundImage="";
+        }
+        else // Special support for NO-onsert and YES-Newsflash
+        {
+          if (this.activeColorMode == "greyscale")
+          {
+            onsertBuffer.style.backgroundImage="url(../../../assets/shared/grey/newsflash.png)";
+          }
+          else if (this.activeColorMode == "color")
+          {
+            onsertBuffer.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
+          }
+        }
       }
     }
   }
 
   // Uses variable activeNewsflash to update the newsflash graphic div or move other divs to its place
+  // Newsflash and Onsert currently share the same space, so both functions affect each other
   updateNewsflash()
   {
     // Define the HTML Elements where the News Flash should go
@@ -1058,9 +1135,15 @@ export class PreviewPaneComponent implements OnInit {
         NewsflashType.style.backgroundImage="url(../../../assets/shared/newsflash.png)";
       }
     }
-    else if (this.activeNewsflash == "no" && this.activeWhitespaceMode == "no")
+    // No newsflash and no onsert - blank the image space
+    else if (this.activeNewsflash == "no" && this.activeOnsert == "none")
     {
       NewsflashType.style.backgroundImage = "";
+    }
+    // No newsflash, put the test-based onsert back
+    else if (this.activeNewsflash == "no" && this.activeOnsert == "textonly")
+    {
+      NewsflashType.style.backgroundImage="url(../../../assets/shared/onsertText2inch.png)";
     }
     // Replace News Flash with original whitespaceAd
     else if (this.activeNewsflash == "no")
@@ -1183,6 +1266,27 @@ export class PreviewPaneComponent implements OnInit {
       topGraphicSectionBuffer = document.getElementsByClassName("topGraphicSectionReg")[0] as HTMLElement;
     }
 
+    // Special case where the 'Contact Info' box moves up to the marketing area and user chose custom hue header
+    if (this.activeSymitarCC)
+    {
+      let contactBox: HTMLElement = document.getElementById("topGraphicSection") as HTMLElement;
+      var userHexNum = this.activeHexCode;
+      var convertedHSL = this.hexToHSL(userHexNum);
+      var degreeChange = this.hslToDegreeChange(convertedHSL);
+      if (this.activeMarketingLevel == "contactInfo" && !contactBox.classList.contains("changeHeaderColor"))
+      {
+        contactBox.classList.add("changeHeaderColor");
+        var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
+        contactBox.style.filter = hueFilter;
+      }
+      else if (contactBox.classList.contains("changeHeaderColor"))
+      {
+        var hueFilter = "hue-rotate("+0+"deg)";
+        contactBox.style.filter = hueFilter;
+        contactBox.classList.remove("changeHeaderColor");
+      }
+    }
+
     // Make the changes depending on activeMarketingLevel and the activeStatementType
     if (this.activeMarketingLevel == "imageOnly")
     {
@@ -1214,8 +1318,9 @@ export class PreviewPaneComponent implements OnInit {
     else if (this.activeMarketingLevel == "text")
     {
       topGraphicSectionBuffer.style.backgroundImage="url(../../../assets/shared/topMarketingText.png)";
+      ccMidSectionBuffer.style.backgroundImage="url(../../../assets/ccSymitar/page1/ccSymMidWithAll.png)";
     }
-    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC)
+    else if (this.activeMarketingLevel == "contactInfo" && this.activeSymitarCC) // Credit card only option
     {
       if (this.activeColorMode != "greyscale")
       {
@@ -1380,16 +1485,16 @@ export class PreviewPaneComponent implements OnInit {
   updateWhitespace()
   {
     // Choose which divs to affect based on which statement combination is currently chosen
-    var whitespaceAdPage1:HTMLElement;
     var whitespaceAdPage2:HTMLElement;
+    var whitespaceAdPage3:HTMLElement;
     if (this.activeSymitarCC)
     {
       whitespaceAdPage2 = document.getElementsByClassName("p2WhitespaceAd")[0] as HTMLElement;
     }
     else if (this.activeSymitarReg)
     {
-      whitespaceAdPage1 = document.getElementsByClassName("whitespaceAd1Reg")[0] as HTMLElement;
-      whitespaceAdPage2 = document.getElementsByClassName("WhitespaceAd3Reg")[0] as HTMLElement;
+      whitespaceAdPage2 = document.getElementsByClassName("whitespaceAd2Reg")[0] as HTMLElement;
+      whitespaceAdPage3 = document.getElementsByClassName("whitespaceAd3Reg")[0] as HTMLElement;
     }
 
     // Makes the changes according to activeStatementType, activeCore, activeColorMode, and activeWhitespaceMode
@@ -1410,13 +1515,13 @@ export class PreviewPaneComponent implements OnInit {
       {
         if (this.activeColorMode != "greyscale")
         {
-          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/whitespaceAd.png)";
-          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd2.png)";
+          whitespaceAdPage3.style.backgroundImage="url(../../../assets/regSymitar/page5/whitespaceAd3.png)";
         }
         else
         {
-          whitespaceAdPage1.style.backgroundImage="url(../../../assets/regSymitar/page1/grey/whitespaceAd.png)";
-          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
+          whitespaceAdPage2.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd2.png)";
+          whitespaceAdPage3.style.backgroundImage="url(../../../assets/regSymitar/page5/grey/whitespaceAd3.png)";
         }
       }
     }
@@ -1424,7 +1529,7 @@ export class PreviewPaneComponent implements OnInit {
     {
       if (this.activeSymitarReg)
       {
-        whitespaceAdPage1.style.backgroundImage="";
+        whitespaceAdPage3.style.backgroundImage="";
       }
       whitespaceAdPage2.style.backgroundImage="";
     }
@@ -1592,12 +1697,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("logoSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("logoSectionReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1612,12 +1717,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("topGraphicSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("topGraphicSectionReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1631,7 +1736,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("ccLogoSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1646,12 +1751,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("scanlineSection");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("scanlineSectionLeft");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1666,12 +1771,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("p2OnsertImage");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         else if (this.activeStatementType == "account")
         {
-          var myElement = document.getElementById("WhitespaceAd2Reg");
-          myElement.scrollIntoView();
+          var myElement = document.getElementById("whitespaceAd1Reg");
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1686,12 +1791,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("p2TransactionSummary");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("shareSavingsReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1706,12 +1811,12 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "creditCard")
         {
           var myElement = document.getElementById("p2YTDSummary");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("YTDSummaryReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1725,7 +1830,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("whitespaceAd1Reg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1739,7 +1844,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("AccountInfoReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1753,7 +1858,7 @@ export class PreviewPaneComponent implements OnInit {
         if (this.activeStatementType == "account")
         {
           var myElement = document.getElementById("AccountSummaryReg");
-          myElement.scrollIntoView();
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -1766,8 +1871,8 @@ export class PreviewPaneComponent implements OnInit {
       {
         if (this.activeStatementType == "account")
         {
-          var myElement = document.getElementById("whitespaceAd1Reg");
-          myElement.scrollIntoView();
+          var myElement = document.getElementById("WhitespaceAd2Reg");
+          myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         }
       }
     }
@@ -2018,13 +2123,14 @@ export class PreviewPaneComponent implements OnInit {
   toTop()
   {
     var topDivPos = document.getElementById("runBtn");
-    topDivPos.scrollIntoView();
+    topDivPos.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   // Anything that should be set on page load goes in ngOnInit() 
   ngOnInit()
   {
-
+    this.greyItUpClicked = false;
+    console.log(`Current State: ${this.greyItUpClicked}`)
   }
 
 }

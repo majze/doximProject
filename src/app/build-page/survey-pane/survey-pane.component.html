@@ -140,7 +140,9 @@
     </div>
 
     <!--8th question: Choose to include a scanline or not-->
-    <div class="card" id="scanlineTypeCard"><!-- (hover)="ScanlineTypeHover(),removeHighlight()">-->
+
+    <!-- This question ONLY for Credit Card Statements  -->
+    <div class="card creditcardQs" id="scanlineTypeCard">
       <div class="question" id="scanlineType">
         <h3>Scanline Option</h3>
         <p>Would you like a scanline included on your statement?</p>
@@ -158,8 +160,9 @@
     <div class="card" id="onsertTypeCard"> <!-- (hover)="OnsertTypeHover(),removeHighlight()">-->
       <div class="question" id="onsertType">
         <h3>Onsert Option</h3>
-        <p>Would you like to have an onsert on the 2nd page as shown?</p>
+        <!-- The paragraph is unique to the credit card, please don't change it back -->
         <div class="creditcardQs">
+            <p>Would you like to have an onsert on the 2nd page as shown?</p>
         </div>
         <form>
           <!-- No change, Onsert (7.5” wide x 2” tall) is a part of the “skeleton sample” -->
@@ -182,7 +185,7 @@
           <!-- Replace bottom onsert with Newsflash component -->
           <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="yes">Yes<br>
           <!-- No change -->
-          <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" checked>No<br>
+          <input type="radio" (change)="setNewsflash($event)" class="form-radio" name="newsflashLevel" value="no" id="newsflash-no" checked>No<br>
         </form>
       </div>
     </div>
@@ -227,13 +230,13 @@
     <!--13th question: Choose to the type of detail with the transaction summaries-->
     <div class="card" id="transactionSummaryTypeCard"><!-- (hover)="TransactionSummaryHover(),removeHighlight()">-->
       <div class="question" id="transactionSummaryType">
-        <h3>Transcations Details</h3>
+        <h3>Transactions Details</h3>
         <p>How would you like your transaction details displayed?</p>
           <!-- reg account only  -->
           <div class="statementQs">
             <form>
               <!-- Display Balance on the Left component -->
-              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance on the Left<br>
+              <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceLeft">Balance Left of Description<br>
               <!-- Display Balance on the Right component -->
               <input type="radio" (change)="setTransaction($event)" class="form-radio" name="transactionLevel" value="balanceRight" checked>Balance on the Right<br>
               <!-- Amount and Running Balance Only -->
@@ -254,7 +257,8 @@
     </div>
 
     <!--14th question: 2nd page whitespace management-->
-    <div class="card statementQs" id="whitespaceTypeCard"> <!-- (hover)="WhitespaceHover(),removeHighlight()">-->
+    <!-- This question for BOTH statements, but only appears for CC after selecting 'no' for onsert question -->
+    <div class="card statementQs" id="whitespaceTypeCard">
       <div class="question" id="whitespaceType">
         <h3>Whitespace Option</h3>
         <p>Would you like an image to fill your whitespace?</p>
@@ -282,13 +286,31 @@
       </div>
     </div>
 
+    <!--17th question: Outbound envelope type information-->
+    <div class="card" id="outboundEnvelopeTypeCard">
+        <div class="question" id="outboundEnvelopeType">
+          <h3>Outbound Envelope Options</h3>
+          <p>Choose your outbound envelope type.</p>
+          <form>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="halfWindow">Half Window<br>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="fullWindow">Full Window<br>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="doubleWindow">Double Window<br>
+            <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
+              value="singleWindow">Single Window<br>
+          </form>
+        </div>
+      </div>
+
     <!-- ================================================================== -->
     <!-- Extra questions to be added later (question backlog) -->
     <!-- ================================================================== -->
 
     <!--15th question: joint owner information-->
     <!-- hideForNow -->
-    <div class="card" id="jointOwnerTypeCard">
+    <div class="card hideForNow" id="jointOwnerTypeCard">
       <div class="question red" id="jointOwnerType">
         <h3>Joint Owner Option</h3>
         <p>Are there joint owners on the account?</p>
@@ -300,28 +322,9 @@
       </div>
     </div>
 
-    <!--17th question: Outbound envelope type information-->
-    <!-- hideForNow -->
-    <div class="card" id="outboundEnvelopeTypeCard">
-      <div class="question red" id="outboundEnvelopeType">
-        <h3>Outbound Envelope Options</h3>
-        <p>Choose your outbound envelope type.</p>
-        <form>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="halfWindow">Half Window<br>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="fullWindow">Full Window<br>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="doubleWindow">Double Window<br>
-          <input type="radio" (change)="setOutbound($event)" class="form-radio" name="outboundLevel"
-            value="singleWindow">Single Window<br>
-        </form>
-      </div>
-    </div>
-
     <!--18th question: Rewards information-->
     <!-- hideForNow -->
-    <div class="card" id="rewardsTypeCard">
+    <div class="card hideForNow" id="rewardsTypeCard">
       <div class="question red" id="rewardsType">
           <h3>Rewards and Cashback Option</h3>
         <p>Would you like to include your rewards or cashback summary?</p>
@@ -337,7 +340,7 @@
 
     <!--19th question: Reply envelope type information-->
     <!-- hideForNow -->
-    <div class="card" id="replyEnvelopeTypeCard">
+    <div class="card hideForNow" id="replyEnvelopeTypeCard">
       <div class="question red" id="replyEnvelopeType">
         <h3>Reply Envelope Options</h3>
         <p>Choose your reply envelope type: </p>

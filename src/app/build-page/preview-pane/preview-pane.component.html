@@ -4,7 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<!-- Buttons for generatin runbook and PDF -->
+<!-- Buttons for generating runbook and PDF -->
 <div style="height:50px; clear:both;">
   <!-- Default Generate Runbook Button -->
   <div id="generateBtnDiv">
@@ -100,7 +100,7 @@
     <div class="paperContainerLeftScanline">
 
       <div class="StatementGridScanline gridSection">
-        <div id="scanlineSectionLeft" class="scanlineSectionLeft gridSection" (click)="ScanlineTypeClick()"></div>
+        <div id="scanlineSectionLeft" class="scanlineSectionLeft gridSection"></div>
       </div>
 
       <div class="StatementGridRemaining gridSection">
@@ -148,16 +148,27 @@
       </div>
 
       <div class="p2gridMidContainerReg4">
-        <div id="WhitespaceAd2Reg" class="WhitespaceAd2Reg gridSection" (click)="OnsertTypeClick()"></div>
+        <div id="WhitespaceAd2Reg" class="whitespaceAd2Reg gridSection" (click)="OnsertTypeClick()"></div>
       </div>
 
       <div class="p2gridMidContainerReg5">
-        <div class="WhitespaceAd3Reg gridSection"></div>
+        <div class="whitespaceAd3Reg gridSection"></div>
       </div>
 
     </div>
   </div>
 
 </div>
+
+<!-- Scroll to top button  -->
 <button id="topArrow" class="btn-ty btn-ty-7 btn-ty-7c" (click)="toTop()">▲</button>
 <br><br>
+
+<!-- Hidden area to apply canvas and image conversions -->
+<div [ngClass]="{'testPanel': greyItUpClicked == false}">
+  <p>I rendered</p>
+  <img id='logoSource' [src]='activeCustomerlogo' #testImg crossorigin>
+  <!-- An image or a canvas object will be placed here during image transmittal -->
+  <canvas id="hiddenCanvas" width="355" height="355" #can>
+  </canvas>
+</div>

@@ -72,7 +72,13 @@ export class SurveyPaneComponent implements OnInit {
   {
     console.log("In survey.setFocusQCard(val): " + val);
     var myElement = document.getElementById(val);
-    myElement.scrollIntoView();
+    myElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+
+    // Flash outline around qCard
+    myElement.classList.add("scrollViewFlash");
+    setTimeout(function(){
+      myElement.classList.remove("scrollViewFlash");
+    }, 1000);
   }
 
   // Submit button turns the user uploaded image into an imageUrl
@@ -317,6 +323,35 @@ export class SurveyPaneComponent implements OnInit {
     console.log("Survey choice:: ", this.activeOnsert);
     this.outputSurveyChange.emit("activeOnsert");
     this.emitSurveyFlags();
+
+    // If credit card statement and 'no' for onsert, include whitespace qCard, otherwise remove
+    if (this.activeStatementType == "creditCard" && this.activeOnsert == "none")
+    {
+      var whitespaceQCard = document.getElementById("whitespaceTypeCard") as HTMLElement;
+      whitespaceQCard.classList.remove("statementQs");
+      whitespaceQCard.classList.remove("hideThisDiv");
+
+    }
+    else if (this.activeStatementType == "creditCard" && this.activeOnsert != "none")
+    {
+      var whitespaceQCard = document.getElementById("whitespaceTypeCard") as HTMLElement;
+      whitespaceQCard.classList.add("statementQs");
+      whitespaceQCard.classList.add("hideThisDiv");
+    }
+    else if (this.activeStatementType == "account")
+    {
+      var whitespaceQCard = document.getElementById("whitespaceTypeCard") as HTMLElement;
+      whitespaceQCard.classList.add("statementQs");
+      whitespaceQCard.classList.remove("hideThisDiv");
+    }
+
+    // Change the newsflash radio button to no if 'image' or 'text' onsert is selected for Account
+    if (this.activeStatementType == "account" && this.activeOnsert != "none")
+    {
+      var checkCircle = document.getElementById("newsflash-no") as HTMLInputElement;
+      checkCircle.checked = true;
+      this.activeNewsflash = "no";
+    }
   }
 
   // Sets the Newsflash graphic type and location from user input on relevant question card
@@ -363,14 +398,6 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
-  setJointOwner()
-  {
-    this.activeOnsert = (<HTMLInputElement>event.target).value;
-    console.log("Survey choice:: ", this.activeOnsert);
-    this.outputSurveyChange.emit("activeJointowner");
-    this.emitSurveyFlags();
-  }
-
   // Sets the option for YTD Totals from user input on relevant question card
   setYTD()
   {
@@ -382,21 +409,65 @@ export class SurveyPaneComponent implements OnInit {
 
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
-  setRewards()
+  setJointOwner()
   {
-
+    // Awaiting client approval
+    this.activeOnsert = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOnsert);
+    this.outputSurveyChange.emit("activeJointowner");
+    this.emitSurveyFlags();
   }
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
+  setRewards()
+  {
+    // Awaiting client approval
+  }
+
   setOutbound()
   {
+    this.activeOutboundEnvelope = (<HTMLInputElement>event.target).value;
+    console.log("Survey choice:: ", this.activeOutboundEnvelope);
+    this.outputSurveyChange.emit("activeOutboundEnvelope");
+    this.emitSurveyFlags();
 
+    // Determine which asset to load into pop-up window
+    var imgString = "";
+    if (this.activeOutboundEnvelope == "fullWindow") {
+      imgString = '../../assets/shared/env_fullwindow.png';
+    }
+    else if (this.activeOutboundEnvelope == "doubleWindow")
+    {
+      imgString = '../../assets/shared/env_doublewindow.png';
+    }
+    else if (this.activeOutboundEnvelope == "singleWindow")
+    {
+      imgString = '../../assets/shared/env_singlewindow.png';
+    }
+    else if (this.activeOutboundEnvelope == "halfWindow")
+    {
+      imgString = '../../assets/shared/env_halfwindow.png';
+    }
+
+    // Get size info for pop-up window
+    var w = 900, h = 600;
+    if (document.getElementById) {
+      w = screen.availWidth;
+      h = screen.availHeight;
+    }  
+    var popW = 1400, popH = 500;
+    var leftPos = (w-popW)/2;
+    var topPos = (h-popH)/2;
+
+    // Show envelope selected in pop-up window
+    var msgWindow = window.open('','popup','width=' + popW + ',height=' + popH + ',top=' + topPos + ',left=' + leftPos + ',       scrollbars=yes');
+    msgWindow.document.write ('<img src="'+imgString+'" >');
   }
 
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setEnvelope()
   {
-
+    // Awaiting client approval
   }
 
 
@@ -578,7 +649,7 @@ export class SurveyPaneComponent implements OnInit {
   toTop()
   {
     var topDivPos = document.getElementById("surveyList");
-    topDivPos.scrollIntoView();
+    topDivPos.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
   ngOnInit() {

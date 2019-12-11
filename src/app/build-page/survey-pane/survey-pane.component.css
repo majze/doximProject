@@ -37,7 +37,8 @@
   float: right;
   font-weight: bolder;
   font-size: large;
-  margin: 6px 12px 6px 0px;
+  margin: 3px 8px 3px 0px;
+  padding: 2px 6px;
 }
 
 #uploadBtn {
@@ -102,6 +103,14 @@
 /* class change to only show "uploaded" div after image upload */
 .uploadedHidden {
   display:none;
+}
+
+/* Flashes outline of qCard when click-scrolling into view */
+.scrollViewFlash {
+  -webkit-box-shadow: 0 0 4px 2px #dfff53d8;
+  -moz-box-shadow: 0 0 4px 2px #dfff53d8;
+  box-shadow: 0 0 4px 2px #dfff53d8;
+  transition: box-shadow 0.33s;
 }
 
 /* === radio buttons ========== ========== ========== ========== ========== */
