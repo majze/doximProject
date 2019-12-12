@@ -16,6 +16,7 @@ import { UploadService } from '../upload.service';
 })
 
 export class SurveyPaneComponent implements OnInit {
+  // Every flag in the survey panel controls the survey and preview panel
   combinedFlags: string;
   activeCore: string = null;
   activeStatementType: string;
@@ -38,15 +39,21 @@ export class SurveyPaneComponent implements OnInit {
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
  
-  // For displaying a progress bar on image uploads
-  uploadPercent: Observable<number>
-  downloadURL: Observable<string>
-
-  cores: Array<any>;
+  // Processors for handling the user image upload
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
   customerlogoSubmitted: boolean;
+
+  // For displaying a progress bar on image uploads
+  uploadPercent: Observable<number>
+  downloadURL: Observable<string>
+
+  // Array of cores from database to populate cores question with
+  cores: Array<any>;
+
+  // Used for hovering magic, stores ID of div and passes onto parent
+  activeHoverType: string = "";
 
   // Used for image validation
   formTemplate = new FormGroup({
@@ -128,6 +135,12 @@ export class SurveyPaneComponent implements OnInit {
       this.imgSrc = '/assets/img/image_placeholder.jpg';
       this.selectedImage = null;
     }
+  }
+
+  // Gets the id of the div that user is currently hovering over
+  getid(obj) {
+    this.activeHoverType = obj.target.id;
+    console.log(this.activeHoverType);
   }
 
   // The whole survey except core and statement type are hidden
