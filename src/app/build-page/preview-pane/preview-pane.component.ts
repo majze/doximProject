@@ -786,7 +786,8 @@ export class PreviewPaneComponent implements OnInit {
     var userHexNum = this.activeHexCode;
     var convertedHSL = this.hexToHSL(userHexNum);
     var degreeChange = this.hslToDegreeChange(convertedHSL);
-    var hueFilter = "hue-rotate("+degreeChange[0]+"deg)";
+    var satChange = degreeChange[1];
+    var hueFilter = "hue-rotate("+degreeChange[0]+"deg) saturate("+satChange+"%)" ;
 
     // Special case where the 'Contact Info' box moves up to the marketing area
     if (this.activeSymitarCC)
@@ -806,7 +807,7 @@ export class PreviewPaneComponent implements OnInit {
     for (var i = 0; i < divCount; i++)
     {
       let divChange: HTMLElement = document.getElementsByClassName("changeHeaderColor")[i] as HTMLElement;
-      console.log(i+hueFilter);
+      console.log(i+" "+hueFilter);
       divChange.style.filter = hueFilter;
     }
   }
@@ -818,6 +819,11 @@ export class PreviewPaneComponent implements OnInit {
     var r = parseInt(H.substr(1,2), 16);
     var g = parseInt(H.substr(3,2), 16);
     var b = parseInt(H.substr(5,2), 16);
+    console.log("Target RGB " + r,g,b);//should output picked color RGB
+
+    r /= 255;
+    g /= 255;
+    b /= 255;
 
     // Then to HSL
     let cmin = Math.min(r, g, b),
@@ -844,23 +850,22 @@ export class PreviewPaneComponent implements OnInit {
       h += 360;
 
     //some conversions necessary to find S and L values
-    l = (cmax + cmin) / 2;
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    // l = (cmax + cmin) / 2;
+    s = cmax == 0 ? 0 : delta / cmax;
     s = +(s * 100);
-    l = +(l * 100);
+    // l = +(l * 100);
 
-
+    console.log("Target HSL " + h,s,l)// should output HSL of picked color
     return [h,s,l];
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
-  let startH = 203, startS = 240, startL = 160;
+  let startH = 203, startS = 58;
   let newH = convertedHSL[0]- startH, 
-    newS = 100 + (startS -convertedHSL[1]),
-    newL = 100 + (convertedHSL[2] - startL);
-  let resultHSL: number[] = [newH, newS, newL];
-  return resultHSL;
+    newS = 100 + (convertedHSL[1]-startS);
+  console.log("Converted values " + newH,newS);
+  return [newH,newS];
  }
 
   // Uses variable activeCClogo and changes view accordingly upon update from the survey pane
