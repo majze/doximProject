@@ -8,7 +8,7 @@
 <div class="surveyPanel" id="surveyList">
 
   <!--1st question: Upload a company logo-->
-   <div class="card" id="upLoadcustomerLogoCard">  <!--(hover)="CustomerLogoSectionHover(),removeHighlight()"> -->
+  <div class="card" id="upLoadcustomerLogoCard">
     <div class="question" id="upLoadcustomerLogo">
         <h3>Customer Logo</h3>
       <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
@@ -83,8 +83,8 @@
     </div>
 
     <!--5th question: Choose the level of marketing-->
-    <div class="card" id="marketingTypeCard"> <!--(hover)="MarketingTypeHover(),removeHighlight()">-->
-      <div class="question" id="marketingType">
+    <div class="card" id="marketingTypeCard">
+      <div class="question" id="marketingType" (mouseover)=getid($event)>
         <h3>Level of Marketing</h3>
         <p>Please select preferred level of marketing: </p>
         <form>
@@ -105,7 +105,7 @@
     </div>
 
     <!--6th question: Choose a credit card logo if cc statement (borderFix)-->
-    <div class="card creditcardQs" id="cclogoSelectionCard"> <!--(hover)="cclogoSelectionHover(),removeHighlight()"> -->
+    <div class="card creditcardQs" id="cclogoSelectionCard"> 
       <div class="question form-group" id="cclogoSelection">
         <h3>Credit Card Logo</h3>
         <p>Select credit card logo: </p>
@@ -123,7 +123,7 @@
     </div>
 
     <!--7th question: Choose the account masking style-->
-    <div class="card" id="maskingTypeCard"><!-- (hover)="MarketingTypeHover(),removeHighlight()">-->
+    <div class="card" id="maskingTypeCard">
       <div class="question" id="maskingType">
         <h3>Account Masking</h3>
         <p> Please select account number visibilty: </p>
@@ -140,7 +140,6 @@
     </div>
 
     <!--8th question: Choose to include a scanline or not-->
-
     <!-- This question ONLY for Credit Card Statements  -->
     <div class="card creditcardQs" id="scanlineTypeCard">
       <div class="question" id="scanlineType">
@@ -157,7 +156,7 @@
     </div>
 
     <!--9th question: Choose to include an onsert (company marketing image) or not -->
-    <div class="card" id="onsertTypeCard"> <!-- (hover)="OnsertTypeHover(),removeHighlight()">-->
+    <div class="card" id="onsertTypeCard">
       <div class="question" id="onsertType">
         <h3>Onsert Option</h3>
         <!-- The paragraph is unique to the credit card, please don't change it back -->
@@ -177,7 +176,7 @@
 
     <!-- 10th question: Choose a newsflash image to be added if desired.
     Regular statements only -->
-    <div class="card statementQs" id="newsflashTypeCard"> <!-- (hover)="NewsflashTypeHover(),removeHighlight()">-->
+    <div class="card statementQs" id="newsflashTypeCard">
       <div class="question" id="newsflashType">
         <h3>Newsflash</h3>
         <p>Would you like a Newsflash to be added?</p>
@@ -192,7 +191,7 @@
 
     <!-- 11th question: Choose to add account balances at a glance type summary.
     Regular statements only -->
-    <div class="card statementQs" id="glanceTypeCard"> <!-- (hover)="GlanceBalanceHover(),removeHighlight()">-->
+    <div class="card statementQs" id="glanceTypeCard">
       <div class="question" id="glanceType">
         <h3>Balance at a Glance</h3>									  
         <form>
@@ -206,7 +205,7 @@
 
     <!-- 12th question: Choose to change the look of the account balances type summary.
     Regular statements only -->
-    <div class="card statementQs" id="accountSummaryTypeCard"> <!-- (hover)="AccountSummaryHover(),removeHighlight()">-->
+    <div class="card statementQs" id="accountSummaryTypeCard">
       <div class="question" id="accountSummaryType">
         <h3>Account Summary</h3>
         <p>Please select account summary display:</p>
@@ -228,7 +227,7 @@
     </div>
 
     <!--13th question: Choose to the type of detail with the transaction summaries-->
-    <div class="card" id="transactionSummaryTypeCard"><!-- (hover)="TransactionSummaryHover(),removeHighlight()">-->
+    <div class="card" id="transactionSummaryTypeCard">
       <div class="question" id="transactionSummaryType">
         <h3>Transactions Details</h3>
         <p>How would you like your transaction details displayed?</p>
@@ -273,7 +272,7 @@
     </div>
 
     <!--16th question: Year-to-date totals information-->
-    <div class="card" id="YTDTypeCard"> <!-- (hover)="YTDSummaryHover(),removeHighlight()">-->
+    <div class="card" id="YTDTypeCard">
       <div class="question" id="YTDType">
         <h3>Year-to-Date Summary</h3>
       <p>Please select year-to-date display:</p>
