@@ -38,7 +38,6 @@ export class SurveyPaneComponent implements OnInit {
   activeRewardsType: string;
   activeOutboundEnvelope: string;
   activeReplyEnvelope: string;
-  activeHoverType: string;
  
   // Processors for handling the user image upload
   imgSrc: string;
@@ -70,9 +69,6 @@ export class SurveyPaneComponent implements OnInit {
   // Output emitter to build page component html page
   @Output() outputSurveyFlags = new EventEmitter<string>();
   @Output() outputSurveyChange = new EventEmitter<string>();
-  @Output() outputPreviewHoverFlag = new EventEmitter<string>();
-  @Output() outputPreviewHover = new EventEmitter<string>();
-
 
   // Set focus
   setFocusQCard(val)
@@ -420,7 +416,6 @@ export class SurveyPaneComponent implements OnInit {
     this.emitSurveyFlags();
   }
 
-
   // === BACKLOG QUESTION ADDED WHEN ASSETS AND LOGIC ARE MADE ===
   setJointOwner()
   {
@@ -483,140 +478,6 @@ export class SurveyPaneComponent implements OnInit {
     // Awaiting client approval
   }
 
-
-  removeHighlight(){
-    this.activeHoverType = "remove";
-    this.outputPreviewHover.emit("Remove");
-    this.emitPreviewHover(this.activeHoverType);
-  }
-
-  AccountSummaryHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "accountSummaryTypeCard";
-    this.outputPreviewHover.emit("AccountSummary");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets focus on Credit Card Logo question card in the survey component
-  cclogoSelectionHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "cclogoSelectionCard";
-    this.outputPreviewHover.emit("ccLogo");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets focus on Customer Logo question card in the survey component
-  CustomerLogoSectionHover()
-  { 
-    //Set shared variable to card ID 
-    this.activeHoverType = "upLoadcustomerLogoCard";
-    this.outputPreviewHover.emit("CustomerLogo");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets focus on Balance at a Glance question card in the survey component
-  // Currently not being used as (click)="MaskingTypeClick()" already is
-  GlanceBalanceHover()
-  { 
-    //Set shared variable to card ID 
-    this.activeHoverType = "glanceTypeCard";
-    this.outputPreviewHover.emit("GlanceBalanceType");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets highlight on the Marketing Type question card in the survey component
-  MarketingTypeHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "marketingTypeCard";
-    this.outputPreviewHover.emit("MarketingType");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets highlight on the Masking Type question card in the survey component
-  MaskingTypeHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "maskingTypeCard";
-    this.outputPreviewHover.emit("MaskingType");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets focus on the Newsflash question card in the survey component
-  NewsflashTypeHover()
-  { 
-    //Set shared variable to card ID 
-    this.activeHoverType = "newsflashTypeCard";
-    this.outputPreviewHover.emit("Newsflash");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets highlight on the Onsert Type question card in the survey component
-  OnsertTypeHover()
-  { 
-    //Set shared variable to card ID 
-    this.activeHoverType = "onsertTypeCard";
-    this.outputPreviewHover.emit("OnserType");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets highlight on the Scanline Type question card in the survey component
-  ScanlineTypeHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "scanlineTypeCard";
-    this.outputPreviewHover.emit("ScanlineType");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets highlight on the Transaction Summary Type question card in the survey component
-  TransactionSummaryHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "transactionSummaryTypeCard";
-    this.outputPreviewHover.emit("TransactionSummary");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-
-  WhitespaceHover()
-  {
-    //Set shared variable to card ID 
-    this.activeHoverType = "whitespaceTypeCard";
-    this.outputPreviewHover.emit("WhitespaceType");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sets focus on the YTDSummary question card in the survey component
-  YTDSummaryHover()
-  { 
-    //Set shared variable to card ID 
-    this.activeHoverType = "YTDTypeCard";
-    this.outputPreviewHover.emit("YTDSummaryReg");
-    // Notify build page to notify survey page
-    this.emitPreviewHover(this.activeHoverType );
-  }
-
-  // Sends data to build page to send to survey page
-  emitPreviewHover(activeHoverType)
-  {
-    this.outputPreviewHoverFlag.emit(activeHoverType);
-  }
-
-
   // Any survey option change triggers the emitter
   // Calls (outputSurveyFlags) on build-page.html then readSurveyEmitted() on build-page.ts
   emitSurveyFlags()
@@ -650,13 +511,6 @@ export class SurveyPaneComponent implements OnInit {
   {
     this.outputSurveyFlags.emit(clickedPreviewFlag);
   }
-
-  //send data to build page when Qcard is hovered on
-  emitSurveyHover(hoveredQCard)
-  {
-    this.outputSurveyFlags.emit(hoveredQCard);
-  }
-
 
   // Up Arrow - Sends user to top of preview panel on click
   toTop()
