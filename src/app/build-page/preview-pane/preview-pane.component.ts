@@ -44,7 +44,6 @@ export class PreviewPaneComponent implements OnInit {
   activeReplyEnvelope: string;
   activeSymitarCC: boolean;
   activeSymitarReg: boolean;
-  lastHighlighted: string;
 
   // Creates the viewContainerRef class to link itself to its parent (build-page)
   constructor(private viewContainerRef: ViewContainerRef) { }
@@ -820,53 +819,51 @@ export class PreviewPaneComponent implements OnInit {
     var r = parseInt(H.substr(1,2), 16);
     var g = parseInt(H.substr(3,2), 16);
     var b = parseInt(H.substr(5,2), 16);
-
     console.log("Target RGB " + r,g,b);//should output picked color RGB
-   
+
     r /= 255;
     g /= 255;
     b /= 255;
+
     // Then to HSL
     let cmin = Math.min(r, g, b),
       cmax = Math.max(r, g, b),
-      d = cmax - cmin,
+      delta = cmax - cmin,
       h = 0,
       s = 0,
       l = 0;
 
     // Logic to decide which hue is dominant
-    if (d == 0)
+    if (delta == 0)
       h = 0;
     else if (cmax == r)
-      h = ((g - b) / d) % 6;
+      h = ((g - b) / delta) % 6;
     else if (cmax == g)
-      h = (b - r) / d + 2;
+      h = (b - r) / delta + 2;
     else
-      h = (r - g) / d + 4;
+      h = (r - g) / delta + 4;
 
-   h = Math.round(h * 60);
+    h = Math.round(h * 60);
 
     // If hue is negative, make it positive
     if (h < 0)
       h += 360;
 
-
-   //some conversions necessary to find S and L
+    //some conversions necessary to find S and L values
     // l = (cmax + cmin) / 2;
-    s = cmax == 0 ? 0 : d / cmax;
-     s = +(s * 100);
+    s = cmax == 0 ? 0 : delta / cmax;
+    s = +(s * 100);
     // l = +(l * 100);
 
     console.log("Target HSL " + h,s,l)// should output HSL of picked color
     return [h,s,l];
-    
   }
 
   // Once the HSL is found it needs to be calculated away from the original
  hslToDegreeChange(convertedHSL:number[]){
   let startH = 203, startS = 58;
   let newH = convertedHSL[0]- startH, 
-    newS = 100 + (convertedHSL[1]-startS)
+    newS = 100 + (convertedHSL[1]-startS);
   console.log("Converted values " + newH,newS);
   return [newH,newS];
  }
@@ -1877,247 +1874,6 @@ export class PreviewPaneComponent implements OnInit {
       }
     }
   }
-
-
-  setHighlight(hoveredQCard)
-  {
-    // Set highlight on customer logo component
-    if (hoveredQCard == "upLoadcustomerLogoCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        // Check statement type, question is on more than one type
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("logoSection");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "logoSection";
-
-        }
-        else if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("logoSectionReg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "logoSectionReg";
-
-        }
-      }
-    }
-
-    // Set highlight on marketing level component
-    if (hoveredQCard == "marketingTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        // Check statement type, question is on more than one type
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("topGraphicSection");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "topGraphicSection";
-
-        }
-        else if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("topGraphicSectionReg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "topGraphicSectionReg";
-
-        }
-      }
-    }
-
-    // Set highlight on credit card logo component
-    if (hoveredQCard == "cclogoSelectionCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("ccLogoSection");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "ccLogoSection";
-
-        }
-      }
-    }
-
-    // Set highlight on scanline component
-    if (hoveredQCard == "scanlineTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        // Check statement type, question is on more than one type
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("scanlineSection");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "scanlineSection";
-
-        }
-        else if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("scanlineSectionLeft");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "scanlineSectionLeft";
-
-        }
-      }
-    }
-
-    // Set highlight on onsert component
-    if (hoveredQCard == "onsertTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        // Check statement type, question is on more than one type
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("p2OnsertImage");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "p2OnsertImage";
-
-        }
-        else if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("WhitespaceAd2Reg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "WhitespaceAd2Reg";
-
-        }
-      }
-    }
-
-    // Set highlight on transaction detail component
-    if (hoveredQCard == "transactionSummaryTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        // Check statement type, question is on more than one type
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("p2TransactionSummary");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "p2TransactionSummary";
-
-        }
-        if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("shareSavingsReg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "shareSavingsReg";
-
-        }
-      }
-    }
-
-    // Set highlight on year-to-date summary component
-    if (hoveredQCard == "YTDTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        // Check statement type, question is on more than one type
-        if (this.activeStatementType == "creditCard")
-        {
-          var myElement = document.getElementById("p2YTDSummary");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "p2YTDSummary";
-
-        }
-        if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("YTDSummaryReg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "YTDSummaryReg";
-
-        }
-      }
-    }
-
-    // Set highlight on newsflash component
-    if (hoveredQCard == "newsflashTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("whitespaceAd1Reg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "whitespaceAd1Reg";
-
-        }
-      }
-    }
-
-    // Set highlight on account glance info component
-    if (hoveredQCard == "glanceTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("AccountInfoReg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "AccountInfoReg";
-
-        }
-      }
-    }
-
-    // Set highlight on account summary info component
-    if (hoveredQCard == "accountSummaryTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("AccountSummaryReg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "AccountSummaryReg";
-
-        }
-      }
-    }
-
-    // Set highlight on whiespace component
-    if (hoveredQCard == "whitespaceTypeCard")
-    {
-      // Check core type
-      if (this.activeCore == "symitar")
-      {
-        if (this.activeStatementType == "account")
-        {
-          var myElement = document.getElementById("whitespaceAd1Reg");
-          myElement.classList.add("highlight");
-          this.lastHighlighted = "whitespaceAd1Reg";
-        }
-      }
-    }
-
-    if(hoveredQCard == "remove")
-    {
-      var myElement = document.getElementById(this.lastHighlighted)
-      myElement.classList.remove("highlight");
-    }
-  }
-
-
-
-
-
-
-
-
 
   // Up Arrow - Sends user to top of preview panel on click
   toTop()
